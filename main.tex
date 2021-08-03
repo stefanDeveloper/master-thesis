@@ -23,7 +23,9 @@
 \usepackage{pgffor}
 
 \newcommand*{\files}{
-    chapters/introduction,
+    introduction,
+    background,
+    previous_work
 }
 
 
@@ -36,7 +38,7 @@
 
 %% Put your contents here
 \foreach \i in \files {
-    \edef\FileName{\i}
+    \edef\FileName{chapters/\i}
     \IfFileExists{\FileName}{
       \input{\FileName}
     }

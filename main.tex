@@ -19,7 +19,6 @@
 \usepackage{graphicx}
 \usepackage[english]{babel}
 \usepackage{natbib}
-\usepackage{hyperref}
 \usepackage{pgffor}
 
 \newcommand*{\files}{
@@ -32,21 +31,43 @@
 }
 
 
+\title{Honeypot Implementation in a Cloud Environment}
+\author{Stefan Machmeier}
+\date{01. Feburary 2022}
+
+\usepackage[
+	pdftitle={Honeypot Implementation in a Cloud Environment},
+	pdfauthor={Stefan Machmeier},
+	pdfsubject={Masterthesis},
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines,
+	pdfdisplaydoctitle=true, 		
+	pdflang={english}, 
+]{hyperref}
+
+
 \begin{document}
 
 \include{titlepages-eng}
 \include{abstracts}
 
 \tableofcontents
+% List of
+% Tables
+% Figures
 
 %% Put your contents here
 \foreach \i in \files {
-    \edef\FileName{chapters/\i}
-    \IfFileExists{\FileName}{
-      \input{\FileName}
-    }
-    {
-    }
+  \edef\FileName{chapters/\i}
+  \IfFileExists{\FileName}{
+    \input{\FileName}
   }
+  {
+  }
+}
+
+% Add
+% Bibliography
+% Installation and configuration
 
 \end{document}

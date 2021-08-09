@@ -1,15 +1,14 @@
 \documentclass[
   paper= a4,
   BCOR=10mm,
-  twoside,
+  oneside,
   fontsize=12pt,
   fleqn,
-  toc=bibnumbered,
-  toc=listofnumbered,
   numbers=noendperiod,
   headings=normal,
-  listof=leveldown,
-  version=3.03
+  version=3.03,
+  toc=bibliography,
+  listof=totoc,
 ]{scrreprt}
 
 \usepackage[utf8]{inputenc}
@@ -20,6 +19,7 @@
 \usepackage[english]{babel}
 \usepackage{natbib}
 \usepackage{pgffor}
+\usepackage{listings}
 
 \newcommand*{\files}{
     introduction,
@@ -27,8 +27,13 @@
     related_work,
     practical_work,
     experimental_work,
+    evaluation,
     conclusion,
 }
+
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty=10000
 
 
 \title{Honeypot Implementation in a Cloud Environment}
@@ -51,10 +56,19 @@
 \include{titlepages-eng}
 \include{abstracts}
 
+\pagenumbering{Roman}
+
 \tableofcontents
-% List of
-% Tables
-% Figures
+\newpage
+
+\cleardoublepage
+\listoffigures
+
+\cleardoublepage
+\listoftables
+
+\cleardoublepage
+\pagenumbering{arabic}
 
 %% Put your contents here
 \foreach \i in \files {
@@ -68,6 +82,9 @@
 
 % Add
 % Bibliography
+\nocite{*}
+\bibliographystyle{apalike}  
+\bibliography{references}
 % Installation and configuration
 
 \end{document}

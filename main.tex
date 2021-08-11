@@ -15,14 +15,16 @@
 \usepackage[T1]{fontenc}
 \usepackage{color}
 \usepackage{amsmath}
+\usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage[english]{babel}
 \usepackage{natbib}
 \usepackage{pgffor}
 \usepackage{listings}
-\usepackage[toc,acronym]{glossaries}
+\usepackage{csquotes}
+\usepackage{acro}
 
-\makeglossaries
+\include{acronyms}
 
 \newcommand*{\files}{
     introduction,
@@ -34,8 +36,8 @@
     conclusion,
 }
 
-\clubpenalty = 10000
-\widowpenalty = 10000
+\clubpenalty=10000
+\widowpenalty=10000
 \displaywidowpenalty=10000
 
 \title{Honeypot Implementation in a Cloud Environment}
@@ -52,9 +54,6 @@
 	pdflang={english}, 
 ]{hyperref}
 
-\include{acronyms}
-
-
 \begin{document}
 
 \include{titlepages-eng}
@@ -65,14 +64,17 @@
 \tableofcontents
 \newpage
 
+% Acronyms
+\cleardoublepage
+\printacronyms
+
+% List of figures
 \cleardoublepage
 \listoffigures
 
+% List of tables 
 \cleardoublepage
 \listoftables
-
-\cleardoublepage
-\printglossary[type=\acronymtype]
 
 \cleardoublepage
 \pagenumbering{arabic}
@@ -86,6 +88,9 @@
   {
   }
 }
+
+\cleardoublepage
+\pagenumbering{Roman}
 
 %\nocite{*}
 \bibliographystyle{alpha}  

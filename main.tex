@@ -20,6 +20,9 @@
 \usepackage{natbib}
 \usepackage{pgffor}
 \usepackage{listings}
+\usepackage[toc,acronym]{glossaries}
+
+\makeglossaries
 
 \newcommand*{\files}{
     introduction,
@@ -35,7 +38,6 @@
 \widowpenalty = 10000
 \displaywidowpenalty=10000
 
-
 \title{Honeypot Implementation in a Cloud Environment}
 \author{Stefan Machmeier}
 \date{01. Feburary 2022}
@@ -49,6 +51,8 @@
 	pdfdisplaydoctitle=true, 		
 	pdflang={english}, 
 ]{hyperref}
+
+\include{acronyms}
 
 
 \begin{document}
@@ -68,6 +72,9 @@
 \listoftables
 
 \cleardoublepage
+\printglossary[type=\acronymtype]
+
+\cleardoublepage
 \pagenumbering{arabic}
 
 %% Put your contents here
@@ -80,9 +87,7 @@
   }
 }
 
-% Add
-% Bibliography
-\nocite{*}
+%\nocite{*}
 \bibliographystyle{alpha}  
 \bibliography{references}
 % Installation and configuration

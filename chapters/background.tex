@@ -7,18 +7,20 @@ This chapter concludes the fundamental knowledge that is needed to comprehend th
 Nowadays it is one of the well-known keywords and has been used by vary large companies such as Google, or Amazon, however, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020} Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} reported by Google trends \cite{Wang2010}. Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses. For example IBM's Cloud\footnote{\url{https://www.ibm.com/cloud}}, Amazon Web Services\footnote{\url{https://aws.amazon.com/}}, and Google Cloud\footnote{\url{https://cloud.google.com/}}. Why are clouds so attractive in practice?
 
 \begin{itemize}
-    \item s
-    \item s
-    \item s
+    \item It offers major advantages in terms of cost and reliability. When demand is needed, consumers do not have to invest in hardware when launching new services. Pay-as-you-go allows flexibility.
+    \item Consumer can easily scale with demand. When more computational resources are required due to more requests, scaling up instances in conjunction with a suited price model are straightforward.
+    \item Geographically distributed capabilities supply the need for world-wide scattered services.
 \end{itemize}
 
-In this section, we want to give basic unterstandings of cloud computing, and give an short introduction to HeiCloud.
+In this section, we want to give basic unterstandings of cloud computing. To do so, . Lastly, we give an short introduction to HeiCloud, an offered by Heidelberg University.
+
+\subsection{History}
 
 \subsection{Definition of Cloud Computing}
 
 Considering the definition of Brian Hayes, cloud computing is \enquote{a shift in the geography of computation} \cite{hayes2008}. Thus, computational workload is moved away from local instances towards services and datacenters that provide the need of users \cite{Armbrust2010}.
 
-Considering the definition of the \ac{nist}, cloud computing \enquote{is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction} \cite{Mell2011}. \ac{nist} not only reflects the geographical shift of resources such as datacenters, but also mentions on-demand usage that contributes to a flexible resource management. Morever, \ac{nist} composes the term in five essential characteristics, three service models (see \ref{subsec:cloud-service}), and four deployment models (see \ref{subsec:cloud-deployment}):\\
+Considering the definition of the \ac{nist}, cloud computing \enquote{is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction} \cite{Mell2011}. \ac{nist} not only reflects the geographical shift of resources such as datacenters, but also mentions on-demand usage that contributes to a flexible resource management. Morever, \ac{nist} composes the term in five essential characteristics, three service models (see \autoref{subsec:cloud-service}), and four deployment models (see \autoref{subsec:cloud-deployment}) \cite{Mell2011}:\\
 
 \textit{On-demand-self-service} refers to the unilaterally provision computing capabilities. Consumers can acquire server time and network storage on demand without a human interaction.\\
 
@@ -33,23 +35,42 @@ Considering the definition of the \ac{nist}, cloud computing \enquote{is a model
 \subsection{Service models}
 \label{subsec:cloud-service}
 
-\ac{saas} \\
+Service models \\
 
-\ac{paas}\\
+\ac{saas} is a high-level abstraction to the consumer. Controlling the underlying infrastructure is not supported. Often provider uses a multi-tenancy system architecture to organize each consumer's application in a separate environment. It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance. Main objective of \ac{saas} is to host consumer's software or application that can be accessed over the Internet using either a thin or rich client.\cite{Dillon2010} \enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.\\
+
+\ac{paas} pivots on the full \enquote{Software Lifecycle} of an application whereas \ac{saas} distincts on hosting complete applications. \ac{paas} offers ongoing development and includes programming environment, tools, configuration management, and other services. In addition, the underlying infrastructure is not managed by the consumer.\\
 
 \ac{iaas}\\
 
 \ac{daas}\\
 
+\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable. \cite{Wang2010}\\
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/cloud-functionalities.pdf}
     \caption{Cloud functionalities (derived from \cite{Wang2010})}
-    \label{fig:mesh1}
+    \label{fig:cloud-functionalities}
 \end{figure}
 
 
-Examples for such service models are:
+Examples for such service models can be derived from \autoref{tab:example-service-models}:
+
+\begin{table}[]
+    \label{tab:example-service-models}
+    \centering
+    \caption{Examples for cloud service models}
+    \begin{tabular}{|l|l|}
+        \hline
+             & Provider name                                \\ \hline
+        SaaS & Google Mail, Google Docs, Microsoft Drive                                          \\ \hline
+        PaaS &                                           \\ \hline
+        IaaS &                                           \\ \hline
+        DaaS &                                           \\ \hline
+        HaaS & Amazon EC2, Nimbus, Enomalism, Eucalyptus \\ \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Deployment models}
 \label{subsec:cloud-deployment}
@@ -63,6 +84,18 @@ Public Cloud\\
 Hybrid Cloud\\
 
 Examples for such deployment models are:
+\begin{table}[]
+    \centering
+    \caption{Examples for cloud deployment models}
+    \begin{tabular}{|l|l|}
+        \hline
+                        & Name \\ \hline
+        Private Cloud   &      \\ \hline
+        Community Cloud &      \\ \hline
+        Public Cloud    &      \\ \hline
+        Hybrid Cloud    &      \\ \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Cloud Security}
 

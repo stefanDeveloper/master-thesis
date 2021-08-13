@@ -12,9 +12,11 @@ Nowadays it is one of the well-known keywords and has been used by vary large co
     \item Geographically distributed capabilities supply the need for world-wide scattered services.
 \end{itemize}
 
-In this section, we want to give basic unterstandings of cloud computing. To do so, . Lastly, we give an short introduction to HeiCloud, an offered by Heidelberg University.
+In this section, we want to give basic unterstandings of cloud computing. To do so, . Lastly, we give an short introduction to HeiCloud, an offered by Heidelberg University.\todo{Fix introduction}
 
 \subsection{History}
+
+\todo{maybe leave out?}
 
 \subsection{Definition of Cloud Computing}
 
@@ -35,17 +37,7 @@ Considering the definition of the \ac{nist}, cloud computing \enquote{is a model
 \subsection{Service models}
 \label{subsec:cloud-service}
 
-Service models \\
-
-\ac{saas} is a high-level abstraction to the consumer. Controlling the underlying infrastructure is not supported. Often provider uses a multi-tenancy system architecture to organize each consumer's application in a separate environment. It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance. Main objective of \ac{saas} is to host consumer's software or application that can be accessed over the Internet using either a thin or rich client.\cite{Dillon2010} \enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.\\
-
-\ac{paas} pivots on the full \enquote{Software Lifecycle} of an application whereas \ac{saas} distincts on hosting complete applications. \ac{paas} offers ongoing development and includes programming environment, tools, configuration management, and other services. In addition, the underlying infrastructure is not managed by the consumer.\\
-
-\ac{iaas}\\
-
-\ac{daas}\\
-
-\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable. \cite{Wang2010}\\
+Service models Examples for such service models can be derived from \autoref{tab:example-service-models}. \autoref{fig:cloud-functionalities}\todo{more introduction}\\
 
 \begin{figure}[h]
     \centering
@@ -54,21 +46,28 @@ Service models \\
     \label{fig:cloud-functionalities}
 \end{figure}
 
+\ac{saas} is a high-level abstraction to consumers. Controlling the underlying infrastructure is not supported. Often provider uses a multi-tenancy system architecture to organize each consumer's application in a separate environment. It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance. Main objective of \ac{saas} is to host consumer's software or application that can be accessed over the Internet using either a thin or rich client.\cite{Dillon2010} \enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.\\
 
-Examples for such service models can be derived from \autoref{tab:example-service-models}:
+\ac{paas} pivots on the full \enquote{Software Lifecycle} of an application whereas \ac{saas} distincts on hosting complete applications. \ac{paas} offers ongoing development and includes programming environment, tools, configuration management, and other services. In addition, the underlying infrastructure is not managed by the consumer.\\
 
-\begin{table}[]
+\ac{iaas} offers a low-level abstraction to consumers.\\
+
+\ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems.\cite{Dillon2010} Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010}. Whereas \ac{daas} costs solely what consumer's need.When dealing with a tremendous amount data, file systems and RDBMS often lack in performance. \ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled. \\
+
+\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable. \cite{Wang2010}\\
+
+\begin{table}[h]
     \label{tab:example-service-models}
     \centering
     \caption{Examples for cloud service models}
     \begin{tabular}{|l|l|}
         \hline
-             & Provider name                                \\ \hline
-        SaaS & Google Mail, Google Docs, Microsoft Drive                                          \\ \hline
-        PaaS &                                           \\ \hline
-        IaaS &                                           \\ \hline
-        DaaS &                                           \\ \hline
-        HaaS & Amazon EC2, Nimbus, Enomalism, Eucalyptus \\ \hline
+             & Provider name                                                           \\ \hline
+        SaaS & Google Mail, Google Docs, Microsoft Drive                               \\ \hline
+        PaaS & Google App Engine, Windows Azure, AWS Elastic Beanstalk                 \\ \hline
+        IaaS & HeiCloud,                                                               \\ \hline
+        DaaS & Adobe Buzzword, ElasticDrive, Google Big Table, Amazon S3, Apache HBase \\ \hline
+        HaaS & Amazon EC2, Nimbus, Enomalism, Eucalyptus                               \\ \hline
     \end{tabular}
 \end{table}
 
@@ -84,7 +83,7 @@ Public Cloud\\
 Hybrid Cloud\\
 
 Examples for such deployment models are:
-\begin{table}[]
+\begin{table}[h]
     \centering
     \caption{Examples for cloud deployment models}
     \begin{tabular}{|l|l|}
@@ -103,9 +102,11 @@ Examples for such deployment models are:
 
 \subsection{HeiCloud}
 
+\ac{iaas}\todo{Get information or paper about that}
+
 \section{Honeypots}
 
-The first public honeypot \cite{Spitzner2003}
+The first public honeypot \cite{Spitzner2003}\todo{Add some history of honeypots}
 
 \subsection{Definition of a Honeypot}
 

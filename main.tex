@@ -24,6 +24,7 @@
 \usepackage{csquotes}
 \usepackage{acro}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage[toc,page]{appendix}
 
 \include{acronyms}
 
@@ -97,5 +98,8 @@
 \bibliographystyle{alpha}  
 \bibliography{references}
 % Installation and configuration
+\begin{appendices}
+\include{chapters/appendix.tex}
+\end{appendices}
 
 \end{document}

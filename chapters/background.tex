@@ -6,7 +6,7 @@ This chapter concludes the fundamental knowledge that is needed to comprehend th
 
 \subsection{Docker}
 
-\section{Cloud Computing}
+\section{Cloud Computing}\todo{Check cites}
 
 Nowadays it is one of the well-known keywords and has been used by vary large companies such as Google, or Amazon, however, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020} Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} reported by Google trends \cite{Wang2010}. Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses. For example IBM's Cloud\footnote{\url{https://www.ibm.com/cloud}}, Amazon Web Services\footnote{\url{https://aws.amazon.com/}}, and Google Cloud\footnote{\url{https://cloud.google.com/}}. Why are clouds so attractive in practice?
 
@@ -17,10 +17,6 @@ Nowadays it is one of the well-known keywords and has been used by vary large co
 \end{itemize}
 
 In this section, we want to give basic unterstandings of cloud computing. First, we exhibit the history and draw some motivation. Following, we look at some the definitions, and point out characteristics. Lastly, we give an short introduction to HeiCloud, a cloud service that is offered by Heidelberg University.
-
-\subsection{History}
-
-\todo{maybe leave out?}
 
 \subsection{Definition of Cloud Computing}
 
@@ -56,49 +52,47 @@ Service models are categorized by \ac{nist} into three basic models based on usa
 
 \ac{iaas} offers a low-level abstraction to consumers with the ability to run arbitrary software regardless of operating system or application. In contrast to \ac{saas}, IT infrastructures capabilities (such as storage, networks) can be used. It strongly depends on virtualization due to integration, or decomposition of physical resources. \\
 
-\ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems.\cite{Dillon2010} Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010}. Whereas \ac{daas} costs solely what consumer's need.When dealing with a tremendous amount data, file systems and RDBMS often lack in performance. \ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled. \\
+\ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems.\cite{Dillon2010} Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010}. Whereas \ac{daas} costs solely what consumer's need.When dealing with a tremendous amount of data, file systems and RDBMS often lack in performance. \ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled.\cite{Dillon2010}\\
 
-\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable. \cite{Wang2010}\\
+\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable.\cite{Wang2010}\\
 
 \begin{table}[h]
-    \label{tab:example-service-models}
     \centering
     \caption{Examples for cloud service models}
-    \begin{tabular}{|l|l|}
-        \hline
-        Service models & Provider name                                                           \\ \hline
-        SaaS           & Google Mail, Google Docs, Microsoft Drive                               \\ \hline
-        PaaS           & Google App Engine, Windows Azure, AWS Elastic Beanstalk                 \\ \hline
-        IaaS           & HeiCloud, Amazon EC2,                                                   \\ \hline
-        DaaS           & Adobe Buzzword, ElasticDrive, Google Big Table, Amazon S3, Apache HBase \\ \hline
-        HaaS           & Amazon EC2, Nimbus, Enomalism, Eucalyptus                               \\ \hline
-    \end{tabular}
+    \begin{tabularx}{\linewidth}{X|X|X|X|X}
+        SaaS            & PaaS                  & IaaS       & Daas             & HaaS       \\ \hline
+        Google Mail     & Google App Engine     & HeiCloud   & Adobe Buzzword   & Amazon EC2 \\
+        Google Docs     & Windows Azure         & Amazon EC2 & ElasticDrive     & Nimbus     \\
+        Microsoft Drive & AWS Elastic Beanstalk &            & Google Big Table & Enomalism  \\
+                        &                       &            & Amazon S3        & Eucalyptus \\
+                        &                       &            & Apache HBase     &            \\
+    \end{tabularx}
+    \label{tab:example-service-models}
 \end{table}
 
 \subsection{Deployment models}
 \label{subsec:cloud-deployment}
 
-Private Cloud\\
+Deployment models are categorized by \ac{nist} into four basic models. Each differs in data privacy, location, and manageablility \cite{Mell2011}. \autoref{tab:example-deployment-models} shows examples of such deployment models.
 
-Community Cloud\\
-
-Public Cloud\\
-
-Hybrid Cloud\\
-
-Examples for such deployment models are:
 \begin{table}[h]
     \centering
     \caption{Examples for cloud deployment models}
-    \begin{tabular}{|l|l|}
-        \hline
-                        & Name \\ \hline
-        Private Cloud   &      \\ \hline
-        Community Cloud &      \\ \hline
-        Public Cloud    &      \\ \hline
-        Hybrid Cloud    &      \\ \hline
+    \begin{tabular}{l|l|l|l}
+        Private Cloud & Community Cloud & Hybrid Cloud & Public Cloud     \\ \hline
+                      & Seafile         &              & Amazon EC2       \\
+                      & Nextcloud       &              & Google AppEngine \\
     \end{tabular}
+    \label{tab:example-deployment-models}
 \end{table}
+
+Private clouds offer the highest level of control in regard of data privacy, and utilization. Mostly, such clouds are deployed within in a single organization, either managed by in-house teams or third party suppliers. In addition, it can be on or off premise. Within private clouds consumers have full control of their data. Especially for European data privacy laws, it is not negligible when data is stored abroad and thus under law of foreign countries. However, the popularity has not been withdrawn due to immense costs when moving towards public clouds. \cite{Dillon2010} \cite{Mell2011}\\
+
+Community clouds can be seen as a conglomerate of mutliple organizations that merge their infrastructure with respect to a commonly defined policy, terms, and condition beforehand.\\
+
+Public clouds represents the most used deployment models. In contradiction to private one, public clouds are fully owned by the service provider such as business, academics, or government organization. Consumers do not know where their data is distributed. In addition, contracts underlie custom policies.\\
+
+Hybrid cloud is a mixure of two or more cloud infrastructures, such as private and public cloud.However, each entity keeps its core element. However, hybrid clouds defines \enquote{standardized or propriertary technology to enables data and application portability}\cite{Mell2011}.\\
 
 \subsection{Cloud Security}
 
@@ -136,5 +130,5 @@ Pure honeypots\\
 
 \cite{Spitzner2003}
 
-\section{Intrusion Detection System}
+\section{Summary}
 

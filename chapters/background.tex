@@ -108,7 +108,7 @@ The term \enquote{honeypot} exists since more than a decade. 1997 was the first 
 
 \subsection{Definition of a Honeypot}
 
-Dozen of defintions for honeypots circulate through the web. Thus, to cope with all the subtle differences, we want to exhibit some of the definitions and narrow down a common one. One of the well-known experts Lance Spitz defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised.}\cite{Spitzner2003}
+Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypots are a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. One of the well-known experts Lance Spitzner defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised.}\cite{Spitzner2003} 
 
 Basically we differentiate two types of honeypots:
 
@@ -119,9 +119,20 @@ Basically we differentiate two types of honeypots:
 
 Production honeypots are \\
 
-Research honeypots
+Research honeypots \\
 
-Furthermore we distinguish honeypots in  \autoref{subsec:classification-honeypots}
+Provos et al. \cite{Provos2003} 
+
+\begin{itemize}
+    \item physical honeypots
+    \item virtual honeypots
+\end{itemize}
+
+physical honeypots \\
+
+Virtual honeypots \\
+
+In addition, we distinguish honeypots based on their level of interaction (see \autoref{subsec:classification-honeypots}):
 
 \begin{enumerate}
     \item Low-interaction honeypots
@@ -142,11 +153,19 @@ High-interaction honeypots\\
 
 Pure honeypots\\
 
+
 %\subsection{Honeyd}
 
 %\subsection{Configuration Honeyd}
 
 \subsection{Value of Honeypots}
+
+\begin{figure}[h]
+    \centering
+    \include{network/honeypot-example}
+    \caption{Example honeypot (derived from \cite{Spitzner2003})}
+    \label{fig:cloud-functionalities}
+\end{figure}
 
 \todo{Example of honeypots}
 

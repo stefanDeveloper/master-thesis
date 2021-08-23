@@ -1,0 +1,46 @@
+\begin{tikzpicture}
+  \node[server](server 1){};
+  \node[server, right of= server 1](server 2){};
+  \node[server, right of= server 2](server 3){};
+
+  \node[rack switch, above of=server 2,xshift=0.1cm,yshift=0.3cm]
+  (rack switch 1){};
+
+  \draw[thick,darkgray!10!gray] (server 1.north)--(rack switch 1);
+  \draw[thick,darkgray!10!gray] (server 2.north)--(rack switch 1);
+  \draw[thick,darkgray!10!gray] (server 3.north)--(rack switch 1);
+
+  \begin{scope}[xshift=3.5cm]
+    \node[server](server 4){};
+    \node[server, right of= server 4](server 5){};
+    \node[server, right of= server 5](server 6){};
+
+    \node[rack switch, above of=server 5,xshift=0.1cm,yshift=0.3cm]
+    (rack switch 2){};
+
+    \draw[thick,darkgray!10!gray] (server 4.north)--(rack switch 2);
+    \draw[thick,darkgray!10!gray] (server 5.north)--(rack switch 2);
+    \draw[thick,darkgray!10!gray] (server 6.north)--(rack switch 2);
+  \end{scope}
+
+  \node[yshift=1cm, l3 switch, above of =rack switch 1](l3 switch 1){};
+  \node[yshift=1cm, l3 switch, above of =rack switch 2](l3 switch 2){};
+
+  \begin{scope}
+    \draw[thick,darkgray!10!gray] (rack switch 2.north)--(l3 switch 2);
+    \draw[thick,darkgray!10!gray] (rack switch 1.north)--(l3 switch 1);
+  \end{scope}
+  
+  \begin{scope}
+    \node[xshift=1.7cm, yshift=1cm,scale=0.2, above of = l3 switch 1] (brouter) {\router{}} 
+      edge[very thick,darkgray!10!gray] ([xshift=0.1cm,yshift=0.5cm]l3 switch 1)
+      edge[very thick,darkgray!10!gray] ([xshift=0.1cm,yshift=0.5cm]l3 switch 2);
+    \node[yshift=0.65cm,my cloud, minimum width=1.25cm, minimum height=1.55cm, above of = brouter, font=\large] (it) {Internet} edge[very thick,darkgray!30!gray] (brouter);
+  \end{scope}
+    % = = = = = = = = = = = = = = = =
+  % Labels
+  % = = = = = = = = = = = = = = = =
+  \node[xshift=1.5cm,right of = brouter,align=right](lev5) {Gateway Router};
+  \node[xshift=0.5cm, right of = rack switch 1,align=right](lev1) {DMZ};
+  \node[xshift=0.5cm, right of = rack switch 2,align=right](lev2) {Internal};
+\end{tikzpicture}

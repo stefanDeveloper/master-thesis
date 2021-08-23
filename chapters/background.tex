@@ -104,18 +104,18 @@ The term \enquote{honeypot} exists since more than a decade. 1997 was the first 
 
 \subsection{Definition of a Honeypot}
 
-Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}. Thus, contributing as an additional source of security measure. See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. Spitzner et al. \cite{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited. If a honeypot does not match this behaviour, it will not provide any value. It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}. In addition, Spitzner et al. points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation. Such functions are attack detection, 
+Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}. Thus, contributing as an additional source of security measure. See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. Spitzner et al. \cite{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited. If a honeypot does not match this behaviour, it will not provide any value. It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}. In addition, Spitzner et al. points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation. Such functions are attack detection, capturing automated attacks, or alert/warning generator.
 
-Basically we differentiate two types of honeypots:
+In general, we differentiate two types of honeypots. This categorization has their origin from Mark Rosch developer of Snort during his work at GTE Internetworking.
 
 \begin{itemize}
     \item Production honeypots
     \item Research honeypots
 \end{itemize}
 
-Production honeypots are \\
+Production honeypots are the common type of honeypots everyone would think of it. The objective is to protect production environment.
 
-Research honeypots \\
+Research honeypots are used to learn more in detail about attacks.
 
 Provos et al. \cite{Provos2003} 
 
@@ -124,9 +124,9 @@ Provos et al. \cite{Provos2003}
     \item virtual honeypots
 \end{itemize}
 
-physical honeypots \\
+Physical honeypots
 
-Virtual honeypots \\
+Virtual honeypots
 
 In addition, we distinguish honeypots based on their level of interaction (see \autoref{subsec:classification-honeypots}):
 

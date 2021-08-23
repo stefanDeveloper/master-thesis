@@ -94,10 +94,6 @@ Public clouds represents the most used deployment models. In contradiction to pr
 
 Hybrid cloud is a mixure of two or more cloud infrastructures, such as private and public cloud.However, each entity keeps its core element. However, hybrid clouds defines \enquote{standardized or propriertary technology to enables data and application portability}\cite{Mell2011}.\\
 
-%\subsection{Cloud Security}
-
-%\cite{Nithin2012}
-
 \subsection{HeiCloud}
 
 \ac{iaas}\todo{Get information or paper about that}
@@ -108,7 +104,7 @@ The term \enquote{honeypot} exists since more than a decade. 1997 was the first 
 
 \subsection{Definition of a Honeypot}
 
-Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypots are a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. One of the well-known experts Lance Spitzner defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised.}\cite{Spitzner2003} 
+Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}. Thus, contributing as an additional source of security measure. See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. Spitzner et al. \cite{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited. If a honeypot does not match this behaviour, it will not provide any value. It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}. In addition, Spitzner et al. points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation. Such functions are attack detection, 
 
 Basically we differentiate two types of honeypots:
 
@@ -153,23 +149,36 @@ High-interaction honeypots\\
 
 Pure honeypots\\
 
+\subsection{Security concepts}
+\label{subsec:honeypot-security-concept}
 
-%\subsection{Honeyd}
+\todo{Check honeypots in terms of security concepts}
 
-%\subsection{Configuration Honeyd}
+\begin{enumerate}
+    \item Prevention
+    \item Detection
+    \item Reaction
+\end{enumerate}
+
+\cite{NawrockiWSKS2016}
 
 \subsection{Value of Honeypots}
 
 \begin{figure}[h]
     \centering
     \include{network/honeypot-example}
-    \caption{Example honeypot (derived from \cite{Spitzner2003})}
-    \label{fig:cloud-functionalities}
+    \caption{Example of honeypots in a simplified network (derived from \cite{Spitzner2003})}
+    \label{fig:honeypot-example}
 \end{figure}
 
-\todo{Example of honeypots}
-
 \subsection{Honeynets}
+
+\begin{figure}[h]
+    \centering
+    \include{network/honeynet-example}
+    \caption{Example of honeynets in a simplified network (derived from \cite{Spitzner2003})}
+    \label{fig:honeynet-example}
+\end{figure}
 
 \cite{Spitzner2003}
 

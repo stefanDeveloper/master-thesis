@@ -1,4 +1,7 @@
 \begin{tikzpicture}
+  % = = = = = = = = = = = = = = = =
+  % servers
+  % = = = = = = = = = = = = = = = =
   \node[server](server 1){};
   \node[server, right of= server 1](server 2){};
   \node[server, right of= server 2](server 3){};
@@ -23,6 +26,9 @@
     \draw[thick,darkgray!10!gray] (server 6.north)--(rack switch 2);
   \end{scope}
 
+  % = = = = = = = = = = = = = = = =
+  % switch
+  % = = = = = = = = = = = = = = = =
   \node[yshift=1cm, l3 switch, above of =rack switch 1](l3 switch 1){};
   \node[yshift=1cm, l3 switch, above of =rack switch 2](l3 switch 2){};
 
@@ -37,10 +43,22 @@
       edge[very thick,darkgray!10!gray] ([xshift=0.1cm,yshift=0.5cm]l3 switch 2);
     \node[yshift=0.65cm,my cloud, minimum width=1.25cm, minimum height=1.55cm, above of = brouter, font=\large] (it) {Internet} edge[very thick,darkgray!30!gray] (brouter);
   \end{scope}
-    % = = = = = = = = = = = = = = = =
+  
+  % = = = = = = = = = = = = = = = =
   % Labels
   % = = = = = = = = = = = = = = = =
   \node[xshift=1.5cm,right of = brouter,align=right](lev5) {Gateway Router};
   \node[xshift=0.5cm, right of = rack switch 1,align=right](lev1) {DMZ};
   \node[xshift=0.5cm, right of = rack switch 2,align=right](lev2) {Internal};
+
+  % = = = = = = = = = = = = = = = =
+  % paths
+  % = = = = = = = = = = = = = = = =
+  \draw[stealth-stealth,very thick, red!80!black,shorten <=0.025cm,
+  shorten >=0.56cm]([yshift=-0.25cm]brouter.west)--
+  ([xshift=0.05cm]l3 switch 1.north);
+
+  \draw[stealth-stealth,very thick, red!80!black,shorten <=0.025cm,
+  shorten >=0.56cm]([yshift=-0.25cm]l3 switch 1.south)--
+  ([xshift=0.05cm]rack switch 1.north);
 \end{tikzpicture}

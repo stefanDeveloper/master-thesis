@@ -113,20 +113,18 @@ In general, we differentiate two types of honeypots. This categorization has the
     \item Research honeypots
 \end{itemize}
 
-Production honeypots are the common type of honeypots everyone would think of it. The objective is to protect production environment.
+Production honeypots are the common type of honeypots everyone would think of it. The objective is to protect production environments, and to mitigate the risk of attacks. Normally, production honeypots are easy to deploy within an organization. Mostly, low-interaction honeypots are chosen due to a significant reduce in risk. Thus, adversaries might not be able to exploit honeypots to attack other systems. Downside is a lack of information. Standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain. In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}
 
-Research honeypots are used to learn more in detail about attacks.
+Research honeypots are used to learn more in detail about attacks. The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks. Research honeypots are unlikely for production environment due to a higher increase of risk. Facing an increase in deployment complexity, and maintenance does not attract a production usage.
 
-Provos et al. \cite{Provos2003} 
+It is worth to mention that there is no exact line between research or production honeypots. A possible cases are honeypots that could function as either an production or an research honeypot. Due to their dynamic range in which they are applicable it makes it hard to distinguish. 
+
+Provos et al. adds an additional differentiation for the virtual honeypot framework \cite{Provos2003} and splits it into the following types:
 
 \begin{itemize}
-    \item physical honeypots
-    \item virtual honeypots
+    \item Physical honeypots are \enquote{real machines on the network with its own IP address}
+    \item Virtual honeypots are \enquote{simulated by another machine that responds to network traffix sent to the virtual honeypot}.
 \end{itemize}
-
-Physical honeypots
-
-Virtual honeypots
 
 In addition, we distinguish honeypots based on their level of interaction (see \autoref{subsec:classification-honeypots}):
 
@@ -136,10 +134,10 @@ In addition, we distinguish honeypots based on their level of interaction (see \
     \item High-interaction honeypots
 \end{enumerate}
 
-\subsection{Classification of Honeypots}
+\subsection{Level of Interaction}
 \label{subsec:classification-honeypots}
 
-Honeypots 
+When building and deploying a honeypot, the goal has to be defines. Should it gather unauthorized activities, such as an \textsc{nmap} scan? Do you want to learn about buzzing tools and tactics? Honeypots differ in level of interaction.
 
 Low-interaction honeypots\\
 
@@ -170,6 +168,30 @@ Pure honeypots\\
     \caption{Example of honeypots in a simplified network (derived from \cite{Spitzner2003})}
     \label{fig:honeypot-example}
 \end{figure}
+
+Advantages
+
+\begin{itemize}
+    \item Data Value
+    \item Resources
+    \item Simplicity
+    \item Return on Investment
+\end{itemize}
+
+\begin{itemize}
+    \item Independent from Workload
+    \item Zero-Day-Exploit Detection
+    \item Flexibility
+    \item Reduced False Positives and Negatives
+\end{itemize}
+
+Disadvantages
+
+\begin{itemize}
+    \item Narrow Field of View
+    \item Being Fingerprinted
+    \item Risk to the Environment
+\end{itemize}
 
 \subsection{Honeynets}
 

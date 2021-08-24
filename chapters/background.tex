@@ -126,20 +126,12 @@ Provos et al. adds an additional differentiation for the virtual honeypot framew
     \item Virtual honeypots are \enquote{simulated by another machine that responds to network traffix sent to the virtual honeypot}.
 \end{itemize}
 
-In addition, we distinguish honeypots based on their level of interaction (see \autoref{subsec:classification-honeypots}):
-
-\begin{enumerate}
-    \item Low-interaction honeypots
-    \item Medium-interaction honeypots
-    \item High-interaction honeypots
-\end{enumerate}
-
 \subsection{Level of Interaction}
-\label{subsec:classification-honeypots}
+\label{subsec:interaction-honeypots}
 
-When building and deploying a honeypot, the goal has to be defines. Should it gather unauthorized activities, such as an \textsc{nmap} scan? Do you want to learn about buzzing tools and tactics? Honeypots differ in level of interaction.
+When building and deploying a honeypot, the goal has to be defines. Should it gather unauthorized activities, such as an \textsc{nmap} scan? Do you want to learn about buzzing tools and tactics? Honeypots differ in level of interaction.\\
 
-Low-interaction honeypots\\
+Low-interaction honeypots are the easiest level of interaction. Only a small set of services like SSH, Telnet, or FTP are supported. In terms of risk, low-interaction honeypots do not give access to the underlying \ac{os} which make them . \\
 
 Medium-interaction honeypots\\
 
@@ -150,7 +142,7 @@ Pure honeypots\\
 \subsection{Security concepts}
 \label{subsec:honeypot-security-concept}
 
-\todo{Check honeypots in terms of security concepts}
+\todo{Check honeypots in terms of security concepts}\cite{Schneier2004}
 
 \begin{enumerate}
     \item Prevention

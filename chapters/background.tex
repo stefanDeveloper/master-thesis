@@ -115,29 +115,46 @@ In general, we differentiate two types of honeypots. This categorization has the
 
 Production honeypots are the common type of honeypots everyone would think of it. The objective is to protect production environments, and to mitigate the risk of attacks. Normally, production honeypots are easy to deploy within an organization. Mostly, low-interaction honeypots are chosen due to a significant reduce in risk. Thus, adversaries might not be able to exploit honeypots to attack other systems. Downside is a lack of information. Standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain. In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}
 
-Research honeypots are used to learn more in detail about attacks. The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks. Research honeypots are unlikely for production environment due to a higher increase of risk. Facing an increase in deployment complexity, and maintenance does not attract a production usage.
+Research honeypots are used to learn more in detail about attacks. The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks. Research honeypots are unlikely for production environments due to a higher increase of risk. Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}
 
 It is worth to mention that there is no exact line between research or production honeypots. A possible cases are honeypots that could function as either an production or an research honeypot. Due to their dynamic range in which they are applicable it makes it hard to distinguish. 
 
 Provos et al. adds an additional differentiation for the virtual honeypot framework \cite{Provos2003} and splits it into the following types:
 
 \begin{itemize}
-    \item Physical honeypots are \enquote{real machines on the network with its own IP address}
-    \item Virtual honeypots are \enquote{simulated by another machine that responds to network traffix sent to the virtual honeypot}.
+    \item Physical honeypots are \enquote{real machines on the network with its own IP address} \cite{Provos2003}
+    \item Virtual honeypots are \enquote{simulated by another machine that responds to network traffix sent to the virtual honeypot} \cite{Provos2003}
 \end{itemize}
 
 \subsection{Level of Interaction}
 \label{subsec:interaction-honeypots}
 
-When building and deploying a honeypot, the goal has to be defines. Should it gather unauthorized activities, such as an \textsc{nmap} scan? Do you want to learn about buzzing tools and tactics? Honeypots differ in level of interaction.\\
+When building and deploying a honeypot, the depth of information has to be defined beforehand. Should it gather unauthorized activities, such as an \textsc{nmap} scan? Do you want to learn about buzzing tools and tactics? Each depth brings a different level of interaction because some information depends on more actions of adversaries. Therefore, honeypots differ in level of interaction.\\
 
-Low-interaction honeypots are the easiest level of interaction. Only a small set of services like SSH, Telnet, or FTP are supported. In terms of risk, low-interaction honeypots do not give access to the underlying \ac{os} which make them . \\
+Low-interaction honeypots provide the lowest level of interaction between an attacker and a system. Only a small set of services like SSH, Telnet, or FTP are supported which contributes to the deployment time. In terms of risk, a low-interaction honeypot does not give access to the underlying \ac{os} which makes it safe to use in a production environment. For example using an SSH honeypot, such services are emulated, thus, attackers can attempt to login by brute force or by guessing, and execute commands. However, the adversary will never gain more access because it is not a real \ac{os}. However, safety comes with the downside of less information. Collected is limited for statistical purpose such as
+\begin{enumerate*}[label=(\roman*)]
+    \item Time and data of attack
+    \item Source IP address and source port of the attack
+    \item Destination IP address and destination port of the attack
+\end{enumerate*}.
+Transactional information can not be collected. \cite{Spitzner2003}\\
 
-Medium-interaction honeypots\\
+A medium-interaction honeypot offers more sophisticated serivces with higher level of interaction. It is capable to respond to certain activities. For example a Microsoft IIS Web server honeypot could be able to respond in a way that a worm is expecting it. The worm would get emulated answers, and could be able to interact with it more in detail. Thus, gathering more severe information about the attack, including privilege assessment, toolkit capturing, and command execution. In contrast, medium-interaction honeypots allocate more time to install and configure. In addition, more security checks have to be perform due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}\\
 
-High-interaction honeypots\\
+High-interaction honeypots are the highest level interation. Mostly, they represent a real \ac{os} to provide a full set of of interactions to attackers. They are so powerful because other production servers do not differ much to high-interaction honeypots. They represent real systems in a controlled environment. Obviously, the amount of information is tremendous. It helps to learn about
+\begin{enumerate*}[label=(\roman*)]
+    \item new tools
+    \item finding new bugs in the \ac{os}
+    \item the blackhat community
+\end{enumerate*}. However, the risk of such a honeypot is extremely high. It needs severe deployment and maintenance processes. Therefore, it is time consuming.\\
 
-Pure honeypots\\
+Examples for such honeypots are 
+\begin{enumerate*}[label=(\roman*)]
+    \item HoneyD
+    \item Dionaea
+    \item Cowire
+    \item d
+\end{enumerate*}
 
 \subsection{Security concepts}
 \label{subsec:honeypot-security-concept}

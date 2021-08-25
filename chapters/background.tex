@@ -104,20 +104,26 @@ The term \enquote{honeypot} exists since more than a decade. 1997 was the first 
 
 \subsection{Definition of a Honeypot}
 
-Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}. Thus, contributing as an additional source of security measure. See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. Spitzner et al. \cite{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited. If a honeypot does not match this behaviour, it will not provide any value. It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}. In addition, Spitzner et al. points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation. Such functions are attack detection, capturing automated attacks, or alert/warning generator.
+Dozen of defintions for honeypots circulate through the web that causes confusion, and misunderstandings. In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}. Thus, contributing as an additional source of security measure. See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept. As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system. In order to get a basic understanding, we want to exhibit some of the key definitions. Spitzner et al. \cite{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited. If a honeypot does not match this behaviour, it will not provide any value. It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}. In addition, Spitzner et al. points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation. Such functions are attack detection, capturing automated attacks, or alert/warning generator. An example 
 
-In general, we differentiate two types of honeypots. This categorization has their origin from Mark Rosch developer of Snort during his work at GTE Internetworking.
+\begin{figure}[h]
+    \centering
+    \include{network/honeypot-example}
+    \caption{Example of honeypots in a simplified network (derived from \cite{Spitzner2003})}
+    \label{fig:honeypot-example}
+\end{figure}
 
-\begin{itemize}
+In general, we differentiate two types of honeypots
+\begin{enumerate*}[label=(\roman*)]
     \item Production honeypots
     \item Research honeypots
-\end{itemize}
+\end{enumerate*}. This categorization has their origin from Mark Rosch developer of Snort during his work at GTE Internetworking.\\
 
-Production honeypots are the common type of honeypots everyone would think of it. The objective is to protect production environments, and to mitigate the risk of attacks. Normally, production honeypots are easy to deploy within an organization. Mostly, low-interaction honeypots are chosen due to a significant reduce in risk. Thus, adversaries might not be able to exploit honeypots to attack other systems. Downside is a lack of information. Standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain. In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}
+Production honeypots are the common type of honeypots everyone would think of it. The objective is to protect production environments, and to mitigate the risk of attacks. Normally, production honeypots are easy to deploy within an organization. Mostly, low-interaction honeypots are chosen due to a significant reduce in risk. Thus, adversaries might not be able to exploit honeypots to attack other systems. Downside is a lack of information. Standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain. In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}\\
 
-Research honeypots are used to learn more in detail about attacks. The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks. Research honeypots are unlikely for production environments due to a higher increase of risk. Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}
+Research honeypots are used to learn more in detail about attacks. The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks. Research honeypots are unlikely for production environments due to a higher increase of risk. Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}\\
 
-It is worth to mention that there is no exact line between research or production honeypots. A possible cases are honeypots that could function as either an production or an research honeypot. Due to their dynamic range in which they are applicable it makes it hard to distinguish. 
+It is worth to mention that there is no exact line between research or production honeypots. A possible cases are honeypots that could function as either an production or an research honeypot. Due to their dynamic range in which they are applicable it makes it hard to distinguish.\\
 
 Provos et al. adds an additional differentiation for the virtual honeypot framework \cite{Provos2003} and splits it into the following types:
 
@@ -148,35 +154,23 @@ High-interaction honeypots are the highest level interation. Mostly, they repres
     \item the blackhat community
 \end{enumerate*}. However, the risk of such a honeypot is extremely high. It needs severe deployment and maintenance processes. Therefore, it is time consuming.\\
 
-Examples for such honeypots are 
-\begin{enumerate*}[label=(\roman*)]
-    \item HoneyD
-    \item Dionaea
-    \item Cowire
-    \item d
-\end{enumerate*}
-
 \subsection{Security concepts}
 \label{subsec:honeypot-security-concept}
 
-\todo{Check honeypots in terms of security concepts}\cite{Schneier2004}
+Security concepts are classified by Schneider et al. \cite{Schneier2004} in prevention, detection, and reaction. Prevention includes any process that
+\begin{enumerate*}[label=(\roman*)]
+    \item discourages intruders and
+    \item hardens systems to avoid any kind of breaches
+\end{enumerate*}. Detection scrutinize the identification of attacks that threatens the systems
+\begin{enumerate*}[label=(\roman*)]
+    \item confidentiality
+    \item integrity and
+    \item availability
+\end{enumerate*}. Reaction treats the active part of the security concept. When attacks are detected, in conducts reactive meassures to remove the threat. Each part is designed to be sophisticated so that all of them contribute to a secure environment. \cite{NawrockiWSKS2016}
 
-\begin{enumerate}
-    \item Prevention
-    \item Detection
-    \item Reaction
-\end{enumerate}
-
-\cite{NawrockiWSKS2016}
+Honeypots can do contribute to the security concept like firewalls, or \ac{ids}. Regarding prevention, honeypots add small value because security breaches cannot be identified. However, detection is one of the strength of honeypots. . Reaction \cite{NawrockiWSKS2016}
 
 \subsection{Value of Honeypots}
-
-\begin{figure}[h]
-    \centering
-    \include{network/honeypot-example}
-    \caption{Example of honeypots in a simplified network (derived from \cite{Spitzner2003})}
-    \label{fig:honeypot-example}
-\end{figure}
 
 Advantages
 
@@ -186,6 +180,8 @@ Advantages
     \item Simplicity
     \item Return on Investment
 \end{itemize}
+
+In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{NawrockiWSKS2016} listed four more advantages of honeypots:
 
 \begin{itemize}
     \item Independent from Workload

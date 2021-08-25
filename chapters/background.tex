@@ -168,14 +168,36 @@ Security concepts are classified by Schneider et al. \cite{Schneier2004} in prev
     \item availability
 \end{enumerate*}. Reaction treats the active part of the security concept. When attacks are detected, in conducts reactive meassures to remove the threat. Each part is designed to be sophisticated so that all of them contribute to a secure environment. \cite{NawrockiWSKS2016}
 
-Honeypots can do contribute to the security concept like firewalls, or \ac{ids}. Regarding prevention, honeypots add small value because security breaches cannot be identified. However, detection is one of the strength of honeypots. . Reaction \cite{NawrockiWSKS2016}
+Honeypots contribute to the security concept like firewalls, or \ac{ids}. Regarding prevention, honeypots add only a small value because security breaches cannot be identified. Moreover, attackers would avoid wasting time on honeypots and go straight for production systems instead. 
+
+However, detection is one of the strengths of honeypots. Attacks often vanish in the sheer quantity of production activities. If any connection is obtain to a honeypot it is suspicious by nature. In conjunction with an alerting tool, attacks can be detected. 
+
+Honeypots strongly supply reaction tools due to their clear data. In production environments, finding attacks for further data analysis are not easy to grasp. Often data submerge with other activities which complicates the process of reaction. \cite{NawrockiWSKS2016} Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{NawrockiWSKS2016} distinct honeypots from other objectives such as firewall, or log-monitoring.
+
+\begin{table}[h]
+    \centering
+    \caption{Distinction between security concepts based on areas of operations (derived from \cite{NawrockiWSKS2016})}
+    \begin{tabular}{l|lll}
+        Objective                 & Prevention & Detection & Reaction \\ \hline
+        Honeypot                  & +          & ++        & +++      \\
+        Firewall                  & +++        & ++        & +        \\
+        Intrusion Detection Sys.  & +          & +++       & +        \\
+        Intrusion Prevention Sys. & ++         & +++       & ++       \\
+        Anti-Virus                & ++         & ++        & ++       \\
+        Log-Monitoring            & +          & ++        & +        \\
+        Cyber Security Standard   & +++        & +         & +        \\
+    \end{tabular}
+    \label{tab:honeypots-security-concepts}
+\end{table}
 
 \subsection{Value of Honeypots}
 
-Advantages
+To assess the value of honeypots we want to take a closer look to thier advantages and disadvantes.\cite{Mokube2007} \cite{Kaur2014} \cite{Spitzner2003}
+
+\subsubsection{Advantages}
 
 \begin{itemize}
-    \item Data Value
+    \item Data Value: Collected data is often immacluate and does not contain noise from other activities. Thus, reducing the total size of data, and 
     \item Resources
     \item Simplicity
     \item Return on Investment
@@ -190,7 +212,7 @@ In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{N
     \item Reduced False Positives and Negatives
 \end{itemize}
 
-Disadvantages
+\subsubsection{Disadvantages}
 
 \begin{itemize}
     \item Narrow Field of View

@@ -197,27 +197,27 @@ To assess the value of honeypots we want to take a closer look to thier advantag
 \subsubsection{Advantages}
 
 \begin{itemize}
-    \item Data Value: Collected data is often immacluate and does not contain noise from other activities. Thus, reducing the total size of data, and 
-    \item Resources
-    \item Simplicity
-    \item Return on Investment
+    \item Data Value: Collected data is often immacluate and does not contain noise from other activities. Thus, reducing the total size of data, and speed up the analyzation.
+    \item Resources: Firewalls, and \ac{ids} are often overwhelmed by the gigbits of traffic, thus, dropping network packets for analyzation. This results in a far less effictive detection for malicious network activities. However, honeypots are independent of resources because they only capture their activities at itself. Due to resource limitation, expensive hardware is not needed. 
+    \item Simplicity: A honeypot do not require any complex algorithms, or databases. It should be able to quickly deploy it somewhere. Research honeypots might come with a certain increase of complexity. However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures. 
+    \item Return on Investment: Capturing attacks immediately informs users that attacks occur on the infrastructure. This helps to demonstrate their value, and contributes to new investment in other security measurements. 
 \end{itemize}
 
 In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{NawrockiWSKS2016} listed four more advantages of honeypots:
 
 \begin{itemize}
-    \item Independent from Workload
-    \item Zero-Day-Exploit Detection
-    \item Flexibility
-    \item Reduced False Positives and Negatives
+    \item Independent from Workload: Honeypots only process traffic that is direct to them.
+    \item Zero-Day-Exploit Detection: It helps to detect unknown strategies and zero-day-exploits.
+    \item Flexibility: Well-adjusted honeypots for a variety of specific tasks are available.
+    \item Reduced False Positives and Negatives: Any traffic or connection to a honeypot is suspicious. Client-honeypots verify such attacks based on system state changes. This results in either false positive, or false positive.
 \end{itemize}
 
 \subsubsection{Disadvantages}
 
 \begin{itemize}
-    \item Narrow Field of View
-    \item Being Fingerprinted
-    \item Risk to the Environment
+    \item Narrow Field of View: Only direct attacks on honeypots can be investigated whereas attacks on production system are not detect by it.
+    \item Fingerprinting: A honeypot often has a certain fingerprint that can be identified by attackers. Especially commerical ones can be detected by their responses or behaviours. 
+    \item Risk to the Environment: Using honeypots in an environment always increase the risk. However, it depends on the level of interaction.
 \end{itemize}
 
 \subsection{Honeynets}

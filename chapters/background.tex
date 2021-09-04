@@ -1,12 +1,12 @@
 \chapter{Background}
 
-This chapter concludes the fundamental knowledge that is needed to comprehend the upcoming practical work. Firstly, an introduction to cloud computing will be held. Next, a throrough understanding of honeypots is given. Lastly, we introduce some concepts of intrusion detection systens.
+Using honeypots in a cloud environment merge two varying principals together. This chapter concludes the fundamental knowledge that is needed to comprehend the upcoming experiments. If the reader has a profoundly understanding of cloud computing, honeypots, and virtualization he can skip this chapter.
 
 \section{Virtualization}
 
 \subsection{Docker}
 
-\section{Cloud Computing}\todo{Check cites}
+\section{Cloud Computing}
 
 Nowadays it is one of the well-known keywords and has been used by vary large companies such as Google, or Amazon, however, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020} Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} reported by Google trends \cite{Wang2010}. Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses. For example IBM's Cloud\footnote{\url{https://www.ibm.com/cloud}}, Amazon Web Services\footnote{\url{https://aws.amazon.com/}}, and Google Cloud\footnote{\url{https://cloud.google.com/}}. Why are clouds so attractive in practice?
 
@@ -15,8 +15,6 @@ Nowadays it is one of the well-known keywords and has been used by vary large co
     \item Consumer can easily scale with demand. When more computational resources are required due to more requests, scaling up instances in conjunction with a suited price model are straightforward.
     \item Geographically distributed capabilities supply the need for world-wide scattered services.
 \end{itemize}
-
-In this section, we want to give basic unterstandings of cloud computing. First, we exhibit the history and draw some motivation. Following, we look at some the definitions, and point out characteristics. Lastly, we give an short introduction to HeiCloud, a cloud service that is offered by Heidelberg University.
 
 \subsection{Definition of Cloud Computing}
 
@@ -37,28 +35,28 @@ Considering the definition of the \ac{nist}, cloud computing \enquote{is a model
 \subsection{Service models}
 \label{subsec:cloud-service}
 
-Service models are categorized by \ac{nist} into three basic models based on usage and abstraction level. \autoref{fig:cloud-functionalities}\todo{Fix image} shows the connection between each model whereas cloud resource are defined in \autoref{subsec:cloud-deployment}. Due to vast range of functionalities, \ac*{iaas} builds the foundation of service models. Each model on top represents a user-friendly abstraction with derated capabilities. \autoref{tab:example-service-models} shows examples of such service models.
+Service models are categorized by \ac{nist} into three basic models based on usage and abstraction level. \autoref{fig:cloud-functionalities} shows the connection between each model whereas cloud resource are defined in \autoref{subsec:cloud-deployment}. Due to vast range of functionalities, \ac*{iaas} builds the foundation of service models. Each model on top represents a user-friendly abstraction with derated capabilities. \autoref{tab:example-service-models} shows examples of such service models.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/cloud-functionalities.pdf}
-    \caption{Cloud functionalities (derived from \cite{Wang2010})}
+    \caption[Abstract visualization of service models]{Abstract visualization of service models. The lowest level within the container \enquote{cloud resources} represents the depth of functionalities}
     \label{fig:cloud-functionalities}
 \end{figure}
 
 \ac{saas} is a high-level abstraction to consumers. Controlling the underlying infrastructure is not supported. Often provider uses a multi-tenancy system architecture to organize each consumer's application in a separate environment. It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance. Main objective of \ac{saas} is to host consumer's software or application that can be accessed over the Internet using either a thin or rich client.\cite{Dillon2010} \enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.\\
 
-\ac{paas} pivots on the full \enquote{Software Lifecycle} of an application whereas \ac{saas} distincts on hosting complete applications. \ac{paas} offers ongoing development and includes programming environment, tools, configuration management, and other services. In addition, the underlying infrastructure is not managed by the consumer.\\
+\ac{paas} pivots on the full \enquote{Software Lifecycle} of an application whereas \ac{saas} distincts on hosting complete applications. \ac{paas} offers ongoing development and includes programming environment, tools, configuration management, and other services. In addition, the underlying infrastructure is not managed by the consumer. \cite{Mell2011}\\
 
-\ac{iaas} offers a low-level abstraction to consumers with the ability to run arbitrary software regardless of operating system or application. In contrast to \ac{saas}, IT infrastructures capabilities (such as storage, networks) can be used. It strongly depends on virtualization due to integration, or decomposition of physical resources. \\
+\ac{iaas} offers a low-level abstraction to consumers with the ability to run arbitrary software regardless of operating system or application. In contrast to \ac{saas}, IT infrastructures capabilities (such as storage, networks) can be used. It strongly depends on virtualization due to integration, or decomposition of physical resources. \cite{Mell2011}\\
 
 \ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems.\cite{Dillon2010} Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010}. Whereas \ac{daas} costs solely what consumer's need.When dealing with a tremendous amount of data, file systems and RDBMS often lack in performance. \ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled.\cite{Dillon2010}\\
 
-\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable.\cite{Wang2010}\\
+\ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service. The term dates back to 2006 during a time when hardware virtualization became more powerful. It is flexible, scalable and manageable.\cite{Wang2010}
 
 \begin{table}[h]
     \centering
-    \caption{Examples for cloud service models}
+    \caption{Providers of cloud service models}
     \begin{tabularx}{\linewidth}{X|X|X|X|X}
         SaaS            & PaaS                  & IaaS       & Daas             & HaaS       \\ \hline
         Google Mail     & Google App Engine     & HeiCloud   & Adobe Buzzword   & Amazon EC2 \\
@@ -86,13 +84,13 @@ Deployment models are categorized by \ac{nist} into four basic models. Each diff
     \label{tab:example-deployment-models}
 \end{table}
 
-Private clouds offer the highest level of control in regard of data privacy, and utilization. Mostly, such clouds are deployed within in a single organization, either managed by in-house teams or third party suppliers. In addition, it can be on or off premise. Within private clouds consumers have full control of their data. Especially for European data privacy laws, it is not negligible when data is stored abroad and thus under law of foreign countries. However, the popularity has not been withdrawn due to immense costs when moving towards public clouds. \cite{Dillon2010} \cite{Mell2011}\\
+Private clouds offer the highest level of control in regard of data privacy, and utilization. Mostly, such clouds are deployed within in a single organization, either managed by in-house teams or third party suppliers. In addition, it can be on or off premise. Within private clouds consumers have full control of their data. Especially for European data privacy laws, it is not negligible when data is stored abroad and thus under law of foreign countries. However, the popularity has not been withdrawn due to immense costs when moving towards public clouds. \cite{Dillon2010, Mell2011}\\
 
-Community clouds can be seen as a conglomerate of mutliple organizations that merge their infrastructure with respect to a commonly defined policy, terms, and condition beforehand.\\
+Community clouds can be seen as a conglomerate of mutliple organizations that merge their infrastructure with respect to a commonly defined policy, terms, and condition beforehand. \cite{Mell2011}\\
 
-Public clouds represents the most used deployment models. In contradiction to private one, public clouds are fully owned by the service provider such as business, academics, or government organization. Consumers do not know where their data is distributed. In addition, contracts underlie custom policies.\\
+Public clouds represents the most used deployment models. In contradiction to private one, public clouds are fully owned by the service provider such as business, academics, or government organization. Consumers do not know where their data is distributed. In addition, contracts underlie custom policies. \cite{Mell2011}\\
 
-Hybrid cloud is a mixure of two or more cloud infrastructures, such as private and public cloud.However, each entity keeps its core element. However, hybrid clouds defines \enquote{standardized or propriertary technology to enables data and application portability}\cite{Mell2011}.\\
+Hybrid cloud is a mixure of two or more cloud infrastructures, such as private and public cloud.However, each entity keeps its core element. However, hybrid clouds defines \enquote{standardized or propriertary technology to enables data and application portability}\cite{Mell2011}.
 
 \section{Honeypots}
 
@@ -188,7 +186,7 @@ Honeypots strongly supply reaction tools due to their clear data. In production 
 
 \subsection{Value of Honeypots}
 
-To assess the value of honeypots we want to take a closer look to thier advantages and disadvantes.\cite{Mokube2007} \cite{Kaur2014} \cite{Spitzner2003}
+To assess the value of honeypots we want to take a closer look to thier advantages and disadvantes.\cite{Mokube2007,Kaur2014, Spitzner2003}
 
 \subsubsection{Advantages}
 
@@ -254,6 +252,4 @@ In this chapter we investigate previous work that have been done
 \cite{Kelly2021}
 
 \subsubsection{T-Pot}
-
-\section{Summary}
 

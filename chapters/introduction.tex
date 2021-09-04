@@ -1,25 +1,27 @@
 \chapter{Introduction}
 
-In this chapter an introduction about the work that is done in this thesis will be held. First, a problem is described to lay emphasis on the need. Next, we look at justifications, motivations, and benefits prior to our work. It strengthen the necessity of it. In addition, we set our research question that we try to answer later, and add limitations to it.
-
 \section{Problem description}
 
-\todo{Modern attacks, statistis}
+Due to the pandamic, the last two years kept us at home, and we were tempted to use the Internet more often. Recent stastics of the monthly in-home data usage in the United States from January to March 2020 showed a drastic increase compared to the years before \cite{statista2021}. Even Europol (an agency that fights against terrorism, cybercrime, and other threats \cite{europol2021}) rose awareness of new cyber threats related to an increase of misinformation. As stated in their yearly \ac{iocta}, citizens and businesses are looking for any kinf of information that is desperately needed. Both contributes to cybercriminal acts. \cite{iocta2020}\\
 
 
+Even unrelated to the pandamic, fast growing technology comes along with new security concerns. Especially in cloud computing due to access to large pools of data and computational resources, controlling access to services is becoming a tougher challenge nowadays. Besides traditional security leverages such as firewalls or intrusion detection systems, one known methodology to strengthen infrastructures is to learn from those who attacks it. Honeypots are a security resource whose value lies in being probed, attacked, or compromised \cite{Spitzner2003}. By getting attacked from others, zero-day-exploits, worm activity, or bots can be detected. In retrospect, this helps to adapt, or fix infrastructures before more damage occurs. As a cloud provider, it is a crucial point if and how attacks on production server could have been prevented. \\
 
-Fast growing technology comes along with new security concerns. Especially in cloud computing due to access to large pools of data and computational resources, controlling access to services is becoming a tougher challenge nowadays. One known methodology to strengthen infrastructures is to learn from those who attacks it. Honeypots are a security resource whose value lies in being probed, attacked, or compromised.
+%\section{Justification, motivation and benefits}
 
-\section{Justification, motivation and benefits}
-
-However, controlling attackers in a cloud environment may differ from
-other infrastructures.
+% However, controlling attackers in a cloud environment may differ from other infrastructures.
 
 \section{Research questions}
 
-We want to answer the question, how can honeypots contribute to a safer cloud environment. This includes baiting adversaries to our honeypots, controlling their requests, and analyzing their attacks.
+The following research questions have been answered in this thesis:
+
+\begin{enumerate}
+    \item How can honeypots contribute to a more secure cloud environment including baiting adversaries to our honeypots, and controlling their requests?
+    \item What is a preferable way to handle data management and visualization?
+    \item How can we analyze our data to get more information?
+\end{enumerate}
 
 \section{Limitations}
 
 Due to the fact that Heidelberg offers a cloud service, called
-\enquote{HeiCloud}, we tailor our implementation to this service.
+\enquote{HeiCloud}, we tailor our implementation for this service. Moreover, it ecists a vast variety of different honeypots which bound us to a very few of them. 

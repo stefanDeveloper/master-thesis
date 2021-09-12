@@ -40,7 +40,7 @@ Service models are categorized by \ac{nist} into three basic models based on usa
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/cloud-functionalities.pdf}
-    \caption[Abstract visualization of service models]{Abstract visualization of service models. The lowest level within the container \enquote{cloud resources} represents the depth of functionalities}
+    \caption[Abstract visualization of service models]{Abstract visualization of service models. The lowest level within the container \enquote{cloud resources} represents the depth of functionalities. Therefore, \ac{iaas} offers the most functionalities whereas the others have a user-friendly abstraction.}
     \label{fig:cloud-functionalities}
 \end{figure}
 
@@ -78,8 +78,8 @@ Deployment models are categorized by \ac{nist} into four basic models. Each diff
     \caption{Examples for cloud deployment models}
     \begin{tabular}{l|l|l|l}
         Private Cloud & Community Cloud & Hybrid Cloud & Public Cloud     \\ \hline
-                      & Seafile         &              & Amazon EC2       \\
-                      & Nextcloud       &              & Google AppEngine \\
+        Seafile       & Seafile         & IBM Cloud      & Amazon EC2       \\
+        Nextcloud     & Nextcloud       & Amazon EC2     & Google AppEngine \\
     \end{tabular}
     \label{tab:example-deployment-models}
 \end{table}
@@ -103,7 +103,7 @@ Dozen of defintions for honeypots circulate through the web that causes confusio
 \begin{figure}[h]
     \centering
     \include{network/honeypot-example}
-    \caption{Example of honeypots in a simplified network (derived from \cite{Spitzner2003})}
+    \caption[Example of honeypots in a simplified network (derived from \cite{Spitzner2003})]{Example of honeypots in a simplified network (derived from \cite{Spitzner2003}). Each of the \ac{dmz}, and internal network are separated by a router and a Layer-3 switch. As dervied from above, in each network a honeypot is available (honeypot A, B). The read path symbolises the path of an attacker coming from the gateway router.}
     \label{fig:honeypot-example}
 \end{figure}
 
@@ -119,7 +119,7 @@ Research honeypots are used to learn more in detail about attacks. The objective
 
 It is worth to mention that there is no exact line between research or production honeypots. A possible cases are honeypots that could function as either an production or an research honeypot. Due to their dynamic range in which they are applicable it makes it hard to distinguish.\\
 
-Provos et al. adds an additional differentiation for the virtual honeypot framework \cite{Provos2003} and splits it into the following types:
+Provos et al. \cite{Provos2003} adds an additional differentiation for the virtual honeypot framework and splits it into the following types:
 
 \begin{itemize}
     \item Physical honeypots are \enquote{real machines on the network with its own IP address} \cite{Provos2003}
@@ -170,7 +170,7 @@ Honeypots strongly supply reaction tools due to their clear data. In production 
 
 \begin{table}[h]
     \centering
-    \caption{Distinction between security concepts based on areas of operations (derived from \cite{NawrockiWSKS2016})}
+    \caption[Distinction between security concepts (derived from \cite{NawrockiWSKS2016})]{Distinction between security concepts based on areas of operations (derived from \cite{NawrockiWSKS2016}).}
     \begin{tabular}{l|lll}
         Objective                 & Prevention & Detection & Reaction \\ \hline
         Honeypot                  & +          & ++        & +++      \\
@@ -216,14 +216,16 @@ In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{N
 
 \subsection{Honeynets}
 
+Instead of having single honeypots that can be attacked, a honeynet offers a complete network of standard production systems such as you would find in an organization. Those systems are high-interaction honeypots, thus, allowing to fully interact with the \ac{os}, and applications. Key idea is that an adversary can probe, attack, and exploit these systems so that we can derive interaction within this network. It should be noticed that a honeynet have to be protected by firewall. \autoref{fig:honeynet-example} represents such a honeynet within an organization.
+
 \begin{figure}[h]
     \centering
     \include{network/honeynet-example}
-    \caption{Example of honeynets in a simplified network (derived from \cite{Spitzner2003})}
+    \caption[Example of honeynets in a simplified network (derived from \cite{Spitzner2003})]{Example of honeynets in a simplified network (derived from \cite{Spitzner2003}). On the right, this network presents the honeynet consisting of several other honeypots. On the right the network presents a ordinary subnet consisting of mail, web, and FTP server.}
     \label{fig:honeynet-example}
 \end{figure}
 
-\cite{Spitzner2003}
+In comparison to regular honeypot, the greatest value of honeynets is the usage of true production systems. Black hats often do not know that they attact a honeynet, thus, adding value to prevention. However, the downsides are high complexity and maintenance that is needed to keep a honeynet running. \cite{Spitzner2003}
 
 \subsection{Legal Issues}
 
@@ -231,25 +233,8 @@ In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{N
 
 \section{Related Work}
 
-In this chapter we investigate previous work that have been done
+The Snort \cite{caswell2003} inline extension \textit{Bait'n'Switch} \cite{gonzalez2003} redirects attackers from production systems to honeypots. Usually Snort drops malicious packets when they are detected, and creates a specific rule to block malicious activity from the source. In contrast, \textit{Bait'n'Switch} does not create a rule to block more request, instead it redirects them to honeypots. The attacker does not realize that all packets a rerouted, and that the original target has changed. The \ac{ids} is bounded to its signature database and can only redirect know attakcks.\cite{Diebold2005} 
 
-\subsection{Honeypot technologies}
+Whereas \textit{Bait'n'Switch} had to drop the first attack which leads to a suspicious behaviour for attackers, the \textit{Intrusion Trap System} \cite{takemori2003} is capable of forwarding the first request. Therefore, the first recognized attack by the \ac{ids} can be forwarded and answered by honeypots. \cite{Diebold2005} 
 
-\subsubsection{The Bait'n'Switch Honeypot}
-
-\cite{Diebold2005}
-
-\subsubsection{Intrusion Trap System}
-
-\cite{Diebold2005}
-
-\subsubsection{Honeycomb}
-
-\cite{Diebold2005}
-
-\subsubsection{Honeypots in a cloud environment}
-
-\cite{Kelly2021}
-
-\subsubsection{T-Pot}
-
+The \textit{honeyd} \cite{Provos2003} extension \textit{Honeycomb} \cite{kreibich2004} enables automatically generates \textit{Snort} and \textit{Bro} \cite{paxson1999} signatures for all incoming traffic. In addition, new signatures are created for similar patterns if they do not exist already, and updating of existing ones to improve their quality. This is based on the incoming traffic, and the corresponding attack session. Even mutations of attacks are considered. It generates a more generic description for  signatures in order to match the original attack, and the mutation. It helps to keep the size of signatures small. However, the downside of this extension is the missing verification of attacks. Wrongly redirected traffic will not be proofen if an attack was successful eventhough a signature has been created. \cite{Diebold2005}

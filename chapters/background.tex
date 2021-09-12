@@ -1,24 +1,47 @@
 \chapter{Background}
 
-Using honeypots in a cloud environment merge two varying principals together. 
-This chapter concludes the fundamental knowledge that is needed to comprehend the upcoming experiments. 
+Using honeypots in a cloud environment merge two varying principals together.
+This chapter concludes the fundamental knowledge that is needed to comprehend the upcoming experiments.
 If the reader has a profoundly understanding of cloud computing, honeypots, and virtualization he can skip this chapter.
 
 \section{Virtualization}
 
-\subsection{Docker}
+Virtualization, often refered to \ac{vm}, is defined by \citet{kreuter2004} as \enquote{an abstraction layer or environment between hardware component and the end-user}.
+A \ac{vm} runs on top of an \ac{os} core components.
+By an abstraction layer, the virtual machine is connected with the real machine by hypervisors or \ac{vmm}.
+Hypervisors can use real machine hardware components, but also support virtual machine operating systems and configurations.
+Both are similar to emulators, that are defined by \citet{lichstei1969} as \enquote{process whereby one computer is set up to permit the execution of programs written for another computer}.
+This allows to management multiple \ac{vm} with real machine resources.
+There are three different types of virtualization,
+\begin{enumerate*}[label=(\roman*)]
+    \item software virtual machines,
+    \item hardware virtual machines, and
+    \item virtual OS/containers
+\end{enumerate*}.
+Software virtual machine's manage interactions between the host operating system and guest operating system.
+Hardware virtual machine's offers direct and fast access to the underlying resources.
+It uses hypervisors, modified code, or APIs.
+Virtual OS/container partitions the host operating system into containers or zones.
+\cite{daniels2009}
+
+%\subsection{Docker}
+
+%Docker is container virtualization technology.\cite{docker2021}
 
 \section{Cloud Computing}
 
-Nowadays it is one of the well-known keywords and has been used by vary large companies such as Google, or Amazon, however, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020} 
-Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} reported by Google trends \cite{Wang2010}. 
-Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses. 
+Nowadays it is one of the well-known keywords and has been used by vary large companies such as Google, or Amazon, however, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020}
+Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} reported by Google trends \cite{Wang2010}.
+Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses.
 For example IBM's Cloud\footnote{\url{https://www.ibm.com/cloud}}, Amazon Web Services\footnote{\url{https://aws.amazon.com/}}, and Google Cloud\footnote{\url{https://cloud.google.com/}}.
 Why are clouds so attractive in practice?
 
 \begin{itemize}
-    \item It offers major advantages in terms of cost and reliability. When demand is needed, consumers do not have to invest in hardware when launching new services. Pay-as-you-go allows flexibility.
-    \item Consumer can easily scale with demand. When more computational resources are required due to more requests, scaling up instances in conjunction with a suited price model are straightforward.
+    \item It offers major advantages in terms of cost and reliability.
+    When demand is needed, consumers do not have to invest in hardware when launching new services.
+    Pay-as-you-go allows flexibility.
+    \item Consumer can easily scale with demand.
+    When more computational resources are required due to more requests, scaling up instances in conjunction with a suited price model are straightforward.
     \item Geographically distributed capabilities supply the need for world-wide scattered services.
 \end{itemize}
 
@@ -92,12 +115,14 @@ It is flexible, scalable and manageable.\cite{Wang2010}
     \centering
     \caption{Providers of cloud service models}
     \begin{tabularx}{\linewidth}{X|X|X|X|X}
-        SaaS            & PaaS                  & IaaS       & Daas             & HaaS       \\ \hline
-        Google Mail     & Google App Engine     & HeiCloud   & Adobe Buzzword   & Amazon EC2 \\
-        Google Docs     & Windows Azure         & Amazon EC2 & ElasticDrive     & Nimbus     \\
-        Microsoft Drive & AWS Elastic Beanstalk &            & Google Big Table & Enomalism  \\
-                        &                       &            & Amazon S3        & Eucalyptus \\
-                        &                       &            & Apache HBase     &            \\
+        \toprule
+        \textbf{SaaS}   & \textbf{PaaS}         & \textbf{IaaS} & \textbf{Daas}    & \textbf{HaaS} \\ \hline
+        Google Mail     & Google App Engine     & HeiCloud      & Adobe Buzzword   & Amazon EC2    \\
+        Google Docs     & Windows Azure         & Amazon EC2    & ElasticDrive     & Nimbus        \\
+        Microsoft Drive & AWS Elastic Beanstalk &               & Google Big Table & Enomalism     \\
+                        &                       &               & Amazon S3        & Eucalyptus    \\
+                        &                       &               & Apache HBase     &               \\
+        \bottomrule
     \end{tabularx}
     \label{tab:example-service-models}
 \end{table}
@@ -113,9 +138,11 @@ Each differs in data privacy, location, and manageablility \cite{Mell2011}.
     \centering
     \caption{Examples for cloud deployment models}
     \begin{tabular}{l|l|l|l}
-        Private Cloud & Community Cloud & Hybrid Cloud & Public Cloud     \\ \hline
-        Seafile       & Seafile         & IBM Cloud      & Amazon EC2       \\
-        Nextcloud     & Nextcloud       & Amazon EC2     & Google AppEngine \\
+        \toprule
+        \textbf{Private Cloud} & \textbf{Community Cloud} & \textbf{Hybrid Cloud} & \textbf{Public Cloud} \\ \hline
+        Seafile                & Seafile                  & IBM Cloud             & Amazon EC2            \\
+        Nextcloud              & Nextcloud                & Amazon EC2            & Google AppEngine      \\
+        \bottomrule
     \end{tabular}
     \label{tab:example-deployment-models}
 \end{table}
@@ -147,7 +174,7 @@ Clifford Stoll's book \enquote{The Cuckoo's Egg}\cite{stroll2000}, and Bill Ches
 A honeypot itself is a security instrument that collects information on buzzing attacks.
 It disguises itself as a system, or application with weaklinks, so that it gets exploited and gathers knowledge about the adversary.
 In 2002 a Solaris honeypot helped to detect an unknown dtspcd exploit.
-Interestingly, a year before in 2001 the Coordination Center of \ac{cert}, \enquote{an expert group that handles computer security incidents}\todo{citation}, shared their concerns regarding the dtspcd.
+Interestingly, a year before in 2001 the Coordination Center of \ac{cert}, \enquote{an expert group that handles computer security incidents}\cite{cert2021}, shared their concerns regarding the dtspcd.
 Communities were aware that the service could be exploited to get access and remotely compromise any Unix system.
 However, during this time such an exploit was not known, and experts did not expect any in the near future.
 Gladly, early instances based on honeypot technologies could detect new exploits and avoid further incidents.
@@ -159,12 +186,12 @@ Dozen of defintions for honeypots circulate through the web that causes confusio
 In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}.
 Thus, contributing as an additional source of security measure.
 See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept.
-As Spitzner et al. \cite{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system.
+As \citet{Spitzner2003} has listed, most misleading defintions are: honeypot is a tool for deception, it is a weapon to lure adversaries, or a part of an intrusion detection system.
 In order to get a basic understanding, we want to exhibit some of the key definitions.
-Spitzner et al. \cite{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited.
+\citet{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}. Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited.
 If a honeypot does not match this behaviour, it will not provide any value.
 It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}.
-In addition, Spitzner et al. points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation.
+In addition, Spitzner \citet{Spitzner2003} points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation.
 Such functions are attack detection, capturing automated attacks, or alert/warning generator.
 \autoref{fig:honeypot-example} show an example how honeypots could be used in an IT infrastructure.
 
@@ -199,7 +226,7 @@ It is worth to mention that there is no exact line between research or productio
 A possible cases are honeypots that could function as either an production or an research honeypot.
 Due to their dynamic range in which they are applicable it makes it hard to distinguish.\\
 
-Provos et al. \cite{Provos2003} adds an additional differentiation for the virtual honeypot framework and splits it into the following types:
+\citet{Provos2003} adds an additional differentiation for the virtual honeypot framework and splits it into the following types:
 
 \begin{itemize}
     \item Physical honeypots are \enquote{real machines on the network with its own IP address} \cite{Provos2003}
@@ -253,7 +280,7 @@ Therefore, it is time consuming.\\
 \subsection{Security concepts}
 \label{subsec:honeypot-security-concept}
 
-Security concepts are classified by Schneider et al. \cite{Schneier2004} in prevention, detection, and reaction.
+Security concepts are classified by \citet{Schneier2004} in prevention, detection, and reaction.
 Prevention includes any process that
 \begin{enumerate*}[label=(\roman*)]
     \item discourages intruders and
@@ -270,30 +297,32 @@ When attacks are detected, in conducts reactive meassures to remove the threat.
 Each part is designed to be sophisticated so that all of them contribute to a secure environment. \cite{NawrockiWSKS2016}
 
 Honeypots contribute to the security concept like firewalls, or \ac{ids}. Regarding prevention, honeypots add only a small value because security breaches cannot be identified.
-Moreover, attackers would avoid wasting time on honeypots and go straight for production systems instead. 
+Moreover, attackers would avoid wasting time on honeypots and go straight for production systems instead.
 
 However, detection is one of the strengths of honeypots.
 Attacks often vanish in the sheer quantity of production activities.
 If any connection is obtain to a honeypot it is suspicious by nature.
-In conjunction with an alerting tool, attacks can be detected. 
+In conjunction with an alerting tool, attacks can be detected.
 
 Honeypots strongly supply reaction tools due to their clear data.
 In production environments, finding attacks for further data analysis are not easy to grasp.
 Often data submerge with other activities which complicates the process of reaction. \cite{NawrockiWSKS2016}
-Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{NawrockiWSKS2016} distinct honeypots from other objectives such as firewall, or log-monitoring.
+\citet{NawrockiWSKS2016} distinct honeypots from other objectives such as firewall, or log-monitoring.
 
 \begin{table}[h]
     \centering
     \caption[Distinction between security concepts (derived from \cite{NawrockiWSKS2016})]{Distinction between security concepts based on areas of operations (derived from \cite{NawrockiWSKS2016}).}
     \begin{tabular}{l|lll}
-        Objective                 & Prevention & Detection & Reaction \\ \hline
-        Honeypot                  & +          & ++        & +++      \\
-        Firewall                  & +++        & ++        & +        \\
-        Intrusion Detection Sys.  & +          & +++       & +        \\
-        Intrusion Prevention Sys. & ++         & +++       & ++       \\
-        Anti-Virus                & ++         & ++        & ++       \\
-        Log-Monitoring            & +          & ++        & +        \\
-        Cyber Security Standard   & +++        & +         & +        \\
+        \toprule
+        \textbf{Objective}        & \textbf{Prevention} & \textbf{Detection} & \textbf{Reaction} \\ \hline
+        Honeypot                  & +                   & ++                 & +++               \\
+        Firewall                  & +++                 & ++                 & +                 \\
+        Intrusion Detection Sys.  & +                   & +++                & +                 \\
+        Intrusion Prevention Sys. & ++                  & +++                & ++                \\
+        Anti-Virus                & ++                  & ++                 & ++                \\
+        Log-Monitoring            & +                   & ++                 & +                 \\
+        Cyber Security Standard   & +++                 & +                  & +                 \\
+        \bottomrule
     \end{tabular}
     \label{tab:honeypots-security-concepts}
 \end{table}
@@ -306,27 +335,27 @@ To assess the value of honeypots we want to take a closer look to thier advantag
 
 \begin{itemize}
     \item Data Value: Collected data is often immacluate and does not contain noise from other activities.
-    Thus, reducing the total size of data, and speed up the analyzation.
+          Thus, reducing the total size of data, and speed up the analyzation.
     \item Resources: Firewalls, and \ac{ids} are often overwhelmed by the gigbits of traffic, thus, dropping network packets for analyzation.
-    This results in a far less effictive detection for malicious network activities.
-    However, honeypots are independent of resources because they only capture their activities at itself.
-    Due to resource limitation, expensive hardware is not needed. 
+          This results in a far less effictive detection for malicious network activities.
+          However, honeypots are independent of resources because they only capture their activities at itself.
+          Due to resource limitation, expensive hardware is not needed.
     \item Simplicity: A honeypot do not require any complex algorithms, or databases.
-    It should be able to quickly deploy it somewhere.
-    Research honeypots might come with a certain increase of complexity. However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures. 
+          It should be able to quickly deploy it somewhere.
+          Research honeypots might come with a certain increase of complexity. However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures.
     \item Return on Investment: Capturing attacks immediately informs users that attacks occur on the infrastructure.
-    This helps to demonstrate their value, and contributes to new investment in other security measurements. 
+          This helps to demonstrate their value, and contributes to new investment in other security measurements.
 \end{itemize}
 
-In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{NawrockiWSKS2016} listed four more advantages of honeypots:
+In addition, \citet{NawrockiWSKS2016} listed four more advantages of honeypots:
 
 \begin{itemize}
     \item Independent from Workload: Honeypots only process traffic that is direct to them.
     \item Zero-Day-Exploit Detection: It helps to detect unknown strategies and zero-day-exploits.
     \item Flexibility: Well-adjusted honeypots for a variety of specific tasks are available.
     \item Reduced False Positives and Negatives: Any traffic or connection to a honeypot is suspicious.
-    Client-honeypots verify such attacks based on system state changes.
-    This results in either false positive, or false positive.
+          Client-honeypots verify such attacks based on system state changes.
+          This results in either false positive, or false positive.
 \end{itemize}
 
 \subsubsection{Disadvantages}
@@ -334,9 +363,9 @@ In addition, Nawrocki, Wählisch, Schmidt, Keil, and Schönfelder et al. \cite{N
 \begin{itemize}
     \item Narrow Field of View: Only direct attacks on honeypots can be investigated whereas attacks on production system are not detect by it.
     \item Fingerprinting: A honeypot often has a certain fingerprint that can be identified by attackers.
-    Especially commerical ones can be detected by their responses or behaviours. 
+          Especially commerical ones can be detected by their responses or behaviours.
     \item Risk to the Environment: Using honeypots in an environment always increase the risk.
-    However, it depends on the level of interaction.
+          However, it depends on the level of interaction.
 \end{itemize}
 
 \subsection{Honeynets}
@@ -359,7 +388,14 @@ However, the downsides are high complexity and maintenance that is needed to kee
 
 \subsection{Legal Issues}
 
-\cite{Spitzner2003}
+Considering questions related to legal issues of honeypots can easily exceed this thesis.
+In this regard, we restrict us to the country we reside in, so that, we are only concerned about the \ac{eu} regulations, EU directives, and international agreements.
+Honeypots collect
+\begin{enumerate*}[label=(\roman*)]
+    \item content data that is used for communication, and
+    \item transcational data that is used to establish the connection
+\end{enumerate*}.
+\citet{sokol2017} studied the legal conditions for data collection and data retention. They come to the conclusion that administrators of honeypots have a legal ground of legitimate interest to store and process personal data, such as IP addresses. Moreover, for production honeypots the legitimate interest is to secure services. Regarding the length of data retention, the principle of data minimization has to be considered which means there is no clear answer for it. Any published data of research honeypots needs to be anonymized.
 
 \section{Related Work}
 
@@ -367,10 +403,10 @@ The Snort \cite{caswell2003} inline extension \textit{Bait'n'Switch} \cite{gonza
 Usually Snort drops malicious packets when they are detected, and creates a specific rule to block malicious activity from the source.
 In contrast, \textit{Bait'n'Switch} does not create a rule to block more request, instead it redirects them to honeypots.
 The attacker does not realize that all packets a rerouted, and that the original target has changed.
-The \ac{ids} is bounded to its signature database and can only redirect know attakcks.\cite{Diebold2005} 
+The \ac{ids} is bounded to its signature database and can only redirect know attakcks.\cite{Diebold2005}
 
 Whereas \textit{Bait'n'Switch} had to drop the first attack which leads to a suspicious behaviour for attackers, the \textit{Intrusion Trap System} \cite{takemori2003} is capable of forwarding the first request.
-Therefore, the first recognized attack by the \ac{ids} can be forwarded and answered by honeypots. \cite{Diebold2005} 
+Therefore, the first recognized attack by the \ac{ids} can be forwarded and answered by honeypots. \cite{Diebold2005}
 
 The \textit{honeyd} \cite{Provos2003} extension \textit{Honeycomb} \cite{kreibich2004} enables automatically generates \textit{Snort} and \textit{Bro} \cite{paxson1999} signatures for all incoming traffic.
 In addition, new signatures are created for similar patterns if they do not exist already, and updating of existing ones to improve their quality.

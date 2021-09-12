@@ -19,15 +19,20 @@
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage[english]{babel}
-\usepackage{natbib}
 \usepackage{pgffor}
 \usepackage{listings}
 \usepackage{csquotes}
 \usepackage{acro}
+% TODOs package, could be removed in the final paper
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage[toc,page]{appendix}
 \usepackage{tabularx}
+% Inline listing
 \usepackage[inline]{enumitem}
+% top and bottom rule for tables
+\usepackage{booktabs}
+
+\usepackage[numbers]{natbib}
 
 \include{acronyms}
 \include{quote}
@@ -102,7 +107,7 @@
 \setcounter{page}{6}
 
 %\nocite{*}
-\bibliographystyle{abbrv}  
+\bibliographystyle{plainnat}  
 \bibliography{references}
 % Installation and configuration
 \begin{appendices}

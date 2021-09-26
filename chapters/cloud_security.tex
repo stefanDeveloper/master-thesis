@@ -2,64 +2,96 @@
 
 \section{Introduction}
 
-\todo{Daten sammeln mit T-Pot fuer Auswertungen, etc.. Bezug auf bisherige Arbeiten nehmen}
+%\todo{Daten sammeln mit T-Pot fuer Auswertungen, etc.. Bezug auf bisherige Arbeiten nehmen}
 
-\citet{Nithin2012}
+As previously mention in \fullref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services.
+\citet{Kelly2021} investigated thoroughly cloud providers such as Azure, AWS, or Goolge Cloud. 
 
-\citet{Kelly2021}
+% \citet{Nithin2012}
 
 \section{HeiCloud}
 
 \citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions}.
-Key idea is that it supplies 
+It supplies multiple institutes at University Heidelberg.
+In addition, HeiCLOUD is a with DFN 
 
-\cite{heicloud2021}
+As stated on their information site, it offers the following features \cite{heicloud2021}:
 
 \begin{itemize}
-    \item IaaS for science
-    \item Freely manage IT resources by yourself
-    \item Stable and fast connection
-    \item High availability
-    \item High security standards
-    \item High scalability
-    \item Open Source
-    \item Freely selectable VM operating systems
-    \item Transparent accounting
-    \item Available in the German Research Network
+    \item IaaS for science:
+    \item Freely manage IT resources by yourself:
+    \item Stable and fast connection:
+    \item High availability:
+    \item High security standards:
+    \item High scalability:
+    \item Open Source:
+    \item Freely selectable VM operating systems:
+    \item Transparent accounting:
+    \item Available in the German Research Network:
 \end{itemize}
+
+\textbf{OpenStack}
+
+Besides several cyber security , honeypots are 
 
 \section{T-Pot}
 
-T-Pot is a hollistic honeypot approach to capture recent cyber attacks. 
-In conjucntion with a
-\todo{Zusammenfassung tpot, funktionalitaet etc.}
+T-Pot is a hollistic approach to capture recent cyber attacks by the sheer quantity of various honeypots.
+The German IT provider Telekom  
+In conjucntion with a \\
 
-\todo{Quelle jedes Honeypots hinzufügen}
-\begin{itemize}
-    \item adbhoney \cite{adbhoney2021}
-    \item ciscoasa \cite{cymmetria2018}
-    \item citrixhoneypot \cite{citrixhoneypot2020}
-    \item conpot \cite{conpot2021}
-    \item cowrie \cite{cowire2021}
-    \item ddospot \cite{ddosspot2021}
-    \item dicompot \cite{dicompot2021}
-    \item dionaea \cite{dionaea2021}
-    \item elasticpot \cite{elasticpot2021}
-    \item endlessh \cite{endlessh2021}
-    \item glutton \cite{glutton2021}
-    \item heralding \cite{heralding2021}
-    \item hellpot \cite{hellpot2021}
-    \item honeypy \cite{honeysap2021}
-    \item honeysap \cite{honeysap2021}
-    \item honeytrap \cite{honeytrap2021}
-    \item ipphoney \cite{ipphoney2021}
-    \item mailoney
-    \item medpot \cite{medpot2021}
-    \item rdpy \cite{rdpy2021}
-    \item redishoneypot
-    \item snare \cite{snare2021}
-    \item tanner \cite{tanner2021}
-\end{itemize}
+\textbf{ADBHoney} \cite{adbhoney2021} is a low interaction \ac{adb} honeypot over TCP/IP.
+The importance of this honeypot lies in the \ac{adb} protocol that is used to debug and push content to the device.
+However, unlike USB it does not support any kind of ample mechanisms of authentication and protection.
+By exposing the \ac{adb} service over any port, any adversary could connect and exploit this device.
+ADBHoney is designed to catch malware that has been pushed onto the device.\\
+
+\textbf{Cisco \ac{asa}} \cite{cymmetria2018} is a low interaction honeypot that detects CVE-2018-0101.
+It is a vulnerability that could allow an unauthenticated, remote attacker to cause a reload of the affected system or to remotely execute code.
+By sending multiple, crafted XML packets to a  \\
+
+\textbf{citrixhoneypot} \cite{citrixhoneypot2020}\\
+
+\textbf{conpot} \cite{conpot2021}\\
+
+\textbf{cowrie} \cite{cowire2021}\\
+
+\textbf{ddospot} \cite{ddosspot2021}\\
+
+\textbf{dicompot} \cite{dicompot2021}\\
+
+\textbf{dionaea} \cite{dionaea2021}\\
+
+\textbf{elasticpot} \cite{elasticpot2021}\\
+
+\textbf{endlessh} \cite{endlessh2021}\\
+
+\textbf{glutton} \cite{glutton2021}\\
+
+\textbf{heralding} \cite{heralding2021}\\
+
+\textbf{hellpot} \cite{hellpot2021}\\
+
+\textbf{honeypy} \cite{honeysap2021}\\
+
+\textbf{honeysap} \cite{honeysap2021}\\
+
+\textbf{honeytrap} \cite{honeytrap2021}\\
+
+\textbf{ipphoney} \cite{ipphoney2021}\\
+
+\textbf{mailoney} \\
+
+\textbf{medpot} \cite{medpot2021}\\
+
+\textbf{rdpy} \cite{rdpy2021}\\
+
+\textbf{redishoneypot} \\
+
+\textbf{snare} \cite{snare2021}\\
+
+\textbf{tanner} \cite{tanner2021}\\
+
 
 \begin{table}[h]
     \centering
@@ -108,9 +140,7 @@ In addition, T-Pot integrates following tools to investigate and handle network 
     \item Suricata
 \end{itemize}
 
-\todo{Übersicht zu Tpot, eigene Grafik}
-
-
+\todo{Erstelle eigene uebersicht}
 \begin{sidewaysfigure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}
@@ -119,6 +149,9 @@ In addition, T-Pot integrates following tools to investigate and handle network 
 \end{sidewaysfigure}
 
 \section{Data Analysis}
+
+\citet{NawrockiWSKS2016} have done a sophisticated survey of honeypots and data analysis.
+Based on their findings we give a short summary of the honeypot data analysis.
 
 \begin{enumerate}
     \item Attack Profile
@@ -139,6 +172,16 @@ In addition, T-Pot integrates following tools to investigate and handle network 
     \caption{}
     \begin{tabularx}{\linewidth}{l}
         \toprule
+        Attack Profile\\
+        Attack Source\\
+        Attack Target\\
+        Attack Frequency\\
+        Attack Evolution\\
+        Propagation of Attacks\\
+        Attack Patterns\\
+        Attack Root Cause Identification\\
+        Attack Risk Assessment\\
+        Exploit Detection\\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-data-analysis}
@@ -151,4 +194,9 @@ In addition, T-Pot integrates following tools to investigate and handle network 
 
 \todo{show results}
 
+Despite the amount of honeypots, we restrict ourself to consider only a few honeypots.
+Reason for that is the \fullref{chap:concept}
+
 \section{Summary}
+
+In this chapter we have 

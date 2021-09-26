@@ -4,19 +4,35 @@
 
 \todo{Daten sammeln mit T-Pot fuer Auswertungen, etc.. Bezug auf bisherige Arbeiten nehmen}
 
-\section{HeiCloud}
-
-\ac{iaas}\todo{Get information or paper about that}
-
-\cite{heicloud2021}
-
 \citet{Nithin2012}
 
 \citet{Kelly2021}
 
+\section{HeiCloud}
+
+\citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions}.
+Key idea is that it supplies 
+
+\cite{heicloud2021}
+
+\begin{itemize}
+    \item IaaS for science
+    \item Freely manage IT resources by yourself
+    \item Stable and fast connection
+    \item High availability
+    \item High security standards
+    \item High scalability
+    \item Open Source
+    \item Freely selectable VM operating systems
+    \item Transparent accounting
+    \item Available in the German Research Network
+\end{itemize}
+
 \section{T-Pot}
 
-T-Pot is a hollistic honeypot approach to capture recent cyber attacks. In conjucntion with a \todo{Zusammenfassung tpot, funktionalitaet etc.}
+T-Pot is a hollistic honeypot approach to capture recent cyber attacks. 
+In conjucntion with a
+\todo{Zusammenfassung tpot, funktionalitaet etc.}
 
 \todo{Quelle jedes Honeypots hinzufügen}
 \begin{itemize}
@@ -37,7 +53,7 @@ T-Pot is a hollistic honeypot approach to capture recent cyber attacks. In conju
     \item honeysap \cite{honeysap2021}
     \item honeytrap \cite{honeytrap2021}
     \item ipphoney \cite{ipphoney2021}
-    \item mailoney 
+    \item mailoney
     \item medpot \cite{medpot2021}
     \item rdpy \cite{rdpy2021}
     \item redishoneypot
@@ -45,12 +61,36 @@ T-Pot is a hollistic honeypot approach to capture recent cyber attacks. In conju
     \item tanner \cite{tanner2021}
 \end{itemize}
 
-\todo{übersicht tabelle}
 \begin{table}[h]
     \centering
-    \caption{}
-    \begin{tabularx}{\linewidth}{l}
+    \caption{Overview of all available honeypots of T-Pot}
+    \begin{tabularx}{\linewidth}{l|l|l}
         \toprule
+        \textbf{Honeypot}                                 & \textbf{Description} & \textbf{Port} \\
+        \hline
+        adbhoney                                 &             &      \\
+        ciscoasa \cite{cymmetria2018}            &             &      \\
+        citrixhoneypot \cite{citrixhoneypot2020} &             &      \\
+        conpot \cite{conpot2021}                 &             &      \\
+        cowrie \cite{cowire2021}                 &             &      \\
+        ddospot \cite{ddosspot2021}              &             &      \\
+        dicompot \cite{dicompot2021}             &             &      \\
+        dionaea \cite{dionaea2021}               &             &      \\
+        elasticpot \cite{elasticpot2021}         &             &      \\
+        endlessh \cite{endlessh2021}             &             &      \\
+        glutton \cite{glutton2021}               &             &      \\
+        heralding \cite{heralding2021}           &             &      \\
+        hellpot \cite{hellpot2021}               &             &      \\
+        honeypy \cite{honeysap2021}              &             &      \\
+        honeysap \cite{honeysap2021}             &             &      \\
+        honeytrap \cite{honeytrap2021}           &             &      \\
+        ipphoney \cite{ipphoney2021}             &             &      \\
+        mailoney                                 &             &      \\
+        medpot \cite{medpot2021}                 &             &      \\
+        rdpy \cite{rdpy2021}                     &             &      \\
+        redishoneypot                            &             &      \\
+        snare \cite{snare2021}                   &             &      \\
+        tanner \cite{tanner2021}                 &             &      \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-honeypots}
@@ -69,6 +109,14 @@ In addition, T-Pot integrates following tools to investigate and handle network 
 \end{itemize}
 
 \todo{Übersicht zu Tpot, eigene Grafik}
+
+
+\begin{sidewaysfigure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/architecture.png}
+    \caption{}
+    \label{fig:overview-tpot}
+\end{sidewaysfigure}
 
 \section{Data Analysis}
 

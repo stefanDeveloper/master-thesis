@@ -39,13 +39,15 @@
 \include{acronyms}
 \include{quote}
 \include{network-config}
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}, \nameref*{#1}}}
+
 
 \newcommand*{\files}{
     introduction,
     background,
     cloud_security,
     concept,
-    data_management,
+    %data_management,
     experiment,
     conclusion,
 }

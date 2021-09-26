@@ -48,19 +48,23 @@ ADBHoney is designed to catch malware that has been pushed onto the device.\\
 
 \textbf{Cisco \ac{asa}} \cite{cymmetria2018} is a low interaction honeypot that detects CVE-2018-0101.
 It is a vulnerability that could allow an unauthenticated, remote attacker to cause a reload of the affected system or to remotely execute code.
-By sending multiple, crafted XML packets to a  \\
+This can be achieved by flooding a webvpn-configured interface with crafted XML packets.
+Consequently, the attacker obtain full control by executing arbitrary code.\\
 
-\textbf{citrixhoneypot} \cite{citrixhoneypot2020}\\
+\textbf{Citrix \ac{adc} honeypot} \cite{citrixhoneypot2020} detects and logs CVE-2019-19781 scan and exploitation attempts.
+It allows adversaries to do directory traversal.\\
 
-\textbf{conpot} \cite{conpot2021}\\
+\textbf{Conpot} \cite{conpot2021} is a low interaction industrial honeypot for \ac{ics}, and \ac{scada}.
+It provides a variety of different common industrial control protocols.\\
 
-\textbf{cowrie} \cite{cowire2021}\\
+\textbf{Cowrie} \cite{cowire2021} is a medium to high interaction SSH and Telnet honeypot.
+It offers to log brute-force attacks and shell interactions with attacker.\\
 
-\textbf{ddospot} \cite{ddosspot2021}\\
+\textbf{DDoSPot} \cite{ddosspot2021}\\
 
 \textbf{dicompot} \cite{dicompot2021}\\
 
-\textbf{dionaea} \cite{dionaea2021}\\
+\textbf{Dionaea} \cite{dionaea2021}\\
 
 \textbf{elasticpot} \cite{elasticpot2021}\\
 
@@ -140,7 +144,8 @@ In addition, T-Pot integrates following tools to investigate and handle network 
     \item Suricata
 \end{itemize}
 
-\todo{Erstelle eigene uebersicht}
+\autoref{fig:overview-tpot} shows the connection between all components.
+
 \begin{sidewaysfigure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}

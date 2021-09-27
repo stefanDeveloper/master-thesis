@@ -22,38 +22,34 @@ As previously mention in \fullref{sec:cloud-computing}, using cloud resources ar
     \label{tab:overview-cloud-security}
 \end{table}
 
-\section{HeiCloud}
+\section{HeiCLOUD}
 
-\citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions}.
-It supplies multiple institutes at University Heidelberg.
-In addition, HeiCLOUD is a with DFN 
-
-As stated on their information site, it offers the following features \cite{heicloud2021}:
-
-\begin{itemize}
-    \item IaaS for science:
-    \item Freely manage IT resources by yourself:
-    \item Stable and fast connection:
-    \item High availability:
-    \item High security standards:
-    \item High scalability:
-    \item Open Source:
-    \item Freely selectable VM operating systems:
-    \item Transparent accounting:
-    \item Available in the German Research Network:
-\end{itemize}
-
-\textbf{OpenStack}
-
-Besides several cyber security , honeypots are 
+\citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions} called heiCLOUD.
+It supplies multiple institutes at University Heidelberg with storage, virtual machines, or network components.
+In addition, heiCLOUD is a DFN\footnote{German National Research and Education Network,  the communications network for Science and research in Germany} member, and offers others to use their services.
+As stated on their information website\cite{heicloud2021}, it is
+\begin{enumerate*}[label=(\roman*)]
+    \item capable of freely manageable IT resources,
+    \item beholds a stable and fast connection,
+    \item ensures high availability and scalability,
+    \item has freely selectable VM operating systems, and
+    \item has a transparent payment model
+\end{enumerate*} \cite{heicloud2021}.
+Based on the open source application OpenStack, users can easily create own network areas, and manage their space individually.
+Unlike well-known cloud providers, heiCLOUD servers are located withing Germany, thus, abide by the European data privacy law.
+HeiCLOUD have never considered honeypots for additional cyber security measurements whereas other cloud providers developed advanced structures.
+In \fullref{sec:honeypots-heicloud}, we show various results of honeypots in heiCLOUD, stress out the importance of it, and lay emphasis on our concept in \autoref{chap:concept}.
 
 \section{T-Pot}
 
 T-Pot is a hollistic approach to capture recent cyber attacks by the sheer quantity of various honeypots.
 The German IT provider Telekom  
 In conjucntion with a 
+For this thesis we restrict ourself to the latest version 20.06.0. Newer versions might differ from this one.
 
 \subsection{Honeypots}
+
+Due to the sheer quantity of honeypots we want to give some basic knowledge about them. \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with the port they are running on, service , and a short decription.
 
 \textbf{ADBHoney} \cite{adbhoney2021} is a low interaction \ac{adb} honeypot over TCP/IP.
 The importance of this honeypot lies in the \ac{adb} protocol that is used to debug and push content to the device.
@@ -237,9 +233,18 @@ Based on their findings we give a short summary of the honeypot data analysis.
 \end{table}
 
 
-\section{Results in HeiCloud}
+\section{Honeypots in HeiCloud}
+\label{sec:honeypots-heicloud}
 
 \todo{verwendung von Grafiken, etc.}
+
+\subsection{Overview}
+
+\subsection{SSH}
+
+\subsection{Malware Capturing}
+
+
 
 \todo{show results}
 

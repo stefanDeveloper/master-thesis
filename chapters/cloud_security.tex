@@ -9,6 +9,19 @@ As previously mention in \fullref{sec:cloud-computing}, using cloud resources ar
 
 % \citet{Nithin2012}
 
+\begin{table}[h]
+    \centering
+    \caption{Overview of all available honeypots of T-Pot}
+    \begin{tabularx}{\linewidth}{l|l|l}
+        \toprule
+        \textbf{Honeypot}                                 & \textbf{Description} & \textbf{Port} \\
+        \hline
+        adbhoney                                 &             &      \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:overview-cloud-security}
+\end{table}
+
 \section{HeiCloud}
 
 \citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions}.
@@ -38,63 +51,80 @@ Besides several cyber security , honeypots are
 
 T-Pot is a hollistic approach to capture recent cyber attacks by the sheer quantity of various honeypots.
 The German IT provider Telekom  
-In conjucntion with a \\
+In conjucntion with a 
+
+\subsection{Honeypots}
 
 \textbf{ADBHoney} \cite{adbhoney2021} is a low interaction \ac{adb} honeypot over TCP/IP.
 The importance of this honeypot lies in the \ac{adb} protocol that is used to debug and push content to the device.
 However, unlike USB it does not support any kind of ample mechanisms of authentication and protection.
 By exposing the \ac{adb} service over any port, any adversary could connect and exploit this device.
-ADBHoney is designed to catch malware that has been pushed onto the device.\\
+ADBHoney is designed to catch malware that has been pushed onto the device.
 
-\textbf{Cisco \ac{asa}} \cite{cymmetria2018} is a low interaction honeypot that detects CVE-2018-0101.
+\textbf{Cisco \ac{asa}} \cite{cymmetria2018} is a low interaction honeypot that detects CVE-2018-0101\cite{CVE-2018-0101}.
 It is a vulnerability that could allow an unauthenticated, remote attacker to cause a reload of the affected system or to remotely execute code.
 This can be achieved by flooding a webvpn-configured interface with crafted XML packets.
-Consequently, the attacker obtain full control by executing arbitrary code.\\
+Consequently, the attacker obtain full control by executing arbitrary code.
 
-\textbf{Citrix \ac{adc} honeypot} \cite{citrixhoneypot2020} detects and logs CVE-2019-19781 scan and exploitation attempts.
-It allows adversaries to do directory traversal.\\
+\textbf{Citrix \ac{adc} honeypot} \cite{citrixhoneypot2020} detects and logs CVE-2019-19781\cite{CVE-2019-19781} scan and exploitation attempts.
+This vulnerability allows adversaries to perform directory traversal attacks. 
+Files are accessible by path strings to denote the file or directory.
+In addition, some file systems include special character to easily traverse the hierarchy.
+Attackers take advantage of it by combining special characters in order to get access to restricted areas. \cite{flanders2019}
 
 \textbf{Conpot} \cite{conpot2021} is a low interaction industrial honeypot for \ac{ics}, and \ac{scada}.
-It provides a variety of different common industrial control protocols.\\
+It provides a variety of different common industrial control protocols.
+An adversary should be tricked by the complex infrastructure, and lure him into attacks.
+In addition, a custom human machine interface can be conntected to increase the attack surface.
+By randomly delaying the response time, conpot tries to emulate a real machine handling a certain amount of load.
 
 \textbf{Cowrie} \cite{cowire2021} is a medium to high interaction SSH and Telnet honeypot.
-It offers to log brute-force attacks and shell interactions with attacker.\\
+It offers to log brute-force attacks and shell interactions with attacker.
+In medium interaction mode cowire emulates a UNIX shell in Python, whereas in high interaction mode it proxies all commands to another system.
 
-\textbf{DDoSPot} \cite{ddosspot2021}\\
+\textbf{DDoSPot} \cite{ddosspot2021} is a low interaction honeypot to log and detect UDP-based \ac{ddos} attacks.
+It is used as a platform to support various plugins for different honeypot services, and servers.
+Currently, it supports DNS, NTP, SSDP, CHARGEN, and random/mock UDP server.
 
-\textbf{dicompot} \cite{dicompot2021}\\
+\textbf{Dicompot} \cite{dicompot2021} is a low interaction honeypot for the \ac{dicom} protocol.
+As other honeypots before, it mocks a \ac{dicom} server in Go to collect logs and detect attacks.
 
-\textbf{Dionaea} \cite{dionaea2021}\\
+\textbf{Dionaea} \cite{dionaea2021} is a medium interaction honeypot that tries to capture malware copies by exposing services.
+It supports a vast variety of protocols such as FTP, SMB, and HTTP.
+Several modules can be integrated to work with Dionaea such as VirusTotal to further malware results.
 
-\textbf{elasticpot} \cite{elasticpot2021}\\
+\textbf{elasticpot} \cite{elasticpot2021}
 
-\textbf{endlessh} \cite{endlessh2021}\\
+\textbf{endlessh} \cite{endlessh2021}
 
-\textbf{glutton} \cite{glutton2021}\\
+\textbf{Glutton} \cite{glutton2021}
 
-\textbf{heralding} \cite{heralding2021}\\
+\textbf{Heralding} \cite{heralding2021}
 
-\textbf{hellpot} \cite{hellpot2021}\\
+\textbf{HellPot} \cite{hellpot2021}
 
-\textbf{honeypy} \cite{honeysap2021}\\
+\textbf{HoneyPy} \cite{honeysap2021}
 
-\textbf{honeysap} \cite{honeysap2021}\\
+\textbf{HoneySAP} \cite{honeysap2021}
 
-\textbf{honeytrap} \cite{honeytrap2021}\\
+\textbf{HoneyTrap} \cite{honeytrap2021}
 
-\textbf{ipphoney} \cite{ipphoney2021}\\
+\textbf{IPPHoney} \cite{ipphoney2021}
 
-\textbf{mailoney} \\
+\textbf{mailoney} is an SMTP honeypot.
 
-\textbf{medpot} \cite{medpot2021}\\
+\textbf{medpot} \cite{medpot2021}
 
-\textbf{rdpy} \cite{rdpy2021}\\
+\textbf{RDPY} \cite{rdpy2021}
 
-\textbf{redishoneypot} \\
+\textbf{redishoneypot}
 
-\textbf{snare} \cite{snare2021}\\
+\textbf{SNARE} \cite{snare2021} is an abbreviation for Super Next generation Advanced Reactive honEypot.
+It is a successor of Glastopf, a web application sensor.
+In addition, it supports the feature of converting existing webpages into attack surfaces.
 
-\textbf{tanner} \cite{tanner2021}\\
+\textbf{TANNER} \cite{tanner2021} can be seen as SNARES's brain.
+Whenever has been sent to SNARE, TANNER decides how the response should like.
 
 
 \begin{table}[h]
@@ -132,6 +162,8 @@ It offers to log brute-force attacks and shell interactions with attacker.\\
     \label{tab:overview-honeypots}
 \end{table}
 
+\subsection{Tools}
+
 In addition, T-Pot integrates following tools to investigate and handle network traffic:
 
 \begin{itemize}
@@ -143,6 +175,8 @@ In addition, T-Pot integrates following tools to investigate and handle network 
     \item Spiderfoot
     \item Suricata
 \end{itemize}
+
+\subsection{Workflow}
 
 \autoref{fig:overview-tpot} shows the connection between all components.
 

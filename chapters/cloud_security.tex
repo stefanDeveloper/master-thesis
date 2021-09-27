@@ -91,33 +91,44 @@ As other honeypots before, it mocks a \ac{dicom} server in Go to collect logs an
 
 \textbf{Dionaea} \cite{dionaea2021} is a medium interaction honeypot that tries to capture malware copies by exposing services.
 It supports a vast variety of protocols such as FTP, SMB, and HTTP.
-Several modules can be integrated to work with Dionaea such as VirusTotal to further malware results.
+Several modules can be integrated to work with Dionaea such as VirusTotal for further malware results.
 
-\textbf{elasticpot} \cite{elasticpot2021}
+\textbf{Elasticpot} \cite{elasticpot2021} is a low interaction honeypot for elasticsearch, a search engine based on the Lucene library.
 
-\textbf{endlessh} \cite{endlessh2021}
+\textbf{Endlessh} \cite{endlessh2021} is a SSH server that sends an endless, random SSH banner.
+The key idea is to lock up SSH clients that try to connect to the SSH server.
+It lowers to transcation speed by intentionally inserting delays.
+Due to connection establishing before cryptographic exchange, this module does not require any cryptographic libraries.
 
-\textbf{Glutton} \cite{glutton2021}
+\textbf{Glutton} \cite{glutton2021} is a generic low interaction honeypot that works as a MitM for SSH and TCP.
+However, lacking documentation does not provide a deeper inside of this honeypot. 
 
-\textbf{Heralding} \cite{heralding2021}
+\textbf{Heralding} \cite{heralding2021} is a credential catching honeypot for protocols like FTP, Telnet, SSH, HTTP, or IMAP.
 
-\textbf{HellPot} \cite{hellpot2021}
+\textbf{HellPot} \cite{hellpot2021} is a \enquote{endless honeypot}.
+Connecting to this honeypot results in a memory overflow.
+Its key idea is to send an endless stream of data to the attacker until its memory, or storage runs out.
 
-\textbf{HoneyPy} \cite{honeysap2021}
+\textbf{HoneyPy} \cite{honeysap2021} is a low to medium interaction honeypot that supports several protocols such as UDP, or TCP.
+New protocols can be added by writing a custom plugin for it.
+HoneyPy should give the freedom of easily deploying and extending honeypots.
 
-\textbf{HoneySAP} \cite{honeysap2021}
+\textbf{HoneySAP} \cite{honeysap2021} is a low interaction honeypot tailored for SAP services.
 
-\textbf{HoneyTrap} \cite{honeytrap2021}
+\textbf{HoneyTrap} \cite{honeytrap2021} is a low interaction honeypot network security tool 
+As stated by \citet*{honeytrap2021}, HoneyTrap is vulnerable by buffer overflow attacks.
 
 \textbf{IPPHoney} \cite{ipphoney2021}
 
-\textbf{mailoney} is an SMTP honeypot.
+\textbf{Mailoney} is an SMTP honeypot.
 
-\textbf{medpot} \cite{medpot2021}
+\textbf{MEDpot} \cite{medpot2021}
 
-\textbf{RDPY} \cite{rdpy2021}
+\textbf{RDPY} \cite{rdpy2021} is a low interaction honeypot of the Microsoft \ac{rdp} written in Python.
+It features client and server side, and it based on the event driven network engine Twisted.
+It supports authentication over SSL and NLA.
 
-\textbf{redishoneypot}
+\textbf{RedisHoneyPot} is a high interation honeypot for Redis protocol written in Go.
 
 \textbf{SNARE} \cite{snare2021} is an abbreviation for Super Next generation Advanced Reactive honEypot.
 It is a successor of Glastopf, a web application sensor.
@@ -126,10 +137,9 @@ In addition, it supports the feature of converting existing webpages into attack
 \textbf{TANNER} \cite{tanner2021} can be seen as SNARES's brain.
 Whenever has been sent to SNARE, TANNER decides how the response should like.
 
-
 \begin{table}[h]
     \centering
-    \caption{Overview of all available honeypots of T-Pot}
+    \caption[Overview honeypots of T-Pot]{Overview of all available honeypots of T-Pot in conjunction with the service level. In addition, }
     \begin{tabularx}{\linewidth}{l|l|l}
         \toprule
         \textbf{Honeypot}                                 & \textbf{Description} & \textbf{Port} \\

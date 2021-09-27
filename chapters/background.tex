@@ -49,21 +49,21 @@ Thus, computational workload is moved away from local instances towards services
 
 Considering the definition of the \ac{nist}, cloud computing \enquote{is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction} \cite{Mell2011}.
 \ac{nist} not only reflects the geographical shift of resources such as datacenters, but also mentions on-demand usage that contributes to a flexible resource management.
-Morever, \ac{nist} composes the term in five essential characteristics, three service models (see \autoref{subsec:cloud-service}), and four deployment models (see \autoref{subsec:cloud-deployment}) \cite{Mell2011}:\\
+Morever, \ac{nist} composes the term in five essential characteristics, three service models (see \autoref{subsec:cloud-service}), and four deployment models (see \autoref{subsec:cloud-deployment}) \cite{Mell2011}
 
 \textit{On-demand-self-service} refers to the unilaterally provision computing capabilities.
-Consumers can acquire server time and network storage on demand without a human interaction.\\
+Consumers can acquire server time and network storage on demand without a human interaction.
 
 \textit{Broad network access} characterizes the access of capabilities of the network through standard protocols such as \ac{http}.
-Heterogeneous thin and thick client platforms should be supported.\\
+Heterogeneous thin and thick client platforms should be supported.
 
 \textit{Resource pooling} allows the provider's computing resources to be pooled across several consumers.
 A multi-tanent model with different physical and virtual resources are assigned on demand.
 Other aspects such as location are independent and cannot be controlled on a low-level by consumers.
-Moreover, high-level access to specify continent, state, or datacenter can be available.\\
+Moreover, high-level access to specify continent, state, or datacenter can be available.
 
 \textit{Rapid elasticity} offers consumers to extend and release capabilities easily.
-Further automization to quickly increase resources  when demand skyrockets significantly can be supported regardless limit and quantity at any time.\\
+Further automization to quickly increase resources  when demand skyrockets significantly can be supported regardless limit and quantity at any time.
 
 \textit{Measured service} handles resources in an automated and optimized manner.
 It uses additional metering capabilities to trace storage, processing, bandwith, and active user accounts.
@@ -89,20 +89,20 @@ Each model on top represents a user-friendly abstraction with derated capabiliti
 Often provider uses a multi-tenancy system architecture to organize each consumer's application in a separate environment.
 It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance.
 Main objective of \ac{saas} is to host consumer's software or application that can be accessed over the Internet using either a thin or rich client. \cite{Dillon2010}
-\enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.\\
+\enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.
 
 \ac{paas} pivots on the full \enquote{Software Lifecycle} of an application whereas \ac{saas} distincts on hosting complete applications.
 \ac{paas} offers ongoing development and includes programming environment, tools, configuration management, and other services.
-In addition, the underlying infrastructure is not managed by the consumer. \cite{Mell2011}\\
+In addition, the underlying infrastructure is not managed by the consumer. \cite{Mell2011}
 
 \ac{iaas} offers a low-level abstraction to consumers with the ability to run arbitrary software regardless of operating system or application.
 In contrast to \ac{saas}, IT infrastructures capabilities (such as storage, networks) can be used.
-It strongly depends on virtualization due to integration, or decomposition of physical resources. \cite{Mell2011}\\
+It strongly depends on virtualization due to integration, or decomposition of physical resources. \cite{Mell2011}
 
 \ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems. \cite{Dillon2010}
 Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010}
 Whereas \ac{daas} costs solely what consumer's need.When dealing with a tremendous amount of data, file systems and RDBMS often lack in performance.
-\ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled.\cite{Dillon2010}\\
+\ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled.\cite{Dillon2010}
 
 \ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service.
 The term dates back to 2006 during a time when hardware virtualization became more powerful.
@@ -148,14 +148,14 @@ Private clouds offer the highest level of control in regard of data privacy, and
 In addition, it can be on or off premise.
 Within private clouds consumers have full control of their data.
 Especially for European data privacy laws, it is not negligible when data is stored abroad and thus under law of foreign countries.
-However, the popularity has not been withdrawn due to immense costs when moving towards public clouds. \cite{Dillon2010, Mell2011}\\
+However, the popularity has not been withdrawn due to immense costs when moving towards public clouds. \cite{Dillon2010, Mell2011}
 
-Community clouds can be seen as a conglomerate of mutliple organizations that merge their infrastructure with respect to a commonly defined policy, terms, and condition beforehand. \cite{Mell2011}\\
+Community clouds can be seen as a conglomerate of mutliple organizations that merge their infrastructure with respect to a commonly defined policy, terms, and condition beforehand. \cite{Mell2011}
 
 Public clouds represents the most used deployment models.
 In contradiction to private one, public clouds are fully owned by the service provider such as business, academics, or government organization.
 Consumers do not know where their data is distributed.
-In addition, contracts underlie custom policies. \cite{Mell2011}\\
+In addition, contracts underlie custom policies. \cite{Mell2011}
 
 Hybrid cloud is a mixure of two or more cloud infrastructures, such as private and public cloud.
 However, each entity keeps its core element.
@@ -204,7 +204,7 @@ In general, we differentiate two types of honeypots
     \item Production honeypots
     \item Research honeypots
 \end{enumerate*}.
-This categorization has their origin from Mark Rosch developer of Snort during his work at GTE Internetworking.\\
+This categorization has their origin from Mark Rosch developer of Snort during his work at GTE Internetworking.
 
 Production honeypots are the common type of honeypots everyone would think of it.
 The objective is to protect production environments, and to mitigate the risk of attacks.
@@ -212,16 +212,16 @@ Normally, production honeypots are easy to deploy within an organization.
 Mostly, low-interaction honeypots are chosen due to a significant reduce in risk.
 Thus, adversaries might not be able to exploit honeypots to attack other systems.
 Downside is a lack of information. Standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain.
-In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}\\
+In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}
 
 Research honeypots are used to learn more in detail about attacks.
 The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks.
 Research honeypots are unlikely for production environments due to a higher increase of risk.
-Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}\\
+Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}
 
 It is worth to mention that there is no exact line between research or production honeypots.
 A possible cases are honeypots that could function as either an production or an research honeypot.
-Due to their dynamic range in which they are applicable it makes it hard to distinguish.\\
+Due to their dynamic range in which they are applicable it makes it hard to distinguish.
 
 \citet{Provos2003} adds an additional differentiation for the virtual honeypot framework and splits it into the following types:
 
@@ -237,7 +237,7 @@ When building and deploying a honeypot, the depth of information has to be defin
 Should it gather unauthorized activities, such as an \textsc{nmap} scan?
 Do you want to learn about buzzing tools and tactics?
 Each depth brings a different level of interaction because some information depends on more actions of adversaries.
-Therefore, honeypots differ in level of interaction.\\
+Therefore, honeypots differ in level of interaction.
 
 Low-interaction honeypots provide the lowest level of interaction between an attacker and a system.
 Only a small set of services like SSH, Telnet, or FTP are supported which contributes to the deployment time.
@@ -251,7 +251,7 @@ Collected is limited for statistical purpose such as
     \item Source IP address and source port of the attack
     \item Destination IP address and destination port of the attack
 \end{enumerate*}.
-Transactional information can not be collected. \cite{Spitzner2003}\\
+Transactional information can not be collected. \cite{Spitzner2003}
 
 A medium-interaction honeypot offers more sophisticated serivces with higher level of interaction.
 It is capable to respond to certain activities.
@@ -259,7 +259,7 @@ For example a Microsoft IIS Web server honeypot could be able to respond in a wa
 The worm would get emulated answers, and could be able to interact with it more in detail.
 Thus, gathering more severe information about the attack, including privilege assessment, toolkit capturing, and command execution.
 In contrast, medium-interaction honeypots allocate more time to install and configure.
-In addition, more security checks have to be perform due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}\\
+In addition, more security checks have to be perform due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}
 
 High-interaction honeypots are the highest level interation.
 Mostly, they represent a real \ac{os} to provide a full set of of interactions to attackers.
@@ -272,7 +272,7 @@ Obviously, the amount of information is tremendous. It helps to learn about
     \item the blackhat community
 \end{enumerate*}. However, the risk of such a honeypot is extremely high.
 It needs severe deployment and maintenance processes.
-Therefore, it is time consuming.\\
+Therefore, it is time consuming.
 
 \subsection{Security concepts}
 \label{subsec:honeypot-security-concept}

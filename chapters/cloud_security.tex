@@ -2,25 +2,39 @@
 
 \section{Introduction}
 
-%\todo{Daten sammeln mit T-Pot fuer Auswertungen, etc.. Bezug auf bisherige Arbeiten nehmen}
-
-As previously mention in \fullref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services.
-\citet{Kelly2021} investigated thoroughly cloud providers such as Azure, AWS, or Goolge Cloud. 
-
-% \citet{Nithin2012}
+As previously mention in \fullref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services, and applications.
+\citet{Kelly2021} thoroughly investigated honeypots on cloud providers such as Azure, AWS, or Goolge Cloud Platform.
+Followingly, we present their results that we want to compare with the results of HeiCLOUD later on.
+The results are collected by T-Pot version 20. over a duration of 3 weeks with 24h per day.
+A detailed describtion of T-Pot is done in \fullref{sec:tpot}.
+In addition, \citet{Kelly2021} considered different server geographical locations.
+They have collected data from East US, West Europe, Southeast Asia.
+\autoref{tab:overview-cloud-security} shows the results presented by \citet{Kelly2021}.
+Dionaea, Cowire, and Conpot are the most attacked honeypots in comparison to the others.
+Regarding \ac{aws}, Dionaea account $91\%$ of the total attacks, Glutton and Cowire are minor with $5\%$, and $2\%$.
+Interestingly, Cowire reported several attacks related to the COVID-19 pandamic to enable social engineering methods.
+In contrast to \ac{aws}, Cowire logged the majority of attacks with $51\%$ on \ac{gc}.
+Beside several automated attacks trying to login with default credentials, adversaries tried to gather information about CPU architecture, scheduled tasks, and privilege escalation.
+Microsoft Azure reflects nearly the same results as the two other cloud providers beforehand.
 
 \begin{table}[h]
     \centering
-    \caption{Overview of all available honeypots of T-Pot}
-    \begin{tabularx}{\linewidth}{l|l|l}
+    \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
+    \begin{tabular}{l|llll|l}
         \toprule
-        \textbf{Honeypot}                                 & \textbf{Description} & \textbf{Port} \\
+        \textbf{Provider} & \multicolumn{4}{c|}{\textbf{Honeypot}} & \textbf{In Total}                                   \\
+                          & Dionaea                               & Cowire            & Glutton  & others   &           \\
         \hline
-        adbhoney                                 &             &      \\
+        \acl{aws}         & $228.075$                             & $4.503$           & $11.878$ & $3.688$  & $248.144$ \\
+        \acl{gc}          & $162.570$                             & $297.818$         & $84.375$ & $36.403$ & $581.116$ \\
+        Microsoft Azure   & $308.102$                             & $9.012$           & $17.256$ & $6.365$  & $340.735$ \\
         \bottomrule
-    \end{tabularx}
+    \end{tabular}
     \label{tab:overview-cloud-security}
 \end{table}
+
+The overall results show a average attack ratio of $55.000$ per day, summing up to roughly $1.6$mio attacks. 
+In total, the most attacking countries are China, 
 
 \section{HeiCLOUD}
 
@@ -41,10 +55,11 @@ HeiCLOUD have never considered honeypots for additional cyber security measureme
 In \fullref{sec:honeypots-heicloud}, we show various results of honeypots in heiCLOUD, stress out the importance of it, and lay emphasis on our concept in \autoref{chap:concept}.
 
 \section{T-Pot}
+\label{sec:tpot}
 
 T-Pot is a hollistic approach to capture recent cyber attacks by the sheer quantity of various honeypots.
-The German IT provider Telekom  
-In conjucntion with a 
+The German IT provider Telekom
+In conjucntion with a
 For this thesis we restrict ourself to the latest version 20.06.0. Newer versions might differ from this one.
 
 \subsection{Honeypots}
@@ -63,7 +78,7 @@ This can be achieved by flooding a webvpn-configured interface with crafted XML 
 Consequently, the attacker obtain full control by executing arbitrary code.
 
 \textbf{Citrix \ac{adc} honeypot} \cite{citrixhoneypot2020} detects and logs CVE-2019-19781\cite{CVE-2019-19781} scan and exploitation attempts.
-This vulnerability allows adversaries to perform directory traversal attacks. 
+This vulnerability allows adversaries to perform directory traversal attacks.
 Files are accessible by path strings to denote the file or directory.
 In addition, some file systems include special character to easily traverse the hierarchy.
 Attackers take advantage of it by combining special characters in order to get access to restricted areas. \cite{flanders2019}
@@ -97,7 +112,7 @@ It lowers to transcation speed by intentionally inserting delays.
 Due to connection establishing before cryptographic exchange, this module does not require any cryptographic libraries.
 
 \textbf{Glutton} \cite{glutton2021} is a generic low interaction honeypot that works as a MitM for SSH and TCP.
-However, lacking documentation does not provide a deeper inside of this honeypot. 
+However, lacking documentation does not provide a deeper inside of this honeypot.
 
 \textbf{Heralding} \cite{heralding2021} is a credential catching honeypot for protocols like FTP, Telnet, SSH, HTTP, or IMAP.
 
@@ -111,7 +126,7 @@ HoneyPy should give the freedom of easily deploying and extending honeypots.
 
 \textbf{HoneySAP} \cite{honeysap2021} is a low interaction honeypot tailored for SAP services.
 
-\textbf{HoneyTrap} \cite{honeytrap2021} is a low interaction honeypot network security tool 
+\textbf{HoneyTrap} \cite{honeytrap2021} is a low interaction honeypot network security tool
 As stated by \citet*{honeytrap2021}, HoneyTrap is vulnerable by buffer overflow attacks.
 
 \textbf{IPPHoney} \cite{ipphoney2021}
@@ -138,31 +153,31 @@ Whenever has been sent to SNARE, TANNER decides how the response should like.
     \caption[Overview honeypots of T-Pot]{Overview of all available honeypots of T-Pot in conjunction with the service level. In addition, }
     \begin{tabularx}{\linewidth}{l|l|l}
         \toprule
-        \textbf{Honeypot}                                 & \textbf{Description} & \textbf{Port} \\
+        \textbf{Honeypot}                        & \textbf{Description} & \textbf{Port} \\
         \hline
-        adbhoney                                 &             &      \\
-        ciscoasa \cite{cymmetria2018}            &             &      \\
-        citrixhoneypot \cite{citrixhoneypot2020} &             &      \\
-        conpot \cite{conpot2021}                 &             &      \\
-        cowrie \cite{cowire2021}                 &             &      \\
-        ddospot \cite{ddosspot2021}              &             &      \\
-        dicompot \cite{dicompot2021}             &             &      \\
-        dionaea \cite{dionaea2021}               &             &      \\
-        elasticpot \cite{elasticpot2021}         &             &      \\
-        endlessh \cite{endlessh2021}             &             &      \\
-        glutton \cite{glutton2021}               &             &      \\
-        heralding \cite{heralding2021}           &             &      \\
-        hellpot \cite{hellpot2021}               &             &      \\
-        honeypy \cite{honeysap2021}              &             &      \\
-        honeysap \cite{honeysap2021}             &             &      \\
-        honeytrap \cite{honeytrap2021}           &             &      \\
-        ipphoney \cite{ipphoney2021}             &             &      \\
-        mailoney                                 &             &      \\
-        medpot \cite{medpot2021}                 &             &      \\
-        rdpy \cite{rdpy2021}                     &             &      \\
-        redishoneypot                            &             &      \\
-        snare \cite{snare2021}                   &             &      \\
-        tanner \cite{tanner2021}                 &             &      \\
+        adbhoney                                 &                      &               \\
+        ciscoasa \cite{cymmetria2018}            &                      &               \\
+        citrixhoneypot \cite{citrixhoneypot2020} &                      &               \\
+        conpot \cite{conpot2021}                 &                      &               \\
+        cowrie \cite{cowire2021}                 &                      &               \\
+        ddospot \cite{ddosspot2021}              &                      &               \\
+        dicompot \cite{dicompot2021}             &                      &               \\
+        dionaea \cite{dionaea2021}               &                      &               \\
+        elasticpot \cite{elasticpot2021}         &                      &               \\
+        endlessh \cite{endlessh2021}             &                      &               \\
+        glutton \cite{glutton2021}               &                      &               \\
+        heralding \cite{heralding2021}           &                      &               \\
+        hellpot \cite{hellpot2021}               &                      &               \\
+        honeypy \cite{honeysap2021}              &                      &               \\
+        honeysap \cite{honeysap2021}             &                      &               \\
+        honeytrap \cite{honeytrap2021}           &                      &               \\
+        ipphoney \cite{ipphoney2021}             &                      &               \\
+        mailoney                                 &                      &               \\
+        medpot \cite{medpot2021}                 &                      &               \\
+        rdpy \cite{rdpy2021}                     &                      &               \\
+        redishoneypot                            &                      &               \\
+        snare \cite{snare2021}                   &                      &               \\
+        tanner \cite{tanner2021}                 &                      &               \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-honeypots}
@@ -217,16 +232,16 @@ Based on their findings we give a short summary of the honeypot data analysis.
     \caption{}
     \begin{tabularx}{\linewidth}{l}
         \toprule
-        Attack Profile\\
-        Attack Source\\
-        Attack Target\\
-        Attack Frequency\\
-        Attack Evolution\\
-        Propagation of Attacks\\
-        Attack Patterns\\
-        Attack Root Cause Identification\\
-        Attack Risk Assessment\\
-        Exploit Detection\\
+        Attack Profile                   \\
+        Attack Source                    \\
+        Attack Target                    \\
+        Attack Frequency                 \\
+        Attack Evolution                 \\
+        Propagation of Attacks           \\
+        Attack Patterns                  \\
+        Attack Root Cause Identification \\
+        Attack Risk Assessment           \\
+        Exploit Detection                \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-data-analysis}
@@ -253,4 +268,4 @@ Reason for that is the \fullref{chap:concept}
 
 \section{Summary}
 
-In this chapter we have 
+In this chapter we have

@@ -20,7 +20,7 @@ In contrast to \ac{aws}, Cowire logged the majority of attacks with $51\%$ on \a
 Beside several automated attacks trying to login with default credentials, adversaries tried to gather information about CPU architecture, scheduled tasks, and privilege escalation.
 Microsoft Azure reflects nearly the same results as the other two cloud providers beforehand.
 
-\begin{table}[ht]
+\begin{table}
     \centering
     \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
     \begin{tabular}{l|llll|l}
@@ -87,11 +87,10 @@ Based on a Debian 10 Buster distribution, it features virtualization in conjunct
 All daemons and tools run on the same network, 
 Telekom is the largest telecommunications provider in Europe.
 For this chapter we restrict ourself to the latest version $20.06.0$.
-Newer versions might be available and could differ from this ours.
+Newer versions might be available and could differ from ours.
 
-\subsubsection{Honeypots}
-
-Albeit the sheer quantity of honeypots that are used in T-Pot, we want to share some basic knowledge about them. \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with the port they are running on, service type, interaction level, and a short decription.
+Albeit the sheer quantity of honeypots that are used in T-Pot, we want to share some basic knowledge about them. 
+\autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with the port they are running on, service type, interaction level, and a short decription.
 
 \textbf{ADBHoney} \cite{adbhoney2021} is a low interaction \ac{adb} honeypot over TCP/IP.
 The importance of this honeypot lies in the \ac{adb} protocol that is used to debug and push content to the device.
@@ -175,7 +174,7 @@ In addition, it supports the feature of converting existing webpages into attack
 \textbf{TANNER} \cite{tanner2021} can be seen as SNARES's brain.
 Whenever a request has been sent to SNARE, TANNER decides how the response should like.
 
-\begin{table}[ht]
+\begin{table}
     \centering
     \caption[Overview honeypots of T-Pot]{Overview of all available honeypots of T-Pot in conjunction with the service type, interaction level, port, and a short description.}
     \begin{tabularx}{\linewidth}{l|l|l}
@@ -210,25 +209,21 @@ Whenever a request has been sent to SNARE, TANNER decides how the response shoul
     \label{tab:overview-honeypots}
 \end{table}
 
-\subsubsection{Tools}
-
 In addition, T-Pot integrates following tools to investigate and handle network traffic:
 
 \begin{itemize}
-    \item Cockpit
-    \item Cyberchef
-    \item ELK stack
-    \item Elasticsearch head
+    %\item Cockpit
+    %\item Cyberchef
+    %\item ELK stack
+    %\item Elasticsearch head
     \item Fatt
     \item Spiderfoot
     \item Suricata
 \end{itemize}
 
-\subsubsection{Workflow}
-
 \autoref{fig:overview-tpot} shows the connection between all components.
 
-\begin{sidewaysfigure}[ht]
+\begin{sidewaysfigure}
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}
     \caption{}
@@ -255,7 +250,7 @@ In addition, T-Pot integrates following tools to investigate and handle network 
 
 %\todo{übersicht tabelle}
 
-%\begin{table}[ht]
+%\begin{table}
 %    \centering
 %    \caption{}
 %    \begin{tabularx}{\linewidth}{l}

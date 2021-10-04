@@ -1,12 +1,15 @@
 \chapter{Cloud Security with Honeypots}
 
+In this chapter we investigate... tbc.
+In \fullref{sec:honeypots-heicloud}, we show various results of honeypots in heiCLOUD, stress out the importance of it, and lay emphasis on our concept in \autoref{chap:concept}.
+
 \section{Introduction}
 
 As previously mention in \fullref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services, and applications.
 \citet{Kelly2021} thoroughly investigated honeypots on cloud providers such as Azure, AWS, or Goolge Cloud Platform.
 Followingly, we present their results that we want to compare with the results of HeiCLOUD later on.
 The results are collected by T-Pot version 20. over a duration of 3 weeks with 24h per day.
-A detailed describtion of T-Pot is done in \fullref{sec:tpot}.
+A detailed description of T-Pot is done in \fullref{sec:tpot}.
 In addition, \citet{Kelly2021} considered different server geographical locations.
 They have collected data from East US, West Europe, Southeast Asia.
 \autoref{tab:overview-cloud-security} shows the results presented by \citet{Kelly2021}.
@@ -15,28 +18,50 @@ Regarding \ac{aws}, Dionaea account $91\%$ of the total attacks, Glutton and Cow
 Interestingly, Cowire reported several attacks related to the COVID-19 pandamic to enable social engineering methods.
 In contrast to \ac{aws}, Cowire logged the majority of attacks with $51\%$ on \ac{gc}.
 Beside several automated attacks trying to login with default credentials, adversaries tried to gather information about CPU architecture, scheduled tasks, and privilege escalation.
-Microsoft Azure reflects nearly the same results as the two other cloud providers beforehand.
+Microsoft Azure reflects nearly the same results as the other two cloud providers beforehand.
 
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
     \begin{tabular}{l|llll|l}
         \toprule
         \textbf{Provider} & \multicolumn{4}{c|}{\textbf{Honeypot}} & \textbf{In Total}                                   \\
-                          & Dionaea                               & Cowire            & Glutton  & others   &           \\
+                          & Dionaea                                & Cowire            & Glutton  & others   &           \\
         \hline
-        \acl{aws}         & $228.075$                             & $4.503$           & $11.878$ & $3.688$  & $248.144$ \\
-        \acl{gc}          & $162.570$                             & $297.818$         & $84.375$ & $36.403$ & $581.116$ \\
-        Microsoft Azure   & $308.102$                             & $9.012$           & $17.256$ & $6.365$  & $340.735$ \\
+        \acl{aws}         & $228.075$                              & $4.503$           & $11.878$ & $3.688$  & $248.144$ \\
+        \acl{gc}          & $162.570$                              & $297.818$         & $84.375$ & $36.403$ & $581.116$ \\
+        Microsoft Azure   & $308.102$                              & $9.012$           & $17.256$ & $6.365$  & $340.735$ \\
         \bottomrule
     \end{tabular}
     \label{tab:overview-cloud-security}
 \end{table}
 
-The overall results show a average attack ratio of $55.000$ per day, summing up to roughly $1.6$mio attacks. 
-In total, the most attacking countries are China, 
+The overall results show an average ratio of $55.000$ attacks per day, summing up to roughly $1.6$mio in total.
+Similar results for different regions could have been reprocuded.
+Their results clearly show the disparty of the regions Europe, US, and Asia.
+An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
+They could not confirm this assumption based on the fact that Google Cloud with the smallest market share received most of the attacks.
+In total, the most of the attacks are originated from Vietnam, Russia, United States, and China.
+Due to technologies such as VPN, or Tor, the geolocation only indicates the last node, so location data might be distored.
+Across all providers roughly $80\%$ of the source IP addresses had a bad reputation and could been filtered by the organization.
+The operating devices used for attacking the services are mostly Windows 7 or 8, and different Linux kernels and distros.
+Windows devices target vulnerabilities in remote desktop sharing software. Such vulnerabilities are
+\begin{enumerate*}[label=(\roman*)]
+    \item CVE-2006-2369 (RealVNC) in the US region,
+    \item CVE-2001-0540 (RDP) in EU and Asia regions,
+    \item CVE-2012-0152 (RDP) in the Asia region, and
+    \item CVE-2005-4050 (VoIP) in EU region
+\end{enumerate*}.
+In addition, attackers were also capable of disguising any fingerprinting activity of p0f.
 
-\section{HeiCLOUD}
+In this chapter, we want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different
+    Cloud Platforms} with ours using the University Heidelberg's cloud solution.
+First, a short introduction of heiCLOUD is held, followed by a closer lookup of T-Pot that is used to acquire data.
+Lastly, we present the results and do a thorough comparison.
+
+\section{Methodology}
+
+\subsection{Cloud Provider}
 
 \citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions} called heiCLOUD.
 It supplies multiple institutes at University Heidelberg with storage, virtual machines, or network components.
@@ -51,20 +76,22 @@ As stated on their information website\cite{heicloud2021}, it is
 \end{enumerate*} \cite{heicloud2021}.
 Based on the open source application OpenStack, users can easily create own network areas, and manage their space individually.
 Unlike well-known cloud providers, heiCLOUD servers are located withing Germany, thus, abide by the European data privacy law.
-HeiCLOUD have never considered honeypots for additional cyber security measurements whereas other cloud providers developed advanced structures.
-In \fullref{sec:honeypots-heicloud}, we show various results of honeypots in heiCLOUD, stress out the importance of it, and lay emphasis on our concept in \autoref{chap:concept}.
+HeiCLOUD have never considered honeypots for additional cyber security measurements.
 
-\section{T-Pot}
+\subsection{Honeypot}
 \label{sec:tpot}
 
-T-Pot is a hollistic approach to capture recent cyber attacks by the sheer quantity of various honeypots.
-The German IT provider Telekom
-In conjucntion with a
-For this thesis we restrict ourself to the latest version 20.06.0. Newer versions might differ from this one.
+To be able to compare our results with \citet{Kelly2021}, we use the same hollistic approach to capture recent cyber attacks.
+The T-Pot solution, developed by Telekom, stands out with their sheer quantity of various honeypots.
+Based on a Debian 10 Buster distribution, it features virtualization in conjunction with tools to gather various information.
+All daemons and tools run on the same network, 
+Telekom is the largest telecommunications provider in Europe.
+For this chapter we restrict ourself to the latest version $20.06.0$.
+Newer versions might be available and could differ from this ours.
 
-\subsection{Honeypots}
+\subsubsection{Honeypots}
 
-Due to the sheer quantity of honeypots we want to give some basic knowledge about them. \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with the port they are running on, service , and a short decription.
+Albeit the sheer quantity of honeypots that are used in T-Pot, we want to share some basic knowledge about them. \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with the port they are running on, service type, interaction level, and a short decription.
 
 \textbf{ADBHoney} \cite{adbhoney2021} is a low interaction \ac{adb} honeypot over TCP/IP.
 The importance of this honeypot lies in the \ac{adb} protocol that is used to debug and push content to the device.
@@ -127,13 +154,13 @@ HoneyPy should give the freedom of easily deploying and extending honeypots.
 \textbf{HoneySAP} \cite{honeysap2021} is a low interaction honeypot tailored for SAP services.
 
 \textbf{HoneyTrap} \cite{honeytrap2021} is a low interaction honeypot network security tool
-As stated by \citet*{honeytrap2021}, HoneyTrap is vulnerable by buffer overflow attacks.
+As stated by \citet*{honeytrap2021}, HoneyTrap is vulnerable to buffer overflow attacks.
 
-\textbf{IPPHoney} \cite{ipphoney2021}
+\textbf{IPPHoney} \cite{ipphoney2021} is a low interaction \ac{ipp} honeypot.
 
-\textbf{Mailoney} is an SMTP honeypot.
+\textbf{Mailoney} is a low interaction SMTP honeypot written in Python.
 
-\textbf{MEDpot} \cite{medpot2021}
+\textbf{MEDpot} \cite{medpot2021} is a low interaction honeypot focused on \ac{fhir}. It is a standard decription data format to transfer and exchange medical health records.
 
 \textbf{RDPY} \cite{rdpy2021} is a low interaction honeypot of the Microsoft \ac{rdp} written in Python.
 It features client and server side, and it based on the event driven network engine Twisted.
@@ -146,16 +173,16 @@ It is a successor of Glastopf, a web application sensor.
 In addition, it supports the feature of converting existing webpages into attack surfaces.
 
 \textbf{TANNER} \cite{tanner2021} can be seen as SNARES's brain.
-Whenever has been sent to SNARE, TANNER decides how the response should like.
+Whenever a request has been sent to SNARE, TANNER decides how the response should like.
 
-\begin{table}[h]
+\begin{table}[ht]
     \centering
-    \caption[Overview honeypots of T-Pot]{Overview of all available honeypots of T-Pot in conjunction with the service level. In addition, }
+    \caption[Overview honeypots of T-Pot]{Overview of all available honeypots of T-Pot in conjunction with the service type, interaction level, port, and a short description.}
     \begin{tabularx}{\linewidth}{l|l|l}
         \toprule
         \textbf{Honeypot}                        & \textbf{Description} & \textbf{Port} \\
         \hline
-        adbhoney                                 &                      &               \\
+        adbhoney \cite{adbhoney2021}             &                      &               \\
         ciscoasa \cite{cymmetria2018}            &                      &               \\
         citrixhoneypot \cite{citrixhoneypot2020} &                      &               \\
         conpot \cite{conpot2021}                 &                      &               \\
@@ -183,7 +210,7 @@ Whenever has been sent to SNARE, TANNER decides how the response should like.
     \label{tab:overview-honeypots}
 \end{table}
 
-\subsection{Tools}
+\subsubsection{Tools}
 
 In addition, T-Pot integrates following tools to investigate and handle network traffic:
 
@@ -197,71 +224,64 @@ In addition, T-Pot integrates following tools to investigate and handle network 
     \item Suricata
 \end{itemize}
 
-\subsection{Workflow}
+\subsubsection{Workflow}
 
 \autoref{fig:overview-tpot} shows the connection between all components.
 
-\begin{sidewaysfigure}[h]
+\begin{sidewaysfigure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}
     \caption{}
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
 
-\section{Data Analysis}
+%\subsection{Data Analysis}
 
-\citet{NawrockiWSKS2016} have done a sophisticated survey of honeypots and data analysis.
-Based on their findings we give a short summary of the honeypot data analysis.
+%\citet{NawrockiWSKS2016} have done a sophisticated survey of honeypots and data analysis.
+%Based on their findings we give a short summary of the honeypot data analysis.
 
-\begin{enumerate}
-    \item Attack Profile
-    \item Attack Source
-    \item Attack Target
-    \item Attack Frequency
-    \item Attack Evolution
-    \item Propagation of Attacks
-    \item Attack Patterns
-    \item Attack Root Cause Identification
-    \item Attack Risk Assessment
-    \item Exploit Detection
-\end{enumerate}
+%\begin{enumerate}
+%    \item Attack Profile
+%    \item Attack Source
+%    \item Attack Target
+%    \item Attack Frequency
+%    \item Attack Evolution
+%    \item Propagation of Attacks
+%    \item Attack Patterns
+%    \item Attack Root Cause Identification
+%    \item Attack Risk Assessment
+%    \item Exploit Detection
+%\end{enumerate}
 
-\todo{übersicht tabelle}
-\begin{table}[h]
-    \centering
-    \caption{}
-    \begin{tabularx}{\linewidth}{l}
-        \toprule
-        Attack Profile                   \\
-        Attack Source                    \\
-        Attack Target                    \\
-        Attack Frequency                 \\
-        Attack Evolution                 \\
-        Propagation of Attacks           \\
-        Attack Patterns                  \\
-        Attack Root Cause Identification \\
-        Attack Risk Assessment           \\
-        Exploit Detection                \\
-        \bottomrule
-    \end{tabularx}
-    \label{tab:overview-data-analysis}
-\end{table}
+%\todo{übersicht tabelle}
+
+%\begin{table}[ht]
+%    \centering
+%    \caption{}
+%    \begin{tabularx}{\linewidth}{l}
+%        \toprule
+%        Attack Profile                   \\
+%        Attack Source                    \\
+%        Attack Target                    \\
+%        Attack Frequency                 \\
+%        Attack Evolution                 \\
+%        Propagation of Attacks           \\
+%        Attack Patterns                  \\
+%        Attack Root Cause Identification \\
+%        Attack Risk Assessment           \\
+%        Exploit Detection                \\
+%        \bottomrule
+%    \end{tabularx}
+%    \label{tab:overview-data-analysis}
+%\end{table}
 
 
-\section{Honeypots in HeiCloud}
+\section{Results}
 \label{sec:honeypots-heicloud}
 
-\todo{verwendung von Grafiken, etc.}
+% \todo{verwendung von Grafiken, etc.}
 
-\subsection{Overview}
-
-\subsection{SSH}
-
-\subsection{Malware Capturing}
-
-
-
-\todo{show results}
+%\todo{show results}
 
 Despite the amount of honeypots, we restrict ourself to consider only a few honeypots.
 Reason for that is the \fullref{chap:concept}

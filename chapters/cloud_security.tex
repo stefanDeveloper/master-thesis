@@ -116,7 +116,7 @@ Newer versions might be available by time and could differ from ours.
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
 
-\subsubsection{Honeypots and Tools}
+\subsubsection{Honeypots}
 
 T-Pot combines honeypots with several tools to get a deeper inside of attackers.
 Followingly, all available components will be explained, albeit the sheer quantity of it.
@@ -186,7 +186,8 @@ As stated by \citet*{honeytrap2021}, HoneyTrap is vulnerable to buffer overflow 
 
 \textbf{Mailoney} is a low interaction SMTP honeypot written in Python.
 
-\textbf{MEDpot} \cite{medpot2021} is a low interaction honeypot focused on \ac{fhir}. It is a standard decription data format to transfer and exchange medical health records.
+\textbf{MEDpot} \cite{medpot2021} is a low interaction honeypot focused on \ac{fhir}.
+It is a standard decription data format to transfer and exchange medical health records.
 
 \textbf{RDPY} \cite{rdpy2021} is a low interaction honeypot of the Microsoft \ac{rdp} written in Python.
 It features client and server side, and it based on the event driven network engine Twisted.
@@ -199,9 +200,14 @@ In addition, it supports the feature of converting existing webpages into attack
 TANNER \cite{tanner2021} can be seen as SNARES's brain.
 Whenever a request has been sent to SNARE, TANNER decides how the response should like.
 
-In addition, T-Pot integrates following tools to investigate and handle network traffic:
+\subsubsection{Tools}
 
-\textbf{Fatt}\cite{fatt2021} is used to extract metadata and fingerprints such as JA3 and HASSH from captured packets (.PCAP)
+In addition, T-Pot integrates following tools to investigate and handle network traffic. Followingly, we investigate the most important ones:
+
+\textbf{FATT}\cite{fatt2021} is used to extract metadata and fingerprints such as JA3\cite{ja32021} and HASSH\cite{hassh2021} from captured packets.
+JA3 is a method for \enquote{creating SSL/TLS client fingerprints} whereas HASSH is a \enquote{network fingerprinting standard which can be used to identify specific client and server SSH implementations}.
+In addition, it features live network traffic.
+As noted by the author, Fatt is based on a python wrapper for tshark, namely pyshark, and thus having performance downturns.
 
 \textbf{Spiderfoot}
 
@@ -221,40 +227,42 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 
 \begin{sidewaystable}
     \centering
-    \caption[Overview honeypots of T-Pot]{Overview of all available honeypots and tools of T-Pot with interaction level, port, and a short description. Ports are marked with either TCP or UDP, if a port any definition, both TCP and UDP are allowed.}
+    \caption[Overview honeypots of T-Pot]{Overview of all available honeypots and tools of T-Pot with interaction level, port, and a short description. Ports are marked with either TCP or UDP, if a port misses any definition, both TCP and UDP are allowed.}
+    \resizebox{1\textwidth}{!}{%
     \begin{tabularx}{\linewidth}{l|XlX}
         \toprule
-        \textsc{Honeypots}                       & \multicolumn{3}{c}{}                                                                                                                                            \\
-                                                 & \textbf{Port}                                                                                               & \textbf{Interaction-level} & \textbf{Description} \\
+        \textsc{Honeypots}                       & \multicolumn{3}{c}{}                                                                                                                                                                                                            \\
+                                                 & \textbf{Port}                                                                                               & \textbf{Interaction-level} & \textbf{Description}                                                                 \\
         \hline
-        ADBHoney \cite{adbhoney2021}             & 5555/tcp                                                                                                    & low                                                  \\
-        ciscoasa \cite{cymmetria2018}            & 5000/udp, 8443/tcp                                                                                          & low                                                  \\
-        citrixhoneypot \cite{citrixhoneypot2020} & 443/tcp                                                                                                     & low                                                  \\
-        conpot \cite{conpot2021}                 & 80, 102, 161, 502, 623, 1025, 2404, \newline 10001, 44818, 47808, 50100                                     & low                                                  \\
-        cowrie \cite{cowire2021}                 & 2222, 23                                                                                                    & high                                                  \\
-        ddospot \cite{ddosspot2021}              & 1112/tcp                                                                                                    & low                                                  \\
-        dicompot \cite{dicompot2021}             & 1112/tcp                                                                                                    & medium                                                  \\
-        dionaea \cite{dionaea2021}               & 21, 42, 69/udp, 8081, 135, 443, 445, \newline 1433, 1723, 1883, 1900/udp, \newline 3306, 5060/udp, 5061/udp & low                                                  \\
-        elasticpot \cite{elasticpot2021}         & 9200                                                                                                        & low                                                  \\
-        glutton \cite{glutton2021}               & NFQ                                                                                                         & medium                                                  \\
-        heralding \cite{heralding2021}           & 21, 22, 23, 25, 80, 110, 143, 443, 993, 995, 1080, 5432, 5900                                               & low                                                  \\
-        honeypy \cite{honeysap2021}              & 7, 8, 2048, 2323, 2324, 4096, 9200                                                                          & low                                                  \\
-        honeysap \cite{honeysap2021}             & 3299/tcp                                                                                                    & low                                                  \\
-        honeytrap \cite{honeytrap2021}           & NFQ                                                                                                         & medium                                                  \\
-        ipphoney \cite{ipphoney2021}             & 631                                                                                                         & low                                                  \\
-        mailoney                                 & 25                                                                                                          & low                                                  \\
-        medpot \cite{medpot2021}                 & 2575                                                                                                        & low                                                  \\
-        rdpy \cite{rdpy2021}                     & 3389                                                                                                        & low                                                  \\
-        snare/tanner \cite{snare2021}            & 80                                                                                                          & low                                                  \\
-        \hline                                                                                                                                                                                                     \\
-        \textsc{Tools}                           & \multicolumn{3}{c}{}                                                                                                                                            \\
-        \hline                                                                                                                                                                                                     \\
-        FATT \cite{fatt2021}                     &                                                                                                             &                                                   \\
-        Spiderfoot                               &                                                                                                             &                                                   \\
-        Suricata                                 &                                                                                                             &                                                   \\
-        p0f                                      &                                                                                                             &                                                   \\
+        adbhoney \cite{adbhoney2021}             & 5555/tcp                                                                                                    & low                        & \ac{adb} protocol honeypot                                                           \\
+        ciscoasa \cite{cymmetria2018}            & 5000/udp, 8443/tcp                                                                                          & low                        & honeypot for CVE-2018-0101\cite{CVE-2018-0101} detection                             \\
+        citrixhoneypot \cite{citrixhoneypot2020} & 443/tcp                                                                                                     & low                        & detects and logs CVE-2019-19781\cite{CVE-2019-19781} scans and exploitation attempts \\
+        conpot \cite{conpot2021}                 & 80, 102, 161, 502, 623, 1025, 2404, \newline 10001, 44818, 47808, 50100                                     & low                        & industrial honeypot for \ac{ics}, and \ac{scada}                                     \\
+        cowrie \cite{cowire2021}                 & 2222, 23                                                                                                    & high                       & SSH and Telnet honeypot                                                              \\
+        ddospot \cite{ddosspot2021}              & 1112/tcp                                                                                                    & low                        & log and detect UDP-based \ac{ddos} attacks                                           \\
+        dicompot \cite{dicompot2021}             & 1112/tcp                                                                                                    & medium                     & honeypot for the \ac{dicom} protocol                                                 \\
+        dionaea \cite{dionaea2021}               & 21, 42, 69/udp, 8081, 135, 443, 445, \newline 1433, 1723, 1883, 1900/udp, \newline 3306, 5060/udp, 5061/udp & low                        & capture malware copies                                                               \\
+        elasticpot \cite{elasticpot2021}         & 9200                                                                                                        & low                        & honeypot for elasticsearch                                                           \\
+        glutton \cite{glutton2021}               & NFQ                                                                                                         & medium                     & MitM proxy for SSH and TCP                                                           \\
+        heralding \cite{heralding2021}           & 21, 22, 23, 25, 80, 110, 143, 443, \newline 993, 995, 1080, 5432, 5900                                      & low                        & credential catching honeypot                                                         \\
+        honeypy \cite{honeysap2021}              & 7, 8, 2048, 2323, 2324, 4096, 9200                                                                          & low                        & extendable honeypot                                                                  \\
+        honeysap \cite{honeysap2021}             & 3299/tcp                                                                                                    & low                        & honeypot for SAP services                                                            \\
+        honeytrap \cite{honeytrap2021}           & NFQ                                                                                                         & medium                     & captures attacks via unknown protocols                                               \\
+        ipphoney \cite{ipphoney2021}             & 631                                                                                                         & low                        & \ac{ipp} honeypot                                                                    \\
+        mailoney                                 & 25                                                                                                          & low                        & SMTP honeypot                                                                        \\
+        medpot \cite{medpot2021}                 & 2575                                                                                                        & low                        & \ac{fhir} honeypot                                                                   \\
+        rdpy \cite{rdpy2021}                     & 3389                                                                                                        & low                        & Microsoft \ac{rdp} honeypot                                                          \\
+        snare/tanner \cite{snare2021}            & 80                                                                                                          & low                        & web application honeypot                                                             \\
+        \hline                                                                                                                                                                                                                                                                     \\
+        \textsc{Tools}                           & \multicolumn{3}{c}{}                                                                                                                                                                                                            \\
+        \hline                                                                                                                                                                                                                                                                     \\
+        FATT \cite{fatt2021}                     &                                                                                                             &                                                                                                                   \\
+        Spiderfoot                               &                                                                                                             &                                                                                                                   \\
+        Suricata                                 &                                                                                                             &                                                                                                                   \\
+        p0f                                      &                                                                                                             &                                                                                                                   \\
         \bottomrule
     \end{tabularx}
+    }
     \label{tab:overview-honeypots}
 \end{sidewaystable}
 

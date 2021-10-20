@@ -59,6 +59,8 @@ In this chapter, we want to compare the findings \citet{Kelly2021} claimed in th
 First, a short introduction of heiCLOUD is held, followed by a closer lookup of T-Pot that is used to acquire data.
 Lastly, we present the results and do a thorough comparison.
 
+Why do we use the T-Pot???? More Information
+
 \section{Methodology}
 
 \subsection{Cloud Provider}
@@ -87,14 +89,27 @@ It requires $8$ GB RAM and a minimum of $128$ GB hard drive storage.
 Based on a Debian 10 Buster distribution, it relies on Docker to run their services \cite{combe2016}.
 T-Pot has to be deployed in a reachable network where intruders are expected.
 Either TCP and UDP traffic are forwarded without filtering to the network interface, or run it behind a firewall with forwarding rules.
-Specifified ports for attackers are $1$-$64000$, higher ports are reserved for trusted IPs, thus, a reverse proxy checks basic authentication.
+Specifified ports for attackers are $1$-$64000$, higher ports are reserved for trusted IPs, thus, a reverse proxy asks for basic authentication.
 All daemons and tools run on the same network interface whereas some of them are encapsulated in their own Docker network.
 Docker is a lightweight virtualization technology that uses containers to run on the host system.
-More to docker...
+Unlike virtual machines, Docker reduces overhead with the downside of a greater attack surface.
+To mitigate attacks, Docker wraps containers in an isolated environment.
+This is achieved by restricting the kernel namespace and control groups (cgroups).
 \autoref{fig:overview-tpot} visualizes the technical concept of T-Pot.
 Each service has dedicated ports or port ranges that are exposed.
-Attackers can send TCP or UDP packets.
-...More about the technical concept.
+Attackers can communicate either with TCP or UDP.
+All honeypots and tools create log files that are important to get any knowledge about attackers.
+In order to view and trace current attacks, T-Pot uses the ELK stack.
+ELK is the acronym of Elasticsearch, Logstash and Kibana.
+Elasticsearch is a search engine based on Lucene.
+It is multitenat-capable and offers full-text search via HTTP.
+Logstash is used to feed elasticsearch.
+In general, it offers a open server-side data processing pipeline that helps to send data from multiple sources to an elasticsearch node.
+Kibana is the main data visualization tool.
+It offers users to create plots and dashboards, crawl elasticsearch, and trace the system health.
+All logs of the honeypots and tools are forwarded to the search engine Elasticsearch by Logstash.
+The ELK stack is not directly exposed to the Internet, thus, an authentication is not needed.
+Users can monitor all logfiles with Kibana by pre-defined dashboards, or custom search queries.
 In addition, T-Pot features different services types, namely
 \begin{enumerate*}[label=(\roman*)]
     \item standard,
@@ -104,7 +119,7 @@ In addition, T-Pot features different services types, namely
     \item next generation, and
     \item medical
 \end{enumerate*}.
-Each service type features a different set of honeypots and tools tailored to their core idea.
+Each service type has a different set of honeypots and tools tailored to their core idea.
 T-Pot feeds their data to an external Telekom service, however, this data submission can be turned off.
 For this chapter we restrict ourself to the latest version $20.06.0$.
 Newer versions might be available by time and could differ from ours.
@@ -202,18 +217,24 @@ Whenever a request has been sent to SNARE, TANNER decides how the response shoul
 
 \subsubsection{Tools}
 
-In addition, T-Pot integrates following tools to investigate and handle network traffic. Followingly, we investigate the most important ones:
+T-Pot integrates tools to screen network traffic. Followingly, a short introduction of all the tools is made.
 
-\textbf{FATT}\cite{fatt2021} is used to extract metadata and fingerprints such as JA3\cite{ja32021} and HASSH\cite{hassh2021} from captured packets.
+\textbf{FATT} \cite{fatt2021} is used to extract metadata and fingerprints such as JA3 \cite{ja32021} and HASSH \cite{hassh2021} from captured packets.
 JA3 is a method for \enquote{creating SSL/TLS client fingerprints} whereas HASSH is a \enquote{network fingerprinting standard which can be used to identify specific client and server SSH implementations}.
 In addition, it features live network traffic.
 As noted by the author, FATT is based on a python wrapper for tshark, namely pyshark, and thus having performance downturns.
+T-Pot applies FATT on every request made on the host network. 
 
-\textbf{Spiderfoot}
+\textbf{Spiderfoot} \cite{spiderfoot2021} is an open source intelligence automation tool that helps to screen targets to get information about what is exposed over the Internet.
+It can target different entities such as IP address, domain, hostname or network subnet.
+In addition, it features more than 200 modules that can be integrated as an extension.
+T-Pot uses it to scan defensively and thus not include any other module.
 
-\textbf{Suricata}
+\textbf{Suricata} \cite{suricata2021} is a \enquote{a high performance \ac{ids}, \ac{ips} and \ac{nsm} engine}.
+T-Pot lets suricata analyze and assess any request made on the host network.
 
-\textbf{p0f}
+\textbf{p0f} \cite{p0f2021} is a fingerprinting tool that uses passive traffic fingerprinting mechanisms to check TCP/IP communications.
+T-Pot lets p0f passively check any request made on the host network. 
 
 \textbf{Endlessh} \cite{endlessh2021} is a SSH server that sends an endless, random SSH banner.
 The key idea is to lock up SSH clients that try to connect to the SSH server.
@@ -253,13 +274,13 @@ Its key idea is to send an endless stream of data to the attacker until its memo
         medpot \cite{medpot2021}                 & 2575                                                                                                        & low                        & \ac{fhir} honeypot                                                                   \\
         rdpy \cite{rdpy2021}                     & 3389                                                                                                        & low                        & Microsoft \ac{rdp} honeypot                                                          \\
         snare/tanner \cite{snare2021}            & 80                                                                                                          & low                        & web application honeypot                                                             \\
-        \hline                                                                                                                                                                                                                                                                     \\
-        \textsc{Tools}                           & \multicolumn{3}{c}{}                                                                                                                                                                                                            \\
-        \hline                                                                                                                                                                                                                                                                     \\
-        FATT \cite{fatt2021}                     &                                                                                                             &                                                                                                                   \\
-        Spiderfoot                               &                                                                                                             &                                                                                                                   \\
-        Suricata                                 &                                                                                                             &                                                                                                                   \\
-        p0f                                      &                                                                                                             &                                                                                                                   \\
+        %\hline                                                                                                                                                                                                                                                                     \\
+        %\textsc{Tools}                           & \multicolumn{3}{c}{}                                                                                                                                                                                                            \\
+        %\hline                                                                                                                                                                                                                                                                     \\
+        %FATT \cite{fatt2021}                     &                                                                                                             &                                                                                                                   \\
+        %Spiderfoot                               &                                                                                                             &                                                                                                                   \\
+        %Suricata                                 &                                                                                                             &                                                                                                                   \\
+        %p0f                                      &                                                                                                             &                                                                                                                   \\
         \bottomrule
     \end{tabularx}
     }

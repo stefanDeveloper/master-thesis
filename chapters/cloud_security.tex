@@ -59,7 +59,7 @@ In this chapter, we want to compare the findings \citet{Kelly2021} claimed in th
 First, a short introduction of heiCLOUD is held, followed by a closer lookup of T-Pot that is used to acquire data.
 Lastly, we present the results and do a thorough comparison.
 
-Why do we use the T-Pot???? More Information
+% Why do we use the T-Pot???? More Information
 
 \section{Methodology}
 
@@ -245,11 +245,9 @@ Due to connection establishing before cryptographic exchange, this module does n
 Connecting to this honeypot results in a memory overflow.
 Its key idea is to send an endless stream of data to the attacker until its memory, or storage runs out.
 
-
 \begin{sidewaystable}
     \centering
     \caption[Overview honeypots of T-Pot]{Overview of all available honeypots and tools of T-Pot with interaction level, port, and a short description. Ports are marked with either TCP or UDP, if a port misses any definition, both TCP and UDP are allowed.}
-    \resizebox{1\textwidth}{!}{%
     \begin{tabularx}{\linewidth}{l|XlX}
         \toprule
         \textsc{Honeypots}                       & \multicolumn{3}{c}{}                                                                                                                                                                                                            \\
@@ -283,12 +281,205 @@ Its key idea is to send an endless stream of data to the attacker until its memo
         %p0f                                      &                                                                                                             &                                                                                                                   \\
         \bottomrule
     \end{tabularx}
-    }
     \label{tab:overview-honeypots}
 \end{sidewaystable}
 
 \section{Results}
 \label{sec:honeypots-heicloud}
+
+\begin{table}
+    \centering
+    \caption[Overview of attacks on heiCLOUD]{Overview of attacks on heiCLOUD. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
+    \begin{tabular}{l|llll|l}
+        \toprule
+        \textbf{Provider} & \multicolumn{4}{c|}{\textbf{Honeypot}} & \textbf{In Total}                                   \\
+                          & Dionaea                                & Cowire            & Glutton  & others   &           \\
+        \hline
+        \acl{aws}         & $228.075$                              & $4.503$           & $11.878$ & $3.688$  & $248.144$ \\
+        \acl{gc}          & $162.570$                              & $297.818$         & $84.375$ & $36.403$ & $581.116$ \\
+        Microsoft Azure   & $308.102$                              & $9.012$           & $17.256$ & $6.365$  & $340.735$ \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:overview-cloud-security}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.png}
+    \caption[]{}
+    \label{fig:tpot-2}
+\end{figure}
+
+\begin{sidewaystable}
+    \centering
+    \caption[Overview of attacks on heiCLOUD]{Overview of attacks on heiCLOUD.}
+    \begin{tabularx}{\linewidth}{l|clX}
+        \toprule
+        \textsc{Honeypots}                       & \multicolumn{3}{c}{}                                                                                                                     \\
+                                                 & \textbf{Attacks}     & \textbf{Interaction-level} & \textbf{Description}                                                                 \\
+        \hline
+        adbhoney \cite{adbhoney2021}             & 13586                & low                        & \ac{adb} protocol honeypot                                                           \\
+        ciscoasa \cite{cymmetria2018}            & 972                  & low                        & honeypot for CVE-2018-0101\cite{CVE-2018-0101} detection                             \\
+        citrixhoneypot \cite{citrixhoneypot2020} & 1553                 & low                        & detects and logs CVE-2019-19781\cite{CVE-2019-19781} scans and exploitation attempts \\
+        conpot \cite{conpot2021}                 & 1034                 & low                        & industrial honeypot for \ac{ics}, and \ac{scada}                                     \\
+        cowrie \cite{cowire2021}                 & 104168               & high                       & SSH and Telnet honeypot                                                              \\
+        ddospot \cite{ddosspot2021}              & 0                    & low                        & log and detect UDP-based \ac{ddos} attacks                                           \\
+        dicompot \cite{dicompot2021}             & 0                    & medium                     & honeypot for the \ac{dicom} protocol                                                 \\
+        dionaea \cite{dionaea2021}               & 3293                 & low                        & capture malware copies                                                               \\
+        elasticpot \cite{elasticpot2021}         & 531                  & low                        & honeypot for elasticsearch                                                           \\
+        glutton \cite{glutton2021}               & 0                    & medium                     & MitM proxy for SSH and TCP                                                           \\
+        heralding \cite{heralding2021}           & 35843                & low                        & credential catching honeypot                                                         \\
+        honeypy \cite{honeysap2021}              & 0                    & low                        & extendable honeypot                                                                  \\
+        honeysap \cite{honeysap2021}             & 0                    & low                        & honeypot for SAP services                                                            \\
+        honeytrap \cite{honeytrap2021}           & 264280               & medium                     & captures attacks via unknown protocols                                               \\
+        ipphoney \cite{ipphoney2021}             & 0                    & low                        & \ac{ipp} honeypot                                                                    \\
+        mailoney                                 & 0                    & low                        & SMTP honeypot                                                                        \\
+        medpot \cite{medpot2021}                 & 0                    & low                        & \ac{fhir} honeypot                                                                   \\
+        rdpy \cite{rdpy2021}                     & 405742               & low                        & Microsoft \ac{rdp} honeypot                                                          \\
+        snare/tanner \cite{snare2021}            & 80                   & low                        & web application honeypot                                                             \\
+        \hline \\
+        \textsc{In total} \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:overview-honeypots}
+\end{sidewaystable}
+
+\begin{figure*}
+    \centering
+   
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-attacks-country.png}
+        \caption{}
+        \label{fig:tpot-overview-map}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-overview-map.png}
+        \caption{}
+        \label{fig:tpot-attack-country}
+    \end{subfigure}
+    \caption[]{}
+    \label{fig:attack}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+   
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-overview-histogram.png}
+        \caption{}
+        \label{fig:tpot-attack-histogram}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-attack-histogram.png}
+        \caption{}
+        \label{fig:tpot-overview-histogram}
+    \end{subfigure}
+    \caption[]{}
+    \label{fig:attacks}
+\end{figure*}
+
+\textbf{Suricata}
+
+\begin{figure*}
+    \centering
+   
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-suricata-attacks.png}
+        \caption{}
+        \label{fig:tpot-suricata-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-suricata-country.png}
+        \caption{}
+        \label{fig:tpot-suricata-country}
+    \end{subfigure}
+    \caption[]{}
+    \label{fig:attacks}
+\end{figure*}
+
+\textbf{Honeytrap} 
+
+\begin{figure*}
+    \centering
+   
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
+        \caption{}
+        \label{fig:tpot-cowire-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
+        \caption{}
+        \label{fig:tpot-cowire-country}
+    \end{subfigure}
+    \caption[]{}
+    \label{fig:cowire}
+\end{figure*}
+
+\textbf{RDPY}
+
+\begin{figure*}
+    \centering
+   
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
+        \caption{}
+        \label{fig:tpot-cowire-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
+        \caption{}
+        \label{fig:tpot-cowire-country}
+    \end{subfigure}
+    \caption[]{}
+    \label{fig:cowire}
+\end{figure*}
+
+
+\textbf{Cowire} 
+
+\begin{figure*}
+    \centering
+   
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
+        \caption{}
+        \label{fig:tpot-cowire-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
+        \caption{}
+        \label{fig:tpot-cowire-country}
+    \end{subfigure}
+    \caption[]{}
+    \label{fig:cowire}
+\end{figure*}
+
+Apache vulnerability CVE-2021-42013 https://www.cvedetails.com/cve/CVE-2021-42013/
+
+Blockchain attacks
+
+\section{Discussion}
+
+As previously stated by , remains doubtful 
 
 % \todo{verwendung von Grafiken, etc.}
 %\todo{show results}

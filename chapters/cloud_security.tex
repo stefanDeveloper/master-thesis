@@ -1,7 +1,6 @@
 \chapter{Cloud Security with Honeypots}
 
 In this chapter we investigate... tbc.
-In \fullref{sec:honeypots-heicloud}, we show various results of honeypots in heiCLOUD, stress out the importance of it, and lay emphasis on our concept in \autoref{chap:concept}.
 
 \section{Introduction}
 
@@ -9,7 +8,6 @@ As previously mention in \fullref{sec:cloud-computing}, using cloud resources ar
 \citet{Kelly2021} thoroughly investigated honeypots on cloud providers such as Azure, AWS, or Goolge Cloud Platform.
 Followingly, we present their results that we want to compare with the results of HeiCLOUD later on.
 The results are collected by T-Pot version $20.06.0.$ over a duration of 3 weeks.
-A detailed description of T-Pot is done in \fullref{sec:tpot}.
 In addition, \citet{Kelly2021} considered different server geographical locations.
 They have collected data from East US, West Europe, Southeast Asia.
 \autoref{tab:overview-cloud-security} shows the results presented by \citet{Kelly2021}.
@@ -41,7 +39,7 @@ Similar results for different regions could have been reprocuded.
 Their results clearly show the disparity of the regions Europe, US, and Asia.
 An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
 They could not confirm this assumption based on the fact that Google Cloud with the smallest market share received most of the attacks.
-In total, the most of the attacks are originated from Vietnam, Russia, United States, and China.
+In total, most of the attacks are originated from Vietnam, Russia, United States, and China.
 Due to technologies such as VPN, or Tor, the geolocation only indicates the last node, so location data might be distored.
 Across all providers roughly $80\%$ of the source IP addresses had a bad reputation and could been filtered by the organization.
 The operating devices used for attacking the services are mostly Windows 7 or 8, and different Linux kernels and distros.
@@ -57,13 +55,34 @@ In addition, attackers were also capable of disguising any fingerprinting activi
 In this chapter, we want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different
     Cloud Platforms} with ours using the University Heidelberg's cloud solution.
 First, a short introduction of heiCLOUD is held, followed by a closer lookup of T-Pot that is used to acquire data.
-Lastly, we present the results and do a thorough comparison.
-
-% Why do we use the T-Pot???? More Information
+Lastly, we present the results and do a thorough comparison closing up with a discussion based on a technical report of the Campridge University.
 
 \section{Methodology}
 
-\subsection{Cloud Provider}
+Our foremost goal is to track as most attacks as possible.
+To gather various attacks from the Internet \autoref{fig:concept} sketches our concept we plan to apply.
+Honeypots should be deployed on a single instance, and store their data, or log files in a database.
+By the help of data visualization tools we analyze the attacks.
+For security reasons, honeypots should run in virtualized environment to avoid any harm to our host system.
+We use Debian as a base linux distribution.
+Our instance runs on heiCLOUD, a cloud service provided by Heidelberg University.
+It is capable of 16 GB of RAM, 8 VCPUs, and a volatile memory of 30 GB.
+In addition, we mount a 125 GB permanent memory to securily store our data.
+In its very early stages, we compared different approaches to achieve this goal.
+As an example we compared native implementation approaches, using additional frameworks, and ready-to-use solutions.
+However, the T-Pot , developed by Telekom, offers a profoundly ready-to-use solution with major advantages.
+It combines several honeypots in conjunction with various analytic tools to trace the newest attacks.
+In addition, it helps to compare our findings with the ones \citet{Kelly2021} claims.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{figures/concept.pdf}
+    \caption[Draft for data collection]{Concept to collect honeypot attacks}
+    \label{fig:concept}
+\end{figure}
+
+\subsection{heiCLOUD}
+\label{subsec:heicloud}
 
 \citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions} called heiCLOUD.
 It supplies multiple institutes at University Heidelberg with storage, virtual machines, or network components.
@@ -81,14 +100,14 @@ Unlike well-known cloud providers, heiCLOUD servers are located withing Germany,
 HeiCLOUD have never considered honeypots for additional cyber security measurements.
 
 \subsection{T-Pot}
-\label{sec:tpot}
+\label{subsec:tpot}
 
 To be able to compare our results with \citet{Kelly2021}, we use the same approach to capture recent cyber attacks.
 The T-Pot solution, a mixture of Telekom and Honeypot, stands out with their sheer quantity of various honeypots.
 It requires $8$ GB RAM and a minimum of $128$ GB hard drive storage.
 Based on a Debian 10 Buster distribution, it relies on Docker to run their services \cite{combe2016}.
 T-Pot has to be deployed in a reachable network where intruders are expected.
-Either TCP and UDP traffic are forwarded without filtering to the network interface, or run it behind a firewall with forwarding rules.
+Either TCP and UDP traffic are forwarded without filtering to the network interface, or it runs behind a firewall with forwarding rules.
 Specifified ports for attackers are $1$-$64000$, higher ports are reserved for trusted IPs, thus, a reverse proxy asks for basic authentication.
 All daemons and tools run on the same network interface whereas some of them are encapsulated in their own Docker network.
 Docker is a lightweight virtualization technology that uses containers to run on the host system.
@@ -127,7 +146,7 @@ Newer versions might be available by time and could differ from ours.
 \begin{sidewaysfigure}
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}
-    \caption{}
+    \caption[T-Pot architecture]{T-Pot architecture}
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
 
@@ -138,8 +157,7 @@ Followingly, all available components will be explained, albeit the sheer quanti
 In addition, \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with
 \begin{enumerate*}[label=(\roman*)]
     \item the port they are running on,
-    \item what service type they are,
-    \item what kind of interaction level, and
+    \item what service type they are, and
     \item a short decription
 \end{enumerate*}.
 
@@ -284,21 +302,21 @@ Our T-Pot has been deployed for 3 weeks and collected in total $825539$ attacks.
 Overall, Cowire, Heralding, and RDPY received most of the attacks with a total amount of $540398$ attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
-Noticeable is the large disparity of the previously mentioned attacks on cloud providers like AWS, GC, and Azure.
-\autoref{tab:overview-honeypots-attacks} uncovers it in more detail.
-Why heiCLOUD has 
+Noticeable is the large disparity of the previously mentioned attacks on AWS, GC, and Azure.
+\autoref{tab:overview-honeypots-attacks} uncovers it in more detailed manner.
+Why heiCLOUD has
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.png}
-    \caption[]{}
+    \caption[Distribution of honeypot attacks]{Distribution of honeypot attacks}
     \label{fig:overview-attacks}
 \end{figure}
 
 \begin{sidewaystable}
     \centering
     \caption[Overview of attacks on cloud providers]{Overview of attacks on heiCLOUD, AWS, GC and Azure. Only the top 10 most attacked honeypots are considered. \enquote{-} entails that a honeypot is not part of the top 10.}
-    \begin{tabularx}{\linewidth}{l|cc|cccccc}
+    \begin{tabularx}{\linewidth}{l|XX|XXXXXX}
         \toprule
         \textsc{Honeypots}                       & \multicolumn{2}{c|}{BASIS}                  & \multicolumn{6}{c}{\textsc{comparision}}                                                                                                                                                        \\
                                                  & \multicolumn{2}{c|}{\textsc{heicloud}} & \multicolumn{2}{c}{\textsc{AWS}}         & \multicolumn{2}{c}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                                 \\
@@ -323,7 +341,7 @@ Why heiCLOUD has
         medpot \cite{medpot2021}                 & $3$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
         rdpy \cite{rdpy2021}                     & $405742$                              &                                          &                                 &                                    &                 &                     &                 &                     \\
         snare/tanner \cite{snare2021}            & $201$                                 &                                          &                                 &                                    &                 &                     &                 &                     \\
-        \hline                                                                                                                                                                                                                                                                       
+        \hline
         \textsc{In total}                        & $825539$                              &                                          &                                 &                                    &                 &                     &                 &                     \\
         \bottomrule
     \end{tabularx}
@@ -346,7 +364,7 @@ Why heiCLOUD has
         \caption{}
         \label{fig:tpot-attack-country}
     \end{subfigure}
-    \caption[]{}
+    \caption[Attack distribution]{Attack distribution}
     \label{fig:attack-distribution}
 \end{figure*}
 
@@ -366,7 +384,7 @@ Why heiCLOUD has
         \caption{}
         \label{fig:tpot-overview-histogram}
     \end{subfigure}
-    \caption[]{}
+    \caption[Attack histogram]{Attack histogram}
     \label{fig:attacks}
 \end{figure*}
 
@@ -388,7 +406,7 @@ Why heiCLOUD has
         \caption{}
         \label{fig:tpot-suricata-country}
     \end{subfigure}
-    \caption[]{}
+    \caption[Suricata results]{Suricata results}
     \label{fig:suricata-results}
 \end{figure*}
 
@@ -410,7 +428,7 @@ Why heiCLOUD has
         \caption{}
         \label{fig:tpot-honeytrap-country}
     \end{subfigure}
-    \caption[]{}
+    \caption[Honeytrap results]{Honeytrap results}
     \label{fig:honeytrap-results}
 \end{figure*}
 
@@ -432,7 +450,7 @@ Why heiCLOUD has
         \caption{}
         \label{fig:tpot-rdpy-country}
     \end{subfigure}
-    \caption[]{}
+    \caption[RDPY results]{RDPY results}
     \label{fig:rdpy-results}
 \end{figure*}
 
@@ -455,7 +473,7 @@ Why heiCLOUD has
         \caption{}
         \label{fig:tpot-cowire-country}
     \end{subfigure}
-    \caption[]{}
+    \caption[Cowire results]{Cowire results}
     \label{fig:cowire}
 \end{figure*}
 
@@ -467,12 +485,10 @@ This shows how fast attackers, most likely bots, adapt to new vulnerabilities in
 
 \section{Discussion}
 
-As previously stated by , remains doubtful
+As recently investigated by \citet{vetterl2020}, fingerprinting honeypots is becoming easier due to a fatal flaw in the underlying protocol implementation.
+\citet{vetterl2020} states that attackers always try to prevent their methods, exploits and tools to be disclosed.
+Therefore detecting honeypots before attack them to avoid disclosing potential skills is a strong motivation for black hats.
 
-% \todo{verwendung von Grafiken, etc.}
-%\todo{show results}
-%Despite the amount of honeypots, we restrict ourself to consider only a few honeypots.
-%Reason for that is the \fullref{chap:concept}
 
 \section{Summary}
 

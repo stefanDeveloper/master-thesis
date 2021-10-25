@@ -5,32 +5,32 @@ In this chapter we investigate... tbc.
 \section{Introduction}
 
 As previously mention in \fullref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services, and applications.
-\citet{Kelly2021} thoroughly investigated honeypots on cloud providers such as Azure, AWS, or Goolge Cloud Platform.
-Followingly, we present their results that we want to compare with the results of HeiCLOUD later on.
+\citet{Kelly2021} thoroughly investigated honeypots on cloud providers such as Azure, \ac{aws}, or \ac{gcp}.
+Followingly, we present their results that we want to compare with the results of heiCLOUD later on.
 The results are collected by T-Pot version $20.06.0.$ over a duration of 3 weeks.
 In addition, \citet{Kelly2021} considered different server geographical locations.
-They have collected data from East US, West Europe, Southeast Asia.
+They have collected data from East US, West Europe, and Southeast Asia.
 \autoref{tab:overview-cloud-security} shows the results presented by \citet{Kelly2021}.
-Dionaea, Cowire, and Conpot are the most attacked honeypots in comparison to the others.
+Dionaea (a honeypot to capture malicious payload), Cowire (SSH and Telnet honeypot), and Conpot (industrial honeypot for \ac{ics}, and \ac{scada}) are the most attacked honeypots in comparison to the others.
 Regarding \ac{aws}, Dionaea account $91\%$ of the total attacks, Glutton and Cowire are minor with $5\%$, and $2\%$.
-Interestingly, Cowire reported several attacks related to the COVID-19 pandamic to enable social engineering methods.
-In contrast to \ac{aws}, Cowire logged the majority of attacks with $51\%$ on \ac{gc}.
+Interestingly, Cowire reported several attacks related to the COVID-19 pandemic to enable social engineering methods.
+In contrast to \ac{aws}, Cowire logged the majority of attacks with $51\%$ on \ac{gcp}.
 Beside several automated attacks trying to login with default credentials, adversaries tried to gather information about CPU architecture, scheduled tasks, and privilege escalation.
 Microsoft Azure reflects nearly the same results as the other two cloud providers beforehand.
 
 \begin{table}
     \centering
     \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
-    \begin{tabular}{l|llll|l}
+    \begin{tabularx}{\linewidth}{l|XXXX|l}
         \toprule
-        \textbf{Provider} & \multicolumn{4}{c|}{\textbf{Honeypot}} & \textbf{In Total}                                   \\
-                          & Dionaea                                & Cowire            & Glutton  & others   &           \\
+        \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                  \\
+                          & \textbf{Dionaea}                       & \textbf{Cowire}   & \textbf{Glutton} & \textbf{others} &           \\
         \hline
-        \acl{aws}         & $228.075$                              & $4.503$           & $11.878$ & $3.688$  & $248.144$ \\
-        \acl{gc}          & $162.570$                              & $297.818$         & $84.375$ & $36.403$ & $581.116$ \\
-        Microsoft Azure   & $308.102$                              & $9.012$           & $17.256$ & $6.365$  & $340.735$ \\
+        \acl{aws}         & $228.075$                              & $4.503$           & $11.878$         & $3.688$         & $248.144$ \\
+        \acl{gcp}         & $162.570$                              & $297.818$         & $84.375$         & $36.403$        & $581.116$ \\
+        Microsoft Azure   & $308.102$                              & $9.012$           & $17.256$         & $6.365$         & $340.735$ \\
         \bottomrule
-    \end{tabular}
+    \end{tabularx}
     \label{tab:overview-cloud-security}
 \end{table}
 
@@ -40,9 +40,9 @@ Their results clearly show the disparity of the regions Europe, US, and Asia.
 An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
 They could not confirm this assumption based on the fact that Google Cloud with the smallest market share received most of the attacks.
 In total, most of the attacks are originated from Vietnam, Russia, United States, and China.
-Due to technologies such as VPN, or Tor, the geolocation only indicates the last node, so location data might be distored.
+Due to technologies such as VPN, or Tor, the geolocation only indicates the last node, so location data might be distorted.
 Across all providers roughly $80\%$ of the source IP addresses had a bad reputation and could been filtered by the organization.
-The operating devices used for attacking the services are mostly Windows 7 or 8, and different Linux kernels and distros.
+The operating devices used for attacking the services are mostly Windows 7 or 8, and different Linux kernels and distributions.
 Windows devices target vulnerabilities in remote desktop sharing software. Such vulnerabilities are
 \begin{enumerate*}[label=(\roman*)]
     \item CVE-2006-2369\cite{CVE-2006-2369} (RealVNC) in the US region,
@@ -105,21 +105,21 @@ HeiCLOUD have never considered honeypots for additional cyber security measureme
 To be able to compare our results with \citet{Kelly2021}, we use the same approach to capture recent cyber attacks.
 The T-Pot solution, a mixture of Telekom and Honeypot, stands out with their sheer quantity of various honeypots.
 It requires $8$ GB RAM and a minimum of $128$ GB hard drive storage.
-Based on a Debian 10 Buster distribution, it relies on Docker to run their services \cite{combe2016}.
+Based on a Debian 10 Buster distribution, it relies on Docker to run their services \cite{docker2021}.
 T-Pot has to be deployed in a reachable network where intruders are expected.
 Either TCP and UDP traffic are forwarded without filtering to the network interface, or it runs behind a firewall with forwarding rules.
-Specifified ports for attackers are $1$-$64000$, higher ports are reserved for trusted IPs, thus, a reverse proxy asks for basic authentication.
+Specified ports for attackers are $1$-$64000$, higher ports are reserved for trusted IPs, thus, a reverse proxy asks for basic authentication.
 All daemons and tools run on the same network interface whereas some of them are encapsulated in their own Docker network.
-Docker is a lightweight virtualization technology that uses containers to run on the host system.
+Docker is a lightweight virtualization technology that uses containers to run on the host system \cite{combe2016}.
 Unlike virtual machines, Docker reduces overhead with the downside of a greater attack surface.
 To mitigate attacks, Docker wraps containers in an isolated environment.
 This is achieved by restricting the kernel namespace and control groups (cgroups).
 \autoref{fig:overview-tpot} visualizes the technical concept of T-Pot.
 Each service has dedicated ports or port ranges that are exposed.
 Attackers can communicate either with TCP or UDP.
-All honeypots and tools create log files that are important to get any knowledge about attackers.
+All honeypots and tools create log files that are used to get any knowledge about attackers.
 In order to view and trace current attacks, T-Pot uses the ELK stack.
-ELK is the acronym of Elasticsearch, Logstash and Kibana.
+ELK is the acronym of Elasticsearch, Logstash and Kibana \cite{elastic2021}.
 Elasticsearch is a search engine based on Lucene.
 It is multitenat-capable and offers full-text search via HTTP.
 Logstash is used to feed elasticsearch.
@@ -145,19 +145,18 @@ Newer versions might be available by time and could differ from ours.
 
 \begin{sidewaysfigure}
     \centering
-    \includegraphics[width=\textwidth]{figures/architecture.png}
-    \caption[T-Pot architecture]{T-Pot architecture}
+    \includegraphics[width=\textwidth]{figures/tpot-architecture.pdf}
+    \caption[T-Pot architecture]{T-Pot architecture derived from \cite{tpot}. Honeypots are encapsulated in their own network. NSM runs on the host network, and thus, receives every packet. ELK and tools run on localhost, and are accessible through NGINX.}
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
 
 \subsubsection{Honeypots}
 
-T-Pot combines honeypots with several tools to get a deeper inside of attackers.
 Followingly, all available components will be explained, albeit the sheer quantity of it.
 In addition, \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with
 \begin{enumerate*}[label=(\roman*)]
     \item the port they are running on,
-    \item what service type they are, and
+    \item thier interation level, and
     \item a short decription
 \end{enumerate*}.
 
@@ -185,7 +184,7 @@ In addition, a custom human machine interface can be conntected to increase the 
 By randomly delaying the response time, conpot tries to emulate a real machine handling a certain amount of load.
 
 \textbf{Cowrie} \cite{cowire2021} is a medium to high interaction SSH and Telnet honeypot.
-It offers to log brute-force attacks and shell interactions with attacker.
+It offers to log brute-force attacks and shell interactions with attackers.
 In medium interaction mode cowire emulates a UNIX shell in Python, whereas in high interaction mode it proxies all commands to another system.
 
 \textbf{DDoSPot} \cite{ddosspot2021} is a low interaction honeypot to log and detect UDP-based \ac{ddos} attacks.
@@ -217,7 +216,7 @@ As stated by \citet*{honeytrap2021}, HoneyTrap is vulnerable to buffer overflow 
 
 \textbf{IPPHoney} \cite{ipphoney2021} is a low interaction \ac{ipp} honeypot.
 
-\textbf{Mailoney} is a low interaction SMTP honeypot written in Python.
+\textbf{Mailoney} \cite{mailoney2021} is a low interaction SMTP honeypot written in Python.
 
 \textbf{MEDpot} \cite{medpot2021} is a low interaction honeypot focused on \ac{fhir}.
 It is a standard decription data format to transfer and exchange medical health records.
@@ -235,7 +234,7 @@ Whenever a request has been sent to SNARE, TANNER decides how the response shoul
 
 \subsubsection{Tools}
 
-T-Pot integrates tools to screen network traffic. Followingly, a short introduction of all the tools is made.
+T-Pot integrates tools to screen network traffic.
 
 \textbf{FATT} \cite{fatt2021} is used to extract metadata and fingerprints such as JA3 \cite{ja32021} and HASSH \cite{hassh2021} from captured packets.
 JA3 is a method for \enquote{creating SSL/TLS client fingerprints} whereas HASSH is a \enquote{network fingerprinting standard which can be used to identify specific client and server SSH implementations}.
@@ -286,7 +285,7 @@ Its key idea is to send an endless stream of data to the attacker until its memo
         honeysap \cite{honeysap2021}             & 3299/tcp                                                                                                    & low                        & honeypot for SAP services                                                            \\
         honeytrap \cite{honeytrap2021}           & NFQ                                                                                                         & medium                     & captures attacks via unknown protocols                                               \\
         ipphoney \cite{ipphoney2021}             & 631                                                                                                         & low                        & \ac{ipp} honeypot                                                                    \\
-        mailoney                                 & 25                                                                                                          & low                        & SMTP honeypot                                                                        \\
+        mailoney \cite{mailoney2021}             & 25                                                                                                          & low                        & SMTP honeypot                                                                        \\
         medpot \cite{medpot2021}                 & 2575                                                                                                        & low                        & \ac{fhir} honeypot                                                                   \\
         rdpy \cite{rdpy2021}                     & 3389                                                                                                        & low                        & Microsoft \ac{rdp} honeypot                                                          \\
         snare/tanner \cite{snare2021}            & 80                                                                                                          & low                        & web application honeypot                                                             \\
@@ -302,8 +301,7 @@ Our T-Pot has been deployed for 3 weeks and collected in total $825539$ attacks.
 Overall, Cowire, Heralding, and RDPY received most of the attacks with a total amount of $540398$ attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
-Noticeable is the large disparity of the previously mentioned attacks on AWS, GC, and Azure.
-\autoref{tab:overview-honeypots-attacks} uncovers it in more detailed manner.
+Noticeable is the large disparity of the previously mentioned attacks on \ac{aws}, \ac{gcp}, and Azure.
 Why heiCLOUD has
 
 \begin{figure}[h]
@@ -318,31 +316,31 @@ Why heiCLOUD has
     \caption[Overview of attacks on cloud providers]{Overview of attacks on heiCLOUD, AWS, GC and Azure. Only the top 10 most attacked honeypots are considered. \enquote{-} entails that a honeypot is not part of the top 10.}
     \begin{tabularx}{\linewidth}{l|XX|XXXXXX}
         \toprule
-        \textsc{Honeypots}                       & \multicolumn{2}{c|}{BASIS}                  & \multicolumn{6}{c}{\textsc{comparision}}                                                                                                                                                        \\
-                                                 & \multicolumn{2}{c|}{\textsc{heicloud}} & \multicolumn{2}{c}{\textsc{AWS}}         & \multicolumn{2}{c}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                                 \\
-                                                 & \textbf{Number}                       & \textbf{Pct.}                      & \textbf{Number}                 & \textbf{Pct.}                & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
+        \textsc{Honeypots}                       & \multicolumn{2}{c|}{BASIS}             & \multicolumn{6}{c}{\textsc{comparision}}                                                                                                                                            \\
+                                                 & \multicolumn{2}{c|}{\textsc{heicloud}} & \multicolumn{2}{c}{\textsc{AWS}}         & \multicolumn{2}{c}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                     \\
+                                                 & \textbf{Number}                        & \textbf{Pct.}                            & \textbf{Number}                 & \textbf{Pct.}                      & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
         \hline
-        adbhoney \cite{adbhoney2021}             & $13586$                               &                                          &                                 &                                    &                 &                     &                 &                     \\
-        ciscoasa \cite{cymmetria2018}            & $931$                                 &                                          &                                 &                                    &                 &                     &                 &                     \\
-        citrixhoneypot \cite{citrixhoneypot2020} & $1480$                                &                                          &                                 &                                    &                 &                     &                 &                     \\
-        conpot \cite{conpot2021}                 & $807$                                 &                                          &                                 &                                    &                 &                     &                 &                     \\
-        cowrie \cite{cowire2021}                 & $98813$                               &                                          &                                 &                                    &                 &                     &                 &                     \\
-        ddospot \cite{ddosspot2021}              & $0$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
-        dicompot \cite{dicompot2021}             & $27$                                  &                                          &                                 &                                    &                 &                     &                 &                     \\
-        dionaea \cite{dionaea2021}               & $3293$                                &                                          &                                 &                                    &                 &                     &                 &                     \\
-        elasticpot \cite{elasticpot2021}         & $531$                                 &                                          &                                 &                                    &                 &                     &                 &                     \\
-        glutton \cite{glutton2021}               & $0$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
-        heralding \cite{heralding2021}           & $35843$                               &                                          &                                 &                                    &                 &                     &                 &                     \\
-        honeypy \cite{honeysap2021}              & $0$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
-        honeysap \cite{honeysap2021}             & $18$                                  &                                          &                                 &                                    &                 &                     &                 &                     \\
-        honeytrap \cite{honeytrap2021}           & $264264$                              &                                          &                                 &                                    &                 &                     &                 &                     \\
-        ipphoney \cite{ipphoney2021}             & $0$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
-        mailoney                                 & $0$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
-        medpot \cite{medpot2021}                 & $3$                                   &                                          &                                 &                                    &                 &                     &                 &                     \\
-        rdpy \cite{rdpy2021}                     & $405742$                              &                                          &                                 &                                    &                 &                     &                 &                     \\
-        snare/tanner \cite{snare2021}            & $201$                                 &                                          &                                 &                                    &                 &                     &                 &                     \\
+        adbhoney \cite{adbhoney2021}             & $13586$                                &                                          &                                 &                                    &                 &               &                 &               \\
+        ciscoasa \cite{cymmetria2018}            & $931$                                  &                                          &                                 &                                    &                 &               &                 &               \\
+        citrixhoneypot \cite{citrixhoneypot2020} & $1480$                                 &                                          &                                 &                                    &                 &               &                 &               \\
+        conpot \cite{conpot2021}                 & $807$                                  &                                          &                                 &                                    &                 &               &                 &               \\
+        cowrie \cite{cowire2021}                 & $98813$                                &                                          &                                 &                                    &                 &               &                 &               \\
+        ddospot \cite{ddosspot2021}              & $0$                                    &                                          &                                 &                                    &                 &               &                 &               \\
+        dicompot \cite{dicompot2021}             & $27$                                   &                                          &                                 &                                    &                 &               &                 &               \\
+        dionaea \cite{dionaea2021}               & $3293$                                 &                                          &                                 &                                    &                 &               &                 &               \\
+        elasticpot \cite{elasticpot2021}         & $531$                                  &                                          &                                 &                                    &                 &               &                 &               \\
+        glutton \cite{glutton2021}               & $0$                                    &                                          &                                 &                                    &                 &               &                 &               \\
+        heralding \cite{heralding2021}           & $35843$                                &                                          &                                 &                                    &                 &               &                 &               \\
+        honeypy \cite{honeysap2021}              & $0$                                    &                                          &                                 &                                    &                 &               &                 &               \\
+        honeysap \cite{honeysap2021}             & $18$                                   &                                          &                                 &                                    &                 &               &                 &               \\
+        honeytrap \cite{honeytrap2021}           & $264264$                               &                                          &                                 &                                    &                 &               &                 &               \\
+        ipphoney \cite{ipphoney2021}             & $0$                                    &                                          &                                 &                                    &                 &               &                 &               \\
+        mailoney \cite{mailoney2021}             & $0$                                    &                                          &                                 &                                    &                 &               &                 &               \\
+        medpot \cite{medpot2021}                 & $3$                                    &                                          &                                 &                                    &                 &               &                 &               \\
+        rdpy \cite{rdpy2021}                     & $405742$                               &                                          &                                 &                                    &                 &               &                 &               \\
+        snare/tanner \cite{snare2021}            & $201$                                  &                                          &                                 &                                    &                 &               &                 &               \\
         \hline
-        \textsc{In total}                        & $825539$                              &                                          &                                 &                                    &                 &                     &                 &                     \\
+        \textsc{In total}                        & $825539$                               &                                          &                                 &                                    &                 &               &                 &               \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-honeypots-attacks}

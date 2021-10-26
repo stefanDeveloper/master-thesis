@@ -312,7 +312,7 @@ The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.png}
+    \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.pdf}
     \caption[Distribution of honeypot attacks]{Distribution of honeypot attacks}
     \label{fig:overview-attacks}
 \end{figure}
@@ -325,10 +325,149 @@ To prove that, a \textsc{nmap} TCP SYN scan (\ipAddress{nmap -sS -A 129.206.5.74
 Our result clearly shows that port 20, resevered for FTP, is filtered although the access security explicitly allows it.
 Based on this, most of the attacks on Dionaea are made throughout FTP, and thus, explains the total number of attacks.
 Moreover, $96\%$ of IP addresses connected to Dionaea are known attackers, and $70\%$ were acquired on port 81, unofficially known for Tor routing.
-Any malware or supicious payload could be identified.
+Neither any malware or supicious payload could be identified.
 Even with an \ac{acl} running in the background heiCLOUD received more attacks than ever.
 We assume without packet filtering for FTP port 20, the real number might be even higher.
 However, due to security concerns a temporarily exclude of this rule has been rejected.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
+    \caption[Attack distribution]{Attack distribution}
+    \label{fig:attack-distribution}
+\end{figure}
+
+\autoref{fig:attack-distribution} indicates the geographical location of connections acquired to any honeypot.
+Most attacks are originated from United States, Germany, Russia, and China.
+Large security scans of DFN or BelWÜ pushes Germany on second place.
+Therefore, Germany can be considered as negligible.
+However, the geographical location merely indicates the last node of an IP address, and thus as stated by \citet{Kelly2021}, this information is insufficient to use.
+Adversaries could use VPN or Tor to spoof their true location. 
+adversaries are capable of disguising their fingerprint activities.
+
+\begin{figure*}[h]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-overview-histogram.png}
+        \caption{}
+        \label{fig:tpot-attack-histogram}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-attack-histogram.png}
+        \caption{}
+        \label{fig:tpot-overview-histogram}
+    \end{subfigure}
+    \caption[Attack histogram]{Attack histogram}
+    \label{fig:attacks}
+\end{figure*}
+
+\autoref{fig:attacks} shows the timeline of attacks that are executed on our instance.
+The high peak in the middle indicates a full \textsc{nmap} scan from Germany.
+
+\begin{figure*}[h]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
+        \caption{}
+        \label{fig:tpot-rdpy-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
+        \caption{}
+        \label{fig:tpot-rdpy-country}
+    \end{subfigure}
+    \caption[RDPY results]{RDPY results}
+    \label{fig:rdpy-results}
+\end{figure*}
+
+The results from \textbf{RDPY} 
+We assume the skyrocketing number of attacks roots back to the Corona pandemic.
+It resulted in an increase of screen sharing software 
+\autoref{fig:rdpy-results} visualizes the results of RDPY.
+
+\begin{figure*}[h]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
+        \caption{}
+        \label{fig:tpot-honeytrap-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
+        \caption{}
+        \label{fig:tpot-honeytrap-country}
+    \end{subfigure}
+    \caption[Honeytrap results]{Honeytrap results}
+    \label{fig:honeytrap-results}
+\end{figure*}
+
+\textbf{Honeytrap}
+
+\begin{figure*}[h]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
+        \caption{}
+        \label{fig:tpot-cowire-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
+        \caption{}
+        \label{fig:tpot-cowire-country}
+    \end{subfigure}
+    \caption[Cowire results]{Cowire results}
+    \label{fig:cowire}
+\end{figure*}
+
+\textbf{Cowire} results in a high use of 
+
+\begin{figure*}[h]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-suricata-attacks.png}
+        \caption{}
+        \label{fig:tpot-suricata-attacks}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-suricata-country.png}
+        \caption{}
+        \label{fig:tpot-suricata-country}
+    \end{subfigure}
+    \caption[Suricata results]{Suricata results}
+    \label{fig:suricata-results}
+\end{figure*}
+
+\textbf{Suricata}
+
+Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately used by attackers on the 15th of October.
+Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.
+This shows how fast attackers, most likely bots, adapt to new vulnerabilities in order to compromise more systems.
+
+% Blockchain attacks
+
+% Conclusion
+We assume that attacks made by bots have increased significantly in the last years.
+This might even route back to the Corona pandemic and the skyrocketing increase of Internet activities throughout home offices, more usage of screen sharing software, .
 
 \begin{sidewaystable}
     \centering
@@ -364,156 +503,6 @@ However, due to security concerns a temporarily exclude of this rule has been re
     \end{tabularx}
     \label{tab:overview-honeypots-attacks}
 \end{sidewaystable}
-
-\autoref{fig:attack-distribution} indicates the geographical location of connections acquired to any honeypot.
-Most attacks are originated from United States, Germany, Russia, and China.
-Large security scans of DFN or BelWÜ pushes Germany on second place.
-However, Germany should be considered a potential threat.
-In addition, geographical locations only indicates the last node of a IP address, and therefore, the real location can differ.
-As like \citet{Kelly2021}, adversaries are capable of disguising their fingerprint activities.
-
-\begin{figure*}
-    \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-attacks-country.png}
-        \caption{}
-        \label{fig:tpot-overview-map}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-overview-map.png}
-        \caption{}
-        \label{fig:tpot-attack-country}
-    \end{subfigure}
-    \caption[Attack distribution]{Attack distribution}
-    \label{fig:attack-distribution}
-\end{figure*}
-
-\autoref{fig:attacks} shows the timeline of attacks that are executed on our instance.
-The high peak in the middle indicates a full \textsc{nmap} scan from Germany.
-
-\begin{figure*}
-    \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-overview-histogram.png}
-        \caption{}
-        \label{fig:tpot-attack-histogram}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-attack-histogram.png}
-        \caption{}
-        \label{fig:tpot-overview-histogram}
-    \end{subfigure}
-    \caption[Attack histogram]{Attack histogram}
-    \label{fig:attacks}
-\end{figure*}
-
-\textbf{RDPY} is the most attacked honeypot.
-\autoref{fig:rdpy-results} shows 
-
-\begin{figure*}
-    \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
-        \caption{}
-        \label{fig:tpot-rdpy-attacks}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
-        \caption{}
-        \label{fig:tpot-rdpy-country}
-    \end{subfigure}
-    \caption[RDPY results]{RDPY results}
-    \label{fig:rdpy-results}
-\end{figure*}
-
-\textbf{Honeytrap}
-
-\begin{figure*}
-    \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
-        \caption{}
-        \label{fig:tpot-honeytrap-attacks}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
-        \caption{}
-        \label{fig:tpot-honeytrap-country}
-    \end{subfigure}
-    \caption[Honeytrap results]{Honeytrap results}
-    \label{fig:honeytrap-results}
-\end{figure*}
-
-
-\textbf{Cowire}
-
-\begin{figure*}
-    \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-cowire-attacks.png}
-        \caption{}
-        \label{fig:tpot-cowire-attacks}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-cowire-country.png}
-        \caption{}
-        \label{fig:tpot-cowire-country}
-    \end{subfigure}
-    \caption[Cowire results]{Cowire results}
-    \label{fig:cowire}
-\end{figure*}
-
-\textbf{Suricata}
-
-\begin{figure*}
-    \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-suricata-attacks.png}
-        \caption{}
-        \label{fig:tpot-suricata-attacks}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-suricata-country.png}
-        \caption{}
-        \label{fig:tpot-suricata-country}
-    \end{subfigure}
-    \caption[Suricata results]{Suricata results}
-    \label{fig:suricata-results}
-\end{figure*}
-
-Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately used by attackers on the 15th of October.
-Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.
-This shows how fast attackers, most likely bots, adapt to new vulnerabilities in order to compromise more systems.
-
-% Blockchain attacks
-
-% Conclusion
-We assume that attacks made by bots have increased significantly in the last years.
-This might even route back to the Corona pandemic and the skyrocketing increase of Internet activities throughout home offices, more usage of screen sharing software, .
 
 \section{Discussion}
 

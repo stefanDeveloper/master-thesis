@@ -345,27 +345,14 @@ However, the geographical location merely indicates the last node of an IP addre
 Adversaries could use VPN or Tor to spoof their true location. 
 adversaries are capable of disguising their fingerprint activities.
 
-\begin{figure*}[h]
+\begin{figure}[h]
     \centering
-
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-overview-histogram.png}
-        \caption{}
-        \label{fig:tpot-attack-histogram}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-attack-histogram.png}
-        \caption{}
-        \label{fig:tpot-overview-histogram}
-    \end{subfigure}
+    \includegraphics[width=\textwidth]{figures/tpot-attacks-histogram.pdf}
     \caption[Attack histogram]{Attack histogram}
-    \label{fig:attacks}
-\end{figure*}
+    \label{tpot-overview-histogram}
+\end{figure}
 
-\autoref{fig:attacks} shows the timeline of attacks that are executed on our instance.
+\autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance.
 The high peak in the middle indicates a full \textsc{nmap} scan from Germany.
 
 \begin{figure*}[h]
@@ -437,25 +424,13 @@ It resulted in an increase of screen sharing software
 
 \textbf{Cowire} results in a high use of 
 
-\begin{figure*}[h]
+\begin{figure}[h]
     \centering
 
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-suricata-attacks.png}
-        \caption{}
-        \label{fig:tpot-suricata-attacks}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/tpot-suricata-country.png}
-        \caption{}
-        \label{fig:tpot-suricata-country}
-    \end{subfigure}
+    \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
     \caption[Suricata results]{Suricata results}
     \label{fig:suricata-results}
-\end{figure*}
+\end{figure}
 
 \textbf{Suricata}
 

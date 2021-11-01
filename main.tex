@@ -26,6 +26,8 @@
 \usepackage{csquotes}
 \usepackage{acro}
 % TODOs package, could be removed in the final paper
+% set length necessary to get rid warning message
+\setlength {\marginparwidth }{2cm} 
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage[toc,page]{appendix}
 \usepackage{tabularx}
@@ -41,8 +43,7 @@
 \usepackage[numbers]{natbib}
 
 \include{acronyms}
-\include{quote}
-% \include{network-config}
+
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}, \nameref*{#1}}}
 \newcommand{\ipAddress}[1]{%
     {\fontfamily{pcr}\selectfont%
@@ -50,13 +51,15 @@
     }%
 }
 
+\usepackage{numprint}
+\npthousandsep{\,}
+
 
 \newcommand*{\files}{
     introduction,
     background,
     cloud_security,
     concept,
-    %data_management,
     experiment,
     conclusion,
 }
@@ -120,9 +123,9 @@
 \pagenumbering{Roman}
 \setcounter{page}{6}
 
-%\nocite{*}
 \bibliographystyle{plainnat}  
 \bibliography{references}
+
 % Installation and configuration
 \begin{appendices}
 \include{chapters/appendix.tex}

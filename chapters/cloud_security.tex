@@ -74,7 +74,7 @@ However, the T-Pot , developed by Telekom, offers a profoundly ready-to-use solu
 It combines several honeypots in conjunction with various analytic tools to trace the newest attacks.
 In addition, it helps to compare our findings with the ones \citet{Kelly2021} claims.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/tpot-concept.pdf}
     \caption[Draft for data collection]{Concept to collect honeypot attacks}
@@ -153,7 +153,7 @@ Newer versions might be available by time and could differ from ours.
 \begin{sidewaysfigure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-architecture.pdf}
-    \caption[T-Pot architecture]{T-Pot architecture derived from \cite{tpot}. Honeypots are encapsulated in their own network. NSM runs on the host network, and thus, receives every packet. ELK and tools run on localhost, and are accessible through NGINX.}
+    \caption[T-Pot architecture]{T-Pot architecture derived from \cite{tpot2021}. Honeypots are encapsulated in their own network. NSM runs on the host network, and thus, receives every packet. ELK and tools run on localhost, and are accessible through NGINX.}
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
 
@@ -304,13 +304,13 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 \section{Results}
 \label{sec:honeypots-heicloud}
 
-Our T-Pot has been deployed for 3 weeks (from 22nd of September to 22nd of October) and collected in total $825539$ attacks.
-Overall, RDPY ($49.15\%$), HoneyTrap ($32.01\%$), and Cowire ($11.97\%$) received most of the attacks with a total amount of $540398$ attacks.
+Our T-Pot has been deployed for 3 weeks (from 22nd of September to 22nd of October) and collected in total \numprint{825,539} attacks.
+Overall, RDPY ($49.15\%$), HoneyTrap ($32.01\%$), and Cowire ($11.97\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 %As \citet{Kelly2021} states, the vast majority of attacks origin from bots\todo{more to bots}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.pdf}
     \caption[Distribution of honeypot attacks]{Distribution of honeypot attacks}
@@ -330,10 +330,10 @@ Even with an \ac{acl} running in the background heiCLOUD received more attacks t
 We assume without packet filtering for FTP port 20, the real number might be even higher.
 However, due to security concerns a temporarily exclude of this rule has been rejected.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
-    \caption[Attack distribution]{Attack distribution}
+    \caption[Attack distribution of T-Pot]{Attack distribution of T-Pot. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
     \label{fig:attack-distribution}
 \end{figure}
 
@@ -343,57 +343,64 @@ Large security scans of DFN or BelWÜ pushes Germany on second place.
 Therefore, Germany can be considered as negligible.
 However, the geographical location merely indicates the last node of an IP address, and thus as stated by \citet{Kelly2021}, this information is insufficient to use.
 Adversaries could use VPN or Tor to spoof their true location. 
-adversaries are capable of disguising their fingerprint activities.
+adversaries are capable of disguising their fingerprint activities.%more info
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-attacks-histogram.pdf}
-    \caption[Attack histogram]{Attack histogram}
+    \caption[Attack histogram of T-Pot]{Attack histogram of T-Pot. Only the five most attacked honeypots are considered. Timestamp; 22nd of September to 22nd of November.}
     \label{tpot-overview-histogram}
 \end{figure}
 
 \autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance.
-The high peak in the middle indicates a full \textsc{nmap} scan from Germany.
+RDPY, Honeytrap, and Cowire are clearly the most attacked honeypots.
+The high peak of honetrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an inside of the packet filtering at the University Heidelberg.
+We clearly identify a bias towards remote desktop protocol attacks, and attacks to retrieve CPU information. %more info
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-rdpy-port.pdf}
-    \caption[RDPY results]{RDPY results}
+    \caption[RDPY results of T-Pot]{RDPY attacks separated in attacks and unique src IPs. Timestamp; 22nd of September to 22nd of November.}
     \label{fig:rdpy-results}
 \end{figure}
 
-The results from \textbf{RDPY} 
-We assume the skyrocketing number of attacks roots back to the Corona pandemic.
-It resulted in an increase of screen sharing software 
-\autoref{fig:rdpy-results} visualizes the results of RDPY.
+The results from \textbf{RDPY} in \autoref{fig:rdpy-results} backups our assumption.
+It shows that only a small margin represents unique src IPs.
+The rest of the attacks result in either bad reputation, bot or crawlers, and known attacker.
+\autoref{fig:suricata-results} shows the distribution of alert categories that Suricata identified.
+Respectively, misc activities sum up to roughly 1.5 mio entries, \ac{rdp} related alerts account two-third of it.
+Several RDP attacks from 2021 back to 1999 had been executed on our T-Pot.
+The third most of ti is CVE-2012-0152, which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets.
+Those results coincide with the ones \citet{Kelly2021} claim.
+We assume the skyrocketing number of attacks roots back to the Corona pandemic due to an increase of the remote desktop protocol.
+Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease vulnerability for automatic attacks scanning the web and trying to find exposure.
 
-\begin{figure}[h]
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
+    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Displays the five most listed alert categories. Timestamp; 22nd of September to 22nd of November.}
+    \label{fig:suricata-results}
+\end{figure}
+
+\textbf{Suricata}
+
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-honeytrap-port.pdf}
-    \caption[Honeytrap results]{Honeytrap results}
+    \caption[Honeytrap results of T-Pot]{Honeytrap results of T-Pot. Timestamp; 22nd of September to 22nd of November.}
     \label{fig:honeytrap-results}
 \end{figure}
 
 \textbf{Honeytrap}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-cowire-port.pdf}
-    \caption[Cowire results]{Cowire results}
-    \label{fig:cowire}
+    \caption[Cowire results of T-Pot]{Cowire results of T-Pot. Timestamp; 22nd of September to 22nd of November.}
+    \label{fig:cowire-results}
 \end{figure}
 
 \textbf{Cowire} results in a high use of 
-
-\begin{figure}[h]
-    \centering
-
-    \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
-    \caption[Suricata results]{Suricata results}
-    \label{fig:suricata-results}
-\end{figure}
-
-\textbf{Suricata}
 
 Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately used by attackers on the 15th of October.
 Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.

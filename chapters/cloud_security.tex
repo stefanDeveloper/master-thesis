@@ -308,7 +308,6 @@ Our T-Pot has been deployed for 3 weeks (from 22nd of September to 22nd of Octob
 Overall, RDPY ($49.15\%$), HoneyTrap ($32.01\%$), and Cowire ($11.97\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
-%As \citet{Kelly2021} states, the vast majority of attacks origin from bots\todo{more to bots}
 
 \begin{figure}[ht]
     \centering
@@ -337,13 +336,14 @@ However, due to security concerns a temporarily exclude of this rule has been re
     \label{fig:attack-distribution}
 \end{figure}
 
+Logstash uses GeoLite2 to resolve the source IP address with information such as location, ASN, and continent code, country name, and AS organization.
 \autoref{fig:attack-distribution} indicates the geographical location of connections acquired to any honeypot.
 Most attacks are originated from United States, Germany, Russia, and China.
-Large security scans of DFN or BelWÜ pushes Germany on second place.
-Therefore, Germany can be considered as negligible.
-However, the geographical location merely indicates the last node of an IP address, and thus as stated by \citet{Kelly2021}, this information is insufficient to use.
-Adversaries could use VPN or Tor to spoof their true location. 
-adversaries are capable of disguising their fingerprint activities.%more info
+Large security scans of DFN or BelWÜ pushes Germany on second place, therefore, Germany can be considered negligible.
+On the contrary, the geographical location of an IP address merely indicates the true origin. 
+Due to technologies like VPN or Tor, the last known node of an IP address could be spoofed, and thus as stated by \citet{Kelly2021}, would remain insufficient to use.
+Hence, we do not stronly rely on the geographical information.
+In addition, adversaries are capable of disguising their fingerprint activities of p0f.
 
 \begin{figure}[ht]
     \centering
@@ -352,10 +352,11 @@ adversaries are capable of disguising their fingerprint activities.%more info
     \label{tpot-overview-histogram}
 \end{figure}
 
-\autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance.
+Attacks are not equally distributed among all honeypots, and thus, different protocols and application receive more attention than others.
+\autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance separated by honeypots.
 RDPY, Honeytrap, and Cowire are clearly the most attacked honeypots.
 The high peak of honetrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an inside of the packet filtering at the University Heidelberg.
-We clearly identify a bias towards remote desktop protocol attacks, and attacks to retrieve CPU information. %more info
+We clearly identify a bias towards remote desktop protocol attacks, shell code exploitation, and commands retrieve information about CPU, scheduled tasks (\ipAddress{cat /proc/cpuinfo}, or \ipAddress{crontab}), or privilege escalation.
 
 \begin{figure}[ht]
     \centering
@@ -366,14 +367,14 @@ We clearly identify a bias towards remote desktop protocol attacks, and attacks 
 
 The results from \textbf{RDPY} in \autoref{fig:rdpy-results} backups our assumption.
 It shows that only a small margin represents unique src IPs.
-The rest of the attacks result in either bad reputation, bot or crawlers, and known attacker.
+The rest of the attacks result in either bad reputation, bot, crawler, or known attacker.
 \autoref{fig:suricata-results} shows the distribution of alert categories that Suricata identified.
 Respectively, misc activities sum up to roughly 1.5 mio entries, \ac{rdp} related alerts account two-third of it.
-Several RDP attacks from 2021 back to 1999 had been executed on our T-Pot.
-The third most of ti is CVE-2012-0152, which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets.
+Several RDP attacks from 2021 back to 2001 had been executed on our T-Pot.
+The third most of it is CVE-2012-0152, which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets.
 Those results coincide with the ones \citet{Kelly2021} claim.
 We assume the skyrocketing number of attacks roots back to the Corona pandemic due to an increase of the remote desktop protocol.
-Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease vulnerability for automatic attacks scanning the web and trying to find exposure.
+Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease vulnerability for automatic attacks scanning the web and trying to find exposures.
 
 \begin{figure}[ht]
     \centering
@@ -382,7 +383,20 @@ Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease 
     \label{fig:suricata-results}
 \end{figure}
 
-\textbf{Suricata}
+\textbf{Suricata} registered several alerts and CVEs.
+The vast majority of alerts are RDP related policies, VNC 
+Most used vulnerabilities are 
+\begin{enumerate*}[label=(\roman*)]
+    \item CVE-2001-0540\cite{CVE-2001-0540},
+    \item CVE-2006-2369\cite{CVE-2006-2369},
+    \item CVE-2012-0152\cite{CVE-2012-0152}, and
+\end{enumerate*}.
+The first one is a memory leak in Terminal servers in Windwos NT and Windows 2000 causing a denial of service (memory exhaustion) by misformed RDP requests.
+Next one is a RealVNC vulnerability allowing hackers to bypass authentication.
+Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
+Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.
+We could trace back similar attacks like \ipAddress{/cgi-bin/.\%2e/\%2e\%2e/bin/sh} until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
+This shows how fast attackers, most likely bots, adapt to new vulnerabilities in order to compromise more systems.
 
 \begin{figure}[ht]
     \centering
@@ -400,15 +414,15 @@ Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease 
     \label{fig:cowire-results}
 \end{figure}
 
-\textbf{Cowire} results in a high use of 
-
-Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately used by attackers on the 15th of October.
-Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.
-This shows how fast attackers, most likely bots, adapt to new vulnerabilities in order to compromise more systems.
-
+\autoref{fig:cowire-results} shows all attacks executed on \textbf{Cowire} separated by their port.
+Respectively, SSH port 22 is the most considered port, resulting in a high use for  
+Besides default credentials to log in, adversaries used various commands to retrieve any information about the host system.
+Interestingly, crypto mining accounts a large number of executed shell commands.
+As an example, XMRig has been the most downloaded malware for crypto currency mining.
 % Blockchain attacks
 
 % Conclusion
+
 We assume that attacks made by bots have increased significantly in the last years.
 This might even route back to the Corona pandemic and the skyrocketing increase of Internet activities throughout home offices, more usage of screen sharing software, .
 

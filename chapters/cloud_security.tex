@@ -356,7 +356,27 @@ Attacks are not equally distributed among all honeypots, and thus, different pro
 \autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance separated by honeypots.
 RDPY, Honeytrap, and Cowire are clearly the most attacked honeypots.
 The high peak of honetrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an inside of the packet filtering at the University Heidelberg.
-We clearly identify a bias towards remote desktop protocol attacks, shell code exploitation, and commands retrieve information about CPU, scheduled tasks (\ipAddress{cat /proc/cpuinfo}, or \ipAddress{crontab}), or privilege escalation.
+We clearly identify a bias towards remote desktop protocol attacks, shell code exploitation, and commands to retrieve information about CPU, scheduled tasks (\ipAddress{cat /proc/cpuinfo}, or \ipAddress{crontab}), or privilege escalation.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
+    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Displays the five most listed alert categories. Timestamp; 22nd of September to 22nd of November.}
+    \label{fig:suricata-results}
+\end{figure}
+
+\textbf{Suricata} registered several alerts and CVEs.
+The vast majority of alerts are RDP related policies, VNC authentication failures, and \textsc{nmap} scans.
+Most used vulnerabilities are 
+\begin{enumerate*}[label=(\roman*)]
+    \item CVE-2001-0540\cite{CVE-2001-0540} is a memory leak in Terminal servers in Windwos NT and Windows 2000 causing a denial of service (memory exhaustion) by misformed RDP requests,
+    \item CVE-2006-2369\cite{CVE-2006-2369} is a RealVNC vulnerability allowing hackers to bypass authentication, and
+    \item CVE-2012-0152\cite{CVE-2012-0152} enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets
+\end{enumerate*}.
+Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
+Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.
+We could trace back similar attacks like \ipAddress{/cgi-bin/.\%2e/\%2e\%2e/bin/sh} until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
+This shows how fast attackers, most likely bots, adapt to new vulnerabilities in order to compromise more systems.
 
 \begin{figure}[ht]
     \centering
@@ -371,32 +391,9 @@ The rest of the attacks result in either bad reputation, bot, crawler, or known 
 \autoref{fig:suricata-results} shows the distribution of alert categories that Suricata identified.
 Respectively, misc activities sum up to roughly 1.5 mio entries, \ac{rdp} related alerts account two-third of it.
 Several RDP attacks from 2021 back to 2001 had been executed on our T-Pot.
-The third most of it is CVE-2012-0152, which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets.
-Those results coincide with the ones \citet{Kelly2021} claim.
+Respectively, CVE-2012-0152 and CVE-2001-0540 coincide with the ones \citet{Kelly2021} claim.
 We assume the skyrocketing number of attacks roots back to the Corona pandemic due to an increase of the remote desktop protocol.
-Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease vulnerability for automatic attacks scanning the web and trying to find exposures.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
-    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Displays the five most listed alert categories. Timestamp; 22nd of September to 22nd of November.}
-    \label{fig:suricata-results}
-\end{figure}
-
-\textbf{Suricata} registered several alerts and CVEs.
-The vast majority of alerts are RDP related policies, VNC 
-Most used vulnerabilities are 
-\begin{enumerate*}[label=(\roman*)]
-    \item CVE-2001-0540\cite{CVE-2001-0540},
-    \item CVE-2006-2369\cite{CVE-2006-2369},
-    \item CVE-2012-0152\cite{CVE-2012-0152}, and
-\end{enumerate*}.
-The first one is a memory leak in Terminal servers in Windwos NT and Windows 2000 causing a denial of service (memory exhaustion) by misformed RDP requests.
-Next one is a RealVNC vulnerability allowing hackers to bypass authentication.
-Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
-Attackers could perform a remote code execution using path traversal attack when the CGI scripts of Apache are enabled.
-We could trace back similar attacks like \ipAddress{/cgi-bin/.\%2e/\%2e\%2e/bin/sh} until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
-This shows how fast attackers, most likely bots, adapt to new vulnerabilities in order to compromise more systems.
+Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease target for automatic attacks that scan the web and try to find exposures.
 
 \begin{figure}[ht]
     \centering
@@ -405,7 +402,17 @@ This shows how fast attackers, most likely bots, adapt to new vulnerabilities in
     \label{fig:honeytrap-results}
 \end{figure}
 
-\textbf{Honeytrap}
+For NFQ related attacks, \textbf{Honeytrap} could identify three major services that are not provided by default.
+Honeytrap functions as a honeypot to provide a service on ports which are not specified by default.
+NFQ intercepts incoming TCP connections during the TCP handshake and let Honeytrap providing a service for it.
+Most of these interceptions are made on
+\begin{enumerate*}[label=(\roman*)]
+    \item port 5038 which is merely used by a machine learning database called MLDB,
+    \item port 5905 which is merely used by a Intel Online Connect Access on Windows machines, and
+    \item port 7070 which is merely used by Apple's QuickTime streaming server (RTSP)
+\end{enumerate*}.
+On nearly all ports attacks focused on RDP connection attempts (\ipAddress{Cookie: mstshash=Administr}).
+However, $94\%$ of all connected IP addresses 
 
 \begin{figure}[ht]
     \centering
@@ -414,17 +421,40 @@ This shows how fast attackers, most likely bots, adapt to new vulnerabilities in
     \label{fig:cowire-results}
 \end{figure}
 
+Third most compromised honeypot is Cowire with a strong bias towards SSH, and FTP.
 \autoref{fig:cowire-results} shows all attacks executed on \textbf{Cowire} separated by their port.
 Respectively, SSH port 22 is the most considered port, resulting in a high use for  
-Besides default credentials to log in, adversaries used various commands to retrieve any information about the host system.
+Besides default credentials login attempts (), adversaries used various commands to retrieve any information about the host system ().
 Interestingly, crypto mining accounts a large number of executed shell commands.
 As an example, XMRig has been the most downloaded malware for crypto currency mining.
-% Blockchain attacks
+Some adversaries even executed complex tailored shell commands to exploit the host machine as a crypto miner.
+With respect to the current time it is not surprising that such gain attraction 
+
+\begin{figure*}
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-username.pdf}
+        \caption{Cowire username credentials}
+        \label{fig:tpot-cowire-username}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/tpot-cowire-password.pdf}
+        \caption{Cowire password credentials}
+        \label{fig:tpot-cowire-password}
+    \end{subfigure}
+    \caption[Cowire credentials on T-Pot]{Cowire credentials used on T-Pot}
+    \label{fig:cowire-credentials}
+\end{figure*}
 
 % Conclusion
+In addition, different Windows versions and Linux distributions in conjunction with various SSH clients are used to compromise our T-Pot.
 
-We assume that attacks made by bots have increased significantly in the last years.
-This might even route back to the Corona pandemic and the skyrocketing increase of Internet activities throughout home offices, more usage of screen sharing software, .
+%We assume that attacks made by bots have increased significantly in the last years.
+%This might even route back to the Corona pandemic and the skyrocketing increase of %Internet activities throughout home offices, more usage of screen sharing software, .
 
 \begin{sidewaystable}
     \centering

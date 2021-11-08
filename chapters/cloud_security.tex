@@ -160,7 +160,7 @@ Newer versions might be available by time and could differ from ours.
 
 \subsubsection{Honeypots}
 
-Followingly, all available components will be explained, albeit the sheer quantity of it.
+T-Pot consists of 20 honeypots. Albeit the sheer quantity of it, we will give a short explanation.
 In addition, \autoref{tab:overview-honeypots} gives a quick overview of all available honeypots in conjunction with
 \begin{enumerate*}[label=(\roman*)]
     \item the port they are running on,
@@ -366,14 +366,17 @@ We clearly identify a bias towards remote desktop protocol attacks, shell-code e
     \label{fig:suricata-results}
 \end{figure}
 
-\textbf{Suricata} registered several alerts and CVE's.
+Suricata registered several alerts and CVE's.
 The vast majority of alerts are RDP related policies, VNC authentication failures, and \textsc{nmap} scans.
 Most used vulnerabilities are 
 \begin{enumerate*}[label=(\roman*)]
-    \item CVE-2001-0540\cite{CVE-2001-0540} which a memory leak in Terminal servers in Windows NT and Windows 2000 causing a denial of service (memory exhaustion) by malformed RDP requests,
-    \item CVE-2006-2369\cite{CVE-2006-2369} which a RealVNC vulnerability allowing hackers to bypass authentication, and
-    \item CVE-2012-0152\cite{CVE-2012-0152} enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets
+    \item CVE-2001-0540\cite{CVE-2001-0540} which is a memory leak in Terminal servers in Windows NT and Windows 2000 causing a denial of service (memory exhaustion) by malformed RDP requests,
+    \item CVE-2006-2369\cite{CVE-2006-2369} which is a RealVNC vulnerability allowing hackers to bypass authentication, and
+    \item CVE-2012-0152\cite{CVE-2012-0152} which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets
 \end{enumerate*}.
+As derived from \autoref{fig:suricata-results}, our T-Pot have not received many attacks in the first week.
+Starting from 28th of October the numbers of alert are skyrocketing.
+This would indicate that botnets crawl IP address ranges to find new machines and probe them.
 Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
 Attackers could perform a remote code execution using path traversal attacks when the CGI scripts of Apache are enabled.
 We could trace back similar attacks like \verb|/cgi-bin/.\%2e/\%2e\%2e/bin/sh| until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
@@ -386,7 +389,7 @@ This shows how fast botnets adapt to new vulnerabilities in order to compromise 
     \label{fig:rdpy-results}
 \end{figure}
 
-The results from \textbf{RDPY} in \autoref{fig:rdpy-results} backups our assumption.
+The results from RDPY in \autoref{fig:rdpy-results} backups our assumption.
 It shows that only a small margin represents unique src IPs.
 The rest of the attacks result in either bad reputation, bot, crawler, or known attacker.
 \autoref{fig:suricata-results} shows the distribution of alert categories that Suricata identified.
@@ -403,7 +406,7 @@ Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease 
     \label{fig:honeytrap-results}
 \end{figure}
 
-For NFQ related attacks, \textbf{Honeytrap} could identify three major services that are not provided by default.
+For NFQ related attacks, Honeytrap could identify three major services that are not provided by default.
 Honeytrap functions as a honeypot to provide a service on ports which are not specified by default.
 NFQ intercepts incoming TCP connections during the TCP handshake and let Honeytrap providing a service for it.
 Most of these interceptions are made on
@@ -424,12 +427,37 @@ However, $94\%$ of all connected IP addresses are resolved as known attackers.
 
 Third most compromised honeypot is Cowrie with a strong bias towards SSH, and FTP.
 \autoref{fig:cowrie-results} shows all attacks executed on Cowrie separated by their port.
-Respectively, SSH port 22 is the most considered port, resulting in a high use for  
-Besides default credentials login attempts (), adversaries used various commands to retrieve any information about the host system ().
-Interestingly, crypto mining accounts numerous executed shell commands.
+Respectively, SSH port $22$ is the most considered port, resulting in a high use for privilege escalation.
+Besides default credentials login attempts (\verb|username: root|, \verb|password: root|, see \autoref{fig:cowrie-credentials} for top 10 credentials), adversaries used various commands to retrieve any information about the host system (\verb|nproc;uname -a|, \verb|cat /proc/cpuinfo|).
+We could identify a unique information gathering attack that has been widely used on our T-Pot.
+\autoref{lst:code-exploitation} shows all shell commands that are executed.
+Attackers try to gain knowledge about the running process on the system (\verb|/bin/busybox|).
+Interestingly, crypto mining attack is getting more attractive to criminals.
 As an example, XMRig has been the most downloaded malware for cryptocurrency mining.
 Some adversaries even executed complex tailored shell commands to exploit the host machine as a crypto miner.
-With respect to the current time it is not surprising that such gain attraction 
+With respect to the current time it is not surprising that such attacks gain attraction.
+Attackers could exploit machines for crypto mining in order to earn more money.
+This looks more appealing than acquiring mining machines and hijacking electricity from surrounded apartments (Quelle!). 
+
+\begin{figure}
+    \begin{lstlisting}[language=bash,caption={Cowrie information gathering}, label={lst:code-exploitation}]
+        enable
+        system
+        shell
+        sh
+        cat /proc/mounts; /bin/busybox $PROCESS_NAME
+        cd /dev/shm; cat .s || cp /bin/echo .s; /bin/busybox $PROCESS_NAME
+        tftp; wget; /bin/busybox $PROCESS_NAME
+        dd bs=52 count=1 if=.s || cat .s || while read i; do echo $i; done < .s
+        while read i
+        /bin/busybox $PROCESS_NAME
+        rm .s; exit
+    \end{lstlisting}
+\end{figure}
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={Cowrie information gathering}, label={lst:crypto-exploitation}]{exploit-crypt.sh.txt}
+\end{figure}
 
 \begin{figure*}
     \centering
@@ -452,16 +480,24 @@ With respect to the current time it is not surprising that such gain attraction
 \end{figure*}
 
 In addition, different Windows versions and Linux distributions in conjunction with various SSH clients are used to compromise our T-Pot.
+As \citet{Kelly2021} claim, Windows 7 or 8 and Windows NT Kernel are the most used \ac{os} with $81\%$.
+Linux's kernels and distributions are 
 
-Lastly, the shear quantity of attacks .
-We filtered all IP addresses in the subnet 
-The results show
+Lastly, we cleaned up our results and excluded all IPs from DFN and \acs{belwue} from our results.
+Both do frequent scans and check if any vulnerability exists.
+This distorts our findings, and thus, we filtered them based on their subnet addresses.
+However, the results show no big change.
+The total number of attacks were merely influenced by it.
+This indicates that our own scans do not greatly interfere with our findings. 
+Due to completeness, we leave our results as they are and do not 
 
 % Conclusion
 % Check increase of Home offices, numbers, etc.
 We assume that attacks made by bots have increased significantly in the last years.
 This might even route back to the Corona pandemic and the skyrocketing increase of 
 Internet activities throughout home offices, more usage of screen sharing software, .
+Interestingly, after 3 weeks the number of attacks originated from China decreased almost to zero.
+
 
 \begin{sidewaystable}
     \centering
@@ -469,7 +505,7 @@ Internet activities throughout home offices, more usage of screen sharing softwa
     \begin{tabularx}{\linewidth}{l|XX|XX|XX|XX}
         \toprule
         \textsc{Honeypots}                        & \multicolumn{2}{c}{BASIS}             & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                             \\
-                                                  & \multicolumn{2}{c|}{\textsc{heicloud}} & \multicolumn{2}{c|}{\textsc{AWS}}        & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                     \\
+                                                  & \multicolumn{2}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}        & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                     \\
                                                   & \textbf{Number}                        & \textbf{Pct.}                            & \textbf{Number}                  & \textbf{Pct.}                      & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
         \hline
         ADBHoney \cite{adbhoney2021}              & $13586$                                & $1.65\%$                                 & 413                              & $0.13\%$                           & 2497            & $0.43\%$      & 442             & $0.13\%$      \\
@@ -485,7 +521,7 @@ Internet activities throughout home offices, more usage of screen sharing softwa
         Heralding \cite{heralding2021}            & $35843$                                & $4.34\%$                                 & 1885                             & $0.61\%$                           & 12255           & $2.11\%$      & 3370            & $0.99\%$      \\
         HoneyPy \cite{honeysap2021}               & $0$                                    & $0\%$                                    & 172                              & $0.06\%$                           & 2149            & $0.37\%$      & 497             & $0.15\%$      \\
         HoneySAP \cite{honeysap2021}              & $18$                                   & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
-        HoneyTrap \cite{honeytrap2021}            & $264264$                               & $32.01\%$                                & -                                & -                                  & -               & -             & -               & -             \\
+        Honeytrap \cite{honeytrap2021}            & $264264$                               & $32.01\%$                                & -                                & -                                  & -               & -             & -               & -             \\
         IPPHoney \cite{ipphoney2021}              & $0$                                    & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
         Mailoney \cite{mailoney2021}              & $0$                                    & $0\%$                                    & 720                              & $0.23\%$                           & 9419            & $1.62\%$      & 146             & $0.04\%$      \\
         MEDpot \cite{medpot2021}                  & $3$                                    & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\

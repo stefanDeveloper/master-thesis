@@ -53,14 +53,14 @@ Windows devices target vulnerabilities in remote desktop sharing software. Such 
 \end{enumerate*}.
 In addition, attackers were also capable of disguising any fingerprinting activity of p0f.
 
-In this chapter, we want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different
-    Cloud Platforms} with ours using the University Heidelberg's cloud solution.
+In this chapter, we want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different Cloud Platforms} with ours using the University Heidelberg's cloud solution.
 First, a short introduction of heiCLOUD is held, followed by a closer lookup of T-Pot that is used to acquire data.
-Lastly, we present the results and do a thorough comparison closing up with a discussion based on a technical report of the Cambridge University.
+Lastly, we present our results and do a thorough comparison closing up with a discussion based on a technical report of the Cambridge University.
 
 \section{Methodology}
 
 Our foremost goal is to track as most attacks as possible.
+We want to verify that most of the attacks on the Internet are originated from botnets.
 To gather various attacks from the Internet \autoref{fig:concept} sketches our concept we plan to apply.
 Honeypots should be deployed on a single instance, and store their data, or log files in a database.
 By the help of data visualization tools, we analyze the attacks.
@@ -70,10 +70,10 @@ Our instance runs on heiCLOUD, a cloud service provided by Heidelberg University
 It is capable of 16 GB of RAM, 8 VCPU's, and a volatile memory of 30 GB.
 In addition, we mount a 125 GB permanent memory to securely store our data.
 In its very early stages, we compared different approaches to achieve this goal.
-As an example we compared native implementation approaches, using additional frameworks, and ready-to-use solutions.
+As an example, we compared native implementation approaches, using additional frameworks, and ready-to-use solutions.
 However, the T-Pot, developed by Telekom, offers a profoundly ready-to-use solution with major advantages.
 It combines several honeypots in conjunction with various analytic tools to trace the newest attacks.
-In addition, it helps to compare our findings with the ones \citet{Kelly2021} claims.
+Furthermore, it helps to compare our findings with the ones \citet{Kelly2021} claim.
 
 \begin{figure}[ht]
     \centering
@@ -169,7 +169,7 @@ In addition, \autoref{tab:overview-honeypots} gives a quick overview of all avai
 \end{enumerate*}.
 
 \textbf{ADBHoney} \cite{adbhoney2021} is a low interaction \ac{adb} honeypot over TCP/IP.
-The importance of it lies in the \ac{adb} protocol that is used to debug and push content to the device.
+The importance of it lies in the \ac{adb} protocol that is used to debug and push content to Android device.
 However, unlike USB it does not support any kind of ample mechanisms of authentication and protection.
 By exposing the \ac{adb} service over any port, an adversary could connect and exploit it.
 ADBHoney is designed to catch malware that has been pushed onto devices.
@@ -319,7 +319,7 @@ The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 
 Noticeable is the large disparity of the previously mentioned attacks on \ac{aws}, \ac{gcp}, and Azure.
 Especially for honeypots like Dionaea, it is shallow why so little attacks have been performed.
-Therefore, we assume that packets run through a static filter. 
+Therefore, we assume that packets run through a static filter.
 Heidelberg itself has a centralized packet filtering which indicates our assumption that certain ports or protocols are excluded.
 To prove that, a \textsc{nmap} TCP SYN scan (\verb|nmap -sS -A 129.206.5.74|) has been executed.
 Our result clearly shows that port 20, reserved for FTP, is filtered, although the access security explicitly allows it.
@@ -327,7 +327,7 @@ Based on this, most of the attacks on Dionaea are made throughout FTP, and thus,
 Moreover, $96\%$ of IP addresses connected to Dionaea are known attackers, and $70\%$ were acquired on port 81, unofficially known for Tor routing.
 Neither any malware nor suspicious payload could be identified.
 Even with an \ac{acl} running in the background, heiCLOUD received more attacks than ever.
-We assume without packet filtering for FTP port 20, the real number might be even higher.
+We assume that the real number might be even higher without packet filtering for FTP port 20.
 However, due to security concerns a temporarily exclude of this rule has been rejected.
 
 \begin{figure}[ht]
@@ -341,10 +341,9 @@ Logstash uses GeoLite2 to resolve the source IP address with information such as
 \autoref{fig:attack-distribution} indicates the geographical location of connections acquired to any honeypot.
 Most attacks are originated from the United States, Germany, Russia, and China.
 Large security scans of DFN or \ac{belwue} pushes Germany on second place, therefore, Germany can be considered negligible.
-On the contrary, the geographical location of an IP address merely indicates the true origin. 
+On the contrary, the geographical location of an IP address merely indicates the true origin.
 Due to technologies like VPN or Tor, the last known node of an IP address could be spoofed, and thus as stated by \citet{Kelly2021}, would remain insufficient to use.
 Hence, we do not strongly rely on the geographical information.
-In addition, adversaries are capable of disguising their fingerprint activities of p0f.
 
 \begin{figure}[ht]
     \centering
@@ -368,7 +367,7 @@ We clearly identify a bias towards remote desktop protocol attacks, shell-code e
 
 Suricata registered several alerts and CVE's.
 The vast majority of alerts are RDP related policies, VNC authentication failures, and \textsc{nmap} scans.
-Most used vulnerabilities are 
+Most used vulnerabilities are
 \begin{enumerate*}[label=(\roman*)]
     \item CVE-2001-0540\cite{CVE-2001-0540} which is a memory leak in Terminal servers in Windows NT and Windows 2000 causing a denial of service (memory exhaustion) by malformed RDP requests,
     \item CVE-2006-2369\cite{CVE-2006-2369} which is a RealVNC vulnerability allowing hackers to bypass authentication, and
@@ -432,31 +431,19 @@ Besides default credentials login attempts (\verb|username: root|, \verb|passwor
 We could identify a unique information gathering attack that has been widely used on our T-Pot.
 \autoref{lst:code-exploitation} shows all shell commands that are executed.
 Attackers try to gain knowledge about the running process on the system (\verb|/bin/busybox|).
-Interestingly, crypto mining attack is getting more attractive to criminals.
+Interestingly, crypto mining attacks are getting more attractive to criminals.
 As an example, XMRig has been the most downloaded malware for cryptocurrency mining.
-Some adversaries even executed complex tailored shell commands to exploit the host machine as a crypto miner.
+Some adversaries even executed complex tailored shell commands to exploit the host machine as a crypto miner (\autoref{lst:crypto-exploitation}).
 With respect to the current time it is not surprising that such attacks gain attraction.
 Attackers could exploit machines for crypto mining in order to earn more money.
-This looks more appealing than acquiring mining machines and hijacking electricity from surrounded apartments (Quelle!). 
+This looks more appealing than acquiring mining machines and hijacking electricity from surrounding apartments (Quelle!).
 
 \begin{figure}
-    \begin{lstlisting}[language=bash,caption={Cowrie information gathering}, label={lst:code-exploitation}]
-        enable
-        system
-        shell
-        sh
-        cat /proc/mounts; /bin/busybox $PROCESS_NAME
-        cd /dev/shm; cat .s || cp /bin/echo .s; /bin/busybox $PROCESS_NAME
-        tftp; wget; /bin/busybox $PROCESS_NAME
-        dd bs=52 count=1 if=.s || cat .s || while read i; do echo $i; done < .s
-        while read i
-        /bin/busybox $PROCESS_NAME
-        rm .s; exit
-    \end{lstlisting}
+    \lstinputlisting[language=bash, caption={Cowrie attack to gather various information about the system}, label={lst:code-exploitation}]{listings/exploit-cpu.sh.txt}
 \end{figure}
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={Cowrie information gathering}, label={lst:crypto-exploitation}]{exploit-crypt.sh.txt}
+    \lstinputlisting[language=bash, caption={Cowrie attack to exploit the host machine as a crypt miner}, label={lst:crypto-exploitation}]{listings/exploit-crypt.sh.txt}
 \end{figure}
 
 \begin{figure*}
@@ -475,60 +462,75 @@ This looks more appealing than acquiring mining machines and hijacking electrici
         \caption{Cowrie password credentials}
         \label{fig:tpot-cowrie-password}
     \end{subfigure}
-    \caption[Cowrie credentials on T-Pot]{Cowrie credentials used on T-Pot}
+    \caption[Cowrie top 10 credentials on T-Pot]{Cowrie top 10 credentials used on T-Pot. Timestamp 22nd of September to 18th of October}
     \label{fig:cowrie-credentials}
 \end{figure*}
 
-In addition, different Windows versions and Linux distributions in conjunction with various SSH clients are used to compromise our T-Pot.
-As \citet{Kelly2021} claim, Windows 7 or 8 and Windows NT Kernel are the most used \ac{os} with $81\%$.
-Linux's kernels and distributions are 
-
+P0f identified different Windows versions and Linux distributions in conjunction with various SSH clients that are used to compromise our T-Pot.
+Like \citet{Kelly2021}, Windows 7 or 8 and Windows NT Kernel are the most used \ac{os} with $81\%$.
+Unfortunately, disguising OS fingerprinting activities account $84\%$.
 Lastly, we cleaned up our results and excluded all IPs from DFN and \acs{belwue} from our results.
 Both do frequent scans and check if any vulnerability exists.
 This distorts our findings, and thus, we filtered them based on their subnet addresses.
-However, the results show no big change.
+However, the results show no big changes.
 The total number of attacks were merely influenced by it.
-This indicates that our own scans do not greatly interfere with our findings. 
-Due to completeness, we leave our results as they are and do not 
+This indicates that our own scans do not greatly interfere with our findings.
+Due to completeness, we leave our results as they are and do not show the filtered data.
 
 % Conclusion
-% Check increase of Home offices, numbers, etc.
-We assume that attacks made by bots have increased significantly in the last years.
-This might even route back to the Corona pandemic and the skyrocketing increase of 
-Internet activities throughout home offices, more usage of screen sharing software, .
-Interestingly, after 3 weeks the number of attacks originated from China decreased almost to zero.
+Overall, heiCLOUD has nearly doubled the size of attacks.
+On average, heiCLOUD has received $204.98\%$ more than Azure, \ac{gcp}, and \ac{aws}.
+Attacks on Cowrie, RDPY, and Honeytrap are the most compromised honeypots.
+In contrast to \citet{Kelly2021}, Dionaea and Glutton used to be the most considered honeypots for adversaries.
+We assume that attacks by botnets have increased significantly since last year when \citet{Kelly2021} did their research.
+Respectively, one question we are not able to answer is if other cloud providers filter their network traffic.
+It would explain the major difference between Heidelberg University and the big tech companies.
+The cause for such an increase remains doubtful.
+One explanation could root back to the Corona pandemic and the skyrocketing increase in home office activities.
+Related to that is a higher usage in screen sharing software.
+Considering the BSI\footnote{The Federal Office for Information Security is responsible for managing communication security for the German government. Each year they publish a report for recent cybersecurity threats.} report for cybersecurity 2021, they revealed an increase of attack surfaces during the pandemic.(Quelle!)
+Respectively, the IT infrastructure could not keep up with this fast change and widen the attack surface of the company.
+Their conclusion overlays our assumption that attackers took advantage and increase their activities.
+This phenomenon shows that nearly all attacks originate from botnets which scan through IP address ranges.
+In total, $73\%$ of all IP address are unresolved, known attacker reputation represents the largest part of resolved IP addresses with $23\%$.
+Fortunately, such reputations could technically be filtered by an organization's firewall and would lower the chance of an exploit.
+Interestingly, after 3 weeks the number of attacks originated from China decreased to almost zero percent.
+This might be an indication that our honeypot has been exposed, and further attacks represent a risk of revealing their compromises.
+However, this assumption cannot be confirmed due to the lax geographical reliability of IP addresses.
 
+Our results lay emphasis on the importance of honeypots.
+It shows that recent botnet activities can be traced to find the newest trends of attacks.
 
 \begin{sidewaystable}
     \centering
     \caption[Overview of attacks on cloud providers]{Overview of attacks on heiCLOUD, AWS, GC and Azure. Only the top 10 most attacked honeypots are considered. \enquote{-} entails that a honeypot is not part of the top 10.}
     \begin{tabularx}{\linewidth}{l|XX|XX|XX|XX}
         \toprule
-        \textsc{Honeypots}                        & \multicolumn{2}{c}{BASIS}             & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                             \\
-                                                  & \multicolumn{2}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}        & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                     \\
-                                                  & \textbf{Number}                        & \textbf{Pct.}                            & \textbf{Number}                  & \textbf{Pct.}                      & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
+        \textsc{Honeypots} & \multicolumn{2}{c}{BASIS}              & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                             \\
+                           & \multicolumn{2}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}       & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                     \\
+                           & \textbf{Number}                        & \textbf{Pct.}                           & \textbf{Number}                  & \textbf{Pct.}                      & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
         \hline
-        ADBHoney \cite{adbhoney2021}              & $13586$                                & $1.65\%$                                 & 413                              & $0.13\%$                           & 2497            & $0.43\%$      & 442             & $0.13\%$      \\
-        Cisco ASA \cite{cymmetria2018}            & $931$                                  & $0.11\%$                                 & 260                              & $0.08\%$                           & 750             & $0.13\%$      & 134             & $0.04\%$      \\
-        Citrix honeypot \cite{citrixhoneypot2020} & $1480$                                 & $0.18\%$                                 & -                                & -                                  & -               & -             & -               & -             \\
-        Conpot \cite{conpot2021}                  & $807$                                  & $0.10\%$                                 & -                                & -                                  & -               & -             & -               & -             \\
-        Cowrie \cite{cowrie2021}                  & $98813$                                & $11.97\%$                                & 4503                             & $1.46\%$                           & 297818          & $51.25\%$     & 9012            & $2.64\%$      \\
-        DDoSPot \cite{ddosspot2021}               & $0$                                    & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
-        Dicompot \cite{dicompot2021}              & $27$                                   & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
-        Dionaea \cite{dionaea2021}                & $3293$                                 & $0.40\%$                                 & 288075                           & $93.49\%$                          & 162570          & $27.98\%$     & 308102          & $90.42\%$     \\
-        Elasticpot \cite{elasticpot2021}          & $531$                                  & $0.06\%$                                 & -                                & -                                  & -               & -             & -               & -             \\
-        Glutton \cite{glutton2021}                & $0$                                    & $0\%$                                    & 11878                            & $3.85\%$                           & 84375           & $15.52\%$     & 17256           & $5.06\%$      \\
-        Heralding \cite{heralding2021}            & $35843$                                & $4.34\%$                                 & 1885                             & $0.61\%$                           & 12255           & $2.11\%$      & 3370            & $0.99\%$      \\
-        HoneyPy \cite{honeysap2021}               & $0$                                    & $0\%$                                    & 172                              & $0.06\%$                           & 2149            & $0.37\%$      & 497             & $0.15\%$      \\
-        HoneySAP \cite{honeysap2021}              & $18$                                   & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
-        Honeytrap \cite{honeytrap2021}            & $264264$                               & $32.01\%$                                & -                                & -                                  & -               & -             & -               & -             \\
-        IPPHoney \cite{ipphoney2021}              & $0$                                    & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
-        Mailoney \cite{mailoney2021}              & $0$                                    & $0\%$                                    & 720                              & $0.23\%$                           & 9419            & $1.62\%$      & 146             & $0.04\%$      \\
-        MEDpot \cite{medpot2021}                  & $3$                                    & $0\%$                                    & -                                & -                                  & -               & -             & -               & -             \\
-        RDPY \cite{rdpy2021}                      & $405742$                               & $49.15\%$                                & 100                              & $0.03\%$                           & 7916            & $1.36\%$      & 1463            & $0.43\%$      \\
-        SNARE/TANNER \cite{snare2021}             & $201$                                  & $0.02\%$                                 & 138                              & $0.04\%$                           & 1367            & $0.24\%$      & 313             & $0.09\%$      \\
+        ADBHoney           & $13586 \color{red}{\downarrow}$        & $1.65\%$                                & 413                              & $0.13\%$                           & 2497            & $0.43\%$      & 442             & $0.13\%$      \\
+        Cisco ASA          & $931$                                  & $0.11\%$                                & 260                              & $0.08\%$                           & 750             & $0.13\%$      & 134             & $0.04\%$      \\
+        Citrix honeypot    & $1480$                                 & $0.18\%$                                & -                                & -                                  & -               & -             & -               & -             \\
+        Conpot             & $807$                                  & $0.10\%$                                & -                                & -                                  & -               & -             & -               & -             \\
+        Cowrie             & $98813$                                & $11.97\%$                               & 4503                             & $1.46\%$                           & 297818          & $51.25\%$     & 9012            & $2.64\%$      \\
+        DDoSPot            & $0$                                    & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
+        Dicompot           & $27$                                   & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
+        Dionaea            & $3293$                                 & $0.40\%$                                & 288075                           & $93.49\%$                          & 162570          & $27.98\%$     & 308102          & $90.42\%$     \\
+        Elasticpot         & $531$                                  & $0.06\%$                                & -                                & -                                  & -               & -             & -               & -             \\
+        Glutton            & $0$                                    & $0\%$                                   & 11878                            & $3.85\%$                           & 84375           & $15.52\%$     & 17256           & $5.06\%$      \\
+        Heralding          & $35843$                                & $4.34\%$                                & 1885                             & $0.61\%$                           & 12255           & $2.11\%$      & 3370            & $0.99\%$      \\
+        HoneyPy            & $0$                                    & $0\%$                                   & 172                              & $0.06\%$                           & 2149            & $0.37\%$      & 497             & $0.15\%$      \\
+        HoneySAP           & $18$                                   & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
+        Honeytrap          & $264264$                               & $32.01\%$                               & -                                & -                                  & -               & -             & -               & -             \\
+        IPPHoney           & $0$                                    & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
+        Mailoney           & $0$                                    & $0\%$                                   & 720                              & $0.23\%$                           & 9419            & $1.62\%$      & 146             & $0.04\%$      \\
+        MEDpot             & $3$                                    & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
+        RDPY               & $405742$                               & $49.15\%$                               & 100                              & $0.03\%$                           & 7916            & $1.36\%$      & 1463            & $0.43\%$      \\
+        SNARE/TANNER       & $201$                                  & $0.02\%$                                & 138                              & $0.04\%$                           & 1367            & $0.24\%$      & 313             & $0.09\%$      \\
         \hline
-        \textsc{In total}                         & $825539$                               & $100\%$                                  & 308144                           & $100\%$                            & 581116          & $100\%$       & 340735          & $100\%$       \\
+        \textsc{In total}  & $825539$                               & $100\%$                                 & 308144                           & $100\%$                            & 581116          & $100\%$       & 340735          & $100\%$       \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-honeypots-attacks}
@@ -536,10 +538,17 @@ Interestingly, after 3 weeks the number of attacks originated from China decreas
 
 \section{Discussion}
 
+In order to identify any bottlenecks, a thorough code review of T-Pot has been done.
+One downside is the static hostname representation of Cowrie.
+It always gives responds with \verb|#1 SMP Debian 3.2.68-1+deb7u1| (\verb|uname -a|), leaving a tiny footprint when botnets crawl through the web.
+A random choice of the default hostname could harden the honeypot from being exposed.
+Next, if attackers could check open ports on T-Pot, it might be suspicious when many ports with services are widely open.
+From a technical perspective, bots could check this state, and thus, exclude T-Pot from being probed.
+However, T-Pot included good 
+One of it 
 As recently investigated by \citet{vetterl2020}, fingerprinting honeypots is becoming easier due to a fatal flaw in the underlying protocol implementation.
-\citet{vetterl2020} states that attackers always try to prevent their methods, exploits and tools to be disclosed.
+\citet{vetterl2020} states that attackers always try to prevent their methods, exploits and tools to be disclosed, and thus, avoiding honeypots whenever it is possible.
 Therefore, detecting honeypots before attack them to avoid disclosing potential skills is a strong motivation for black hats.
-
 
 \section{Summary}
 

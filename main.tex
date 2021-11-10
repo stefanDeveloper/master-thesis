@@ -1,11 +1,11 @@
 \documentclass[
-  paper= a4,
+  paper=a4,
   BCOR=10mm,
-  oneside,
+  twoside,
   fontsize=12pt,
   fleqn,
   numbers=noendperiod,
-  headings=normal,
+  % headings=normal,
   chapterprefix=true,
   version=3.03,
   toc=bibliography,
@@ -30,7 +30,6 @@
 % TODOs package, could be removed in the final paper
 % set length necessary to get rid warning message
 \setlength {\marginparwidth }{2cm} 
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage[toc,page]{appendix}
 \usepackage{tabularx}
 % Inline listing
@@ -41,7 +40,7 @@
 \usepackage{rotating}
 % Used for subfigures
 \usepackage{subcaption}
-
+% Code usage
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily,
   showstringspaces=false,
@@ -103,7 +102,7 @@
 
 \pagenumbering{Roman}
 
-\setcounter{tocdepth}{1}
+%\setcounter{tocdepth}{1}
 \tableofcontents
 \newpage
 

@@ -1,11 +1,19 @@
-%\chapter{Cloud Security with Honeypots}
-\chapter{Measuring Botnet activities in the Cloud}
+\chapter{Analyze Honeypot Attacks in the Cloud}
 
-In this chapter we investigate... tbc.
+Attacks from the Internet are often originated from bots.
+A bot, short for \enquote{robot}, is an automated process that interacts with different network services.
+Besides good intentions, bots can be used for malicious purposes.
+Mostly, bots try to self-propagate malware across the Internet and try to capture hosts that merge into a botnet.
+A botnet has a central server or servers that act as a command and control center for all infected hosts.
+Recently, Universities in Germany received more cyberattacks than ever, respectively increasing their costs for damage repairs.
+Honeypots are a good solution to catch attackers and learn from their exploits.
+However, there is no conclusion if honeypots in times of bots give a proper countermeasure to avoid such damage.
+Following the rise of cyberattacks, we introduce a method to collect and analyze cyberattacks in a cloud environment.
+We further propose an answer if honeypots are helpful to prevent such scenarios from happening.
 
 \section{Introduction}
 
-As previously mention in \autoref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services, and applications.
+As previously mention in \autoref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services and applications.
 \citet{Kelly2021} thoroughly investigated honeypots on Azure, \ac{aws}, and \ac{gcp}.
 Followingly, we present their results that we want to compare on with the ones heiCLOUD achieves.
 The results are collected by T-Pot version $20.06.0$ over a duration of 3 weeks.
@@ -27,15 +35,15 @@ Microsoft Azure reflects nearly the same results as the other two cloud provider
         \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                  \\
                           & \textbf{Dionaea}                       & \textbf{Cowrie}   & \textbf{Glutton} & \textbf{others} &           \\
         \hline
-        \acl{aws}         & $228.075$                              & $4.503$           & $11.878$         & $3.688$         & $248.144$ \\
-        \acl{gcp}         & $162.570$                              & $297.818$         & $84.375$         & $36.403$        & $581.116$ \\
-        Microsoft Azure   & $308.102$                              & $9.012$           & $17.256$         & $6.365$         & $340.735$ \\
+        \acl{aws}         & $228\,075$                              & $4\,503$           & $11\,878$         & $3\,688$         & $248\,144$ \\
+        \acl{gcp}         & $162\,570$                              & $297\,818$         & $84\,375$         & $36\,403$        & $581\,116$ \\
+        Microsoft Azure   & $308\,102$                              & $9\,012$           & $17\,256$         & $6\,365$         & $340\,735$ \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-cloud-security}
 \end{table}
 
-The overall results show an average ratio of $55.000$ attacks per day, summing up to roughly $1.6$ million in total.
+The overall results show an average ratio of $55.000$ attacks per day, summing up to roughly $1.3$ million in total.
 Similar results for different regions could have been reproduced.
 Their results clearly show the disparity of the regions Europe, US, and Asia.
 An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
@@ -53,14 +61,14 @@ Windows devices target vulnerabilities in remote desktop sharing software. Such 
 \end{enumerate*}.
 In addition, attackers were also capable of disguising any fingerprinting activity of p0f.
 
-In this chapter, we want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different Cloud Platforms} with ours using the University Heidelberg's cloud solution.
+We want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different Cloud Platforms} with ours using the University Heidelberg's cloud solution.
 First, a short introduction of heiCLOUD is held, followed by a closer lookup of T-Pot that is used to acquire data.
 Lastly, we present our results and do a thorough comparison closing up with a discussion based on a technical report of the Cambridge University.
 
 \section{Methodology}
 
 Our foremost goal is to track as most attacks as possible.
-We want to verify that most of the attacks on the Internet are originated from botnets.
+We want to verify if most of the attacks on the Internet are originated from bots.
 To gather various attacks from the Internet \autoref{fig:concept} sketches our concept we plan to apply.
 Honeypots should be deployed on a single instance, and store their data, or log files in a database.
 By the help of data visualization tools, we analyze the attacks.
@@ -375,11 +383,11 @@ Most used vulnerabilities are
 \end{enumerate*}.
 As derived from \autoref{fig:suricata-results}, our T-Pot have not received many attacks in the first week.
 Starting from 28th of October the numbers of alert are skyrocketing.
-This would indicate that botnets crawl IP address ranges to find new machines and probe them.
+This would indicate that bots crawl IP address ranges to find new machines and probe them.
 Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
 Attackers could perform a remote code execution using path traversal attacks when the CGI scripts of Apache are enabled.
 We could trace back similar attacks like \verb|/cgi-bin/.\%2e/\%2e\%2e/bin/sh| until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
-This shows how fast botnets adapt to new vulnerabilities in order to compromise more systems.
+This shows how fast bots adapt to new vulnerabilities in order to compromise more systems.
 
 \begin{figure}[ht]
     \centering
@@ -482,7 +490,7 @@ Overall, heiCLOUD has nearly doubled the size of attacks.
 On average, heiCLOUD has received $204.98\%$ more than Azure, \ac{gcp}, and \ac{aws}.
 Attacks on Cowrie, RDPY, and Honeytrap are the most compromised honeypots.
 In contrast to \citet{Kelly2021}, Dionaea and Glutton used to be the most considered honeypots for adversaries.
-We assume that attacks by botnets have increased significantly since last year when \citet{Kelly2021} did their research.
+We assume that attacks by bots have increased significantly since last year when \citet{Kelly2021} did their research.
 Respectively, one question we are not able to answer is if other cloud providers filter their network traffic.
 It would explain the major difference between Heidelberg University and the big tech companies.
 The cause for such an increase remains doubtful.
@@ -491,7 +499,7 @@ Related to that is a higher usage in screen sharing software.
 Considering the BSI\footnote{The Federal Office for Information Security is responsible for managing communication security for the German government. Each year they publish a report for recent cybersecurity threats.} report for cybersecurity 2021, they revealed an increase of attack surfaces during the pandemic.(Quelle!)
 Respectively, the IT infrastructure could not keep up with this fast change and widen the attack surface of the company.
 Their conclusion overlays our assumption that attackers took advantage and increase their activities.
-This phenomenon shows that nearly all attacks originate from botnets which scan through IP address ranges.
+This phenomenon shows that nearly all attacks originate from bots which scan through IP address ranges.
 In total, $73\%$ of all IP address are unresolved, known attacker reputation represents the largest part of resolved IP addresses with $23\%$.
 Fortunately, such reputations could technically be filtered by an organization's firewall and would lower the chance of an exploit.
 Interestingly, after 3 weeks the number of attacks originated from China decreased to almost zero percent.
@@ -499,7 +507,7 @@ This might be an indication that our honeypot has been exposed, and further atta
 However, this assumption cannot be confirmed due to the lax geographical reliability of IP addresses.
 
 Our results lay emphasis on the importance of honeypots.
-It shows that recent botnet activities can be traced to find the newest trends of attacks.
+It shows that recent bot activities can be traced to find the newest trends of attacks.
 
 \begin{sidewaystable}
     \centering
@@ -538,18 +546,14 @@ It shows that recent botnet activities can be traced to find the newest trends o
 
 \section{Discussion}
 
-In order to identify any bottlenecks, a thorough code review of T-Pot has been done.
-One downside is the static hostname representation of Cowrie.
-It always gives responds with \verb|#1 SMP Debian 3.2.68-1+deb7u1| (\verb|uname -a|), leaving a tiny footprint when botnets crawl through the web.
-A random choice of the default hostname could harden the honeypot from being exposed.
-Next, if attackers could check open ports on T-Pot, it might be suspicious when many ports with services are widely open.
-From a technical perspective, bots could check this state, and thus, exclude T-Pot from being probed.
-However, T-Pot included good 
-One of it 
+One downside of T-Pot is the static hostname representation of Cowrie.
+It always returns \verb|#1 SMP Debian 3.2.68-1+deb7u1| (\verb|uname -a|) as hostname information, leaving a tiny footprint when bots crawl through the web.
+A random choice of hostname information could harden Cowrie from being exposed.
+Next, if attackers would scan open ports on T-Pot, it might be suspicious when many ports with services are widely open.
+From a technical perspective, bots could check this state if it is uncommon, and thus, exclude T-Pot from being probed.
+However, T-Pot includes good preventions like random hostname and scheduled tasks.
+Another major drawback is the latest endeavor to fingerprint honeypots.
 As recently investigated by \citet{vetterl2020}, fingerprinting honeypots is becoming easier due to a fatal flaw in the underlying protocol implementation.
-\citet{vetterl2020} states that attackers always try to prevent their methods, exploits and tools to be disclosed, and thus, avoiding honeypots whenever it is possible.
-Therefore, detecting honeypots before attack them to avoid disclosing potential skills is a strong motivation for black hats.
-
-\section{Summary}
-
-In this chapter we have
+\citet{vetterl2020} states that attackers always try to prevent their methods, exploits and tools from being divulged.
+Therefore, detecting honeypots before attack them is a strong motivation for black hats.
+In \autoref{chap:fingerprinting} we will present a way to avoid fingerprinting of Cowrie.

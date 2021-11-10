@@ -32,12 +32,12 @@ Microsoft Azure reflects nearly the same results as the other two cloud provider
     \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
     \begin{tabularx}{\linewidth}{l|XXXX|l}
         \toprule
-        \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                  \\
-                          & \textbf{Dionaea}                       & \textbf{Cowrie}   & \textbf{Glutton} & \textbf{others} &           \\
+        \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                   \\
+                          & \textbf{Dionaea}                       & \textbf{Cowrie}   & \textbf{Glutton} & \textbf{others} &            \\
         \hline
-        \acl{aws}         & $228\,075$                              & $4\,503$           & $11\,878$         & $3\,688$         & $248\,144$ \\
-        \acl{gcp}         & $162\,570$                              & $297\,818$         & $84\,375$         & $36\,403$        & $581\,116$ \\
-        Microsoft Azure   & $308\,102$                              & $9\,012$           & $17\,256$         & $6\,365$         & $340\,735$ \\
+        \acl{aws}         & $228\,075$                             & $4\,503$          & $11\,878$        & $3\,688$        & $248\,144$ \\
+        \acl{gcp}         & $162\,570$                             & $297\,818$        & $84\,375$        & $36\,403$       & $581\,116$ \\
+        Microsoft Azure   & $308\,102$                             & $9\,012$          & $17\,256$        & $6\,365$        & $340\,735$ \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-cloud-security}
@@ -314,7 +314,7 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 \label{sec:honeypots-heicloud}
 
 Our T-Pot has been deployed for 3 weeks (from 22nd of September to 22nd of October) and collected in total \numprint{825,539} attacks.
-Overall, RDPY ($49.15\%$), Honeytrap ($32.01\%$), and Cowrie ($11.97\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
+Overall, RDPY ($47.94\%$), Honeytrap ($32.27\%$), and Cowrie ($12.60\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 
@@ -487,7 +487,7 @@ Due to completeness, we leave our results as they are and do not show the filter
 
 % Conclusion
 Overall, heiCLOUD has nearly doubled the size of attacks.
-On average, heiCLOUD has received $204.98\%$ more than Azure, \ac{gcp}, and \ac{aws}.
+On average, heiCLOUD has received $195.31\%$ more than Azure, \ac{gcp}, and \ac{aws}.
 Attacks on Cowrie, RDPY, and Honeytrap are the most compromised honeypots.
 In contrast to \citet{Kelly2021}, Dionaea and Glutton used to be the most considered honeypots for adversaries.
 We assume that attacks by bots have increased significantly since last year when \citet{Kelly2021} did their research.
@@ -512,33 +512,33 @@ It shows that recent bot activities can be traced to find the newest trends of a
 \begin{sidewaystable}
     \centering
     \caption[Overview of attacks on cloud providers]{Overview of attacks on heiCLOUD, AWS, GC and Azure. Only the top 10 most attacked honeypots are considered. \enquote{-} entails that a honeypot is not part of the top 10.}
-    \begin{tabularx}{\linewidth}{l|XX|XX|XX|XX}
+    \begin{tabularx}{\linewidth}{l|XXc|XX|XX|XX}
         \toprule
-        \textsc{Honeypots} & \multicolumn{2}{c}{BASIS}              & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                             \\
-                           & \multicolumn{2}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}       & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                     \\
-                           & \textbf{Number}                        & \textbf{Pct.}                           & \textbf{Number}                  & \textbf{Pct.}                      & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
+        \textsc{Honeypots} & \multicolumn{3}{c}{BASIS}              & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                                             \\
+                           & \multicolumn{3}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}       & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                                     \\
+                           & \textbf{Number}                        & \textbf{Pct.}                           &                                  & \textbf{Number}                    & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} & \textbf{Number} & \textbf{Pct.} \\
         \hline
-        ADBHoney           & $13586 \color{red}{\downarrow}$        & $1.65\%$                                & 413                              & $0.13\%$                           & 2497            & $0.43\%$      & 442             & $0.13\%$      \\
-        Cisco ASA          & $931$                                  & $0.11\%$                                & 260                              & $0.08\%$                           & 750             & $0.13\%$      & 134             & $0.04\%$      \\
-        Citrix honeypot    & $1480$                                 & $0.18\%$                                & -                                & -                                  & -               & -             & -               & -             \\
-        Conpot             & $807$                                  & $0.10\%$                                & -                                & -                                  & -               & -             & -               & -             \\
-        Cowrie             & $98813$                                & $11.97\%$                               & 4503                             & $1.46\%$                           & 297818          & $51.25\%$     & 9012            & $2.64\%$      \\
-        DDoSPot            & $0$                                    & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
-        Dicompot           & $27$                                   & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
-        Dionaea            & $3293$                                 & $0.40\%$                                & 288075                           & $93.49\%$                          & 162570          & $27.98\%$     & 308102          & $90.42\%$     \\
-        Elasticpot         & $531$                                  & $0.06\%$                                & -                                & -                                  & -               & -             & -               & -             \\
-        Glutton            & $0$                                    & $0\%$                                   & 11878                            & $3.85\%$                           & 84375           & $15.52\%$     & 17256           & $5.06\%$      \\
-        Heralding          & $35843$                                & $4.34\%$                                & 1885                             & $0.61\%$                           & 12255           & $2.11\%$      & 3370            & $0.99\%$      \\
-        HoneyPy            & $0$                                    & $0\%$                                   & 172                              & $0.06\%$                           & 2149            & $0.37\%$      & 497             & $0.15\%$      \\
-        HoneySAP           & $18$                                   & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
-        Honeytrap          & $264264$                               & $32.01\%$                               & -                                & -                                  & -               & -             & -               & -             \\
-        IPPHoney           & $0$                                    & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
-        Mailoney           & $0$                                    & $0\%$                                   & 720                              & $0.23\%$                           & 9419            & $1.62\%$      & 146             & $0.04\%$      \\
-        MEDpot             & $3$                                    & $0\%$                                   & -                                & -                                  & -               & -             & -               & -             \\
-        RDPY               & $405742$                               & $49.15\%$                               & 100                              & $0.03\%$                           & 7916            & $1.36\%$      & 1463            & $0.43\%$      \\
-        SNARE/TANNER       & $201$                                  & $0.02\%$                                & 138                              & $0.04\%$                           & 1367            & $0.24\%$      & 313             & $0.09\%$      \\
+        ADBHoney           & $13292$                                & $1.65\%$                                & $\color{green}{\uparrow}$        & 413                                & $0.13\%$      & 2497            & $0.43\%$      & 442             & $0.13\%$      \\
+        Cisco ASA          & $944$                                  & $0.11\%$                                & $\color{green}{\uparrow}$        & 260                                & $0.08\%$      & 750             & $0.13\%$      & 134             & $0.04\%$      \\
+        Citrix honeypot    & $1471$                                 & $0.18\%$                                &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Conpot             & $1003$                                 & $0.10\%$                                &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Cowrie             & $990069$                               & $11.97\%$                               & $\color{red}{\downarrow}$                                 & 4503                               & $1.46\%$      & 297818          & $51.25\%$     & 9012            & $2.64\%$      \\
+        DDoSPot            & $0$                                    & $0\%$                                   &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Dicompot           & $25$                                   & $0\%$                                   &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Dionaea            & $3110$                                 & $0.40\%$                                & $\color{red}{\downarrow}$                                 & 288075                             & $93.49\%$     & 162570          & $27.98\%$     & 308102          & $90.42\%$     \\
+        Elasticpot         & $512$                                  & $0.06\%$                                &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Glutton            & $0$                                    & $0\%$                                   & $\color{red}{\downarrow}$                                 & 11878                              & $3.85\%$      & 84375           & $15.52\%$     & 17256           & $5.06\%$      \\
+        Heralding          & $35836$                                & $4.34\%$                                & $\color{green}{\uparrow}$                                 & 1885                               & $0.61\%$      & 12255           & $2.11\%$      & 3370            & $0.99\%$      \\
+        HoneyPy            & $0$                                    & $0\%$                                   & $\color{red}{\downarrow}$                                 & 172                                & $0.06\%$      & 2149            & $0.37\%$      & 497             & $0.15\%$      \\
+        HoneySAP           & $18$                                   & $0\%$                                   &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Honeytrap          & $253854$                               & $32.01\%$                               &                                  & -                                  & -             & -               & -             & -               & -             \\
+        IPPHoney           & $0$                                    & $0\%$                                   &                                  & -                                  & -             & -               & -             & -               & -             \\
+        Mailoney           & $0$                                    & $0\%$                                   & $\color{red}{\downarrow}$                                 & 720                                & $0.23\%$      & 9419            & $1.62\%$      & 146             & $0.04\%$      \\
+        MEDpot             & $3$                                    & $0\%$                                   &                                  & -                                  & -             & -               & -             & -               & -             \\
+        RDPY               & $377045$                               & $49.15\%$                               &  $\color{green}{\uparrow}$                                & 100                                & $0.03\%$      & 7916            & $1.36\%$      & 1463            & $0.43\%$      \\
+        SNARE/TANNER       & $382$                                  & $0.02\%$                                & $\color{red}{\downarrow}$                                 & 138                                & $0.04\%$      & 1367            & $0.24\%$      & 313             & $0.09\%$      \\
         \hline
-        \textsc{In total}  & $825539$                               & $100\%$                                 & 308144                           & $100\%$                            & 581116          & $100\%$       & 340735          & $100\%$       \\
+        \textsc{In total}  & $786564$                               & $100\%$                                 &                                  & 308144                             & $100\%$       & 581116          & $100\%$       & 340735          & $100\%$       \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-honeypots-attacks}

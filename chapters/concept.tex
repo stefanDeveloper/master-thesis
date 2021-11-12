@@ -2,6 +2,8 @@
 \label{chap:concept}
 
 Zoning a network is often well-known method to restrict 
+By the help of our honeypot, we show that we identified attacks on the internal zone of the University network.
+This result contributed to an adaption of the \ac{acl}
 
 \section{Introduction}
 
@@ -87,3 +89,20 @@ In total, we consider three different approaches.
 \subsection{Eduroam}
 
 \subsection{219 Zone}
+
+\autoref{fig:madcat-attack-distribution} shows the attack distribution.
+Most of the connection attempts are originated from the United States, Germany, and China.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
+    \caption[Attack distribution of MADCAT]{Attack distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
+    \label{fig:madcat-attack-distribution}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
+    \caption[Protocol distribution of MADCAT]{Protocol distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
+    \label{fig:madcat-protocols}
+\end{figure}

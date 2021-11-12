@@ -6,6 +6,8 @@
   fleqn,
   numbers=noendperiod,
   % headings=normal,
+  % Headings configuration
+  headings=standardclasses,
   chapterprefix=true,
   version=3.03,
   toc=bibliography,
@@ -13,9 +15,10 @@
   % listof=nochaptergap,
   parskip=half
 ]{scrreprt}
-
+% scrbook
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
 \usepackage{color}
 \usepackage{amsmath}
 \usepackage{tabularx}
@@ -51,12 +54,21 @@
   numbers=left,
   stepnumber=1,
 }
+\usepackage[
+	pdftitle={Honeypot Implementation in a Cloud Environment},
+	pdfauthor={Stefan Machmeier},
+	pdfsubject={Masterthesis},
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines,
+	pdfdisplaydoctitle=true, 		
+	pdflang={english}, 
+]{hyperref}
 
 \usepackage[numbers]{natbib}
 
 \include{acronyms}
 
-\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}, \nameref*{#1}}}
+%\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}, \nameref*{#1}}}
 \newcommand{\ipAddress}[1]{%
     {\fontfamily{pcr}\selectfont%
         #1%
@@ -83,16 +95,6 @@
 \title{Honeypot Implementation in a Cloud Environment}
 \author{Stefan Machmeier}
 \date{01. Feburary 2022}
-
-\usepackage[
-	pdftitle={Honeypot Implementation in a Cloud Environment},
-	pdfauthor={Stefan Machmeier},
-	pdfsubject={Masterthesis},
-	pdfcreator={pdflatex, LaTeX with KOMA-Script},
-	pdfpagemode=UseOutlines,
-	pdfdisplaydoctitle=true, 		
-	pdflang={english}, 
-]{hyperref}
 
 \begin{document}
 

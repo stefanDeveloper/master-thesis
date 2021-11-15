@@ -33,3 +33,8 @@ MADCAT
 postprocessor
 Eduroam
 TwistedConch
+ssh-dss
+blowfish-cbc
+Kippo
+protoversions
+swversion

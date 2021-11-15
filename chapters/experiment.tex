@@ -55,8 +55,8 @@ The version string \verb|SSH-2.2-OpenSSH\r\n| and the \verb|SSH2_MSG_KEXINIT| pa
 \autoref{tab:cosine-similarity} presents the cosine similarity of OpenSSH, Twisted, and Cowrie.
 As it outlines, Cowrie responses are not close to OpenSSH.
 Thus, distinguishing Cowrie from OpenSSH with SSH packets is feasible.
-Moreover, \citet{vetterl2020} performed an Internet-wide scan and detected $2021$ Cowrie honeypots.
-These results indicate the weak link 
+Moreover, \citet{vetterl2020} performed an Internet-wide scan, and detected $758$ Kippo and $2021$ Cowrie honeypots.
+These results show that the values of honeypots would decrease to zero when large fingerprinting activities are used.
 
 \begin{figure}[ht]
     \centering
@@ -69,8 +69,10 @@ These results indicate the weak link
 Cowrie is based on TwistedConch, a Python 2/3 library that implements the SSH protocol.
 Any bash command and its response are tweaked by Cowrie, and thus, resulting in a discrepancy to OpenSSH.
 For example, Cowrie version $1.1.0$ missed \verb|tftp| and came with version $1.2.0$.
-So, it is continuous struggle of adding to commands to avoid early disclosures of Cowrie.
-
+So, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
+\autoref{fig:cowrie-openssh} shows the difference between OpenSSH and Cowrie.
+Both have to fulfill the RFC 4250\cite{rfc4250} requirements.
+The subtle differences in TwistedConch, sshd, bash, and Cowrie leads to divergent in the cosine similarity coefficient.
 
 \begin{table}
     \caption{Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted.}

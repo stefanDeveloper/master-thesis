@@ -1,17 +1,17 @@
 \chapter{Background}
 
 Using honeypots in a cloud environment merge two varying principals together.
-This chapter concludes the fundamental knowledge that is needed to comprehend the upcoming experiments.
-If the reader has a profoundly understanding of cloud computing, honeypots, and virtualization he can skip this chapter.
+This chapter introduces the fundamental knowledge that is needed to comprehend the upcoming experiments.
+If the reader has a profound understanding of cloud computing, honeypots, and virtualization he can skip this chapter.
 
 \section{Virtualization}
 
 Virtualization, often referred to \ac{vm}, is defined by \citet{kreuter2004} as \enquote{an abstraction layer or environment between hardware component and the end-user}.
 A \ac{vm} runs on top of an \ac{os} core components.
-By an abstraction layer, the virtual machine is connected with the real machine by hypervisors or \ac{vmm}.
+Through an abstraction layer, the virtual machine is connected with the real machine by hypervisors or \ac{vmm}.
 Hypervisors can use real machine hardware components, but also support virtual machine operating systems and configurations.
 Both are similar to emulators, that are defined by \citet{lichstei1969} as \enquote{process whereby one computer is set up to permit the execution of programs written for another computer}.
-This allows to management multiple \ac{vm} with real machine resources.
+This allows to manage multiple \ac{vm} with real machine resources.
 There are three different types of virtualization,
 \begin{enumerate*}[label=(\roman*)]
     \item software virtual machines,
@@ -21,14 +21,16 @@ There are three different types of virtualization,
 Software virtual machine's manage interactions between the host operating system and guest operating system.
 Hardware virtual machine's offers direct and fast access to the underlying resources.
 It uses hypervisors, modified code, or APIs.
-Virtual OS/container partitions the host operating system into containers or zones.
+Lastly, virtual OS/container partitions the host operating system into containers or zones.
 \cite{daniels2009}
 
 \section{Cloud Computing}
 \label{sec:cloud-computing}
 
-Nowadays, it is one of the well-known keywords and has been used by vary large companies such as Google, or Amazon, however, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020}
-Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} reported by Google trends \cite{Wang2010}.
+Cloud Computing has become a very popular keyword these days. 
+It has been used by various large companies such as Google and Amazon.
+However, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020}
+Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} as reported by Google trends \cite{Wang2010}.
 Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses.
 For example IBM's Cloud\footnote{\url{https://www.ibm.com/cloud}}, Amazon Web Services\footnote{\url{https://aws.amazon.com/}}, and Google Cloud\footnote{\url{https://cloud.google.com/}}.
 Why are clouds so attractive in practice?
@@ -44,10 +46,10 @@ Why are clouds so attractive in practice?
 
 \subsection{Definition of Cloud Computing}
 
-Considering the definition of Brian Hayes, cloud computing is \enquote{a shift in the geography of computation} \cite{hayes2008}.
-Thus, computational workload is moved away from local instances towards services and datacenters that provide the need of users \cite{Armbrust2010}.
+With reference to the definition by Brian Hayes, cloud computing is \enquote{a shift in the geography of computation} \cite{hayes2008}.
+Thus, computational workload is moved away from local instances towards services and datacenters that provide the user's needs\cite{Armbrust2010}.
 
-Considering the definition of the \ac{nist}, cloud computing \enquote{is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction} \cite{Mell2011}.
+The \ac{nist} defines cloud computing as \enquote{a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction} \cite{Mell2011}.
 \ac{nist} not only reflects the geographical shift of resources such as datacenters, but also mentions on-demand usage that contributes to a flexible resource management.
 Moreover, \ac{nist} composes the term in five essential characteristics, three service models (see \autoref{subsec:cloud-service}), and four deployment models (see \autoref{subsec:cloud-deployment}) \cite{Mell2011}
 
@@ -74,7 +76,7 @@ This helps to monitor, and control resource usage. Thus, contributing to transpa
 
 Service models are categorized by \ac{nist} into three basic models based on usage and abstraction level.
 \autoref{fig:cloud-functionalities} shows the connection between each model whereas cloud resource are defined in \autoref{subsec:cloud-deployment}.
-Due to vast range of functionalities, \ac*{iaas} builds the foundation of service models.
+Due to the vast range of functionalities, \ac*{iaas} builds the foundation of service models.
 Each model on top represents a user-friendly abstraction with derated capabilities.
 
 \begin{figure}[ht]
@@ -85,7 +87,7 @@ Each model on top represents a user-friendly abstraction with derated capabiliti
 \end{figure}
 
 \ac{saas} is a high-level abstraction to consumers. Controlling the underlying infrastructure is not supported.
-Often provider uses a multi-tenancy system architecture to organize each consumer's application in a separate environment.
+Providers often use a multi-tenancy system architecture to organize each consumer's application in a separate environment.
 It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance.
 Main objective of \ac{saas} is to host consumer's software or application that can be accessed over the Internet using either a thin or rich client. \cite{Dillon2010}
 \enquote{Limited user-specific application configuration settings} can be made \cite{Mell2011}.
@@ -118,12 +120,12 @@ Private clouds offer the highest level of control in regard of data privacy, and
 In addition, it can be on or off premise.
 Within private clouds consumers have full control of their data.
 Especially for European data privacy laws, it is not negligible when data is stored abroad and thus under law of foreign countries.
-However, the popularity has not been withdrawn due to immense costs when moving towards public clouds. \cite{Dillon2010, Mell2011}
+However, its popularity has not been diminished due to the immense cost of switching to public clouds. \cite{Dillon2010, Mell2011}
 
 Community clouds can be seen as a conglomerate of multiple organizations that merge their infrastructure with respect to a commonly defined policy, terms, and condition beforehand. \cite{Mell2011}
 
 Public clouds represent the most used deployment models.
-In contradiction to private one, public clouds are fully owned by the service provider such as business, academics, or government organization.
+In contrary, to private one, public clouds are fully owned by the service provider such as business, academics, or government organization.
 Consumers do not know where their data is distributed.
 In addition, contracts underlie custom policies. \cite{Mell2011}
 
@@ -140,7 +142,7 @@ However, the earliest drafts of honeypots are from 1990/91, and built the founda
 Clifford Stoll's book \enquote{The Cuckoo's Egg}\cite{stroll2000}, and Bill Cheswick's whitepaper \enquote{An Evening With Berferd}\cite{Cheswick92} describe concepts that are considered nowadays as honeypots.\cite{Spitzner2003}
 A honeypot itself is a security instrument that collects information on buzzing attacks.
 It disguises itself as a system, or application with weak links, so that it gets exploited and gathers knowledge about the adversary.
-In 2002 a Solaris honeypot helped to detect an unknown dtspcd exploit.
+In 2002 a Solaris honeypot helped to detect an unknown \verb|dtspcd| exploit.
 Interestingly, a year before in 2001 the Coordination Center of \ac{cert}, \enquote{an expert group that handles computer security incidents}\cite{cert2021}, shared their concerns regarding the dtspcd.
 Communities were aware that the service could be exploited to get access and remotely compromise any Unix system.
 However, during this time such an exploit was not known, and experts did not expect any in the near future.
@@ -166,7 +168,7 @@ Such functions are attack detection, capturing automated attacks, or alert/warni
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/honeypot-example.pdf}
-    \caption[Example of honeypots in a simplified network (derived from \cite{Spitzner2003})]{Example of honeypots in a simplified network (derived from \cite{Spitzner2003}). Each of the \ac{dmz}, and internal network are separated by a router and a Layer-3 switch. As dervied from above, in each network a honeypot is available (honeypot A, B). The read path symbolises the path of an attacker coming from the gateway router.}
+    \caption[Example of honeypots in a simplified network (derived from \cite{Spitzner2003})]{Example of honeypots in a simplified network (derived from \cite{Spitzner2003}). Each of the \ac{dmz}, and internal network are separated by a router and a Layer-3 switch. As derived from above, in each network a honeypot is available (honeypot A, B). The read path symbolizes the path of an attacker coming from the gateway router.}
     \label{fig:honeypot-example}
 \end{figure}
 
@@ -177,21 +179,21 @@ In general, we differentiate two types of honeypots
 \end{enumerate*}.
 This categorization has their origin from Mark Rosch developer of Snort during his work at GTE Internetworking.
 
-Production honeypots are the common type of honeypots everyone would think of it.
+Production honeypots are the common type of honeypots that people would think of.
 The objective is to protect production environments, and to mitigate the risk of attacks.
 Normally, production honeypots are easy to deploy within an organization.
 Mostly, low-interaction honeypots are chosen due to a significant reduce in risk.
 Thus, adversaries might not be able to exploit honeypots to attack other systems.
-Downside is a lack of information. Standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain.
+The downside of a low-interaction honeypot is a lack of information, for example standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain.
 In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}
 
 Research honeypots are used to learn more in detail about attacks.
 The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks.
-Research honeypots are unlikely for production environments due to a higher increase of risk.
+Research honeypots are unlikely suitable for production environments due to a higher increase of risk.
 Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}
 
 It is worth to mention that there is no exact line between research or production honeypots.
-A possible cases are honeypots that could function as either a production or a research honeypot.
+Possible cases are honeypots that could function as either a production or a research honeypot.
 Due to their dynamic range in which they are applicable it makes it hard to distinguish.
 
 \citet{Provos2003} adds a differentiation for the virtual honeypot framework and splits it into the following types:
@@ -229,8 +231,8 @@ It is capable to respond to certain activities.
 For example a Microsoft IIS Web server honeypot could be able to respond in a way that a worm is expecting it.
 The worm would get emulated answers, and could be able to interact with it more in detail.
 Thus, gathering more severe information about the attack, including privilege assessment, toolkit capturing, and command execution.
-In contrast, medium-interaction honeypots allocate more time to install and configure.
-In addition, more security checks have to be performed due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}
+In comparison, medium-interaction honeypots allocate more time to install and configure.
+Also, more security checks have to be performed due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}
 
 High-interaction honeypots are the highest level interaction.
 Mostly, they represent a real \ac{os} to provide a full set of interactions to attackers.
@@ -254,7 +256,7 @@ Prevention includes any process that
     \item discourages intruders and
     \item hardens systems to avoid any kind of breaches
 \end{enumerate*}.
-Detection scrutinize the identification of attacks that threatens the systems'
+Detection scrutinizes the identification of attacks that threatens the systems'
 \begin{enumerate*}[label=(\roman*)]
     \item confidentiality
     \item integrity and
@@ -303,7 +305,7 @@ To assess the value of honeypots we want to take a closer look to their advantag
 
 \begin{itemize}
     \item Data Value: Collected data is often immaculate and does not contain noise from other activities.
-          Thus, reducing the total size of data, and speed up the analyzation.
+          Thus, reducing the total size of data, and speeding up the analyzation.
     \item Resources: Firewalls, and \ac{ids} are often overwhelmed by the gigabits of traffic, thus, dropping network packets for analyzation.
           This results in a far less effective detection for malicious network activities.
           However, honeypots are independent of resources because they only capture their activities at itself.
@@ -341,12 +343,12 @@ In addition, \citet{NawrockiWSKS2016} listed four more advantages of honeypots:
 Instead of having single honeypots that can be attacked, a honeynet offers a complete network of standard production systems such as you would find in an organization.
 Those systems are high-interaction honeypots, thus, allowing to fully interact with the \ac{os}, and applications.
 Key idea is that an adversary can probe, attack, and exploit these systems so that we can derive interaction within this network.
-It should be noticed that a honeynet have to be protected by firewall. \autoref{fig:honeynet-example} represents such a honeynet within an organization.
+It should be mentioned that a honeynet have to be protected by firewall. \autoref{fig:honeynet-example} represents such a honeynet within an organization.
 
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/honeynet-example.pdf}
-    \caption[Example of honeynets in a simplified network (derived from \cite{Spitzner2003})]{Example of honeynets in a simplified network (derived from \cite{Spitzner2003}). On the right, this network presents the honeynet consisting of several other honeypots. On the right the network presents an ordinary subnet consisting of mail, web, and FTP server.}
+    \caption[Example of honeynets in a simplified network (derived from \cite{Spitzner2003})]{Example of honeynets in a simplified network (derived from \cite{Spitzner2003}). On the left, this network presents the honeynet consisting of several other honeypots. On the right the network presents an ordinary subnet consisting of mail, web, and FTP server.}
     \label{fig:honeynet-example}
 \end{figure}
 
@@ -357,7 +359,8 @@ However, the downsides are high complexity and maintenance that is needed to kee
 \subsection{Legal Issues}
 
 Considering questions related to legal issues of honeypots can easily exceed this thesis.
-In this regard, we restrict us to the country we reside in, so that, we are only concerned about the \ac{eu} regulations, EU directives, and international agreements.
+In this regard, we restrict the study to the country we reside in.
+Thus, we are only concerned about the \ac{eu} regulations, EU directives, and international agreements.
 Honeypots collect
 \begin{enumerate*}[label=(\roman*)]
     \item content data that is used for communication, and
@@ -370,8 +373,8 @@ Honeypots collect
 The Snort \cite{caswell2003} inline extension \textit{Bait'n'Switch} \cite{gonzalez2003} redirects attackers from production systems to honeypots.
 Usually Snort drops malicious packets when they are detected, and creates a specific rule to block malicious activity from the source.
 In contrast, \textit{Bait'n'Switch} does not create a rule to block more request, instead it redirects them to honeypots.
-The attacker does not realize that all packets a rerouted, and that the original target has changed.
-The \ac{ids} is bounded to its signature database and can only redirect know attacks.\cite{Diebold2005}
+The attacker does not realize that all packets are rerouted, and that the original target has changed.
+The \ac{ids} is bounded to its signature database and can only redirect known attacks.\cite{Diebold2005}
 
 Whereas \textit{Bait'n'Switch} had to drop the first attack which leads to a suspicious behavior for attackers, the \textit{Intrusion Trap System} \cite{takemori2003} is capable of forwarding the first request.
 Therefore, the first recognized attack by the \ac{ids} can be forwarded and answered by honeypots. \cite{Diebold2005}

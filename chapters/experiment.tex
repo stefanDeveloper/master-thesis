@@ -41,27 +41,38 @@ The values of vectors are non-negative. The similarity between items is the valu
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/vetterl_concept.pdf}
-    \caption[(derived from \cite{vetterl2020})]{Outline to }
+    \caption[Outline to obtain the cosine similarity coefficient (derived from \cite{vetterl2020})]{Outline to obtain the cosine similarity coefficient (derived from \cite{vetterl2020}).}
     \label{fig:draft-cosine-similarity}
 \end{figure}
 
-In order to find the best $P_i$ for SSH, \citet{vetterl2020} first created different SSH version strings based on the format \verb|SSH-protoversion-swversion SP comment crlf|.
+In order to find the best $P_i$ for SSH, \citet{vetterl2020} first created different SSH version strings based on the format: \verb|SSH-protoversion-swversion SP comment crlf|.
 He used different lower and upper case variations, 12 different protoversions ranging from $0.0$ to $3.2$, swversion set to OpenSSH or empty string, comment set to FreeBSD or empty string, and crlf to either \verb|\r\n| or empty string.
 In total, summing up to 192 client version strings.
 Second, he created different \verb|SSH2_MSG_KEXINIT| packets with 16 key-exchange algorithms, 2 host key algorithms, 15 encryption algorithms, 5 MAC algorithms and 3 compression algorithms.
 In total, he sent \numprint{58752} \verb|SSH2_MSG_KEXINIT| packets.
 Combining them with the 192 client versions, he ended up sending \numprint{157925376} packets.
-The version string \verb|SSH-2.2-OpenSSH\r\n| and the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp521 as key-exchange algorithm, ssh-dss as host key algorithm, blowfish-cbc as encryption algorithm, hmac-sha1 as mac algorithm and zlib@openssh.com as compression algorithm, with the wrong padding results in the lowest cosine similarity coefficient $C$.
-\autoref{tab:cosine-similarity} presents the cosine similarity of OpenSSH, Twisted, and Cowrie.
-As it outlines, Cowrie responses are not close to OpenSSH.
-Thus, distinguishing Cowrie from OpenSSH with SSH packets is feasible.
+The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp521 as key-exchange algorithm, ssh-dss as host key algorithm, blowfish-cbc as encryption algorithm, hmac-sha1 as mac algorithm and zlib@openssh.com as compression algorithm, with the wrong padding results in the lowest cosine similarity coefficient $C$.
+\autoref{lst:ssh-debug} shows the SSH debug information with the modified version string, and key exchange message.
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-debug}]{listings/ssh-debug.txt}
+\end{figure}
+
+\autoref{tab:cosine-similarity} has been derived from \citet{vetterl2020} to present his results of the cosine similarity of OpenSSH, Twisted, and Cowrie.
+Twisted has been added to have an example with an older SSH honeypot.
+We can see that it differs fundamentally from OpenSSH.
+At most, it reaches $0.52$ whereas various OpenSSH versions are greater than $0.90$.
+The number of hosts significantly decrease with a cosine similarity score of $0.90$ and higher.
+Cowrie responses are not too far away to OpenSSH with an average of $0.80$.
+However, scanning through the web with a minimum score of $0.90$ and higher would exclude all honeypots/
+Thus, distinguishing Cowrie from OpenSSH with SSH packets is a feasible method.
 Moreover, \citet{vetterl2020} performed an Internet-wide scan, and detected $758$ Kippo and $2021$ Cowrie honeypots.
 These results show that the values of honeypots would decrease to zero when large fingerprinting activities are used.
 
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/cowrie-openssh.pdf}
-    \caption[Architecture of OpenSSH and Cowrie]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences.}
+    \caption[Architecture of OpenSSH and Cowrie (derived from \cite{vetterl2020})]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
     \label{fig:cowrie-openssh}
 \end{figure}
 
@@ -72,7 +83,13 @@ For example, Cowrie version $1.1.0$ missed \verb|tftp| and came with version $1.
 So, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
 \autoref{fig:cowrie-openssh} shows the difference between OpenSSH and Cowrie.
 Both have to fulfill the RFC 4250\cite{rfc4250} requirements.
-The subtle differences in TwistedConch, sshd, bash, and Cowrie leads to divergent in the cosine similarity coefficient.
+As an example, \citet{vetterl2020} found that Cowrie used to have random bytes for the \verb|SSH2_MSG_KEXINIT| packet unlike OpenSSH.
+With respect to RFC4253 that defines the \ac{bpp} of SSH, the random padding is used to solidify the total length of the packet to be a multiple of the cipher block size.
+The RFC in section 6 defines that the padding have to consist of 4 random bytes.
+Based on the statement of the OpenSSH authors, random bytes have been changed to \verb|NULL| characters due to no security implications.
+Thus, an adversary could have detected a Cowrie honeypot with a single \verb|SSH2_MSG_KEXINIT| packet.
+Nowadays, Cowrie adapted itself to have \verb|NULL| characters as padding.
+These subtle differences in TwistedConch, sshd, bash, and Cowrie leads to a divergent in the cosine similarity coefficient.
 
 \begin{table}
     \caption{Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted.}
@@ -103,22 +120,41 @@ The subtle differences in TwistedConch, sshd, bash, and Cowrie leads to divergen
 
 \section{Disguising Cowrie}
 
-Proxying SSH commands to Cowrie helps to block any fingerprinting activities.
+Cowrie has to be tweaked to hide its generic weakness.
+Fixing the major flaws in Cowrie to avoid early detection remains an ephemeral patch.
+Therefore, a new solution is required to disguise Cowrie.
+Otherwise, adversaries would blacklist any related host machine returning a similar cosine similarity coefficient.
+\citet{vetterl2020} summarizes the countermeasures that no less 
+Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{figures/cowrie-openssh.pdf}
+    \caption[Architecture of OpenSSH and Cowrie (derived from \cite{vetterl2020})]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
+    \label{fig:cowrie-fix}
+\end{figure}
 
 
 \section{Experiment}
 
-\begin{figure}
-    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
-\end{figure}
+Our experiment exists out of two steps.
+First, we want to reproduce the cosine similarity coefficient that \citet{vetterl2020} claims.
+Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 
-\begin{figure}
-    \lstinputlisting[language=bash, caption={Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
-\end{figure}
+Most challenging is the reproduction of the outdated OpenSSH library that \citet{vetterl2020} refers to.
+In his work he used OpenSSH 7.3P1 which deviates to the latest version 8.8P1.
+For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc has been removed with version 7.6P1, and thus, has been outdated.
+Furthermore, the host key algorithm ssh-dss is unsupported.
 
-\begin{figure}
-    \lstinputlisting[language=bash, caption={Disguised Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
-\end{figure}
 
-%So would it be ok if you take a picture of the IBM box inside the shipping box  with my delivery details and timestamp? And additionally, a picture of the sealed shipping box with the shipping note from DHL.
-%I guess that would be sufficient for me.
+%\begin{figure}
+%    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
+%\end{figure}
+
+%\begin{figure}
+%    \lstinputlisting[language=bash, caption={Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
+%\end{figure}
+
+%\begin{figure}
+%    \lstinputlisting[language=bash, caption={Disguised Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
+%\end{figure}

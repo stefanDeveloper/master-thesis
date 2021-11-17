@@ -8,9 +8,6 @@ debug1: Local version string SSH-2.2-OpenSSH
 debug1: Remote protocol version 2.0, remote software version OpenSSH_7.9p1
 debug1: compat_banner: match: OpenSSH_7.9p1 pat OpenSSH* compat 0x04000000
 debug1: Authenticating to 129.206.5.74:22 as 'stefan'
-debug1: load_hostkeys: fopen /home/stefan/.ssh/known_hosts2: No such file or directory
-debug1: load_hostkeys: fopen /usr/local/etc/ssh_known_hosts: No such file or directory
-debug1: load_hostkeys: fopen /usr/local/etc/ssh_known_hosts2: No such file or directory
 debug1: SSH2_MSG_KEXINIT sent
 Bad packet length 1349676916.
 ssh_dispatch_run_fatal: Connection to 129.206.5.74 port 22: message authentication code incorrect

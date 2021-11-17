@@ -1,0 +1,7 @@
+Local version string SSH-2.2-OpenSSH 
+SSH2_MSG_KEXINIT sent
+SSH2_MSG_KEXINIT received
+kex: algorithm: ecdh-sha2-nistp521
+kex: host key algorithm: ssh-ed25519
+kex: server->client cipher: blowfish-cbc@openssh.com MAC: <implicit> compression: zlib@openssh.com
+kex: client->server cipher: blowfish-cbc@openssh.com MAC: <implicit> compression: zlib@openssh.com

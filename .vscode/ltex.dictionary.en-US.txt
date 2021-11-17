@@ -38,3 +38,4 @@ blowfish-cbc
 Kippo
 protoversions
 swversion
+sshd

@@ -1,17 +1,2 @@
 ./ssh -v -C 129.206.5.157
-OpenSSH_8.8p1, OpenSSL 1.1.1l  24 Aug 2021
-debug1: Reading configuration data /home/stefan/.ssh/config
-debug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling
-debug1: Connecting to 129.206.5.157 [129.206.5.157] port 22.
-debug1: Connection established.
-debug1: Local version string SSH-2.2-OpenSSH 
-debug1: Remote protocol version 2.0, remote software version OpenSSH_7.9p1 Debian-10+deb10u2
-debug1: compat_banner: match: OpenSSH_7.9p1 Debian-10+deb10u2 pat OpenSSH* compat 0x04000000
-debug1: Authenticating to 129.206.5.157:22 as 'debian'
-debug1: SSH2_MSG_KEXINIT sent
-debug1: SSH2_MSG_KEXINIT received
-debug1: kex: algorithm: ecdh-sha2-nistp521
-debug1: kex: host key algorithm: ssh-ed25519
-debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com
-debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com
 ssh_dispatch_run_fatal: Connection to 129.206.5.157 port 22: memory allocation failed

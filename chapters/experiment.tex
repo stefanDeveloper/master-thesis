@@ -46,7 +46,7 @@ The values of vectors are non-negative. The similarity between items is the valu
 \end{figure}
 
 In order to find the best $P_i$ for SSH, \citet{vetterl2020} first created different SSH version strings based on the format: \verb|SSH-protoversion-swversion SP comment crlf|.
-He used different lower and upper case variations, 12 different protoversions ranging from $0.0$ to $3.2$, swversion set to OpenSSH or empty string, comment set to FreeBSD or empty string, and crlf to either \verb|\r\n| or empty string.
+He used different lower and upper case variations, 12 different protoversions ranging from $0.0$ to $3.2$, swversion set to \enquote{OpenSSH} or empty string, comment set to \enquote{FreeBSD} or empty string, and crlf to either \verb|\r\n| or empty string.
 In total, summing up to 192 client version strings.
 Second, he created different \verb|SSH2_MSG_KEXINIT| packets with 16 key-exchange algorithms, 2 host key algorithms, 15 encryption algorithms, 5 MAC algorithms and 3 compression algorithms.
 In total, he sent \numprint{58752} \verb|SSH2_MSG_KEXINIT| packets.
@@ -61,10 +61,10 @@ The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| p
 \autoref{tab:cosine-similarity} has been derived from \citet{vetterl2020} to present his results of the cosine similarity of OpenSSH, Twisted, and Cowrie.
 Twisted has been added to have an example with an older SSH honeypot.
 We can see that it differs fundamentally from OpenSSH.
-At most, it reaches $0.52$ whereas various OpenSSH versions are greater than $0.90$.
+At most, it scores $0.52$ whereas various OpenSSH versions start at $0.98$.
 The number of hosts significantly decrease with a cosine similarity score of $0.90$ and higher.
 Cowrie responses are not too far away to OpenSSH with an average of $0.80$.
-However, scanning through the web with a minimum score of $0.90$ and higher would exclude all honeypots/
+However, scanning through the web with a minimum score of $0.90$ and higher would exclude all honeypots.
 Thus, distinguishing Cowrie from OpenSSH with SSH packets is a feasible method.
 Moreover, \citet{vetterl2020} performed an Internet-wide scan, and detected $758$ Kippo and $2021$ Cowrie honeypots.
 These results show that the values of honeypots would decrease to zero when large fingerprinting activities are used.
@@ -79,17 +79,19 @@ These results show that the values of honeypots would decrease to zero when larg
 \citet{vetterl2020} states that current low- and medium-interaction honeypots have a generic weakness due to the underlying off-the-shelf libraries.
 Cowrie is based on TwistedConch, a Python 2/3 library that implements the SSH protocol.
 Any bash command and its response are tweaked by Cowrie, and thus, resulting in a discrepancy to OpenSSH.
-For example, Cowrie version $1.1.0$ missed \verb|tftp| and came with version $1.2.0$.
-So, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
+For example, Cowrie version $1.1.0$ missed \verb|tftp|\footnote{Is } and came with version $1.2.0$.
+Therefore, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
+
 \autoref{fig:cowrie-openssh} shows the difference between OpenSSH and Cowrie.
-Both have to fulfill the RFC 4250\cite{rfc4250} requirements.
-As an example, \citet{vetterl2020} found that Cowrie used to have random bytes for the \verb|SSH2_MSG_KEXINIT| packet unlike OpenSSH.
+Both have to fulfill the RFC 4250\cite{rfc4250} requirement on top.
+OpenSSH and TwistedConch implement the SSH protocol.
+As an example, \citet{vetterl2020} found that Cowrie used to have random bytes for the \verb|SSH2_MSG_KEXINIT| packet\footnote{Each packet consists of the packet and padding length, the \ac{mac}, a payload, and a random padding.} unlike OpenSSH.
 With respect to RFC4253 that defines the \ac{bpp} of SSH, the random padding is used to solidify the total length of the packet to be a multiple of the cipher block size.
 The RFC in section 6 defines that the padding have to consist of 4 random bytes.
 Based on the statement of the OpenSSH authors, random bytes have been changed to \verb|NULL| characters due to no security implications.
 Thus, an adversary could have detected a Cowrie honeypot with a single \verb|SSH2_MSG_KEXINIT| packet.
 Nowadays, Cowrie adapted itself to have \verb|NULL| characters as padding.
-These subtle differences in TwistedConch, sshd, bash, and Cowrie leads to a divergent in the cosine similarity coefficient.
+However, these subtle differences influence the cosine similarity coefficient.
 
 \begin{table}
     \caption{Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted.}

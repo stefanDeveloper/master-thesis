@@ -51,7 +51,7 @@ In total, summing up to 192 client version strings.
 Second, he created different \verb|SSH2_MSG_KEXINIT| packets with 16 key-exchange algorithms, 2 host key algorithms, 15 encryption algorithms, 5 MAC algorithms and 3 compression algorithms.
 In total, he sent \numprint{58752} \verb|SSH2_MSG_KEXINIT| packets.
 Combining them with the 192 client versions, he ended up sending \numprint{157925376} packets.
-The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp521 as key-exchange algorithm, ssh-dss as host key algorithm, blowfish-cbc as encryption algorithm, hmac-sha1 as mac algorithm and zlib@openssh.com as compression algorithm, with the wrong padding results in the lowest cosine similarity coefficient $C$.
+The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp521 as key-exchange algorithm, ssh-dss as host key algorithm, blowfish-cbc as encryption algorithm, hmac-sha1 as mac algorithm and zlib@openssh.com as compression algorithm, with the wrong padding result in the lowest cosine similarity coefficient $C$.
 \autoref{lst:ssh-debug} shows the SSH debug information with the modified version string, and key exchange message.
 
 \begin{figure}
@@ -83,10 +83,10 @@ For example, Cowrie version $1.1.0$ missed \verb|tftp|\footnote{Is } and came wi
 Therefore, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
 
 \autoref{fig:cowrie-openssh} shows the difference between OpenSSH and Cowrie.
-Both have to fulfill the RFC 4250\cite{rfc4250} requirement on top.
+Both have to fulfill the RFC 4250 \cite{rfc4250} requirement on top.
 OpenSSH and TwistedConch implement the SSH protocol.
 As an example, \citet{vetterl2020} found that Cowrie used to have random bytes for the \verb|SSH2_MSG_KEXINIT| packet\footnote{Each packet consists of the packet and padding length, the \ac{mac}, a payload, and a random padding.} unlike OpenSSH.
-With respect to RFC4253 that defines the \ac{bpp} of SSH, the random padding is used to solidify the total length of the packet to be a multiple of the cipher block size.
+With respect to RFC4253 \cite{rfc4253} that defines the \ac{bpp} of SSH, the random padding is used to solidify the total length of the packet to be a multiple of the cipher block size.
 The RFC in section 6 defines that the padding have to consist of 4 random bytes.
 Based on the statement of the OpenSSH authors, random bytes have been changed to \verb|NULL| characters due to no security implications.
 Thus, an adversary could have detected a Cowrie honeypot with a single \verb|SSH2_MSG_KEXINIT| packet.
@@ -126,15 +126,22 @@ Cowrie has to be tweaked to hide its generic weakness.
 Fixing the major flaws in Cowrie to avoid early detection remains an ephemeral patch.
 Therefore, a new solution is required to disguise Cowrie.
 Otherwise, adversaries would blacklist any related host machine returning a similar cosine similarity coefficient.
-\citet{vetterl2020} summarizes the countermeasures that no less 
-Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
+\citet{vetterl2020} suggested the solution to use OpenSSH as an intermediary instance between the attack and Cowrie. 
+OpenSSH itself is not capable by default of proxying commands, therefore, we have to adjust the latest OpenSSH version to enable this feature.
+... visualizes our idea.
+Cowrie is hidden in the background, and is only accessible through the loopback address \ipAddress{127.0.0.1:640522}.
+Our updated SSH version \verb|sshd| is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:2222}.
+Any connection obtain to OpenSSH will be forwarded to our honeypot.
+Respectively, our attacker could not detect Cowrie by response deviation because any answered runs through OpenSSH.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics{figures/cowrie-openssh.pdf}
+    \includegraphics{figures/sshd-honeypot.pdf}
     \caption[Architecture of OpenSSH and Cowrie (derived from \cite{vetterl2020})]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
     \label{fig:cowrie-fix}
 \end{figure}
+
+Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
 
 
 \section{Experiment}
@@ -144,19 +151,41 @@ First, we want to reproduce the cosine similarity coefficient that \citet{vetter
 Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 
 Most challenging is the reproduction of the outdated OpenSSH library that \citet{vetterl2020} refers to.
-In his work he used OpenSSH 7.3P1 which deviates to the latest version 8.8P1.
-For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc has been removed with version 7.6P1, and thus, has been outdated.
-Furthermore, the host key algorithm ssh-dss is unsupported.
+In his work he used OpenSSH $7.3P1$ which deviates to the latest version $8.8P1$.
+For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc and host key algorithm has been removed with version 7.6P1, and thus, have been outdated.
+Building the version $7.3P1$ requires the libraries libssl (1.0.2), libssl-dev (1.0), libssh-dev (0.7.3-2), and libssh-4 (0.9.6-1).
+Using the latest versions of these libraries result in errors such as missing encryption algorithms.
+After compiling the package, we test its behavior with a Debian 11 Buster and a Debian Jessie 9 Docker image.
+Both are new machines that have no other packages installed than the OpenSSH server.
+Debian 11 uses the latest OpenSSH version whereas Jessie is at $6.7P1$.
+These environments help us to uniquely identify variations in the protocol version.
 
+\begin{figure}
+    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
+\end{figure}
 
-%\begin{figure}
-%    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
-%\end{figure}
+\autoref{lst:ssh-openssh} shows the connection attempt with our adjusted version string and \verb|SSH2_MSG_KEXINIT| packet.
+Using the outdated OpenSSH version $7.3P1$ results in an incompatibility with others.
+OpenSSH outlines that blowfish-cbc is not supported anymore and remains usable for compatibility for the client until $7.6P1$.
+However, we found out that patches removed the blowfish-cbc for the SSH daemon, and thus, a reproduction is feasible.
+Moreover, \citet{vetterl2020} does not outline any expected response of OpenSSH, we can just assume that a connection attempt would have been successful due to the existing cipher during that time.
+Adapting OpenSSH version $8.8P1$ with chacha20-poly1305 instead of blowfish-cbc results in a successful connection attempt.
+Therefore, we have adapted the key exchange initialization to use chacha20-poly1305 instead.
 
-%\begin{figure}
-%    \lstinputlisting[language=bash, caption={Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
-%\end{figure}
+\begin{figure}
+    \lstinputlisting[language=bash, caption={Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
+\end{figure}
 
-%\begin{figure}
-%    \lstinputlisting[language=bash, caption={Disguised Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
-%\end{figure}
+Most interesting question remains the response deviation of Cowrie.
+Therefore, we use the default Cowrie implementation of our T-Pot deployment.
+Currently, it uses Cowrie $v.2.3.0$.
+\autoref{lst:ssh-cowrie} outlines the connection attempt of Cowrie.
+Unambiguously, Cowrie results in a fundamentally different result.
+As derived 
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={Disguised Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
+\end{figure}
+
+The next step is to disguise Cowrie behind an OpenSSH server.
+As we have seen beforehand, the OpenSSH version $7.5P1$ is outdated, and thus, does not work 

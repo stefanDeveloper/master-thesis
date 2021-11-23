@@ -1,4 +1,4 @@
-\chapter{Catching Attackers in Restricted Network Areas}
+\chapter{Catching Attackers in Restricted Network Zones}
 \label{chap:concept}
 
 Zoning a network is often well-known method to restrict 
@@ -8,16 +8,53 @@ This result contributed to an adaption of the \ac{acl}
 \section{Introduction}
 
 Honeypots that are accessible via the Internet do receive a broad range of attacks.
-As \citet{Spitzner2003} noted, a honeypot is not strictly bound to run in a \ac{dmz} or a network with direct Internet access.
-Moreover, the correct location has to be chosen based on the goals of the honeypots.
-For example, one goal is to catch attackers behind a perimeter firewall to reveal leaks or vulnerabilities.
+As \citet{Spitzner2003} noted, a honeypot is not strictly bound to run in a \ac{dmz} or in a network with direct Internet access.
+The correct location has to be chosen based on the goals of the honeypot.
+For example, one goal could be to catch attackers behind a perimeter firewall to reveal leaks or vulnerabilities.
 Beforehand, our honeypot was broadly available on the Internet, and attackers could probe it easily.
 It collected on average $\numprint{55000}$ attacks per day, resulting in a total amount of $\numprint{786564}$ attacks.
-This amount sounds reasonable when no perimeter firewall secures the server.
-Heidelberg University works ...% zoning
+Zoning a network into logical groups mitigates the risk of an open network.
+Thus, attacks on our T-Pot would receive significantly fewer attacks in controlled zones.
+Respectively, a network infrastructure is segmented into the same communication security policies and security requirements.
+For example, the Canadian government created their own baseline for infrastructures, called Baseline Security Architecture Requirements for Network Security Zones in the Government of Canada (ITSG-22).
+The four most common zones are:
+\begin{enumerate*}[label=(\roman*)]
+    \item Public Zone (PZ) which is entirely open,
+    \item Public Access Zone (PAZ) which interacts as an interface between the PZ and internal services,
+    \item Operations Zone (OZ) which processes sensitive information, and
+    \item Restricted Zone (RZ) including business critical services
+\end{enumerate*}.
+Thus, a network zone restricts access and controls data communication flows. \cite{csec2021}
+The network at the Heidelberg University is zoned into four so-called stages.
+In general, it splits into institute firewalls, and the global \acfp{acl}.
+Institute firewalls can be set up by each institute.
+They do have the possibility to use SOHO-routers to disconnect certain network zones from the network.
+It is recommended to configure the global \ac{acl} as a fall back solution in case of any downtime.
+The University Computing Center Heidelberg offers stateful firewall for router interfaces or VLANs.
+This stateful firewall whitelists certain services and splits up into four stages. 
+Its key value is to maintain a baseline security to avoid any misconfigurations and portscans.
+Each stage can be activated individually per router interface.
+\autoref{tab:overview-security-zone} outlines these stages including 
+
+\begin{table}
+    \centering
+    \caption[Overview of firewall stages]{Overview of firewall stages at the University Heidelberg.}
+    \begin{tabularx}{\linewidth}{l|XX}
+        \toprule
+        \textsc{Name} & \textsc{Description} & \textsc{Address}     \\
+        \hline
+        Stage 0       &                      & \ipAddress{129.206.} \\
+        Stage 1       &                      &                      \\
+        Stage 3       &                      &                      \\
+        Stage 4       &                      &                      \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:overview-security-zone}
+\end{table}
+
 An interesting question is if attackers have access to restricted zones at the Heidelberg University.
 It arises during the research of T-Pot if an adversary would try to probe any hosts in the internal University network.
-In order to detect such events we present the Heidelberg Connection Acceptance Tool that helps to identify any threats in a network.
+In order to detect such events we present honeypot-like packet detection application that helps to identify any threats in a network.
 In addition, it offers to deploy multiple instance and collect their data in a centralized instance. 
 
 \section{Heidelberg Connection Acceptance Tool}
@@ -75,20 +112,20 @@ It allows to randomly deploy more instances to collect data from other zones.
     \label{fig:heicat-concept}
 \end{figure}
 
-In total, we consider three different approaches.
-\begin{enumerate}
-    \item heicloud
-    \item Eduroam
-    \item 219 Zone
-\end{enumerate}
+%In total, we consider three different approaches.
+%\begin{enumerate}
+%    \item heicloud
+%    \item Eduroam
+%    \item 219 Zone
+%\end{enumerate}
 
 \section{Results}
 
-\subsection{HeiCloud}
+%\subsection{HeiCloud}
 
-\subsection{Eduroam}
+%\subsection{Eduroam}
 
-\subsection{219 Zone}
+%\subsection{219 Zone}
 
 \autoref{fig:madcat-attack-distribution} shows the attack distribution.
 Most of the connection attempts are originated from the United States, Germany, and China.

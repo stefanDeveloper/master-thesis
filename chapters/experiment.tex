@@ -126,13 +126,13 @@ Cowrie has to be tweaked to hide its generic weakness.
 Fixing the major flaws in Cowrie to avoid early detection remains an ephemeral patch.
 Therefore, a new solution is required to disguise Cowrie.
 Otherwise, adversaries would blacklist any related host machine returning a similar cosine similarity coefficient.
-\citet{vetterl2020} suggested the solution to use OpenSSH as an intermediary instance between the attack and Cowrie. 
+\citet{vetterl2020} suggested the solution to use OpenSSH as an intermediary instance between the attacker and Cowrie. 
 OpenSSH itself is not capable by default of proxying commands, therefore, we have to adjust the latest OpenSSH version to enable this feature.
-... visualizes our idea.
+\autoref{fig:cowrie-fix} visualizes our idea.
 Cowrie is hidden in the background, and is only accessible through the loopback address \ipAddress{127.0.0.1:640522}.
 Our updated SSH version \verb|sshd| is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:2222}.
 Any connection obtain to OpenSSH will be forwarded to our honeypot.
-Respectively, our attacker could not detect Cowrie by response deviation because any answered runs through OpenSSH.
+Respectively, our attacker should not be able to detect Cowrie by response deviations because any response packet runs through OpenSSH.
 
 \begin{figure}[ht]
     \centering
@@ -151,8 +151,8 @@ First, we want to reproduce the cosine similarity coefficient that \citet{vetter
 Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 
 Most challenging is the reproduction of the outdated OpenSSH library that \citet{vetterl2020} refers to.
-In his work he used OpenSSH $7.3P1$ which deviates to the latest version $8.8P1$.
-For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc and host key algorithm has been removed with version 7.6P1, and thus, have been outdated.
+In his work he used OpenSSH $7.3P1$ which deviates from the latest version $8.8P1$.
+For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc and host key algorithm has been removed with version $7.6P1$, and thus, are outdated.
 Building the version $7.3P1$ requires the libraries libssl (1.0.2), libssl-dev (1.0), libssh-dev (0.7.3-2), and libssh-4 (0.9.6-1).
 Using the latest versions of these libraries result in errors such as missing encryption algorithms.
 After compiling the package, we test its behavior with a Debian 11 Buster and a Debian Jessie 9 Docker image.
@@ -165,7 +165,7 @@ These environments help us to uniquely identify variations in the protocol versi
 \end{figure}
 
 \autoref{lst:ssh-openssh} shows the connection attempt with our adjusted version string and \verb|SSH2_MSG_KEXINIT| packet.
-Using the outdated OpenSSH version $7.3P1$ results in an incompatibility with others.
+Using the outdated OpenSSH version $7.3P1$ results in an incompatibility.
 OpenSSH outlines that blowfish-cbc is not supported anymore and remains usable for compatibility for the client until $7.6P1$.
 However, we found out that patches removed the blowfish-cbc for the SSH daemon, and thus, a reproduction is feasible.
 Moreover, \citet{vetterl2020} does not outline any expected response of OpenSSH, we can just assume that a connection attempt would have been successful due to the existing cipher during that time.
@@ -180,12 +180,15 @@ Most interesting question remains the response deviation of Cowrie.
 Therefore, we use the default Cowrie implementation of our T-Pot deployment.
 Currently, it uses Cowrie $v.2.3.0$.
 \autoref{lst:ssh-cowrie} outlines the connection attempt of Cowrie.
-Unambiguously, Cowrie results in a fundamentally different result.
-As derived 
+Unambiguously, Cowrie results in a bad packet length, and thus, deviates fundamentally from OpenSSH.
+Any adversary who modifies its SSH client could catch the exception and stop any further attacks.
+We found out that the version string causes this error.
+The library TwistedConch throws this exception. % TODO Debug Cowrie
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={Disguised Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
 \end{figure}
 
 The next step is to disguise Cowrie behind an OpenSSH server.
-As we have seen beforehand, the OpenSSH version $7.5P1$ is outdated, and thus, does not work 
+As we have seen beforehand, the OpenSSH server should work as an intermediary between Cowrie and the attacker.
+We have implemented this concept in heiCLOUD.

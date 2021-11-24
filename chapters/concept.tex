@@ -88,13 +88,14 @@ In addition, it offers to deploy multiple instance and collect their data in a c
 
 Recording and investigating connection attempts assimilates new honeypots.
 As follows, we will present MADCAT, developed by the BSI, that helps to log any connection attempt being made on a host machine.
-In addition to it, we will deploy a T-Pot for additional information gathering.
+In addition to it, we will deploy a T-Pot for additional information gathering. % TODO: Mehr Erlaeuterung wieso, weshalb, warum
 We focus on the \ipAddress{129.206.218.0/24} and \ipAddress{147.142.0.0/16} subnet.
 The \ipAddress{129.206.218.0/24} subnet is used within University Computing Center Heidelberg building.
 Every client in the building is   
 Respectively, our host machine is located within the network with \ipAddress{129.206.219.88} and \ipAddress{129.206.219.88}.
 Our goal is to catch any connection attempt that has been made to our honeypot.
 
+% TODO: Conecpt ueberarbeiten, bessere Caption
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/heicat-conecpt.pdf}
@@ -102,7 +103,7 @@ Our goal is to catch any connection attempt that has been made to our honeypot.
     \label{fig:heicat-concept}
 \end{figure}
 
-\autoref{fig:heicat-concept} outlines our concept.
+\autoref{fig:heicat-concept} outlines our concept. % TODO: Mehr infos zum Konzept, etc.
 Our concept is divided into to hosts.
 The first one is responsible for providing Kibana, and Elasticsearch to crawl through logs.
 The honeypot consists of MADCAT in conjunction with P0f, Suricata, and FATT for additional information.
@@ -110,6 +111,7 @@ Like T-Pot, we use Logstash to forward our data to Elasticsearch.
 One benefit is the centralized approach to store data.
 It allows to randomly deploy more instances to collect data from other zones.
 
+% TODO: Bessere Caption
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/heicat-architecture.pdf}
@@ -138,11 +140,12 @@ Instead, we do want to ensure that no one else than authorized users have access
 Especially in high confidential areas, no attacker should be capable of sending even a single packet to a host in the network.
 Tracking packets on a detailed level is not provided by the vast range of honeypots.
 
-\section{Results}
+\section{Results} % TODO: Mehr Ergebnisse, Attacken zeigen, Grafiken
 
 \autoref{fig:madcat-attack-distribution} shows the attack distribution.
 Most of the connection attempts are originated from the United States, Germany, and China.
 
+% TODO: Bessere Caption
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
@@ -150,6 +153,7 @@ Most of the connection attempts are originated from the United States, Germany, 
     \label{fig:madcat-attack-distribution}
 \end{figure}
 
+% TODO: Bessere Caption
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}

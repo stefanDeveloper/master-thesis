@@ -134,6 +134,7 @@ Our updated SSH version \verb|sshd| is exposed to the Internet, and is accessibl
 Any connection obtain to OpenSSH will be forwarded to our honeypot.
 Respectively, our attacker should not be able to detect Cowrie by response deviations because any response packet runs through OpenSSH.
 
+% TODO: caption ueberpruefen, update mit IP etc.
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/sshd-honeypot.pdf}
@@ -141,6 +142,7 @@ Respectively, our attacker should not be able to detect Cowrie by response devia
     \label{fig:cowrie-fix}
 \end{figure}
 
+% TODO: Code review aufzeigen
 Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
 
 
@@ -152,7 +154,7 @@ Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 
 Most challenging is the reproduction of the outdated OpenSSH library that \citet{vetterl2020} refers to.
 In his work he used OpenSSH $7.3P1$ which deviates from the latest version $8.8P1$.
-For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc and host key algorithm has been removed with version $7.6P1$, and thus, are outdated.
+For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc and host key algorithm has been removed with version $7.6P1$, and thus, are outdated. % TODO: which host key algorithm
 Building the version $7.3P1$ requires the libraries libssl (1.0.2), libssl-dev (1.0), libssh-dev (0.7.3-2), and libssh-4 (0.9.6-1).
 Using the latest versions of these libraries result in errors such as missing encryption algorithms.
 After compiling the package, we test its behavior with a Debian 11 Buster and a Debian Jessie 9 Docker image.
@@ -167,7 +169,7 @@ These environments help us to uniquely identify variations in the protocol versi
 \autoref{lst:ssh-openssh} shows the connection attempt with our adjusted version string and \verb|SSH2_MSG_KEXINIT| packet.
 Using the outdated OpenSSH version $7.3P1$ results in an incompatibility.
 OpenSSH outlines that blowfish-cbc is not supported anymore and remains usable for compatibility for the client until $7.6P1$.
-However, we found out that patches removed the blowfish-cbc for the SSH daemon, and thus, a reproduction is feasible.
+However, we found out that patches removed the blowfish-cbc for the SSH daemon, and thus, a reproduction is not feasible.
 Moreover, \citet{vetterl2020} does not outline any expected response of OpenSSH, we can just assume that a connection attempt would have been successful due to the existing cipher during that time.
 Adapting OpenSSH version $8.8P1$ with chacha20-poly1305 instead of blowfish-cbc results in a successful connection attempt.
 Therefore, we have adapted the key exchange initialization to use chacha20-poly1305 instead.

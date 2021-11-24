@@ -1,9 +1,13 @@
 \chapter{Catching Attackers in Restricted Network Zones}
 \label{chap:concept}
 
-Zoning a network is often well-known method to restrict 
-By the help of our honeypot, we show that we identified attacks on the internal zone of the University network.
-This result contributed to an adaption of the \ac{acl}
+Our T-Pot identified a flood of threads when it was widely available on the Internet.
+However, capacious networks do have separated compartments and usually services are not directly available without any protection.
+Zoning is a well-known method to segment a network.
+Heidelberg University applies zoning, and thus, it is an interesting question if any attacker probes services outside or within the network.
+To detect any dubious packets in the network we present a concept using a honeypot-like detection tool.
+We show that attacks in a restricted network zone of the Heidelberg University's internal network occur, and contributed to an adaption of the stateless firewall.
+Thus, improving the security of the network.
 
 \section{Introduction}
 
@@ -14,8 +18,8 @@ For example, one goal could be to catch attackers behind a perimeter firewall to
 Beforehand, our honeypot was broadly available on the Internet, and attackers could probe it easily.
 It collected on average $\numprint{55000}$ attacks per day, resulting in a total amount of $\numprint{786564}$ attacks.
 Zoning a network into logical groups mitigates the risk of an open network.
-Thus, attacks on our T-Pot would receive significantly fewer attacks in controlled zones.
-Respectively, a network infrastructure is segmented into the same communication security policies and security requirements.
+Thus, our T-Pot would receive significantly fewer attacks in a controlled network zone.
+A network infrastructure is segmented into the same communication security policies and security requirements.
 For example, the Canadian government created their own baseline for infrastructures, called Baseline Security Architecture Requirements for Network Security Zones in the Government of Canada (ITSG-22).
 The four most common zones are:
 \begin{enumerate*}[label=(\roman*)]
@@ -24,29 +28,52 @@ The four most common zones are:
     \item Operations Zone (OZ) which processes sensitive information, and
     \item Restricted Zone (RZ) including business critical services
 \end{enumerate*}.
-Thus, a network zone restricts access and controls data communication flows. \cite{csec2021}
-The network at the Heidelberg University is zoned into four so-called stages.
-In general, it splits into institute firewalls, and the global \acfp{acl}.
-Institute firewalls can be set up by each institute.
-They do have the possibility to use SOHO-routers to disconnect certain network zones from the network.
+A network zone restricts access and controls data communication flows. \cite{csec2021}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/university-network.pdf}
+    \caption[Draft of the University network]{Draft of the University network. The URZ firewall represents the stateful firewall. The \enquote{TagungsLAN} i}
+    \label{fig:university-network}
+\end{figure}
+
+The network at the Heidelberg University includes a central stateless firewall (\ac{acl}) that enfolds all institutes.
+It entails a default blacklist that blocks certain services such as SMTP, NCP, or SNMP, and a stateless filter provided by BelWÜ.
+Inside the network, each institute has the possible to either use a pre-defined stateless firewall provided by the University Computing Center Heidelberg, or use a self-administrated firewall.
+\autoref{fig:university-network} outlines the association between these components.
+The internal \enquote{HDnet} enables the communication between institutes without leaving the internal network.
+Institute firewalls can be set up by each institute and is self-administrated.
+They do have the possibility to use \ac{soho} routers\footnote{\ac{soho} router is a broadband router used in small offices and home offices environments.} to disconnect certain network zones from the network.
 It is recommended to configure the global \ac{acl} as a fall back solution in case of any downtime.
-The University Computing Center Heidelberg offers stateful firewall for router interfaces or VLANs.
-This stateful firewall whitelists certain services and splits up into four stages. 
-Its key value is to maintain a baseline security to avoid any misconfigurations and portscans.
-Each stage can be activated individually per router interface.
-\autoref{tab:overview-security-zone} outlines these stages including 
+The University Computing Center Heidelberg offers stateless firewall for router interfaces or VLANs.
+This stateful firewall whitelists certain services and splits up into four stages.
+Each stage can be individually activated per router interface.
+Its key value is to maintain a baseline security to avoid any misconfigurations and port scans.
+\autoref{tab:overview-security-zone} outlines these stages including filtering.
+Before applying one of these zones, the respective network has to oblige to client IP addresses below \ipAddress{129.206.218.240/24}.
+In addition, \ipAddress{129.206.218.1} is allocated for the gateway.
+A network has to adhere to these obligations if it 
 
 \begin{table}
     \centering
-    \caption[Overview of firewall stages]{Overview of firewall stages at the University Heidelberg.}
+    \caption[Overview of firewall stages]{
+        Overview of firewall stages at the University Heidelberg.
+        As an example we applied the rules to subnet \ipAddress{129.206.218.0/24}.
+        Any rule does apply to any another subnet.
+    }
     \begin{tabularx}{\linewidth}{l|XX}
         \toprule
-        \textsc{Name} & \textsc{Description} & \textsc{Address}     \\
+        \textsc{Name} & \textsc{Description}                      & \textsc{range}                     \\
         \hline
-        Stage 0       &                      & \ipAddress{129.206.} \\
-        Stage 1       &                      &                      \\
-        Stage 3       &                      &                      \\
-        Stage 4       &                      &                      \\
+        Stage 0       & Filters broadcast communication           & \ipAddress{129.206.218.0-15/24}    \\
+                      & No filtering                              & \ipAddress{129.206.239.16-255/24}  \\
+        \hline
+        Stage 1       & Allows common network protocol            & \ipAddress{129.206.239.0-255/24}   \\
+                      & Allows services                           & \ipAddress{129.206.239.240-255/24} \\
+        \hline
+        Stage 3       & Internet access only via internal proxies & \ipAddress{129.206.239.0-255/24}   \\
+        \hline
+        Stage 4       & Only internal network communication       & \ipAddress{129.206.239.0-255/24}   \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-security-zone}
@@ -55,49 +82,27 @@ Each stage can be activated individually per router interface.
 An interesting question is if attackers have access to restricted zones at the Heidelberg University.
 It arises during the research of T-Pot if an adversary would try to probe any hosts in the internal University network.
 In order to detect such events we present honeypot-like packet detection application that helps to identify any threats in a network.
-In addition, it offers to deploy multiple instance and collect their data in a centralized instance. 
+In addition, it offers to deploy multiple instance and collect their data in a centralized instance.
 
-\section{Heidelberg Connection Acceptance Tool}
+\section{Investigating Connection Attempts in the University Network}
 
-The acronym MADCAT stands for Mass Attack Detection Connection Acceptance Tools.
-
-It works as a honeypot-like detection application with low interaction level. 
-Its key idea is to log every connection attempt and further process it to retrieve credentials, or shell exploitation.
-\autoref{fig:madcat-architecture} gives an inside how MADCAT works.
-It runs on an Ubuntu distribution either $18.04$ or $20.04$.
-We have tested it on Ubuntu $18.04$.
-It processes packets from any interface that has been configured.
-As an example, we could process Ethernet and wireless packets.
-MADCAT itself consists of six independent modules that communicating with each other through a pipeline.
-Respectively, for TCP, UDP, ICMP, and RAW packets it provides a module for it.
-A module is responsible for analyzing packets and logging the results in a queue.
-In addition, UDP and TCP offers proxies to tunnel to packets to a service.
-TCP postprocessor reads in a 5 seconds interval the newly arrived TCP packets and processes them accordingly.
-It resolves packets to log data including source IP address, protocol and event type.
-The enrichment processor is the final process step.
-Its purpose is to log all written packets of the queue in a specified format for further analyzation.
-The key idea of MADCAT is to get an inside if attackers have access to a certain network.
-In contrast to T-Pot, we do not want to know what specific attacks are operated on our honeypot.
-Instead, we do want to ensure that no one else than authorized users have access.
-Especially in high confidential areas, no attacker should be capable of sending even a single packet to a host in the network.
-Tracking packets on a detailed level is not provided by the vast range of honeypots.
+Recording and investigating connection attempts assimilates new honeypots.
+As follows, we will present MADCAT, developed by the BSI, that helps to log any connection attempt being made on a host machine.
+In addition to it, we will deploy a T-Pot for additional information gathering.
+We focus on the \ipAddress{129.206.218.0/24} and \ipAddress{147.142.0.0/16} subnet.
+The \ipAddress{129.206.218.0/24} subnet is used within University Computing Center Heidelberg building.
+Every client in the building is   
+Respectively, our host machine is located within the network with \ipAddress{129.206.219.88} and \ipAddress{129.206.219.88}.
+Our goal is to catch any connection attempt that has been made to our honeypot.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{figures/heicat-architecture.pdf}
-    \caption[MADCAT architecture]{MADCAT architecture. The Ethernet and wireless interface forwards the respective packets to the desired module.}
-    \label{fig:madcat-architecture}
+    \includegraphics[width=\textwidth]{figures/heicat-conecpt.pdf}
+    \caption[HeiCAT concept]{HeiCAT concept.}
+    \label{fig:heicat-concept}
 \end{figure}
 
-The question of how secure the internal University network is arose during the deployment of T-Pot.
-At the University, the network splits into different zones.
-We decided to focus on the $219$-zone that is similar to a restricted zone.
-This zone is specified by the subnet \ipAddress{129.206.219.0/24}.
-In this zone 
-Respectively, our host machine is located with the that network with \ipAddress{129.206.219.88}
-
-Our goal is to catch any connection attempt that has been made to our honeypot.
-\autoref{fig:heicat-concept} carries out our concept.
+\autoref{fig:heicat-concept} outlines our concept.
 Our concept is divided into to hosts.
 The first one is responsible for providing Kibana, and Elasticsearch to crawl through logs.
 The honeypot consists of MADCAT in conjunction with P0f, Suricata, and FATT for additional information.
@@ -107,25 +112,33 @@ It allows to randomly deploy more instances to collect data from other zones.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{figures/heicat-conecpt.pdf}
-    \caption[HeiCAT concept]{HeiCAT concept.}
-    \label{fig:heicat-concept}
+    \includegraphics[width=\textwidth]{figures/heicat-architecture.pdf}
+    \caption[MADCAT architecture]{MADCAT architecture. The Ethernet and wireless interface forwards the respective packets to the desired module.}
+    \label{fig:madcat-architecture}
 \end{figure}
 
-%In total, we consider three different approaches.
-%\begin{enumerate}
-%    \item heicloud
-%    \item Eduroam
-%    \item 219 Zone
-%\end{enumerate}
+The acronym MADCAT stands for Mass Attack Detection Connection Acceptance Tools.
+It works as a honeypot-like detection application with low interaction level.
+Its key idea is to log every connection attempt and further process it to retrieve credentials, or shell exploitation.
+\autoref{fig:madcat-architecture} gives an inside how MADCAT works.
+It runs on an Ubuntu distribution either $18.04$ or $20.04$.
+We have tested it on Ubuntu $18.04$.
+It processes packets from any interface that has been configured.
+As an example, we could process Ethernet and wireless packets.
+MADCAT itself consists of six independent modules for TCP, UDP, ICMP, and RAW packets that communicating with each other through a pipeline.
+A module is responsible for analyzing packets and logging the results in a queue.
+In addition, UDP and TCP offers a proxy to tunnel packets to another service.
+TCP postprocessor reads every 5 seconds the newly arrived TCP packets and processes them accordingly.
+It resolves packets to log data including source IP address, protocol and event type.
+The enrichment processor is the final process step.
+Its purpose is to log all written packets of the queue in a specified format for further analyzation.
+The key idea of MADCAT is to get an inside if attackers have access to a certain network.
+In contrast to T-Pot, we do not want to know what specific attacks are operated on our honeypot.
+Instead, we do want to ensure that no one else than authorized users have access.
+Especially in high confidential areas, no attacker should be capable of sending even a single packet to a host in the network.
+Tracking packets on a detailed level is not provided by the vast range of honeypots.
 
 \section{Results}
-
-%\subsection{HeiCloud}
-
-%\subsection{Eduroam}
-
-%\subsection{219 Zone}
 
 \autoref{fig:madcat-attack-distribution} shows the attack distribution.
 Most of the connection attempts are originated from the United States, Germany, and China.

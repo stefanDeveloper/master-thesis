@@ -311,7 +311,7 @@ Its key idea is to send an endless stream of data to the attacker until its memo
     \label{tab:overview-honeypots}
 \end{sidewaystable}
 
-\section{Results}
+\section{Results}% TODO: Fix data timestamp Sep 21 00:00 to Oct 16th 00:00, Recheck results
 \label{sec:honeypots-heicloud}
 
 Our T-Pot has been deployed for 3 weeks (from 22nd of September to 22nd of October) and collected in total \numprint{825,539} attacks.
@@ -330,7 +330,7 @@ Noticeable is the large disparity of the previously mentioned attacks on \ac{aws
 Especially for honeypots like Dionaea, it is shallow why so little attacks have been performed.
 Therefore, we assume that packets run through a static filter.
 Heidelberg itself has a centralized packet filtering which indicates our assumption that certain ports or protocols are excluded.
-To prove that, a \textsc{nmap} TCP SYN scan (\verb|nmap -sS -A 129.206.5.74|) has been executed.
+To prove that, a \textsc{nmap} TCP SYN scan (\verb|nmap -sS -A 129.206.5.74|) has been executed. % TODO: Write about uni firewall
 Our result clearly shows that port 20, reserved for FTP, is filtered, although the access security explicitly allows it.
 Based on this, most of the attacks on Dionaea are made throughout FTP, and thus, explains the total number of attacks.
 Moreover, $96\%$ of IP addresses connected to Dionaea are known attackers, and $70\%$ were acquired on port 81, unofficially known for Tor routing.

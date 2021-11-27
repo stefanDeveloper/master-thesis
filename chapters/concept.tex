@@ -143,8 +143,18 @@ This allows to randomly deploy more instances to collect data from other zones.
 
 \section{Results} % TODO: Mehr Ergebnisse, Attacken zeigen, Grafiken
 
-\autoref{fig:madcat-attack-distribution} shows the attack distribution.
+Our MADCAT and T-Pot has been deployed for three weeks.
+In total, MADCAT received \numprint{35372} packets.
+Overall, flow ($66.62\%$) and RAW ($33.26\%$) packets.
+Syn packets with a 
+T-Pot 
+\autoref{fig:madcat-protocols} shows the protocol distribution.
+
+\autoref{fig:madcat-attack-distribution} shows the attack distribution indicating the origin of an IP address.
 Most of the connection attempts are originated from the United States, Germany, and China.
+As we have shown beforehand in \autoref{chap:cloud-security}, geographical information only outlines the last know location of a node.
+Like our results in heiCLOUD, we assume that this information is not reliable as an indicator.
+Nevertheless, it is an interesting to see 
 
 % TODO: Bessere Caption
 \begin{figure}[ht]
@@ -158,9 +168,14 @@ Most of the connection attempts are originated from the United States, Germany, 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
-    \caption[Protocol distribution of MADCAT]{Protocol distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Protocol distribution of MADCAT]{Protocol distribution of MADCAT. ICMP, IPv6 and UDP are the most used protocols. Timestamp; 22nd of September to 22nd of November.}
     \label{fig:madcat-protocols}
 \end{figure}
+
+Suricata identified odd behaviors in the network.
+
+Crawling through our packets, we identified a few exploitation attempts.
+SIP and SMB are allocating the fast majority of 
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
@@ -169,3 +184,5 @@ Most of the connection attempts are originated from the United States, Germany, 
 \begin{figure}
     \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
 \end{figure}
+
+% TODO: Add discussion

@@ -1,6 +1,8 @@
 \chapter{Mitigate Fingerprinting of Honeypots}
 \label{chap:fingerprinting}
 
+... % TODO: Add introduction
+
 \section{Preliminary Work}
 
 Attackers have a strong motivation to reveal honeypots before launching an attack.
@@ -120,7 +122,7 @@ However, these subtle differences influence the cosine similarity coefficient.
     \label{tab:cosine-similarity}
 \end{table}
 
-\section{Experiment 1: Reproduce Vetterl et al.'s findings}
+\section{Experiment 1: Reproduce Vetterl et al.'s findings} % TODO: Fill data
 
 \section{Attempt to Disguise Cowrie}
 
@@ -195,3 +197,5 @@ The library TwistedConch throws this exception. % TODO Debug Cowrie
 The next step is to disguise Cowrie behind an OpenSSH server.
 As we have seen beforehand, the OpenSSH server should work as an intermediary between Cowrie and the attacker.
 We have implemented this concept in heiCLOUD.
+
+% TODO: Add discussion

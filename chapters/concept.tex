@@ -9,7 +9,7 @@ To detect any dubious packets in the network we present a concept using a honeyp
 We show that attacks in a restricted network zone of the Heidelberg University's internal network occur, and contributed to an adaption of the stateless firewall.
 Thus, improving the security of the network.
 
-\section{Introduction}
+\section{University Network}
 
 Honeypots that are accessible via the Internet do receive a broad range of attacks.
 As \citet{Spitzner2003} noted, a honeypot is not strictly bound to run in a \ac{dmz} or in a network with direct Internet access.
@@ -49,10 +49,10 @@ The University Computing Center Heidelberg offers stateless firewall for router 
 This stateful firewall whitelists certain services and splits up into four stages.
 Each stage can be individually activated per router interface.
 Its key value is to maintain a baseline security to avoid any misconfigurations and port scans.
-\autoref{tab:overview-security-zone} outlines these stages including filtering.
+\autoref{tab:overview-security-zone} outlines these stages including the IP address range.
 Before applying one of these zones, the respective network has to oblige to client IP addresses below \ipAddress{129.206.218.240/24}.
 In addition, \ipAddress{129.206.218.1} is allocated for the gateway.
-A network has to adhere to these obligations if it 
+A network has to adhere to these obligations if it applies any of these pre-defined stages.
 
 \begin{table}
     \centering
@@ -84,41 +84,11 @@ It arises during the research of T-Pot if an adversary would try to probe any ho
 In order to detect such events we present honeypot-like packet detection application that helps to identify any threats in a network.
 In addition, it offers to deploy multiple instance and collect their data in a centralized instance.
 
-\section{Investigating Connection Attempts in the University Network}
+\section{Honeypot-like Connection Detection Tool}
 
 Recording and investigating connection attempts assimilates new honeypots.
-As follows, we will present MADCAT, developed by the BSI, that helps to log any connection attempt being made on a host machine.
-In addition to it, we will deploy a T-Pot for additional information gathering. % TODO: Mehr Erlaeuterung wieso, weshalb, warum
-We focus on the \ipAddress{129.206.218.0/24} and \ipAddress{147.142.0.0/16} subnet.
-The \ipAddress{129.206.218.0/24} subnet is used within University Computing Center Heidelberg building.
-Every client in the building is   
-Respectively, our host machine is located within the network with \ipAddress{129.206.219.88} and \ipAddress{129.206.219.88}.
-Our goal is to catch any connection attempt that has been made to our honeypot.
-
-% TODO: Conecpt ueberarbeiten, bessere Caption
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{figures/heicat-conecpt.pdf}
-    \caption[HeiCAT concept]{HeiCAT concept.}
-    \label{fig:heicat-concept}
-\end{figure}
-
-\autoref{fig:heicat-concept} outlines our concept. % TODO: Mehr infos zum Konzept, etc.
-Our concept is divided into to hosts.
-The first one is responsible for providing Kibana, and Elasticsearch to crawl through logs.
-The honeypot consists of MADCAT in conjunction with P0f, Suricata, and FATT for additional information.
-Like T-Pot, we use Logstash to forward our data to Elasticsearch.
-One benefit is the centralized approach to store data.
-It allows to randomly deploy more instances to collect data from other zones.
-
-% TODO: Bessere Caption
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{figures/heicat-architecture.pdf}
-    \caption[MADCAT architecture]{MADCAT architecture. The Ethernet and wireless interface forwards the respective packets to the desired module.}
-    \label{fig:madcat-architecture}
-\end{figure}
-
+Respectively, we will present a new honeypot-like detection tool called MADCAT.
+It has been developed by the BSI, and helps us to log any connection attempt being made on our host machine.
 The acronym MADCAT stands for Mass Attack Detection Connection Acceptance Tools.
 It works as a honeypot-like detection application with low interaction level.
 Its key idea is to log every connection attempt and further process it to retrieve credentials, or shell exploitation.
@@ -140,6 +110,37 @@ Instead, we do want to ensure that no one else than authorized users have access
 Especially in high confidential areas, no attacker should be capable of sending even a single packet to a host in the network.
 Tracking packets on a detailed level is not provided by the vast range of honeypots.
 
+% TODO: Conecpt ueberarbeiten, beheben der Darstellung
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/heicat-conecpt.pdf}
+    \caption[Concept to detect connection attempts]{Concept to detect connection attempts. Kibana and Elasticsearch are deployed in heiCLOUD.}
+    \label{fig:heicat-concept}
+\end{figure}
+
+In addition, we will deploy a T-Pot instance to have comparison data to our new concept.
+We focus on the \ipAddress{129.206.218.0/24} and \ipAddress{147.142.0.0/16} subnet.
+The \ipAddress{129.206.218.0/24} subnet is used within University Computing Center Heidelberg building.
+Every client in the building has a compelling connection in this subnet.
+Otherwise, an Internet connection would not be feasible.
+The subnet \ipAddress{147.142.0.0/16} connects clients to \enquote{eduroam}\footnote{The eduroam is an international Wi-Fi internet access point for researchers.}.
+Like the four stages of the institute firewall, the \enquote{eduroam} network, also called \enquote{Tagungslan}, builds various permits into the subnet.
+One essential important % TODO: Example
+Our instances are located in the building with IP addresses \ipAddress{129.206.219.65} and \ipAddress{129.206.219.88}.
+\autoref{fig:heicat-concept} outlines our concept using MADCAT and a separate instance to visualize our data.
+The first instance with IP address \ipAddress{129.206.5.157} provides Kibana, and Elasticsearch to visualize and crawl logs.
+The honeypot with IP address \ipAddress{129.206.5.88} consists of MADCAT in conjunction with P0f, Suricata, and FATT.
+Like T-Pot, we use Logstash to forward our data to Elasticsearch.
+One benefit is the centralized approach to store data.
+This allows to randomly deploy more instances to collect data from other zones.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/heicat-architecture.pdf}
+    \caption[Visualization of the MADCAT packet flow]{Visualization of the MADCAT packet flow starting at the network interface. The Ethernet and wireless interface forwards packets to the desired module.}
+    \label{fig:madcat-architecture}
+\end{figure}
+
 \section{Results} % TODO: Mehr Ergebnisse, Attacken zeigen, Grafiken
 
 \autoref{fig:madcat-attack-distribution} shows the attack distribution.
@@ -159,4 +160,12 @@ Most of the connection attempts are originated from the United States, Germany, 
     \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
     \caption[Protocol distribution of MADCAT]{Protocol distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
     \label{fig:madcat-protocols}
+\end{figure}
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
+\end{figure}
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
 \end{figure}

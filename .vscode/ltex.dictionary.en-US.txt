@@ -39,3 +39,4 @@ Kippo
 protoversions
 swversion
 sshd
+eduroam

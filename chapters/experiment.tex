@@ -1,7 +1,7 @@
 \chapter{Mitigate Fingerprinting of Honeypots}
 \label{chap:fingerprinting}
 
-\section{Fingerprinting Cowrie}
+\section{Preliminary Work}
 
 Attackers have a strong motivation to reveal honeypots before launching an attack.
 Without any protection attackers would disclose their methods, and thus, newly developed attacks would become useless.
@@ -120,7 +120,9 @@ However, these subtle differences influence the cosine similarity coefficient.
     \label{tab:cosine-similarity}
 \end{table}
 
-\section{Disguising Cowrie}
+\section{Experiment 1: Reproduce Vetterl et al.'s findings}
+
+\section{Attempt to Disguise Cowrie}
 
 Cowrie has to be tweaked to hide its generic weakness.
 Fixing the major flaws in Cowrie to avoid early detection remains an ephemeral patch.
@@ -145,8 +147,7 @@ Respectively, our attacker should not be able to detect Cowrie by response devia
 % TODO: Code review aufzeigen
 Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
 
-
-\section{Experiment}
+\section{Experiment 2: Avoid fingerprinting of Cowrie}
 
 Our experiment exists out of two steps.
 First, we want to reproduce the cosine similarity coefficient that \citet{vetterl2020} claims.

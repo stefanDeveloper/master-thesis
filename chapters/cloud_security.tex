@@ -5,7 +5,7 @@ Attacks from the Internet are often originated from bots.
 A bot, short for \enquote{robot}, is an automated process that interacts with different network services.
 Besides good intentions, bots can be used for malicious purposes.
 Mostly, bots try to self-propagate malware across the Internet and try to capture hosts that merge into a botnet.
-A botnet has a central server or servers that act as a command and control center for all infected hosts.\cite{Feily2009}
+A botnet has a central server or servers that act as a command and control center for all infected hosts \cite{Feily2009}.
 Recently, Universities in Germany received more cyberattacks than ever, respectively increasing their costs for damage repairs.
 Honeypots are a good solution to catch attackers and learn from their exploits.
 However, there is no conclusion if honeypots in times of bots give a proper countermeasure to avoid such damage.
@@ -314,7 +314,7 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 \section{Results}% TODO: Fix data timestamp Sep 21 00:00 to Oct 16th 00:00, Recheck results
 \label{sec:honeypots-heicloud}
 
-Our T-Pot has been deployed for 3 weeks (from 22nd of September to 22nd of October) and collected in total \numprint{825,539} attacks.
+Our T-Pot has been deployed for 3 weeks (from 21st of September to 16th of October) and collected in total \numprint{825,539} attacks.
 Overall, RDPY ($47.94\%$), Honeytrap ($32.27\%$), and Cowrie ($12.60\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
@@ -342,7 +342,7 @@ However, due to security concerns a temporarily exclude of this rule has been re
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
-    \caption[Attack distribution of T-Pot]{Attack distribution of T-Pot. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Attack distribution of T-Pot]{Attack distribution of T-Pot. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 21st of September to 16th of October.}
     \label{fig:attack-distribution}
 \end{figure}
 
@@ -357,7 +357,7 @@ Hence, we do not strongly rely on the geographical information.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-attacks-histogram.pdf}
-    \caption[Attack histogram of T-Pot]{Attack histogram of T-Pot. Only the five most attacked honeypots are considered. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Attack histogram of T-Pot]{Attack histogram of T-Pot. Only the five most attacked honeypots are considered. Timestamp; 21st of September to 16th of October.}
     \label{tpot-overview-histogram}
 \end{figure}
 
@@ -370,7 +370,7 @@ We clearly identify a bias towards remote desktop protocol attacks, shell-code e
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
-    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Displays the five most listed alert categories. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Displays the five most listed alert categories. Timestamp; 21st of September to 16th of October.}
     \label{fig:suricata-results}
 \end{figure}
 
@@ -393,7 +393,7 @@ This shows how fast bots adapt to new vulnerabilities in order to compromise mor
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-rdpy-port.pdf}
-    \caption[RDPY results of T-Pot]{RDPY attacks separated in attacks and unique src IPs. Timestamp; 22nd of September to 22nd of November.}
+    \caption[RDPY results of T-Pot]{RDPY attacks separated in attacks and unique src IPs. Timestamp; 21st of September to 16th of October.}
     \label{fig:rdpy-results}
 \end{figure}
 
@@ -410,7 +410,7 @@ Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-honeytrap-port.pdf}
-    \caption[Honeytrap results of T-Pot]{Honeytrap results of T-Pot. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Honeytrap results of T-Pot]{Honeytrap results of T-Pot. Timestamp; 21st of September to 16th of October.}
     \label{fig:honeytrap-results}
 \end{figure}
 
@@ -429,7 +429,7 @@ However, $94\%$ of all connected IP addresses are resolved as known attackers.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-cowrie-port.pdf}
-    \caption[Cowrie results of T-Pot]{Cowrie results of T-Pot. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Cowrie results of T-Pot]{Cowrie results of T-Pot. Timestamp; 21st of September to 16th of October.}
     \label{fig:cowrie-results}
 \end{figure}
 

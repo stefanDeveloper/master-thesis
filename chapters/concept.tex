@@ -143,36 +143,50 @@ This allows to randomly deploy more instances to collect data from other zones.
 
 \section{Results} % TODO: Mehr Ergebnisse, Attacken zeigen, Grafiken
 
-Our MADCAT and T-Pot has been deployed for three weeks.
+Our MADCAT (28th of October till 17th of November) and T-Pot (16th of November till 6th of December) have been deployed for three weeks respectively.
 In total, MADCAT received \numprint{35372} packets.
-Overall, flow ($66.62\%$) and RAW ($33.26\%$) packets.
-Syn packets with a 
-T-Pot 
-\autoref{fig:madcat-protocols} shows the protocol distribution.
+Overall, the modules TCP ($66.62\%$) and RAW ($33.26\%$) received the majority of all connection attempts.
+The minority with less than one percent are suspicious packets which have individual TCP flags like syn and reset set. 
+On contrary, we could not identify any harmful activity based on these packets.
+In addition, the T-Pot accounted in total .
+Overall, ConPot (), Honeytrap (), and Ciscoasa () received most of the attacks with a total number of $1$.
+Interestingly, we could identify \ac{snmp} connections which we assume is used by print servers to discover printers.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
+    \caption[Protocol distribution of MADCAT]{Protocol distribution of MADCAT. ICMP, IPv6 and UDP are the most used protocols. Timestamp; 28th of October to 17th of November.}
+    \label{fig:madcat-protocols}
+\end{figure}
+
+\autoref{fig:madcat-protocols} shows the protocol distribution indicating a high amount of ICMP and IPv6 packets.
+Only $11.59\%$ of all IP address reputations could be resolved as known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
+Unlike 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
+    \caption[Attack distribution of MADCAT]{Attack distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. 28th of October to 17th of November.}
+    \label{fig:madcat-attack-distribution}
+\end{figure}
 
 \autoref{fig:madcat-attack-distribution} shows the attack distribution indicating the origin of an IP address.
 Most of the connection attempts are originated from the United States, Germany, and China.
 As we have shown beforehand in \autoref{chap:cloud-security}, geographical information only outlines the last know location of a node.
 Like our results in heiCLOUD, we assume that this information is not reliable as an indicator.
-Nevertheless, it is an interesting to see 
+Nevertheless, it is an interesting inside to see where the last node originates from.
 
-% TODO: Bessere Caption
+% TODO: Suricata plot
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
     \caption[Attack distribution of MADCAT]{Attack distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
-    \label{fig:madcat-attack-distribution}
-\end{figure}
-
-% TODO: Bessere Caption
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
-    \caption[Protocol distribution of MADCAT]{Protocol distribution of MADCAT. ICMP, IPv6 and UDP are the most used protocols. Timestamp; 22nd of September to 22nd of November.}
-    \label{fig:madcat-protocols}
+    \label{fig:suricata-distribution}
 \end{figure}
 
 Suricata identified odd behaviors in the network.
+CVE-2020-11899 accounts nearly $99\%$ with a total number of $\numprint{102,838}$.
+Second most listed CVE is related the padding length of IPv6.
 
 Crawling through our packets, we identified a few exploitation attempts.
 SIP and SMB are allocating the fast majority of 
@@ -186,3 +200,4 @@ SIP and SMB are allocating the fast majority of
 \end{figure}
 
 % TODO: Add discussion
+\section{Discussion}

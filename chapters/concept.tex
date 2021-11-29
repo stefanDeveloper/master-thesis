@@ -144,6 +144,9 @@ This allows to randomly deploy more instances to collect data from other zones.
 \section{Results} % TODO: Mehr Ergebnisse, Attacken zeigen, Grafiken
 
 Our MADCAT (28th of October till 17th of November) and T-Pot (16th of November till 6th of December) have been deployed for three weeks respectively.
+All instances had a connection to both subnets.
+First, the results obtained in the subnet \ipAddress{129.206.218.0/24} will be presented, closing up with the ones we claim in the eduroam network.
+
 In total, MADCAT received \numprint{35372} packets.
 Overall, the modules TCP ($66.62\%$) and RAW ($33.26\%$) received the majority of all connection attempts.
 The minority with less than one percent are suspicious packets which have individual TCP flags like syn and reset set. 
@@ -161,7 +164,14 @@ Interestingly, we could identify \ac{snmp} connections which we assume is used b
 
 \autoref{fig:madcat-protocols} shows the protocol distribution indicating a high amount of ICMP and IPv6 packets.
 Only $11.59\%$ of all IP address reputations could be resolved as known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
-Unlike 
+Focusing on TCP packets, $88.3\%$ are known attackers with source port 113 as main target.
+The port 113 is officially known as the Identification Protocol (IDENT)\cite{rfc1413} used for identification/authorization on a remote server such as POP, IMAP, and SMTP.
+Comparing the results with the stateless firewall settings, we spot a potential leak that allows adversaries to send IDENT requests to our network.
+Decoding the payload of these TCP packets attackers do not focus on IDENT protocol vulnerabilities rather than using this port to deploy any exploitation attempt possible.
+We identified attempts to acquire an SSH connection, using SMB and SIP connection attempts, as well as various HTTP requests.
+\autoref{lst:sip-exploitation} and \autoref{lst:smb-exploitation} outlines two interesting payloads.
+... % more about the payload
+A vital security interest in port 113 is negligible, however, our concept helps to detect such leaks especially when stateless firewalls are the main doorkeeper for packets.  
 
 \begin{figure}[ht]
     \centering
@@ -174,7 +184,7 @@ Unlike
 Most of the connection attempts are originated from the United States, Germany, and China.
 As we have shown beforehand in \autoref{chap:cloud-security}, geographical information only outlines the last know location of a node.
 Like our results in heiCLOUD, we assume that this information is not reliable as an indicator.
-Nevertheless, it is an interesting inside to see where the last node originates from.
+Nevertheless, it is an interesting inside to see where the last node originated from.
 
 % TODO: Suricata plot
 \begin{figure}[ht]
@@ -184,12 +194,14 @@ Nevertheless, it is an interesting inside to see where the last node originates 
     \label{fig:suricata-distribution}
 \end{figure}
 
-Suricata identified odd behaviors in the network.
+Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribution}).
+In total, it detected \numprint{300000} alerts and \acsp{cve}.
+Besides minor alerts like \textsc{nmap} scans, Suricata registered vulnerabilities in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
 CVE-2020-11899 accounts nearly $99\%$ with a total number of $\numprint{102,838}$.
-Second most listed CVE is related the padding length of IPv6.
-
-Crawling through our packets, we identified a few exploitation attempts.
-SIP and SMB are allocating the fast majority of 
+Adversary could send malformed IPv6 packet to cause an Out-of-bounds Read resulting in a potential denial of service.
+TCP stack $6.0.1.66$
+CVE-2002-0013 
+CVE-2019-12263
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
@@ -199,5 +211,15 @@ SIP and SMB are allocating the fast majority of
     \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
 \end{figure}
 
+Lastly, we consider the results from the eduroam network.
+Neither T-Pot nor MADCAT could identify any significant behavior.
+
+Our results give an inside of the value of honeypots in a restricted network zone.
+We have shown that 
+
 % TODO: Add discussion
 \section{Discussion}
+
+Honeypots 
+
+Eduroam results are lacking in comparison to the other subnet.

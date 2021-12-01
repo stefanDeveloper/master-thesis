@@ -169,9 +169,9 @@ Focusing on TCP packets, $88.3\%$ are known attackers with source port 113 as ma
 The port 113 is officially known as the Identification Protocol (IDENT)\cite{rfc1413} used for identification/authorization on a remote server such as POP, IMAP, and SMTP.
 Comparing the results with the stateless firewall settings, we spot a potential leak that allows adversaries to send IDENT requests to our network.
 Decoding the payload of these TCP packets attackers do not focus on IDENT protocol vulnerabilities rather than using this port to deploy any exploitation attempt possible.
-We identified attempts to acquire an SSH connection, using SMB and SIP connection attempts, as well as various HTTP requests.
+We identified attempts to acquire an SSH session, using SMB and SIP connection attempts, as well as various HTTP requests.
 For an example we take a closer look at two payloads that have been sent to our instance.
-\autoref{lst:sip-exploitation} and outlines an SIP probe to see if any client answers to this packet.
+\autoref{lst:sip-exploitation} and outlines an SIP probe that checks if any VoIP service is active by answering the request packet.
 Next, \autoref{lst:smb-exploitation} shows an SMB probe.
 The IP address reputation could help to answer if these packets are sent by a real user or an attacker.
 Considering our two examples, both IP addresses were resolved as known attacker, thus, we identified them as a probe packet before executing their attack.
@@ -212,12 +212,12 @@ Hence, we assume that the source IP address had a vicious intention to send an u
 However, for the other CVE's the IP reputation could not be resolved.
 
 Results from our T-Pot instance are exiguous, and in short, no real attacks such as shell exploitation have been performed.
-Overall, all connection attempts originated from Germany, and are made on port $161$ and $4567$. 
+Overall, all connection attempts originated from Germany within the same network, and are made on port $161$ and $4567$. 
 Conpot registered minor SNMPv2 Get, SNMPv1 Get, and GetNext requests.
 A possible attack vector could be an SNMP reflection/amplification attack.
+However, our assumption is that devices within the network have a misconfigured printer with our IP address and send get requests frequently.
 Second most attacked honeypot is Honeytrap.
 All received packets have an empty payload, thus, it remains unclear if the connection is malicious.
-However, all three honeypots have something in common.
 Their most requested IP address is \ipAddress{129.206.219.62}.
 ...
 
@@ -229,10 +229,11 @@ Thus, our client seemed to be encapsulated from others, and receives no other pa
 
 Our results have given an inside of the value of honeypots in a restricted network zone.
 For the Heidelberg University, using honeypots to evaluate their stateless firewall have never been considered.
-We have shown that our initial concept delivered minor findings in the \ipAddress{} which lead to improvement of the corresponding firewall.
-receives packets containing interesting payloads.
-In comparison to our T-Pot deployed in heiCLOUD, our results are
-As a result the port 113 will be removed in the future.
+We have shown that our initial concept delivered minor findings in the subnet \ipAddress{129.206.218.0/24} with stage 1 firewall.
+As a result the port 113 used for IDENT will be removed in the future to reduce the attack surface, thus, contributing to the firewall definition.
+Overall, our two instances received numerous packets containing interesting payloads.
+In comparison to our T-Pot that has been deployed in heiCLOUD, our results are 
+
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}

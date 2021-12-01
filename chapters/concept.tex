@@ -193,7 +193,7 @@ Nevertheless, it is an interesting inside to see where the last node originated 
 % TODO: Suricata plot
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
+    \includegraphics[width=\textwidth]{figures/madcat-suricata-alerts.pdf}
     \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Timestamp; from 16th of November to 6th of December}
     \label{fig:suricata-distribution}
 \end{figure}
@@ -211,6 +211,16 @@ Each connection attempt with CVE-2019-12263 originated from Russia.
 Hence, we assume that the source IP address had a vicious intention to send an urgent flag.
 However, for the other CVE's the IP reputation could not be resolved.
 
+Results from our T-Pot instance are exiguous, and in short, no real attacks such as shell exploitation have been performed.
+Overall, all connection attempts originated from Germany, and are made on port $161$ and $4567$. 
+Conpot registered minor SNMPv2 Get, SNMPv1 Get, and GetNext requests.
+A possible attack vector could be an SNMP reflection/amplification attack.
+Second most attacked honeypot is Honeytrap.
+All received packets have an empty payload, thus, it remains unclear if the connection is malicious.
+However, all three honeypots have something in common.
+Their most requested IP address is \ipAddress{129.206.219.62}.
+...
+
 Lastly, we consider the results from the eduroam network.
 Neither T-Pot nor MADCAT could identify any significant behavior over a period of three weeks.
 Unlike the subnet \ipAddress{129.206.218.0/24}, our honeypot did not register any suspicious packet.
@@ -219,7 +229,8 @@ Our client seems to be encapsulated from others, and thus, no other packets coul
 
 Our results have given an inside of the value of honeypots in a restricted network zone.
 For the Heidelberg University, using honeypots to evaluate their stateless firewall have never been considered.
-We have shown that 
+We have shown that our concept receives packets containing interesting payloads.
+In comparison to our T-Pot deployed in heiCLOUD, our results are
 As a result the port 113 will be removed in the future.
 
 \begin{figure}
@@ -232,6 +243,6 @@ As a result the port 113 will be removed in the future.
 
 \section{Discussion}
 
-Honeypots 
-
+We have seen that honeypots do help to find potential leaks in restricted network zones.
+However, it remains questionable if our results are 
 Eduroam results are lacking in comparison to the other subnet.

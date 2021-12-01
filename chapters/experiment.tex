@@ -57,7 +57,7 @@ The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| p
 \autoref{lst:ssh-debug} shows the SSH debug information with the modified version string, and key exchange message.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-debug}]{listings/ssh-debug.txt}
+    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-debug}]{listings/ssh-debug.txt}
 \end{figure}
 
 \autoref{tab:cosine-similarity} has been derived from \citet{vetterl2020} to present his results of the cosine similarity of OpenSSH, Twisted, and Cowrie.
@@ -74,7 +74,7 @@ These results show that the values of honeypots would decrease to zero when larg
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/cowrie-openssh.pdf}
-    \caption[Architecture of OpenSSH and Cowrie (derived from \cite{vetterl2020})]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
+    \caption[Architecture of OpenSSH and Cowrie]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
     \label{fig:cowrie-openssh}
 \end{figure}
 
@@ -96,7 +96,7 @@ Nowadays, Cowrie adapted itself to have \verb|NULL| characters as padding.
 However, these subtle differences influence the cosine similarity coefficient.
 
 \begin{table}
-    \caption{Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted. (derived from \cite{vetterl2020})}
+    \caption{Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted}
     \begin{tabular}{lc|cccccccccc}
     \toprule
                    &   & A & B      & C      & D      & E      & F      & G      & H      & I      & J      \\
@@ -142,7 +142,7 @@ Respectively, our attacker should not be able to detect Cowrie by response devia
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/sshd-honeypot.pdf}
-    \caption[Architecture of OpenSSH and Cowrie (derived from \cite{vetterl2020})]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
+    \caption[Architecture of OpenSSH and Cowrie]{Architecture of OpenSSH and Cowrie. OpenSSH and TwistedConch have subtle differences (derived from \cite{vetterl2020})}
     \label{fig:cowrie-fix}
 \end{figure}
 

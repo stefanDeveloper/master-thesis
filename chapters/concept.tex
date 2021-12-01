@@ -125,7 +125,8 @@ Every client in the building has a compelling connection in this subnet.
 Otherwise, an Internet connection would not be feasible.
 The subnet \ipAddress{147.142.0.0/16} connects clients to \enquote{eduroam}\footnote{The eduroam is an international Wi-Fi internet access point for researchers.}.
 Like the four stages of the institute firewall, the \enquote{eduroam} network, also called \enquote{Tagungslan}, builds various permits into the subnet.
-One essential important % TODO: Example
+One essential difference is that services like SMTP and HTTP are not allowed, so that, attackers are not able to deploy traps for users.
+Moreover, each client is encapsulated in its own subnet that disables any communication to others clients.
 Our instances are located in the building with IP addresses \ipAddress{129.206.219.65} and \ipAddress{129.206.219.88}.
 \autoref{fig:heicat-concept} outlines our concept using MADCAT and a separate instance to visualize our data.
 The first instance with IP address \ipAddress{129.206.5.157} provides Kibana, and Elasticsearch to visualize and crawl logs.
@@ -169,8 +170,11 @@ The port 113 is officially known as the Identification Protocol (IDENT)\cite{rfc
 Comparing the results with the stateless firewall settings, we spot a potential leak that allows adversaries to send IDENT requests to our network.
 Decoding the payload of these TCP packets attackers do not focus on IDENT protocol vulnerabilities rather than using this port to deploy any exploitation attempt possible.
 We identified attempts to acquire an SSH connection, using SMB and SIP connection attempts, as well as various HTTP requests.
-\autoref{lst:sip-exploitation} and \autoref{lst:smb-exploitation} outlines two interesting payloads.
-... % more about the payload
+For an example we take a closer look at two payloads that have been sent to our instance.
+\autoref{lst:sip-exploitation} and outlines an SIP probe to see if any client answers to this packet.
+Next, \autoref{lst:smb-exploitation} shows an SMB probe.
+The IP address reputation could help to answer if these packets are sent by a real user or an attacker.
+Considering our two examples, both IP addresses were resolved as known attacker, thus, we identified them as a probe packet before executing their attack.
 A vital security interest in port 113 is negligible, however, our concept helps to detect such leaks especially when stateless firewalls are the main doorkeeper for packets.  
 
 \begin{figure}[ht]
@@ -190,34 +194,42 @@ Nevertheless, it is an interesting inside to see where the last node originated 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
-    \caption[Attack distribution of MADCAT]{Attack distribution of MADCAT. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 22nd of September to 22nd of November.}
+    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Timestamp; from 16th of November to 6th of December}
     \label{fig:suricata-distribution}
 \end{figure}
 
 Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribution}).
 In total, it detected \numprint{300000} alerts and \acsp{cve}.
 Besides minor alerts like \textsc{nmap} scans, Suricata registered vulnerabilities in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
-CVE-2020-11899 accounts nearly $99\%$ with a total number of $\numprint{102,838}$.
-Adversary could send malformed IPv6 packet to cause an Out-of-bounds Read resulting in a potential denial of service.
-TCP stack $6.0.1.66$
-CVE-2002-0013 
-CVE-2019-12263
-
-\begin{figure}
-    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
-\end{figure}
-
-\begin{figure}
-    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
-\end{figure}
+CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $99\%$ with a total number of $\numprint{102,838}$.
+Adversary could send malformed IPv6 packets that cause an Out-of-bounds Read which results in a potential denial of service.
+Only TCP/IP stack versions until $6.0.1.66$ are affected by this vulnerability.
+Nevertheless, the tremendous amount of alerts shows the importance of adapting the IPv6 permits.
+Second most recorded vulnerability CVE-2002-0013 \cite{CVE-2002-0013} with the highest score allows remote attackers to cause a denial of service or gain privileges in the SNMPv1 protocol. 
+Lastly, Wind River VxWorks 6.9.4 and vx7 in CVE-2019-12263 \cite{CVE-2019-12263} cause a Buffer Overflow due to underlying TCP components resulting in a race condition.
+Each connection attempt with CVE-2019-12263 originated from Russia.
+Hence, we assume that the source IP address had a vicious intention to send an urgent flag.
+However, for the other CVE's the IP reputation could not be resolved.
 
 Lastly, we consider the results from the eduroam network.
-Neither T-Pot nor MADCAT could identify any significant behavior.
+Neither T-Pot nor MADCAT could identify any significant behavior over a period of three weeks.
+Unlike the subnet \ipAddress{129.206.218.0/24}, our honeypot did not register any suspicious packet.
+In retrospect, the eduroam configuration works as designed.
+Our client seems to be encapsulated from others, and thus, no other packets could be received.
 
-Our results give an inside of the value of honeypots in a restricted network zone.
+Our results have given an inside of the value of honeypots in a restricted network zone.
+For the Heidelberg University, using honeypots to evaluate their stateless firewall have never been considered.
 We have shown that 
+As a result the port 113 will be removed in the future.
 
-% TODO: Add discussion
+\begin{figure}
+    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
+\end{figure}
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
+\end{figure}
+
 \section{Discussion}
 
 Honeypots 

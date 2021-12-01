@@ -223,13 +223,14 @@ Their most requested IP address is \ipAddress{129.206.219.62}.
 
 Lastly, we consider the results from the eduroam network.
 Neither T-Pot nor MADCAT could identify any significant behavior over a period of three weeks.
-Unlike the subnet \ipAddress{129.206.218.0/24}, our honeypot did not register any suspicious packet.
-In retrospect, the eduroam configuration works as designed.
-Our client seems to be encapsulated from others, and thus, no other packets could be received.
+Unlike the subnet \ipAddress{129.206.218.0/24}, our honeypot did not register any suspicious packets, TCP flags, or other \acp{cve}.
+In retrospect, the eduroam configuration has shown to work as designed.
+Thus, our client seemed to be encapsulated from others, and receives no other packets.
 
 Our results have given an inside of the value of honeypots in a restricted network zone.
 For the Heidelberg University, using honeypots to evaluate their stateless firewall have never been considered.
-We have shown that our concept receives packets containing interesting payloads.
+We have shown that our initial concept delivered minor findings in the \ipAddress{} which lead to improvement of the corresponding firewall.
+receives packets containing interesting payloads.
 In comparison to our T-Pot deployed in heiCLOUD, our results are
 As a result the port 113 will be removed in the future.
 

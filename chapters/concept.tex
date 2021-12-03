@@ -175,7 +175,7 @@ For an example we take a closer look at two payloads that have been sent to our 
 Next, \autoref{lst:smb-exploitation} shows an SMB probe trying to achieve the same.
 The IP address reputation could help to answer if these packets are sent by a real user or an attacker.
 Considering our two examples, both IP addresses were resolved as known attacker, thus, we identified them as a probe packet before executing their attack.
-A vital security interest in port 113 is negligible, however, our concept helps to detect such leaks especially when stateless firewalls are the main doorkeeper for packets.  
+A vital security interest in port 113 is negligible, however, our concept helps to detect such leaks especially when stateless firewalls are the main doorkeeper for packets.
 
 \begin{figure}[ht]
     \centering
@@ -211,7 +211,7 @@ A detailed description of the vulnerability can be found in \cite{ripple20}.
 Adversary could send malformed IPv6 packets that cause an Out-of-bounds Read which results in a potential remote code execution.
 Only TCP/IP stack versions until $6.0.1.66$ are affected by this vulnerability.
 Nevertheless, the tremendous amount of alerts shows the importance of adapting the IPv6 permits.
-Second most recorded vulnerability with the highest score is CVE-2002-0013 \cite{CVE-2002-0013} that allows remote attackers to cause a denial of service or gain privileges in the SNMPv1 protocol. 
+Second most recorded vulnerability with the highest score is CVE-2002-0013 \cite{CVE-2002-0013} that allows remote attackers to cause a denial of service or gain privileges in the SNMPv1 protocol.
 The root cause for the CVE alert is the usage of the default public community for broadcast requests instead of configuring a private community with mandatory authentication.
 To compromise SNMP, attackers have to have access to the protocol.
 However, the University firewall blocks SNMP port 161 and 162 for TCP and UDP, thus, restricting any access from outside.
@@ -223,15 +223,26 @@ Each connection attempt with CVE-2019-12263 originated from Russia.
 Hence, we assume that the source IP address had a vicious intention to send an urgent flag.
 However, for the other CVE's the IP reputation could not be resolved.
 
+\begin{figure}
+    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
+\end{figure}
+
 Results from our T-Pot instance are exiguous, and in short, no real attacks such as shell exploitation have been performed.
-Overall, all connection attempts originated from Germany within the same network, and are made on port $161$ and $4567$. 
+Overall, all connection attempts originated from Germany within the same network, and are made on port $161$ and $4567$.
 Conpot registered minor SNMPv2 Get, SNMPv1 Get, and GetNext requests.
 A possible attack vector could be an SNMP reflection/amplification attack.
 As previously discussed our assumption is that devices within the network have a misconfigured printer and send broadcast requests frequently to find the machines.
 These SNMP requests affiliate with day-to-day traffic in an internal network, and thus, are not suspicious.
 Second most attacked honeypot is Honeytrap which received numerous packets on different ports whereas $39\%$ evince an empty payload.
-All of these received packets have a resolved IP address in the subnet \ipAddress{129.206.0.0/16}, thus, it remains unclear if the connection is malicious or .
-Overall, most requested IP addresses are \ipAddress{129.206.217.118}, \ipAddress{129.206.218.23}, and \ipAddress{129.206.218.194}.
+All of these received packets have a resolved IP address in the subnet \ipAddress{129.206.0.0/16}.
+It remains unclear if these connections are malicious or are acquired by accident.
+Investigating the payload of outliers does not confirm the assumption of a vicious intention.
+Thus, declaring these results as negligible.
+Overall, most of the connection attempt received by our instance are from these IP addresses: \ipAddress{129.206.217.118}, \ipAddress{129.206.218.23}, and \ipAddress{129.206.218.194}.
+
+\begin{figure}
+    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
+\end{figure}
 
 Lastly, we consider the results from the eduroam network.
 Neither T-Pot nor MADCAT could identify any significant behavior over a period of three weeks.
@@ -245,18 +256,14 @@ We have shown that our initial concept delivered minor findings in the subnet \i
 As a result the port 113 used for the IDENT protocol will be removed in the future to reduce the attack surface, thus, contributing to the firewall definition.
 Overall, our two instances received numerous packets containing interesting payloads.
 In comparison to our T-Pot that has been deployed in heiCLOUD, our results are as expected delicate and the data analyzation results in a more detailed manner.
-The statement from \citet{Spitzner2003} that honeypots only receive little 
-
-\begin{figure}
-    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
-\end{figure}
-
-\begin{figure}
-    \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SMB connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
-\end{figure}
+The statement from \citet{Spitzner2003} that honeypots only receive little input and nearly ever input is suspicious matches our results only half way.
+As shown beforehand, our results are dramatically little, however, only a few requests seemed suspicious.
+Nonetheless, we could answer our initial question if attackers have any access to the restricted network zone at the Heidelberg University.
 
 \section{Discussion}
 
 We have seen that honeypots do help to find potential leaks in restricted network zones.
-However, it remains questionable if our results are 
-Eduroam results are lacking in comparison to the other subnet.
+However, it remains questionable if our concept is capable of delivering correct results.
+Our instance has been running for three weeks in the subnet \ipAddress{129.206.5.0/24}.
+However, to deliver any meaningful entries our honeypot needs to be detected as vulnerable target.
+We could not detect any large scans on our instance, thus, it is very likely that either an attacker could not find our instance or no one had any kind of access.

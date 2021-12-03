@@ -142,7 +142,7 @@ This allows to randomly deploy more instances to collect data from other zones.
     \label{fig:madcat-architecture}
 \end{figure}
 
-\section{Results} % TODO: Mehr Ergebnisse, Attacken zeigen, Grafiken
+\section{Results}
 
 Our MADCAT (28th of October till 17th of November) and T-Pot (16th of November till 6th of December) have been deployed for three weeks respectively.
 All instances had a connection to both subnets.
@@ -150,11 +150,11 @@ First, the results obtained in the subnet \ipAddress{129.206.218.0/24} will be p
 
 In total, MADCAT received \numprint{35372} packets.
 Overall, the modules TCP ($66.62\%$) and RAW ($33.26\%$) received the majority of all connection attempts.
-The minority with less than one percent are suspicious packets which have individual TCP flags like syn and reset set. 
+The minority with less than one percent are suspicious packets which have individual TCP flags like reset or syn set. 
 On contrary, we could not identify any harmful activity based on these packets.
 In addition, the T-Pot accounted in total .
 Overall, ConPot (), Honeytrap (), and Ciscoasa () received most of the attacks with a total number of $1$.
-Interestingly, we could identify \ac{snmp} connections which we assume is used by print servers to discover printers.
+Interestingly, we could identify \ac{snmp} connections which are used by print servers to discover printers.
 
 \begin{figure}[ht]
     \centering
@@ -164,15 +164,15 @@ Interestingly, we could identify \ac{snmp} connections which we assume is used b
 \end{figure}
 
 \autoref{fig:madcat-protocols} shows the protocol distribution indicating a high amount of ICMP and IPv6 packets.
-Only $11.59\%$ of all IP address reputations could be resolved as known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
+Only $11.59\%$ of all IP address reputations could be resolved, splitting up into known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
 Focusing on TCP packets, $88.3\%$ are known attackers with source port 113 as main target.
 The port 113 is officially known as the Identification Protocol (IDENT)\cite{rfc1413} used for identification/authorization on a remote server such as POP, IMAP, and SMTP.
 Comparing the results with the stateless firewall settings, we spot a potential leak that allows adversaries to send IDENT requests to our network.
-Decoding the payload of these TCP packets attackers do not focus on IDENT protocol vulnerabilities rather than using this port to deploy any exploitation attempt possible.
+Decoding the payload of these TCP packets, rather than compromising systems based on IDENT protocol vulnerabilities attackers used this port to deploy any exploitation attempt possible.
 We identified attempts to acquire an SSH session, using SMB and SIP connection attempts, as well as various HTTP requests.
 For an example we take a closer look at two payloads that have been sent to our instance.
-\autoref{lst:sip-exploitation} and outlines an SIP probe that checks if any VoIP service is active by answering the request packet.
-Next, \autoref{lst:smb-exploitation} shows an SMB probe.
+\autoref{lst:sip-exploitation} outlines an SIP probe that checks if any VoIP service is active by answering the request packet.
+Next, \autoref{lst:smb-exploitation} shows an SMB probe trying to achieve the same.
 The IP address reputation could help to answer if these packets are sent by a real user or an attacker.
 Considering our two examples, both IP addresses were resolved as known attacker, thus, we identified them as a probe packet before executing their attack.
 A vital security interest in port 113 is negligible, however, our concept helps to detect such leaks especially when stateless firewalls are the main doorkeeper for packets.  
@@ -187,7 +187,7 @@ A vital security interest in port 113 is negligible, however, our concept helps 
 \autoref{fig:madcat-attack-distribution} shows the attack distribution indicating the origin of an IP address.
 Most of the connection attempts are originated from the United States, Germany, and China.
 As we have shown beforehand in \autoref{chap:cloud-security}, geographical information only outlines the last know location of a node.
-Like our results in heiCLOUD, we assume that this information is not reliable as an indicator.
+Like our results in heiCLOUD, we assume that this information is not reliable as an indicator from where attacks take place.
 Nevertheless, it is an interesting inside to see where the last node originated from.
 
 % TODO: Suricata plot
@@ -200,13 +200,25 @@ Nevertheless, it is an interesting inside to see where the last node originated 
 
 Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribution}).
 In total, it detected \numprint{300000} alerts and \acsp{cve}.
-Besides minor alerts like \textsc{nmap} scans, Suricata registered vulnerabilities in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
+Besides minor alerts like \textsc{nmap} scans, Suricata registered alerts in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
 CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $99\%$ with a total number of $\numprint{102,838}$.
-Adversary could send malformed IPv6 packets that cause an Out-of-bounds Read which results in a potential denial of service.
+This CVE is one of 19 others forming the \enquote{Ripple20} vulnerability in the low-level TCP/IP library developed by Treck, Inc..
+One of the task of the Track TCP/IP stack is to reassemble fragmented packets.
+Whenever a fragmented packet arrives the stack tries to validate to total length in the IP header.
+If the total length is not correct, it trims the data.
+However, this leads to an inconsistency, and thus, resulting in a buffer overflow when someone sends fragmented packets through tunnel.
+A detailed description of the vulnerability can be found in \cite{ripple20}.
+Adversary could send malformed IPv6 packets that cause an Out-of-bounds Read which results in a potential remote code execution.
 Only TCP/IP stack versions until $6.0.1.66$ are affected by this vulnerability.
 Nevertheless, the tremendous amount of alerts shows the importance of adapting the IPv6 permits.
-Second most recorded vulnerability CVE-2002-0013 \cite{CVE-2002-0013} with the highest score allows remote attackers to cause a denial of service or gain privileges in the SNMPv1 protocol. 
-Lastly, Wind River VxWorks 6.9.4 and vx7 in CVE-2019-12263 \cite{CVE-2019-12263} cause a Buffer Overflow due to underlying TCP components resulting in a race condition.
+Second most recorded vulnerability with the highest score is CVE-2002-0013 \cite{CVE-2002-0013} that allows remote attackers to cause a denial of service or gain privileges in the SNMPv1 protocol. 
+The root cause for the CVE alert is the usage of the default public community for broadcast requests instead of configuring a private community with mandatory authentication.
+To compromise SNMP, attackers have to have access to the protocol.
+However, the University firewall blocks SNMP port 161 and 162 for TCP and UDP, thus, restricting any access from outside.
+If adversaries plan to deploy an attack on the SNMP protocol, they need to have a connection to the internal network.
+Acquiring a connection to the internal network at University seems to be rather hard to accomplish.
+On the contrary, all connection attempts registered by our concept have been made within network, and they do reflect a normal SNMP communication.
+Lastly, Wind River VxWorks 6.9.4 and vx7 in CVE-2019-12263 \cite{CVE-2019-12263} cause a Buffer Overflow due to the underlying TCP component that results in a race condition.
 Each connection attempt with CVE-2019-12263 originated from Russia.
 Hence, we assume that the source IP address had a vicious intention to send an urgent flag.
 However, for the other CVE's the IP reputation could not be resolved.
@@ -215,11 +227,11 @@ Results from our T-Pot instance are exiguous, and in short, no real attacks such
 Overall, all connection attempts originated from Germany within the same network, and are made on port $161$ and $4567$. 
 Conpot registered minor SNMPv2 Get, SNMPv1 Get, and GetNext requests.
 A possible attack vector could be an SNMP reflection/amplification attack.
-However, our assumption is that devices within the network have a misconfigured printer with our IP address and send get requests frequently.
-Second most attacked honeypot is Honeytrap.
-All received packets have an empty payload, thus, it remains unclear if the connection is malicious.
-Their most requested IP address is \ipAddress{129.206.219.62}.
-...
+As previously discussed our assumption is that devices within the network have a misconfigured printer and send broadcast requests frequently to find the machines.
+These SNMP requests affiliate with day-to-day traffic in an internal network, and thus, are not suspicious.
+Second most attacked honeypot is Honeytrap which received numerous packets on different ports whereas $39\%$ evince an empty payload.
+All of these received packets have a resolved IP address in the subnet \ipAddress{129.206.0.0/16}, thus, it remains unclear if the connection is malicious or .
+Overall, most requested IP addresses are \ipAddress{129.206.217.118}, \ipAddress{129.206.218.23}, and \ipAddress{129.206.218.194}.
 
 Lastly, we consider the results from the eduroam network.
 Neither T-Pot nor MADCAT could identify any significant behavior over a period of three weeks.
@@ -227,13 +239,13 @@ Unlike the subnet \ipAddress{129.206.218.0/24}, our honeypot did not register an
 In retrospect, the eduroam configuration has shown to work as designed.
 Thus, our client seemed to be encapsulated from others, and receives no other packets.
 
-Our results have given an inside of the value of honeypots in a restricted network zone.
+Besides the subtle output we have received, our results have given an inside of the value of honeypots in a restricted network zone.
 For the Heidelberg University, using honeypots to evaluate their stateless firewall have never been considered.
 We have shown that our initial concept delivered minor findings in the subnet \ipAddress{129.206.218.0/24} with stage 1 firewall.
-As a result the port 113 used for IDENT will be removed in the future to reduce the attack surface, thus, contributing to the firewall definition.
+As a result the port 113 used for the IDENT protocol will be removed in the future to reduce the attack surface, thus, contributing to the firewall definition.
 Overall, our two instances received numerous packets containing interesting payloads.
-In comparison to our T-Pot that has been deployed in heiCLOUD, our results are 
-
+In comparison to our T-Pot that has been deployed in heiCLOUD, our results are as expected delicate and the data analyzation results in a more detailed manner.
+The statement from \citet{Spitzner2003} that honeypots only receive little 
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}

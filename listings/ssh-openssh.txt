@@ -1,2 +1,7 @@
-./ssh -v -C 129.206.5.157
-ssh_dispatch_run_fatal: Connection to 129.206.5.157 port 22: memory allocation failed
+OpenSSH_7.5p1, OpenSSL 1.0.2u  20 Dec 2019
+Local version string SSH-2.2-OpenSSH
+SSH2_MSG_KEXINIT sent
+SSH2_MSG_KEXINIT received
+kex: algorithm: ecdh-sha2-nistp256
+kex: host key algorithm: ssh-dss
+Unable to negotiate with ::1 port 22: no matching cipher found. Their offer: aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com

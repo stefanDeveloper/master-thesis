@@ -155,7 +155,7 @@ Adapting OpenSSH version $8.8P1$ with chacha20-poly1305 instead of blowfish-cbc 
 For instance, we have adapted the key exchange initialization to use chacha20-poly1305 as encryption algorithm instead.
 Next, the DSA host key algorithms are marked as too weak, and are not include automatically.
 Using ssh-dss requires the extra flag \verb|-oHostKeyAlgorithms=+ssh-dss|.
-In addition, we have tested it with the ssh-rsa host key algorithm, and the response remains the same.
+In addition, we have tested it with the ssh-rsa host key algorithm, and the response has been promising to probe instances.
 This adaption with the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp521 as key-exchange algorithm, ssh-dss as host key algorithm, chacha20-poly1305 as encryption algorithm, hmac-sha1 as mac algorithm and zlib@openssh.com as compression algorithm has been successfully tested on our two Debian instances.
 Respectively, for OpenSSH version $8.8P1$ we have updated the fingerprinting method by replacing the encryption algorithm.
 
@@ -164,24 +164,32 @@ Respectively, for OpenSSH version $8.8P1$ we have updated the fingerprinting met
 \end{figure}
 
 Most interesting question remains the response deviation of Cowrie.
-For instance, we use the default Cowrie implementation version $v.2.3.0$ of our T-Pot instance.
+For instance, we use the default Cowrie implementation version $v.2.3.0$\footnote{\url{https://github.com/cowrie/cowrie/commit/555ff10d95f6239d9d6efee8a2d05def316ab144}} of our T-Pot instance.
 \autoref{lst:ssh-cowrie} outlines the connection attempt of Cowrie.
-Unambiguously, Cowrie results in a bad packet length, and thus, deviates fundamentally from an OpenSSH response.
-The underlying off-the-shelf library TwistedConch checks if a packet is within one megabyte.
-Any packet that exceeds $1048576$ bytes causes a \verb|bad packet length *| exception that results in a connection aborting of the server.
-When Cowrie tries to get the packet of a request this static check will be performed.
+Unambiguously, Cowrie results in a  \verb|bad packet length *| exception, and thus, deviates fundamentally from an OpenSSH response.
+The underlying off-the-shelf library TwistedConch checks if a packet is within $1048576$ bytes (1 MB).
+Any packet that exceeds that limit causes a \verb|bad packet length *| exception that results in a connection loss of the client.
+When Cowrie tries to get the packet of a request this static check (\autoref{lst:twistedconch}) will be performed.
 It remains dubious why TwistedConch has added it whenever an SSH packet has to be returned.
-In the RFC the maximum packet size is set to $32768$ bytes (256 KB).
+In the RFC 4253, the minimum packet size is $5$ bytes whereas maximum packet size is set to $32768$ bytes (256 KB).
+Debugging Cowrie shows that the exception occurs during the version string validation.
+The server validates if the version string matches the allowed versions $1.99$ and $2.0$.
+Any version higher or lower than the allowed versions result in a \verb|Protocol major versions differ.\n| exception.
+This response matches the behavior of OpenSSH.
+\citet{vetterl2020} claims that TwistedConch results in a \verb|bad version *| exception, however, in the meantime this issue has been fixed by Cowrie, and thus, do not leak vulnerable information anymore.
+For instance, we have tested Cowrie and OpenSSH with the version $1.0$, $2.0$ and $2.2$. 
+As a result, for Cowrie the \verb|bad packet length *| exception only occurs when the version does not match the expected ones.
+This result diverges from OpenSSH.
+For OpenSSH only versions lower than $1.99$ results in the same exception as Cowrie.
+For any higher version, the connection can be acquired successfully.
+We assume that Cowrie has a bug during the version string validation.
+These are the protocol deviations that \citet{vetterl2020} has presented in his work.
+Thus, detecting honeypots on transport level has been confirmed.
+Adversaries who modify their SSH client to send our specific version string and key exchange initialization message could detect Cowrie honeypots and stop any further activity.
 
-Any adversary who modifies its SSH client to send our specific version string and key exchange initialization message could catch the exception and stop any further attacks.
-
-Besides the bad packet length, another downside is that TwistedConch enforces a certain protocol version, namely either $1.99$ and $2.0$.
-Any version higher or lower (such as $2.2$ and $1.0$) than results in a \verb|bad version 2.2|.
-However, OpenSSH deviates from Cowrie.
-For instance, sending a higher version string
-%We found out that the version string causes this error.
-%The library TwistedConch only accepts the version string 
-%throws this exception. % TODO Debug Cowrie
+\begin{figure}
+    \lstinputlisting[language=python, caption={TwistedConch packet length check}, label={lst:twistedconch}]{listings/twistedconch.txt}
+\end{figure}
 
 \section{Attempt to Disguise Cowrie}
 

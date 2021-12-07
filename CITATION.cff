@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you want to refer to this work, please cite it as below."
+authors:
+- family-names: "Stefan"
+  given-names: "Machmeier"
+  orcid: "https://orcid.org/0000-0002-7028-1755"
+title: "Honeypot Implementation in a Cloud Environment"
+version: 1.0.0
+date-released: 2022-02-01
+url: "https://github.com/stefanDeveloper/master-thesis"

@@ -153,6 +153,9 @@ However, testing it with version $7.3P1$ that has been compiled on the machine r
 \citet{vetterl2020} does not outline any expected response of OpenSSH, thus, we can just assume that a connection attempt would have been successful due to the existing ciphers during that time.
 Adapting OpenSSH version $8.8P1$ with chacha20-poly1305 instead of blowfish-cbc and results in a successful connection attempt.
 For instance, we have adapted the key exchange initialization to use chacha20-poly1305 as encryption algorithm instead.
+Next, the DSA host key algorithms are marked as too weak, and are not include automatically.
+Using ssh-dss requires the extra flag \verb|-oHostKeyAlgorithms=+ssh-dss|.
+In addition, we have tested it with the ssh-rsa host key algorithm, and the response remains the same.
 This adaption with the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp521 as key-exchange algorithm, ssh-dss as host key algorithm, chacha20-poly1305 as encryption algorithm, hmac-sha1 as mac algorithm and zlib@openssh.com as compression algorithm has been successfully tested on our two Debian instances.
 Respectively, for OpenSSH version $8.8P1$ we have updated the fingerprinting method by replacing the encryption algorithm.
 
@@ -168,15 +171,14 @@ The underlying off-the-shelf library TwistedConch checks if a packet is within o
 Any packet that exceeds $1048576$ bytes causes a \verb|bad packet length *| exception that results in a connection aborting of the server.
 When Cowrie tries to get the packet of a request this static check will be performed.
 It remains dubious why TwistedConch has added it whenever an SSH packet has to be returned.
-In the RFC the maximum packet size is set to $32768$ bytes.% TODO: check rfc
-%In the OpenSSH server configuration, any similar check could not be identified.
+In the RFC the maximum packet size is set to $32768$ bytes (256 KB).
+
 Any adversary who modifies its SSH client to send our specific version string and key exchange initialization message could catch the exception and stop any further attacks.
 
 Besides the bad packet length, another downside is that TwistedConch enforces a certain protocol version, namely either $1.99$ and $2.0$.
-Any version higher (such $2.2$) than results in a \verb|bad version 2.2|.
-Setting an older version $1.0$ returns the same as a higher version.
-However, OpenSSH deviates from Cowire.
-For instance, 
+Any version higher or lower (such as $2.2$ and $1.0$) than results in a \verb|bad version 2.2|.
+However, OpenSSH deviates from Cowrie.
+For instance, sending a higher version string
 %We found out that the version string causes this error.
 %The library TwistedConch only accepts the version string 
 %throws this exception. % TODO Debug Cowrie

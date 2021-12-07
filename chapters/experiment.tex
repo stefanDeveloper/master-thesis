@@ -188,22 +188,27 @@ Thus, detecting honeypots on transport level has been confirmed.
 Adversaries who modify their SSH client to send our specific version string and key exchange initialization message could detect Cowrie honeypots and stop any further activity.
 
 \begin{figure}
-    \lstinputlisting[language=python, caption={TwistedConch packet length check}, label={lst:twistedconch}]{listings/twistedconch.txt}
+    \lstinputlisting[language=python, caption={TwistedConch packet length validation}, label={lst:twistedconch}]{listings/twistedconch.txt}
+\end{figure}
+
+\begin{figure}
+    \lstinputlisting[language=python, caption={Cowrie version string validation}, label={lst:cowrie-version-string}]{listings/twistedconch.txt}
 \end{figure}
 
 \section{Attempt to Disguise Cowrie}
 
 Cowrie has to be tweaked to hide its generic weakness.
 Fixing the major flaws in Cowrie to avoid early detection remains an ephemeral patch.
-Therefore, a new solution is required to disguise Cowrie.
-Otherwise, adversaries would blacklist any related host machine returning a similar cosine similarity coefficient.
-\citet{vetterl2020} suggested the solution to use OpenSSH as an intermediary instance between the attacker and Cowrie. 
-OpenSSH itself is not capable by default of proxying commands, therefore, we have to adjust the latest OpenSSH version to enable this feature.
-\autoref{fig:cowrie-fix} visualizes our idea.
-Cowrie is hidden in the background, and is only accessible through the loopback address \ipAddress{127.0.0.1:640522}.
+Therefore, a new solution is required to disguise SSH honeypots.
+Continue using libraries that re-implement the behavior of OpenSSH results in adversaries that blacklist any related host machine returning a similar cosine similarity coefficient.
+\citet{vetterl2020} presented a solution to use OpenSSH as an intermediary instance between the attacker and Cowrie.
+Unfortunately, this solution is outdated, and newer versions have major changes.
+OpenSSH itself is not capable by default to function as an intermediary, therefore, we have to adjust the latest OpenSSH version to enable this feature.
+\autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
+Cowrie is hidden in the background, and is only accessible through the loop back address \ipAddress{127.0.0.1:640522}.
 Our updated SSH version \verb|sshd| is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:2222}.
 Any connection obtain to OpenSSH will be forwarded to our honeypot.
-Respectively, our attacker should not be able to detect Cowrie by response deviations because any response packet runs through OpenSSH.
+Respectively, an attacker should not be able to detect Cowrie by response deviations because any response packet runs through OpenSSH.
 
 % TODO: caption ueberpruefen, update mit IP etc.
 \begin{figure}[ht]
@@ -214,7 +219,11 @@ Respectively, our attacker should not be able to detect Cowrie by response devia
 \end{figure}
 
 % TODO: Code review aufzeigen
-Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
+For instance, we use the latest OpenSSH $8.8P1$.
+First, the authentication has to be tweaked to permit any connection in order to forward it to Cowrie.
+In OpenSSH, communications are handled in so-called channels.
+Thus, a channel adaption is required for our concept.
+% Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
 
@@ -227,3 +236,4 @@ As we have seen beforehand, the OpenSSH server should work as an intermediary be
 We have implemented this concept in heiCLOUD.
 
 % TODO: Add discussion
+\section{Discussion}

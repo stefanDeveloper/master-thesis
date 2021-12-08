@@ -8,26 +8,42 @@ First, we want to reproduce the cosine similarity coefficient that \citet{vetter
 Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 
 \section{OpenSSH}
+\label{sec:openssh}
 
-OpenSSH is one of the most used applications to acquire an SSH connection.
+OpenSSH is one of the widely used applications to acquire an SSH connection.
 Before proceeding with generic weaknesses of SSH honeypots, we want to give a short intermezzo about OpenSSH itself.
-\cite{openssh2007}
 
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/openssh-architecture.pdf}
-    \caption[OpenSSH architecture]{OpenSSH architecture}
+    \caption[OpenSSH architecture]{OpenSSH architecture (derived from \cite{openssh2007})}
     \label{fig:openssh-architecture}
 \end{figure}
 
-The architecture consists of three different components, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport|.
+OpenSSH consists of three major layers, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport|.
+Last layer is the most important one because it provides the basic functionalities for crypto operations such as the key exchange.
+
+The first layer is responsible for authenticating the user to the sshd daemon.
+Due to two-way authentication, the client authenticates the sshd daemon by the help of the \verb|ssh-transport|.
+Finally, a secure connection is established, and the key exchange is done.
+Next step is to authenticate the user.
+Therefore, it offers various authentication methods such as username/password authentication.
+If the \verb|ssh-userauth| layer is successful, it will establish a secure channel through the \verb|ssh-connection| layer.
+Each connection is handled in a channel that is used for the user's session.
+
+The \verb|ssh-connection| layer handles multiple sessions simultaneously over a single \verb|ssh-userauth| layer with the TCP/IP layer below.
+It is responsible for executing arbitrary commands, forwarding X11 connections, establishing VPN tunnels and more.
+
+In addition, OpenSSH comes with built-in features such as keep alive messages, redirecting stdin to /dev/null for specialized X windows.
 
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/ssh-flow-diagram.pdf}
-    \caption[OpenSSH flow diagram]{OpenSSH flow diagram}
+    \caption[OpenSSH sample session flow diagram]{OpenSSH sample session flow diagram (derived from \cite{openssh2007}). In addition, on the right side indicates the layers that are responsible for handling the messages.}
     \label{fig:openssh-flow-diagram}
 \end{figure}
+
+\autoref{fig:openssh-flow-diagram} shows a sample session.
 
 \section{Preliminary Work}
 
@@ -242,13 +258,13 @@ Respectively, an attacker should not be able to detect Cowrie by response deviat
 \end{figure}
 
 % TODO: Code review aufzeigen
-For instance, we use the latest OpenSSH $8.8P1$.
-The easiest step is to tweak the authentication to permit any connection in order to forward it to Cowrie.
+For instance, we use the latest OpenSSH version $8.8P1$.
+The easiest step is to tweak the authentication to permit any connection so that an incoming connection can be forwarded to Cowrie.
 Therefore, our server just returns true in the \verb|allowed_user| function to skip the rest of the authentication process.
-In OpenSSH, communications are handled in so-called channels.
+The rest will be handled by Cowrie instead.
+In OpenSSH, communications are handled in so-called channels as seen beforehand in \autoref{sec:openssh}.
 Thus, a channel adaption is required for our concept.
 In addition, after a successful connection the client 
-% Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
 

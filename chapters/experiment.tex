@@ -99,7 +99,7 @@ The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| p
 \autoref{lst:ssh-debug} shows the SSH debug information with the modified version string, and key exchange message.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-debug}]{listings/ssh-debug.txt}
+    \lstinputlisting[language=bash, caption={[Example OpenSSH connection with probed SSH packet]OpenSSH connection attempt with probed SSH packet. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-debug}]{listings/ssh-debug.txt}
 \end{figure}
 
 \autoref{tab:cosine-similarity} has been derived from \citet{vetterl2020} to present his results of the cosine similarity of OpenSSH, Twisted, and Cowrie.
@@ -178,7 +178,7 @@ Debian 11 uses the latest OpenSSH version whereas Jessie is at $6.7P1$.
 These environments help us to uniquely identify variations in the protocol version.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={OpenSSH connection attempt with probed SSH packet}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
+    \lstinputlisting[language=bash, caption={[OpenSSH connection attempt with probed SSH packet]OpenSSH connection attempt with probed SSH packet. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
 \end{figure}
 
 \autoref{lst:ssh-openssh} shows the connection attempt with our adjusted version string and \verb|SSH2_MSG_KEXINIT| packet.
@@ -198,7 +198,7 @@ This adaption with the \verb|SSH2_MSG_KEXINIT| packet including ecdh-sha2-nistp5
 Respectively, for OpenSSH version $8.8P1$ we have updated the fingerprinting method by replacing the encryption algorithm.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
+    \lstinputlisting[language=bash, caption={[Cowrie connection attempt with probed SSH packet]Cowrie connection attempt with probed SSH packet. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
 \end{figure}
 
 Most interesting question remains the response deviation of Cowrie.
@@ -245,7 +245,7 @@ Thus, our concept is based on \citet{vetterl2020} honeypot, however, due to newe
 OpenSSH itself is not capable by default to function as an intermediary, therefore, we have to adjust the latest OpenSSH version to enable this feature.
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
 Cowrie is hidden in the background, and is only accessible through the loop back address \ipAddress{127.0.0.1:640522}.
-Our updated SSH version \verb|sshd| is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:2222}.
+Our updated \verb|sshd| daemon is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:2222}.
 Any connection obtain to OpenSSH will be forwarded to our honeypot.
 Respectively, an attacker should not be able to detect Cowrie by response deviations because any response packet runs through OpenSSH.
 

@@ -7,6 +7,28 @@ Our experiment exists out of two steps.
 First, we want to reproduce the cosine similarity coefficient that \citet{vetterl2020} claims.
 Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 
+\section{OpenSSH}
+
+OpenSSH is one of the most used applications to acquire an SSH connection.
+Before proceeding with generic weaknesses of SSH honeypots, we want to give a short intermezzo about OpenSSH itself.
+\cite{openssh2007}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{figures/openssh-architecture.pdf}
+    \caption[OpenSSH architecture]{OpenSSH architecture}
+    \label{fig:openssh-architecture}
+\end{figure}
+
+The architecture consists of three different components, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport|.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{figures/ssh-flow-diagram.pdf}
+    \caption[OpenSSH flow diagram]{OpenSSH flow diagram}
+    \label{fig:openssh-flow-diagram}
+\end{figure}
+
 \section{Preliminary Work}
 
 Attackers have a strong motivation to reveal honeypots before launching an attack.
@@ -47,7 +69,7 @@ The values of vectors are non-negative. The similarity between items is the valu
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/vetterl_concept.pdf}
-    \caption[Outline to obtain the cosine similarity coefficient (derived from \cite{vetterl2020})]{Outline to obtain the cosine similarity coefficient (derived from \cite{vetterl2020}).}
+    \caption[Outline to obtain the cosine similarity coefficient]{Outline to obtain the cosine similarity coefficient (derived from \cite{vetterl2020}).}
     \label{fig:draft-cosine-similarity}
 \end{figure}
 
@@ -203,6 +225,7 @@ Therefore, a new solution is required to disguise SSH honeypots.
 Continue using libraries that re-implement the behavior of OpenSSH results in adversaries that blacklist any related host machine returning a similar cosine similarity coefficient.
 \citet{vetterl2020} presented a solution to use OpenSSH as an intermediary instance between the attacker and Cowrie.
 Unfortunately, this solution is outdated, and newer versions have major changes.
+Thus, our concept is based on \citet{vetterl2020} honeypot, however, due to newer available versions we have updated it to the latest OpenSSH version.
 OpenSSH itself is not capable by default to function as an intermediary, therefore, we have to adjust the latest OpenSSH version to enable this feature.
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
 Cowrie is hidden in the background, and is only accessible through the loop back address \ipAddress{127.0.0.1:640522}.
@@ -220,9 +243,11 @@ Respectively, an attacker should not be able to detect Cowrie by response deviat
 
 % TODO: Code review aufzeigen
 For instance, we use the latest OpenSSH $8.8P1$.
-First, the authentication has to be tweaked to permit any connection in order to forward it to Cowrie.
+The easiest step is to tweak the authentication to permit any connection in order to forward it to Cowrie.
+Therefore, our server just returns true in the \verb|allowed_user| function to skip the rest of the authentication process.
 In OpenSSH, communications are handled in so-called channels.
 Thus, a channel adaption is required for our concept.
+In addition, after a successful connection the client 
 % Forwarding SSH packets between OpenSSH and Cowrie would result in blocking any fingerprinting activities.
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}

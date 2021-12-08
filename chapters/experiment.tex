@@ -2,7 +2,6 @@
 \label{chap:fingerprinting}
 
 ... % TODO: Add introduction, explain ssh \section{Introduction}
-
 Our experiment exists out of two steps.
 First, we want to reproduce the cosine similarity coefficient that \citet{vetterl2020} claims.
 Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
@@ -13,14 +12,14 @@ Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
 OpenSSH is one of the widely used applications to acquire an SSH connection.
 Before proceeding with generic weaknesses of SSH honeypots, we want to give a short intermezzo about OpenSSH itself.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics{figures/openssh-architecture.pdf}
     \caption[OpenSSH architecture]{OpenSSH architecture (derived from \cite{openssh2007})}
     \label{fig:openssh-architecture}
 \end{figure}
 
-OpenSSH consists of three major layers, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport|.
+OpenSSH consists of three major layers, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport| (\autoref{fig:openssh-architecture}).
 Last layer is the most important one because it provides the basic functionalities for crypto operations such as the key exchange.
 
 The first layer is responsible for authenticating the user to the sshd daemon.

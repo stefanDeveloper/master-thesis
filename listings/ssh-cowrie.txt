@@ -1,8 +1,6 @@
 ./ssh -v -C 129.206.5.74
 OpenSSH_8.8p1, OpenSSL 1.1.1l  24 Aug 2021
 Local version string SSH-2.2-OpenSSH 
-Remote protocol version 2.0, remote software version OpenSSH_7.9p1
-compat_banner: match: OpenSSH_7.9p1 pat OpenSSH* compat 0x04000000
 SSH2_MSG_KEXINIT sent
 Bad packet length 1349676916.
 ssh_dispatch_run_fatal: Connection to 129.206.5.74 port 22: message authentication code incorrect

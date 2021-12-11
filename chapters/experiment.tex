@@ -33,7 +33,7 @@ Each connection is handled in a channel that is used for the user's session.
 The \verb|ssh-connection| layer handles multiple sessions simultaneously over a single \verb|ssh-userauth| layer with the TCP/IP layer below.
 It is responsible for executing arbitrary commands, forwarding X11 connections, establishing VPN tunnels and more.
 
-In addition, OpenSSH comes with built-in features such as keep alive messages, redirecting stdin to /dev/null for specialized X windows.
+In addition, OpenSSH comes with built-in features such as keep alive messages, redirecting stdin to /dev/null for specialized X11 windows.
 
 \begin{figure}[ht]
     \centering
@@ -170,6 +170,9 @@ In his work he used OpenSSH $7.5P1$ which deviates from the latest version $8.8P
 Older versions rely on OpenSSL $1.0.2$ which includes outdated algorithms and functions.
 For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc has been removed with version $7.6P1$, and thus, are outdated.
 Building the version $7.5P1$ requires the libraries libssl (1.0.2), libssl-dev (1.0), libssh-dev (0.7.3-2), and libssh-4 (0.9.6-1).
+All of these libraries are outdated, and have been removed from any Debian installation.
+Thus, replacing the libraries was tedious.
+It required to download the libraries, remove the current version, and install the outdated ones.
 Using the latest versions of these libraries result in errors such as missing encryption algorithms and host key algorithm.
 After compiling the package, we test its behavior with a Debian 11 Buster and a Debian Jessie 9 Docker image.
 Both are new machines that have no other packages installed than the OpenSSH server.
@@ -181,7 +184,7 @@ These environments help us to uniquely identify variations in the protocol versi
 \end{figure}
 
 \autoref{lst:ssh-openssh} shows the connection attempt with our adjusted version string and \verb|SSH2_MSG_KEXINIT| packet.
-Both Debian machines have the same response.
+Both Debian machines give the same response.
 Using the outdated OpenSSH version $7.5P1$ results in an incompatibility.
 OpenSSH outlines that blowfish-cbc is not supported anymore.
 OpenSSH kept the encryption algorithm usable for compatibility reasons for clients until $7.6P1$.
@@ -209,7 +212,7 @@ Any packet that exceeds that limit causes a \verb|bad packet length *| exception
 When Cowrie tries to get the packet of a request this static check (\autoref{lst:twistedconch}) will be performed.
 It remains dubious why TwistedConch has added it whenever an SSH packet has to be returned.
 In the RFC 4253, the minimum packet size is $5$ bytes whereas maximum packet size is set to $32768$ bytes (256 KB).
-Debugging Cowrie shows that the exception occurs during the version string validation.
+Debugging Cowrie shows that the exception occurs during the version string validation (\autoref{lst:cowrie-version-string}).
 The server validates if the version string matches the allowed versions $1.99$ and $2.0$.
 Any version higher or lower than the allowed versions result in a \verb|Protocol major versions differ.\n| exception.
 This response matches the behavior of OpenSSH.
@@ -220,6 +223,8 @@ This result diverges from OpenSSH.
 For OpenSSH only versions lower than $1.99$ results in the same exception as Cowrie.
 For any higher version, the connection can be acquired successfully.
 We assume that Cowrie has a bug during the version string validation.
+Debugging Cowrie shows that the method to return the \verb|Protocol major versions differ.\n| exception is called, however, our client does not retrieve this message.
+Respectively, we assume that the underlying library TwistedConch is responsible for the wrong return value.
 These are the protocol deviations that \citet{vetterl2020} has presented in his work.
 Thus, detecting honeypots on transport level has been confirmed.
 Adversaries who modify their SSH client to send our specific version string and key exchange initialization message could detect Cowrie honeypots and stop any further activity.

@@ -214,10 +214,10 @@ It remains dubious why TwistedConch has added it whenever an SSH packet has to b
 In the RFC 4253, the minimum packet size is $5$ bytes whereas maximum packet size is set to $32768$ bytes (256 KB).
 Debugging Cowrie shows that the exception occurs during the version string validation (\autoref{lst:cowrie-version-string}).
 The server validates if the version string matches the allowed versions $1.99$ and $2.0$.
-Any version higher or lower than the allowed versions result in a \verb|Protocol major versions differ.\n| exception.
-This response matches the behavior of OpenSSH.
-\citet{vetterl2020} claims that TwistedConch results in a \verb|bad version *| exception, however, in the meantime this issue has been fixed by Cowrie, and thus, do not leak vulnerable information anymore.
-For instance, we have tested Cowrie and OpenSSH with the version $1.0$, $2.0$ and $2.2$. 
+Any version higher or lower than that results in a \verb|Protocol major versions differ.\n| exception by calling the function .
+This response would match the behavior of OpenSSH.
+For instance, \citet{vetterl2020} claims that TwistedConch results in a \verb|bad version *| exception, however, in the meantime this issue has been fixed by Cowrie, and thus, do not leak vulnerable information anymore.
+We have tested Cowrie and OpenSSH with the version strings $1.0$, $2.0$ and $2.2$. 
 As a result, for Cowrie the \verb|bad packet length *| exception only occurs when the version does not match the expected ones.
 This result diverges from OpenSSH.
 For OpenSSH only versions lower than $1.99$ results in the same exception as Cowrie.
@@ -242,9 +242,9 @@ Adversaries who modify their SSH client to send our specific version string and 
 Cowrie has to be tweaked to hide its generic weakness.
 Fixing the major flaws in Cowrie to avoid early detection remains an ephemeral patch.
 Therefore, a new solution is required to disguise SSH honeypots.
-Continue using libraries that re-implement the behavior of OpenSSH results in adversaries that blacklist any related host machine returning a similar cosine similarity coefficient.
+Continuing using libraries that re-implement the behavior of OpenSSH results in adversaries that blacklist any related host machine returning a similar cosine similarity coefficient.
 \citet{vetterl2020} presented a solution to use OpenSSH as an intermediary instance between the attacker and Cowrie.
-Unfortunately, this solution is outdated, and newer versions have major changes.
+Unfortunately, this solution is outdated, and newer versions include major changes to structure.
 Thus, our concept is based on \citet{vetterl2020} honeypot, however, due to newer available versions we have updated it to the latest OpenSSH version.
 OpenSSH itself is not capable by default to function as an intermediary, therefore, we have to adjust the latest OpenSSH version to enable this feature.
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.

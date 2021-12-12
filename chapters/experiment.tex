@@ -1,7 +1,7 @@
 \chapter{Mitigate Fingerprinting of Honeypots}
 \label{chap:fingerprinting}
 
-... % TODO: Add introduction, explain ssh \section{Introduction}
+Detecting honeypots before launching attacks helps to dismantle 
 Our experiment exists out of two steps.
 First, we want to reproduce the cosine similarity coefficient that \citet{vetterl2020} claims.
 Second, we want to disguise Cowrie with the idea we have mentioned beforehand.
@@ -230,11 +230,11 @@ Thus, we could successfully recreate his findings by detecting Cowrie on transpo
 Adversaries who modify their SSH client to send our specific version string and key exchange initialization message could detect Cowrie honeypots and stop any further activity.
 
 \begin{figure}
-    \lstinputlisting[language=python, caption={[TwistedConch packet length validation]TwistedConch packet length validation.}, label={lst:twistedconch}]{listings/twistedconch.txt}
+    \lstinputlisting[language=python, caption={[TwistedConch packet length validation]TwistedConch packet length validation.}, label={lst:twistedconch}]{listings/twistedconch.py}
 \end{figure}
 
 \begin{figure}
-    \lstinputlisting[language=python, caption={[Cowrie version string validation]Cowrie version string validation. It tweaks the same results as OpenSSH.}, label={lst:cowrie-version-string}]{listings/cowrie.txt}
+    \lstinputlisting[language=python, caption={[Cowrie version string validation]Cowrie version string validation. It tweaks the same results as OpenSSH.}, label={lst:cowrie-version-string}]{listings/cowrie.py}
 \end{figure}
 
 \section{Attempt to Disguise Cowrie}
@@ -252,7 +252,7 @@ OpenSSH itself is not capable by default to function as an intermediary, therefo
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
 Cowrie is hidden in the background, and is only accessible through the loop back address \ipAddress{127.0.0.1:65522}.
 Our updated \verb|sshd| daemon is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:22}.
-Any connection obtain to OpenSSH will be forwarded to our honeypot by a NAT rule (\verb|iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222|).
+Any connection obtain to OpenSSH will be forwarded to our honeypot by a NAT rule (iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222).
 Respectively, an attacker should not be able to detect Cowrie by response deviations.
 
 % TODO: caption ueberpruefen, update mit IP etc.
@@ -286,13 +286,22 @@ After a compiling our version, a brief test proofed a valid connection to the ss
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={Disguised Cowrie connection attempt with probed SSH packet}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
+    \lstinputlisting[language=bash, caption={[Disguised Cowrie connection attempt with probed packets.]Disguised Cowrie connection attempt with probed key exchange initialization message and local string version}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
 \end{figure}
 
-Last experiment to conclude this chapter is the test if our concept helps to disguise Cowrie and avoid fingerprinting based on custom key exchange initialization messages.
-The next step is to disguise Cowrie behind an OpenSSH server.
-As we have seen beforehand, the OpenSSH server should work as an intermediary between Cowrie and the attacker.
-We have implemented this concept in heiCLOUD.
+The last experiment to conclude this chapter is to test if our concept helps to disguise Cowrie and avoid fingerprinting based on a custom local string version and key exchange initialization message.
+For instance, we have used \citet{vetterl2020} original $6.3P1$ sshd honeypot\footnote{\url{https://github.com/amv42/sshd-honeypot/commit/f58830161002baec9d3ed218e78ddb06b0d40a23}}, as well as the newly implemented version $8.8P1$ with Cowrie version $2.3.0$.
+Both versions have been tested in heiCLOUD and locally in an encapsulated environment.
+\autoref{lst:ssh-cowrie-fixed} shows the debug information of our connection with probed key exchange initialization message and local string version.
+Both versions are capable of hiding, and forwarding any related packets to Cowrie.
+Moreover, request do not result in a bad packet length, thus, behaving like an original sshd daemon.
+Cowrie receives the connection and logs information respectively.
+Currently, one downside is the connection loss that happens due to timeout restrictions.
+This issue is minor, and could be fixed in the future.
+
+\begin{figure}
+    \lstinputlisting[language={}, caption={Cowrie log information.}, label={lst:log-cowrie}]{listings/cowrie.log}
+\end{figure}
 
 % TODO: Add discussion
 \section{Discussion}

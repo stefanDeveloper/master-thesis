@@ -257,7 +257,6 @@ Our updated \verb|sshd| daemon is exposed to the Internet, and is accessible thr
 Any connection obtain to OpenSSH will be forwarded to our honeypot by a NAT rule (iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222).
 Respectively, an attacker should not be able to detect Cowrie by response deviations.
 
-% TODO: caption ueberpruefen, update mit IP etc.
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/sshd-honeypot.pdf}

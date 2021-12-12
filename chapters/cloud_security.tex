@@ -338,7 +338,14 @@ Moreover, $96\%$ of IP addresses connected to Dionaea are known attackers, and $
 Neither any malware nor suspicious payload could be identified.
 Even with an \ac{acl} running in the background, heiCLOUD received more attacks than ever.
 We assume that the real number might be even higher without any packet filtering for FTP or SMB.
-%However, due to security concerns a temporary exclution of this rule has been rejected.
+To prove this assumption, we have consulted the administrator of the university firewall to excluded our T-Pot instance.
+Respectively, for a period of three weeks (2nd of December until 23rd of December) no stateless packet filter has been applied to our T-Pot.
+We could identify a drastic increase in Dionaea attacks with a total of number of \numprint{213053} attacks.
+Overall, $93\%$ of all attacks are on the SMBD protocol followed by many database protocols such as mongod, and mssqld.
+This proves our assumption that without the packet filtering in front our instance a much higher amount of total attacks would be the result.
+Nevertheless, comparing the number with \citet{Kelly2021} we see that our number surpasses every other cloud provider.
+However, Dionaea attacks will not be included in our later results because normally a server is not allowed to be excluded from the university firewall.
+Only for our research purpose to assess the effect of the packet filtering we were able to get a permit exclusion.
 
 \begin{figure}[ht]
     \centering
@@ -446,7 +453,7 @@ For example, XMRig has been the most downloaded malware for cryptocurrency minin
 Some adversaries even executed complex tailored shell commands to exploit the host machine as a crypto miner (\autoref{lst:crypto-exploitation}).
 With respect to the current time it is not surprising that such attacks gain attraction.
 Attackers could exploit machines for crypto mining in order to earn more money.
-This looks more appealing than acquiring mining machines and hijacking electricity from surrounding apartments (Quelle!).
+This looks more appealing than acquiring mining machines and hijacking electricity from surrounding apartments.
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={Cowrie attack to gather various information about the system}, label={lst:code-exploitation}]{listings/exploit-cpu.sh.txt}

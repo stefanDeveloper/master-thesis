@@ -190,7 +190,6 @@ As we have shown beforehand in \autoref{chap:cloud-security}, geographical infor
 Like our results in heiCLOUD, we assume that this information is not reliable as an indicator from where attacks take place.
 Nevertheless, it is an interesting inside to see where the last node originated from.
 
-% TODO: Suricata plot
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-suricata-alerts.pdf}
@@ -225,6 +224,13 @@ However, for the other CVE's the IP reputation could not be resolved.
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SIP connection]MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/madcat-port-histogram.pdf}
+    \caption[Attack port histogram]{Attack port histogram. Timestamp; from 16th of November to 6th of December}
+    \label{fig:port-histogram}
 \end{figure}
 
 Results from our T-Pot instance are exiguous, and in short, no real attacks such as shell exploitation have been performed.

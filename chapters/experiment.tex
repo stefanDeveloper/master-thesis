@@ -121,7 +121,7 @@ These results show that the values of honeypots would decrease to zero when larg
 \citet{vetterl2020} states that current low- and medium-interaction honeypots have a generic weakness due to the underlying off-the-shelf libraries.
 Cowrie is based on TwistedConch\footnote{\href{https://github.com/racker/python-twisted-conch/commit/01f22a3a8534856e934ed716cfc251b04e7d2077}{TwistedConch 12.0.0} on Github}, a Python 2/3 library that implements the SSH protocol.
 Any bash command and its response are tweaked by Cowrie, and thus, resulting in a discrepancy to OpenSSH.
-For example, Cowrie version $1.1.0$ missed \verb|tftp|\footnote{Is } and came with version $1.2.0$.
+For example, Cowrie version $1.1.0$ missed \verb|tftp|\footnote{Trivial File Transfer Protocol (TFTP) is a lockstep File Transfer Protocol} and came with version $1.2.0$.
 Therefore, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
 
 \autoref{fig:cowrie-openssh} shows the difference between OpenSSH and Cowrie.
@@ -310,7 +310,7 @@ For instance, we have used \citet{vetterl2020} original $6.3P1$ sshd honeypot, a
 Both versions have been tested in heiCLOUD and locally in an encapsulated environment.
 All requests do not result in a bad packet length, and thus, are behaving like an original sshd daemon.
 Only the older version $6.3P1$ had problems to coup with new encryption and  host key algorithm.
-Therefore, the concept is capable of forwarding any related packet to Cowrie, and hiding the generic weakness of TwistedConch.
+Thus, the concept is capable of forwarding any related packet to Cowrie, and hiding the generic weakness of TwistedConch.
 In \autoref{lst:log-cowrie}, Cowrie receives the connection and logs information respectively.
 Currently, one downside is the connection loss that happens due to timeout restrictions.
 This issue is a minor bug, and could be fixed in the future.

@@ -33,7 +33,7 @@ Cloud Computing has become a very popular keyword these days.
 It has been used by various large companies such as Google and Amazon.
 However, the term \enquote{cloud computing} dates back to the late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020}
 Starting from 2007 cloud computing evolved into a serious competitor and outnumbered the keywords \enquote{virtualization}, and \enquote{grid computing} as reported by Google trends \cite{Wang2010}.
-Shortly, various cloud provider become publicly available, each with their own strengths and weaknesses.
+Shortly, various cloud providers become publicly available, each with their own strengths and weaknesses.
 For example IBM's Cloud\footnote{\url{https://www.ibm.com/cloud}}, Amazon Web Services\footnote{\url{https://aws.amazon.com/}}, and Google Cloud\footnote{\url{https://cloud.google.com/}}.
 Why are clouds so attractive in practice?
 
@@ -41,7 +41,7 @@ Why are clouds so attractive in practice?
     \item It offers major advantages in terms of cost and reliability.
     When demand is needed, consumers do not have to invest in hardware when launching new services.
     Pay-as-you-go allows flexibility.
-    \item Consumer can easily scale with demand.
+    \item Consumers can easily scale with demand.
     When more computational resources are required due to more requests, scaling up instances in conjunction with a suited price model are straightforward.
     \item Geographically distributed capabilities supply the need for world-wide scattered services.
 \end{itemize}
@@ -55,7 +55,7 @@ The \ac{nist} defines cloud computing as \enquote{a model for enabling ubiquitou
 \ac{nist} not only reflects the geographical shift of resources such as datacenters, but also mentions on-demand usage that contributes to a flexible resource management.
 Moreover, \ac{nist} composes the term in five essential characteristics, three service models (see \autoref{subsec:cloud-service}), and four deployment models (see \autoref{subsec:cloud-deployment}) \cite{Mell2011}
 
-\textit{On-demand-self-service} refers to the unilaterally provision computing capabilities.
+\textit{On-demand-self-service} refers to the unilateral provision computing capabilities.
 Consumers can acquire server time and network storage on demand without a human interaction.
 
 \textit{Broad network access} characterizes the access of capabilities of the network through standard protocols such as \ac{http}.
@@ -99,18 +99,18 @@ Main objective of \ac{saas} is to host consumer's software or application that c
 In addition, the underlying infrastructure is not managed by the consumer. \cite{Mell2011}
 
 \ac{iaas} offers a low-level abstraction to consumers with the ability to run arbitrary software regardless of operating system or application.
-In contrast to \ac{saas}, IT infrastructures capabilities (such as storage, networks) can be used.
+In contrast to \ac{saas}, IT infrastructure capabilities (such as storage, networks) can be used.
 It strongly depends on virtualization due to integration, or decomposition of physical resources. \cite{Mell2011}
 
 \ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems. \cite{Dillon2010}
 Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010}
 Whereas \ac{daas} costs solely what consumer's need.
 When dealing with a tremendous amount of data, file systems and RDBMS often lack in performance.
-\ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled.\cite{Dillon2010}
+\ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled. \cite{Dillon2010}
 
 \ac{haas} offers IT hardware, or datacenters to buy as a pay-as-you-go subscription service.
 The term dates back to 2006 during a time when hardware virtualization became more powerful.
-It is flexible, scalable and manageable.\cite{Wang2010}
+It is flexible, scalable and manageable. \cite{Wang2010}
 
 \subsection{Deployment models}
 \label{subsec:cloud-deployment}
@@ -153,7 +153,7 @@ Such events lay emphasis on the importance of honeypots.
 
 \subsection{Definition of a Honeypot}
 
-A Dozen of definitions for honeypots circulate through the web that causes confusion, and misunderstandings.
+A dozen of definitions for honeypots circulate through the web that causes confusion, and misunderstandings.
 In general, the objective of a honeypot is to gather information about attacks, or attack patterns \cite{NawrockiWSKS2016}.
 Thus, contributing as an additional source of security measure.
 See \autoref{subsec:honeypot-security-concept} for a detailed view regarding honeypots in the security concept.
@@ -163,7 +163,7 @@ In order to get a basic understanding, we want to exhibit some key definitions.
 Independent of its source (e.g. server, application, or router), we expect that our instance is getting probed, attacked, and eventually exploited.
 If a honeypot does not match this behaviour, it will not provide any value.
 It is important to mention that honeypots do not have any production value, thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}.
-In addition, Spitzner \citet{Spitzner2003} points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation.
+In addition, \citet{Spitzner2003} points out that honeypots are not bounded to solve a single problem, hence, they function as a generic perimeter, and fit into different situation.
 Such functions are attack detection, capturing automated attacks, or alert/warning generator.
 \autoref{fig:honeypot-example} show an example how honeypots could be used in an IT infrastructure.
 
@@ -187,12 +187,12 @@ Normally, production honeypots are easy to deploy within an organization.
 Mostly, low-interaction honeypots are chosen due to a significant reduce in risk.
 Thus, adversaries might not be able to exploit honeypots to attack other systems.
 The downside of a low-interaction honeypot is a lack of information, for example standard information like the origin of attacks, or what exploits are used can be collected, whereas insides about communication of attackers, or deployment of such attacks are unlikely to obtain.
-In contrast, research honeypots do fulfill this objective.\cite{Spitzner2003}
+In contrast, research honeypots do fulfill this objective. \cite{Spitzner2003}
 
 Research honeypots are used to learn more in detail about attacks.
 The objective is to collect information about the clandestine organizations, new tools for attacks, or the origin of attacks.
 Research honeypots are unlikely suitable for production environments due to a higher increase of risk.
-Facing an increase in deployment complexity, and maintenance does not attract a production usage.\cite{Spitzner2003}
+Facing an increase in deployment complexity, and maintenance does not attract a production usage either. \cite{Spitzner2003}
 
 It is worth to mention that there is no exact line between research or production honeypots.
 Possible cases are honeypots that could function as either a production or a research honeypot.
@@ -217,27 +217,26 @@ Therefore, honeypots differ in level of interaction.
 Low-interaction honeypots provide the lowest level of interaction between an attacker and a system.
 Only a small set of services like SSH, Telnet, or FTP are supported which contributes to the deployment time.
 In terms of risk, a low-interaction honeypot does not give access to the underlying \ac{os} which makes it safe to use in a production environment.
-For example using an SSH honeypot, such services are emulated, thus, attackers can attempt to log in by brute force or by guessing, and execute commands.
+For example, using an SSH honeypot, such services are emulated, thus, attackers can attempt to log in by brute force or by guessing, and execute commands.
 However, the adversary will never gain more access because it is not a real \ac{os}.
 However, safety comes with the downside of less information.
-Collected is limited for statistical purpose such as
+Collection is limited for statistical purpose such as
 \begin{enumerate*}[label=(\roman*)]
-    \item Time and data of attack
-    \item Source IP address and source port of the attack
-    \item Destination IP address and destination port of the attack
+    \item time and data of attack
+    \item source IP address and source port of the attack
+    \item destination IP address and destination port of the attack
 \end{enumerate*}.
 Transactional information can not be collected. \cite{Spitzner2003}
 
 A medium-interaction honeypot offers more sophisticated services with higher level of interaction.
 It is capable to respond to certain activities.
-For example a Microsoft IIS Web server honeypot could be able to respond in a way that a worm is expecting it.
+For example, a Microsoft IIS Web server honeypot could be able to respond in a way that a worm is expecting it.
 The worm would get emulated answers, and could be able to interact with it more in detail.
 Thus, gathering more severe information about the attack, including privilege assessment, toolkit capturing, and command execution.
 In comparison, medium-interaction honeypots allocate more time to install and configure.
 Also, more security checks have to be performed due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}
 
-High-interaction honeypots are the highest level interaction.
-Mostly, they represent a real \ac{os} to provide a full set of interactions to attackers.
+High-interaction honeypots represent a real \ac{os} to provide a full set of interactions to attackers.
 They are so powerful because other production servers do not differ much to high-interaction honeypots.
 They represent real systems in a controlled environment.
 Obviously, the amount of information is tremendous. It helps to learn about
@@ -246,8 +245,7 @@ Obviously, the amount of information is tremendous. It helps to learn about
     \item finding new bugs in the \ac{os}
     \item the black hat community
 \end{enumerate*}. However, the risk of such a honeypot is extremely high.
-It needs severe deployment and maintenance processes.
-Therefore, it is time-consuming.
+It needs severe deployment and maintenance processes, thus, it is time-consuming.
 
 \subsection{Security concepts}
 \label{subsec:honeypot-security-concept}
@@ -313,9 +311,10 @@ To assess the value of honeypots we want to take a closer look to their advantag
           However, honeypots are independent of resources because they only capture their activities at itself.
           Due to resource limitation, expensive hardware is not needed.
     \item Simplicity: A honeypot do not require any complex algorithms, or databases.
-          It should be able to quickly deploy it somewhere.
-          Research honeypots might come with a certain increase of complexity. However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures.
-    \item Return on Investment: Capturing attacks immediately informs users that attack occur on the infrastructure.
+          A user should be able to quickly deploy it somewhere.
+          Research honeypots might come with a certain increase of complexity. 
+          However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures.
+    \item Return on Investment: Capturing attacks immediately informs users that suspicious activities occur on the infrastructure.
           This helps to demonstrate their value, and contributes to new investment in other security measurements.
 \end{itemize}
 
@@ -333,7 +332,7 @@ In addition, \citet{NawrockiWSKS2016} listed four more advantages of honeypots:
 \subsubsection{Disadvantages}
 
 \begin{itemize}
-    \item Narrow Field of View: Only direct attacks on honeypots can be investigated whereas attacks on production system are not detected by it.
+    \item Narrow Field of View: Only direct attacks on honeypots can be investigated whereas attacks on production system are not detected.
     \item Fingerprinting: A honeypot often has a certain fingerprint that can be identified by attackers.
           Especially commercial ones can be detected by their responses or behaviors.
     \item Risk to the Environment: Using honeypots in an environment always increase the risk.
@@ -345,7 +344,8 @@ In addition, \citet{NawrockiWSKS2016} listed four more advantages of honeypots:
 Instead of having single honeypots that can be attacked, a honeynet offers a complete network of standard production systems such as you would find in an organization.
 Those systems are high-interaction honeypots, thus, allowing to fully interact with the \ac{os}, and applications.
 Key idea is that an adversary can probe, attack, and exploit these systems so that we can derive interaction within this network.
-It should be mentioned that a honeynet have to be protected by firewall. \autoref{fig:honeynet-example} represents such a honeynet within an organization.
+It should be mentioned that a honeynet have to be protected by firewalls.
+\autoref{fig:honeynet-example} represents such a honeynet within an organization.
 
 \begin{figure}[ht]
     \centering
@@ -354,7 +354,7 @@ It should be mentioned that a honeynet have to be protected by firewall. \autore
     \label{fig:honeynet-example}
 \end{figure}
 
-In comparison to regular honeypot, the greatest value of honeynets is the usage of true production systems.
+In comparison to a regular honeypot, the greatest value of honeynets is the usage of true production systems.
 Black hats often do not know that they attack a honeynet, thus, adding value to prevention.
 However, the downsides are high complexity and maintenance that is needed to keep a honeynet running. \cite{Spitzner2003}
 
@@ -376,7 +376,7 @@ The Snort \cite{caswell2003} inline extension \textit{Bait'n'Switch} \cite{gonza
 Usually Snort drops malicious packets when they are detected, and creates a specific rule to block malicious activity from the source.
 In contrast, \textit{Bait'n'Switch} does not create a rule to block more request, instead it redirects them to honeypots.
 The attacker does not realize that all packets are rerouted, and that the original target has changed.
-The \ac{ids} is bounded to its signature database and can only redirect known attacks.\cite{Diebold2005}
+The \ac{ids} is bounded to its signature database and can only redirect known attacks. \cite{Diebold2005}
 
 Whereas \textit{Bait'n'Switch} had to drop the first attack which leads to a suspicious behavior for attackers, the \textit{Intrusion Trap System} \cite{takemori2003} is capable of forwarding the first request.
 Therefore, the first recognized attack by the \ac{ids} can be forwarded and answered by honeypots. \cite{Diebold2005}

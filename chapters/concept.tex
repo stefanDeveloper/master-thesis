@@ -16,7 +16,7 @@ As \citet{Spitzner2003} noted, a honeypot is not strictly bound to run in a \ac{
 The correct location has to be chosen based on the goals of the honeypot.
 For example, one goal could be to catch attackers behind a perimeter firewall to reveal leaks or vulnerabilities.
 Beforehand, our honeypot was broadly available on the Internet, and attackers could probe it easily.
-It collected on average $\numprint{55000}$ attacks per day, resulting in a total amount of $\numprint{786564}$ attacks.
+It collected on average \numprint{29,840} attacks per day, resulting in a total amount of \numprint{607,747} attacks.
 Zoning a network into logical groups mitigates the risk of an open network.
 Thus, our T-Pot would receive significantly fewer attacks in a controlled network zone.
 A network infrastructure is segmented into the same communication security policies and security requirements.
@@ -45,7 +45,7 @@ The internal \enquote{HDnet} enables the communication between institutes withou
 Institute firewalls can be set up by each institute and is self-administrated.
 They do have the possibility to use \ac{soho} routers\footnote{\ac{soho} router is a broadband router used in small offices and home offices environments.} to disconnect certain network zones from the network.
 It is recommended to configure the global \ac{acl} as a fall back solution in case of any downtime.
-The University Computing Center Heidelberg offers stateless firewall for router interfaces or VLANs.
+The University Computing Center Heidelberg offers stateless firewalls for router interfaces or VLANs.
 This stateful firewall whitelists certain services and splits up into four stages.
 Each stage can be individually activated per router interface.
 Its key value is to maintain a baseline security to avoid any misconfigurations and port scans.
@@ -80,8 +80,8 @@ A network has to adhere to these obligations if it applies any of these pre-defi
 \end{table}
 
 An interesting question is if attackers have access to restricted zones at the Heidelberg University.
-It arises during the research of T-Pot if an adversary would try to probe any hosts in the internal University network.
-In order to detect such events we present honeypot-like packet detection application that helps to identify any threats in a network.
+It arises during the research of T-Pot if an adversary would try to probe any hosts in the internal university network.
+In order to detect such events we present a honeypot-like packet detection application that helps to identify any threats in a network.
 In addition, it offers to deploy multiple instance and collect their data in a centralized instance.
 
 \section{Honeypot-like Connection Detection Tool}
@@ -110,7 +110,6 @@ Instead, we do want to ensure that no one else than authorized users have access
 Especially in high confidential areas, no attacker should be capable of sending even a single packet to a host in the network.
 Tracking packets on a detailed level is not provided by the vast range of honeypots.
 
-% TODO: Conecpt ueberarbeiten, beheben der Darstellung
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/heicat-conecpt.pdf}
@@ -148,12 +147,11 @@ Our MADCAT (28th of October till 17th of November) and T-Pot (16th of November t
 All instances had a connection to both subnets.
 First, the results obtained in the subnet \ipAddress{129.206.218.0/24} will be presented, closing up with the ones we claim in the eduroam network.
 
-In total, MADCAT received \numprint{35372} packets.
+In total, MADCAT received \numprint{35,372} packets.
 Overall, the modules TCP ($66.62\%$) and RAW ($33.26\%$) received the majority of all connection attempts.
 The minority with less than one percent are suspicious packets which have individual TCP flags like reset or syn set. 
 On the contrary, we could not identify any harmful activity based on these packets.
-In addition, the T-Pot accounted in total .
-Overall, ConPot (), Honeytrap (), and Ciscoasa () received most of the attacks with a total number of $1$.
+Overall, ConPot ($56.98\%$), Honeytrap ($31.35\%$), and Dionaea ($7.09\%$) received most of the attacks with a total number of $437$.
 Interestingly, we could identify \ac{snmp} connections which are used by print servers to discover printers.
 
 \begin{figure}[ht]

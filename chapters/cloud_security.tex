@@ -33,18 +33,18 @@ Microsoft Azure reflects nearly the same results as the other two cloud provider
     \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
     \begin{tabularx}{\linewidth}{l|XXXX|l}
         \toprule
-        \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                   \\
-                          & \textbf{Dionaea}                       & \textbf{Cowrie}   & \textbf{Glutton} & \textbf{others} &            \\
+        \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                           \\
+                          & \textbf{Dionaea}                       & \textbf{Cowrie}   & \textbf{Glutton} & \textbf{others}  &                   \\
         \hline
-        \acl{aws}         & $228\,075$                             & $4\,503$          & $11\,878$        & $3\,688$        & $248\,144$ \\
-        \acl{gcp}         & $162\,570$                             & $297\,818$        & $84\,375$        & $36\,403$       & $581\,116$ \\
-        Microsoft Azure   & $308\,102$                             & $9\,012$          & $17\,256$        & $6\,365$        & $340\,735$ \\
+        \acl{aws}         & \numprint{228,075}                      & \numprint{4,503}   & \numprint{11,878} & \numprint{3,688}  & \numprint{248,144} \\
+        \acl{gcp}         & \numprint{162,570}                      & \numprint{297,818} & \numprint{84,375} & \numprint{36,403} & \numprint{581,116} \\
+        Microsoft Azure   & \numprint{308,102}                      & \numprint{9,012}   & \numprint{17,256} & \numprint{6,365}  & \numprint{340,735} \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-cloud-security}
 \end{table}
 
-The overall results show an average ratio of $55.000$ attacks per day, summing up to roughly $1.3$ million in total.
+The overall results show an average ratio of \numprint{55,000} attacks per day, summing up to roughly $1.3$ million in total.
 Similar results for different regions could have been reproduced.
 Their results clearly show the disparity of the regions Europe, US, and Asia.
 An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
@@ -94,7 +94,7 @@ Furthermore, it helps to compare our findings with the ones \citet{Kelly2021} cl
 Running our instance and exposing it to the Internet needs some adjustments beforehand.
 Therefore, a virtual network with subnet \ipAddress{192.168.145.0/24} has been created wherein our instance with IP address \ipAddress{192.168.145.4} is assigned to.
 The instance is accessible from the outside with floating IP address \ipAddress{129.206.5.74}.
-Access rules are similar to a stateful firewall, and thus, do not block any attacks.
+Access rules are similar to a stateless firewall, and thus, do not block any attacks.
 Ports $1-64000$ are exposed and can be attacked by anyone.
 Ports higher than $64000$ are only accessible through the University network \ipAddress{129.206.0.0/16} or eduroam \ipAddress{147.142.0.0/16} and should provide a basic authentication with username and password.
 
@@ -314,7 +314,7 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 \section{Results}
 \label{sec:honeypots-heicloud}
 
-Our T-Pot has been deployed for 3 weeks (from 21st of September to 16th of October) and collected in total \numprint{607747} attacks.
+Our T-Pot has been deployed for 3 weeks (from 21st of September to 16th of October) and collected in total \numprint{607,747} attacks.
 Overall, RDPY ($46.08\%$), Honeytrap ($33.23\%$), and Cowrie ($12.42\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
@@ -345,7 +345,7 @@ Overall, $93\%$ of all attacks are on the SMBD protocol followed by many databas
 This proves our assumption that without the packet filtering in front our instance a much higher amount of total attacks would be the result.
 Nevertheless, comparing the number with \citet{Kelly2021} we see that our number surpasses every other cloud provider.
 However, Dionaea attacks will not be included in our later results because normally a server is not allowed to be excluded from the university firewall.
-Only for our research purpose to assess the effect of the packet filtering we were able to get a permit exclusion.
+Only for our research purpose to assess the effect of the packet filter we were allowed to get a permit exclusion.
 
 \begin{figure}[ht]
     \centering
@@ -369,7 +369,7 @@ Hence, we do not strongly rely on the geographical information.
     \label{tpot-overview-histogram}
 \end{figure}
 
-Attacks are not equally distributed among all honeypots, and thus, different protocols and application receive more attention than others.
+Attacks are not equally distributed among all honeypots, and thus, different protocols and applications receive more attention than others.
 \autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance separated by honeypots.
 RDPY, Honeytrap, and Cowrie are clearly the most attacked honeypots.
 The high peak of Honeytrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an insight of the packet filtering at the Heidelberg University.
@@ -390,8 +390,8 @@ Most used vulnerabilities are
     \item CVE-2006-2369\cite{CVE-2006-2369} which is a RealVNC vulnerability allowing hackers to bypass authentication, and
     \item CVE-2012-0152\cite{CVE-2012-0152} which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets
 \end{enumerate*}.
-As derived from \autoref{fig:suricata-results}, our T-Pot have not received many attacks in the first week.
-Starting from 28th of October the numbers of alert are skyrocketing.
+As derived from \autoref{fig:suricata-results}, our T-Pot has not received many attacks in the first week.
+Starting from 28th of October the number of alerts are skyrocketing.
 This would indicate that bots crawl IP address ranges to find new machines and probe them.
 Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
 Attackers could perform a remote code execution using path traversal attacks when the CGI scripts of Apache are enabled.
@@ -413,7 +413,7 @@ Respectively, misc activities sum up to roughly $1.5$ million entries, \ac{rdp} 
 Several RDP attacks from 2021 back to 2001 had been executed on our T-Pot.
 Respectively, CVE-2012-0152 and CVE-2001-0540 coincide with the ones \citet{Kelly2021} claim.
 We assume the skyrocketing number of attacks roots back to the Corona pandemic due to an increase of the remote desktop protocol.
-Furthermore, lack of updates and outdated servers using \ac{rdp} remain an ease target for automatic attacks that scan the web and try to find new exposures.
+Furthermore, lack of updates and outdated servers using \ac{rdp} remain an easy target for automatic attacks that scan the web and try to find new exposures.
 
 \begin{figure}[ht]
     \centering
@@ -496,7 +496,7 @@ Due to completeness, we leave our results as they are and do not show the filter
 
 % Conclusion
 Overall, heiCLOUD receives nearly doubled the size of attacks.
-On average, heiCLOUD has received $195.31\%$ more than Azure, \ac{gcp}, and \ac{aws}.
+On average, heiCLOUD has received $48.23\%$ more than Azure, \ac{gcp}, and \ac{aws}.
 Attacks on Cowrie, RDPY, and Honeytrap are the most compromised honeypots.
 In contrast to \citet{Kelly2021}, Dionaea and Glutton used to be the most considered honeypots for adversaries.
 We assume that attacks by bots have increased significantly since last year when \citet{Kelly2021} did their research.

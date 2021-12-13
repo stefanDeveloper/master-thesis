@@ -1,0 +1,53 @@
+﻿"alert.category.keyword: Descending",Timestamp,Attacks
+"Attempted Administrator Privilege Gain","2021-11-16 12:00","22,730"
+"Attempted Administrator Privilege Gain","2021-11-18 12:00","12,084"
+"Attempted Administrator Privilege Gain","2021-11-19 00:00","25,681"
+"Attempted Administrator Privilege Gain","2021-11-24 00:00","4,433"
+"Attempted Administrator Privilege Gain","2021-11-24 12:00","12,073"
+"Attempted Administrator Privilege Gain","2021-11-25 00:00","4,246"
+"Attempted Administrator Privilege Gain","2021-11-25 12:00","14,044"
+"Attempted Administrator Privilege Gain","2021-11-27 00:00","3,441"
+"Attempted Administrator Privilege Gain","2021-11-27 12:00","10,851"
+"Attempted Administrator Privilege Gain","2021-11-29 00:00","7,688"
+"Attempted Administrator Privilege Gain","2021-11-29 12:00","20,872"
+"Attempted Administrator Privilege Gain","2021-12-01 12:00","10,085"
+"Attempted Administrator Privilege Gain","2021-12-02 00:00","18,353"
+"Attempted Administrator Privilege Gain","2021-12-03 00:00","4,206"
+"Attempted Administrator Privilege Gain","2021-12-03 12:00","12,730"
+"Generic Protocol Command Decode","2021-11-16 12:00","4,285"
+"Generic Protocol Command Decode","2021-11-18 12:00","2,472"
+"Generic Protocol Command Decode","2021-11-19 00:00","4,983"
+"Generic Protocol Command Decode","2021-11-24 00:00",415
+"Generic Protocol Command Decode","2021-11-24 12:00",648
+"Generic Protocol Command Decode","2021-11-25 00:00",502
+"Generic Protocol Command Decode","2021-11-25 12:00",485
+"Generic Protocol Command Decode","2021-11-27 00:00",67
+"Generic Protocol Command Decode","2021-11-27 12:00",330
+"Generic Protocol Command Decode","2021-11-29 00:00",255
+"Generic Protocol Command Decode","2021-11-29 12:00",445
+"Generic Protocol Command Decode","2021-12-01 12:00",206
+"Generic Protocol Command Decode","2021-12-02 00:00","1,089"
+"Generic Protocol Command Decode","2021-12-03 00:00",51
+"Generic Protocol Command Decode","2021-12-03 12:00",875
+"Attempted Information Leak","2021-11-16 12:00",800
+"Attempted Information Leak","2021-11-24 00:00",2
+"Attempted Information Leak","2021-11-24 12:00",9
+"Attempted Information Leak","2021-11-25 00:00",2
+"Attempted Information Leak","2021-11-25 12:00",5
+"Attempted Information Leak","2021-11-29 00:00",3
+"Attempted Information Leak","2021-11-29 12:00",24
+"Potentially Bad Traffic","2021-11-16 12:00",19
+"Potentially Bad Traffic","2021-11-19 00:00",9
+"Potentially Bad Traffic","2021-11-24 00:00",10
+"Potentially Bad Traffic","2021-11-24 12:00",14
+"Potentially Bad Traffic","2021-11-25 00:00",12
+"Potentially Bad Traffic","2021-11-25 12:00",13
+"Potentially Bad Traffic","2021-11-27 00:00",10
+"Potentially Bad Traffic","2021-11-27 12:00",32
+"Potentially Bad Traffic","2021-11-29 00:00",25
+"Potentially Bad Traffic","2021-11-29 12:00",64
+"Potentially Bad Traffic","2021-12-01 12:00",61
+"Potentially Bad Traffic","2021-12-02 00:00",110
+"Potentially Bad Traffic","2021-12-03 00:00",24
+"Potentially Bad Traffic","2021-12-03 12:00",67
+"Misc activity","2021-11-16 12:00",1

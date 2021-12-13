@@ -1,12 +1,12 @@
-\chapter{Mitigate Fingerprinting of Honeypots}
+\chapter{Mitigate Fingerprint Activities of Honeypots}
 \label{chap:fingerprinting}
 
 Detecting honeypots before launching attacks helps to avoid disclosure of information.
-In \autoref{chap:cloud-security}, we have seen that bot activities are on the rise, and more attacks are launched than ever.
-However, many identical attacks could be identified.
-In this chapter, we will conduct two experiments related to this question.
-First, we want to reproduce the findings that \citet{vetterl2020} claims to proof .
-Lastly, we want to disguise Cowrie with the idea we have mentioned beforehand.
+In \autoref{chap:cloud-security}, we have seen that bot activities are on the rise, and more attacks than ever have been launched.
+However, the vast majority of attacks have been identified to be repetitive.
+In this chapter, we will conduct two experiments related to the question if it is possible to fingerprint honeypots.
+First, we want to reproduce the findings that \citet{vetterl2020} claims to prove the initial question if any fingerprint activity is feasible.
+Lastly, we present a concept to disguise Cowrie, and test if it disguises our honeypot successfully.
 
 \section{OpenSSH}
 \label{sec:openssh}
@@ -202,7 +202,7 @@ Respectively, for OpenSSH version $8.8P1$ we have updated the fingerprinting met
     \lstinputlisting[language=bash, caption={[Cowrie connection attempt with probed message]Cowrie connection attempt with probed key exchange initialization message. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
 \end{figure}
 
-Most interesting question remains the response deviation of Cowrie.
+The most interesting question remains, which is the response deviation of Cowrie.
 For instance, we use the default Cowrie implementation version $v.2.3.0$\footnote{\href{https://github.com/cowrie/cowrie/commit/555ff10d95f6239d9d6efee8a2d05def316ab144}{Cowrie v2.3.0} on GitHub} of our T-Pot instance.
 \autoref{lst:ssh-cowrie} outlines the connection attempt.
 Unambiguously, Cowrie results in a  \verb|bad packet length *| exception, and thus, deviates fundamentally from an Open\-SSH response.
@@ -278,15 +278,15 @@ In total, to change sshd daemon to work as an intermediary includes:
 
 Respectively, a detailed description of the adaption will be presented.
 The easiest step is to tweak the authentication in the \verb|auth-passwd.c| to permit any session so that an incoming connection can be forwarded to Cowrie.
-Originally, OpenSSH checks each session if the chosen authentication method returns true.
+Originally, OpenSSH checks each session to see if the chosen authentication method returns true.
 Our server has to return true for any client in the \verb|allowed_user| function to skip the authentication process.
 Cowrie continues the authentication process, and communicates with the attacker.
 In OpenSSH, communications are handled in channels as seen beforehand in \autoref{sec:openssh}.
 Technically, the sshd daemon opens for each session a SOCKS connection to communicate with the client.
 SOCKS is a network protocol to exchange packets between a server and client.
-To communicate with Cowrie, the sshd daemon needs a separate channel to store the attacker's session, and forward packets.
+To communicate with Cowrie, the sshd daemon needs a separate channel to store the attacker's session and forward packets.
 The channel is implemented in version $6.3P1$ and can be used in $8.8P1$ with minor adaptions.
-In the main method when sshd is starting, the channel is created and opens a connection to the running Cowrie instance so that a new session can forwarded.
+In the main method when sshd is starting, the channel is created and opens a connection to the running Cowrie instance so that a new session can be forwarded.
 If Cowrie is not accessible, the startup would fail.
 Thus, Cowrie has to run prior to SSH.
 Next, the server loop that is responsible to connect the client to the correct port has to be modified in order to put direct TCP/IP connections in our honeypot channel.
@@ -295,7 +295,7 @@ The function \verb|server_request_direct_tcpip| handles these connections.
 For instance, it checks if the TCP forwarding port for Cowrie is defined, and connects the current session to the respective port only if a communication to Cowrie is feasible.
 Lastly, we have to adapt the sshd daemon to start and set up the channel. 
 In addition, for an easy configuration of the daemon an extension of the configuration to set the Cowrie IP address and port has been included. 
-After a compiling our version, a brief test proofed a valid connection to the sshd daemon. 
+After compiling our version, a brief test proofed a valid connection to the sshd daemon. 
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
 
@@ -321,7 +321,7 @@ As a conclusion, this experiment has shown that the initial idea of hiding Cowri
 \section{Discussion}
 
 Depending on the interaction-level, honeypots will always deviate from production instances.
-As we have seen in the two experiments beforehand, detecting a generic weakness is duable in a respective time, as well as mitigating it.
+As we have seen in the two experiments beforehand, detecting a generic weakness is doable in a respective time, as well as mitigating it.
 Thus, finding and fixing weaknesses becomes a continuous cycle to improve honeypots.
 However, this chapter also outlined the importance of the libraries that are used.
 In this case, TwistedConch has been the bottleneck of Cowrie.

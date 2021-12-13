@@ -1,0 +1,201 @@
+﻿"alert.category.keyword: Descending",Timestamp,Attacks
+"Misc activity","2021-09-26 00:00",211
+"Misc activity","2021-09-26 12:00",257
+"Misc activity","2021-09-27 00:00",291
+"Misc activity","2021-09-27 12:00",382
+"Misc activity","2021-09-28 00:00","1,487"
+"Misc activity","2021-09-28 12:00","136,270"
+"Misc activity","2021-09-29 00:00","13,373"
+"Misc activity","2021-09-29 12:00","31,852"
+"Misc activity","2021-09-30 00:00","33,500"
+"Misc activity","2021-09-30 12:00","12,267"
+"Misc activity","2021-10-01 00:00","23,919"
+"Misc activity","2021-10-01 12:00","2,292"
+"Misc activity","2021-10-02 00:00","1,902"
+"Misc activity","2021-10-02 12:00","5,099"
+"Misc activity","2021-10-03 00:00","18,896"
+"Misc activity","2021-10-03 12:00","20,777"
+"Misc activity","2021-10-04 00:00","60,927"
+"Misc activity","2021-10-04 12:00","13,824"
+"Misc activity","2021-10-05 00:00","12,842"
+"Misc activity","2021-10-05 12:00","14,309"
+"Misc activity","2021-10-06 00:00","13,529"
+"Misc activity","2021-10-06 12:00","11,479"
+"Misc activity","2021-10-07 00:00","9,861"
+"Misc activity","2021-10-07 12:00","21,992"
+"Misc activity","2021-10-08 00:00","22,674"
+"Misc activity","2021-10-08 12:00","34,545"
+"Misc activity","2021-10-09 00:00","30,728"
+"Misc activity","2021-10-09 12:00","33,445"
+"Misc activity","2021-10-10 00:00","32,386"
+"Misc activity","2021-10-10 12:00","37,737"
+"Misc activity","2021-10-11 00:00","49,990"
+"Misc activity","2021-10-11 12:00","38,994"
+"Misc activity","2021-10-12 00:00","56,614"
+"Misc activity","2021-10-12 12:00","59,602"
+"Misc activity","2021-10-13 00:00","111,510"
+"Misc activity","2021-10-13 12:00","104,165"
+"Misc activity","2021-10-14 00:00","84,941"
+"Misc activity","2021-10-14 12:00","36,200"
+"Misc activity","2021-10-15 00:00","30,567"
+"Misc activity","2021-10-15 12:00","36,596"
+"Generic Protocol Command Decode","2021-09-26 00:00",220
+"Generic Protocol Command Decode","2021-09-26 12:00",237
+"Generic Protocol Command Decode","2021-09-27 00:00",277
+"Generic Protocol Command Decode","2021-09-27 12:00",626
+"Generic Protocol Command Decode","2021-09-28 00:00","1,798"
+"Generic Protocol Command Decode","2021-09-28 12:00","84,395"
+"Generic Protocol Command Decode","2021-09-29 00:00","7,103"
+"Generic Protocol Command Decode","2021-09-29 12:00","15,944"
+"Generic Protocol Command Decode","2021-09-30 00:00","17,041"
+"Generic Protocol Command Decode","2021-09-30 12:00","6,417"
+"Generic Protocol Command Decode","2021-10-01 00:00","1,919"
+"Generic Protocol Command Decode","2021-10-01 12:00","1,624"
+"Generic Protocol Command Decode","2021-10-02 00:00","1,174"
+"Generic Protocol Command Decode","2021-10-02 12:00","2,148"
+"Generic Protocol Command Decode","2021-10-03 00:00","4,468"
+"Generic Protocol Command Decode","2021-10-03 12:00","11,256"
+"Generic Protocol Command Decode","2021-10-04 00:00","9,976"
+"Generic Protocol Command Decode","2021-10-04 12:00","9,890"
+"Generic Protocol Command Decode","2021-10-05 00:00","7,137"
+"Generic Protocol Command Decode","2021-10-05 12:00","5,897"
+"Generic Protocol Command Decode","2021-10-06 00:00","8,314"
+"Generic Protocol Command Decode","2021-10-06 12:00","7,880"
+"Generic Protocol Command Decode","2021-10-07 00:00","5,503"
+"Generic Protocol Command Decode","2021-10-07 12:00","15,254"
+"Generic Protocol Command Decode","2021-10-08 00:00","12,024"
+"Generic Protocol Command Decode","2021-10-08 12:00","14,917"
+"Generic Protocol Command Decode","2021-10-09 00:00","14,757"
+"Generic Protocol Command Decode","2021-10-09 12:00","18,361"
+"Generic Protocol Command Decode","2021-10-10 00:00","16,812"
+"Generic Protocol Command Decode","2021-10-10 12:00","16,805"
+"Generic Protocol Command Decode","2021-10-11 00:00","17,997"
+"Generic Protocol Command Decode","2021-10-11 12:00","20,147"
+"Generic Protocol Command Decode","2021-10-12 00:00","38,964"
+"Generic Protocol Command Decode","2021-10-12 12:00","31,168"
+"Generic Protocol Command Decode","2021-10-13 00:00","55,995"
+"Generic Protocol Command Decode","2021-10-13 12:00","52,172"
+"Generic Protocol Command Decode","2021-10-14 00:00","42,791"
+"Generic Protocol Command Decode","2021-10-14 12:00","18,052"
+"Generic Protocol Command Decode","2021-10-15 00:00","16,511"
+"Generic Protocol Command Decode","2021-10-15 12:00","18,134"
+"Attempted Information Leak","2021-09-26 00:00",245
+"Attempted Information Leak","2021-09-26 12:00",268
+"Attempted Information Leak","2021-09-27 00:00",417
+"Attempted Information Leak","2021-09-27 12:00",636
+"Attempted Information Leak","2021-09-28 00:00","1,028"
+"Attempted Information Leak","2021-09-28 12:00","1,358"
+"Attempted Information Leak","2021-09-29 00:00","1,282"
+"Attempted Information Leak","2021-09-29 12:00","1,272"
+"Attempted Information Leak","2021-09-30 00:00","1,303"
+"Attempted Information Leak","2021-09-30 12:00","1,151"
+"Attempted Information Leak","2021-10-01 00:00","1,431"
+"Attempted Information Leak","2021-10-01 12:00","1,591"
+"Attempted Information Leak","2021-10-02 00:00","1,241"
+"Attempted Information Leak","2021-10-02 12:00","1,412"
+"Attempted Information Leak","2021-10-03 00:00","1,548"
+"Attempted Information Leak","2021-10-03 12:00","3,309"
+"Attempted Information Leak","2021-10-04 00:00","2,754"
+"Attempted Information Leak","2021-10-04 12:00","1,747"
+"Attempted Information Leak","2021-10-05 00:00","1,664"
+"Attempted Information Leak","2021-10-05 12:00","1,955"
+"Attempted Information Leak","2021-10-06 00:00","9,581"
+"Attempted Information Leak","2021-10-06 12:00","8,327"
+"Attempted Information Leak","2021-10-07 00:00","1,556"
+"Attempted Information Leak","2021-10-07 12:00","11,381"
+"Attempted Information Leak","2021-10-08 00:00","1,780"
+"Attempted Information Leak","2021-10-08 12:00","1,644"
+"Attempted Information Leak","2021-10-09 00:00",681
+"Attempted Information Leak","2021-10-09 12:00","12,394"
+"Attempted Information Leak","2021-10-10 00:00","4,391"
+"Attempted Information Leak","2021-10-10 12:00","4,534"
+"Attempted Information Leak","2021-10-11 00:00","1,930"
+"Attempted Information Leak","2021-10-11 12:00","2,378"
+"Attempted Information Leak","2021-10-12 00:00","34,442"
+"Attempted Information Leak","2021-10-12 12:00","17,895"
+"Attempted Information Leak","2021-10-13 00:00","2,556"
+"Attempted Information Leak","2021-10-13 12:00","3,538"
+"Attempted Information Leak","2021-10-14 00:00","2,649"
+"Attempted Information Leak","2021-10-14 12:00","3,457"
+"Attempted Information Leak","2021-10-15 00:00","5,439"
+"Attempted Information Leak","2021-10-15 12:00","4,157"
+"Attempted Administrator Privilege Gain","2021-09-26 00:00",35
+"Attempted Administrator Privilege Gain","2021-09-26 12:00",18
+"Attempted Administrator Privilege Gain","2021-09-27 00:00",31
+"Attempted Administrator Privilege Gain","2021-09-27 12:00",51
+"Attempted Administrator Privilege Gain","2021-09-28 00:00",58
+"Attempted Administrator Privilege Gain","2021-09-28 12:00",39
+"Attempted Administrator Privilege Gain","2021-09-29 00:00",29
+"Attempted Administrator Privilege Gain","2021-09-29 12:00",53
+"Attempted Administrator Privilege Gain","2021-09-30 00:00",105
+"Attempted Administrator Privilege Gain","2021-09-30 12:00",59
+"Attempted Administrator Privilege Gain","2021-10-01 00:00","7,099"
+"Attempted Administrator Privilege Gain","2021-10-01 12:00",48
+"Attempted Administrator Privilege Gain","2021-10-02 00:00",264
+"Attempted Administrator Privilege Gain","2021-10-02 12:00",690
+"Attempted Administrator Privilege Gain","2021-10-03 00:00","3,708"
+"Attempted Administrator Privilege Gain","2021-10-03 12:00",39
+"Attempted Administrator Privilege Gain","2021-10-04 00:00","14,434"
+"Attempted Administrator Privilege Gain","2021-10-04 12:00",29
+"Attempted Administrator Privilege Gain","2021-10-05 00:00",56
+"Attempted Administrator Privilege Gain","2021-10-05 12:00","1,059"
+"Attempted Administrator Privilege Gain","2021-10-06 00:00",159
+"Attempted Administrator Privilege Gain","2021-10-06 12:00",140
+"Attempted Administrator Privilege Gain","2021-10-07 00:00",44
+"Attempted Administrator Privilege Gain","2021-10-07 12:00",47
+"Attempted Administrator Privilege Gain","2021-10-08 00:00",55
+"Attempted Administrator Privilege Gain","2021-10-08 12:00","1,709"
+"Attempted Administrator Privilege Gain","2021-10-09 00:00",29
+"Attempted Administrator Privilege Gain","2021-10-09 12:00","1,010"
+"Attempted Administrator Privilege Gain","2021-10-10 00:00",42
+"Attempted Administrator Privilege Gain","2021-10-10 12:00","2,037"
+"Attempted Administrator Privilege Gain","2021-10-11 00:00","4,665"
+"Attempted Administrator Privilege Gain","2021-10-11 12:00",71
+"Attempted Administrator Privilege Gain","2021-10-12 00:00",59
+"Attempted Administrator Privilege Gain","2021-10-12 12:00",105
+"Attempted Administrator Privilege Gain","2021-10-13 00:00",49
+"Attempted Administrator Privilege Gain","2021-10-13 12:00",213
+"Attempted Administrator Privilege Gain","2021-10-14 00:00",43
+"Attempted Administrator Privilege Gain","2021-10-14 12:00",42
+"Attempted Administrator Privilege Gain","2021-10-15 00:00",57
+"Attempted Administrator Privilege Gain","2021-10-15 12:00",59
+"Misc Attack","2021-09-26 00:00",150
+"Misc Attack","2021-09-26 12:00",166
+"Misc Attack","2021-09-27 00:00",140
+"Misc Attack","2021-09-27 12:00",679
+"Misc Attack","2021-09-28 00:00","1,076"
+"Misc Attack","2021-09-28 12:00","1,072"
+"Misc Attack","2021-09-29 00:00","1,112"
+"Misc Attack","2021-09-29 12:00",990
+"Misc Attack","2021-09-30 00:00",914
+"Misc Attack","2021-09-30 12:00","1,020"
+"Misc Attack","2021-10-01 00:00","1,085"
+"Misc Attack","2021-10-01 12:00",968
+"Misc Attack","2021-10-02 00:00",953
+"Misc Attack","2021-10-02 12:00",738
+"Misc Attack","2021-10-03 00:00",817
+"Misc Attack","2021-10-03 12:00",978
+"Misc Attack","2021-10-04 00:00",820
+"Misc Attack","2021-10-04 12:00","1,134"
+"Misc Attack","2021-10-05 00:00",977
+"Misc Attack","2021-10-05 12:00",871
+"Misc Attack","2021-10-06 00:00",940
+"Misc Attack","2021-10-06 12:00",952
+"Misc Attack","2021-10-07 00:00",945
+"Misc Attack","2021-10-07 12:00",854
+"Misc Attack","2021-10-08 00:00",814
+"Misc Attack","2021-10-08 12:00",771
+"Misc Attack","2021-10-09 00:00",787
+"Misc Attack","2021-10-09 12:00",807
+"Misc Attack","2021-10-10 00:00",726
+"Misc Attack","2021-10-10 12:00",633
+"Misc Attack","2021-10-11 00:00",703
+"Misc Attack","2021-10-11 12:00",754
+"Misc Attack","2021-10-12 00:00",825
+"Misc Attack","2021-10-12 12:00","1,117"
+"Misc Attack","2021-10-13 00:00",986
+"Misc Attack","2021-10-13 12:00",945
+"Misc Attack","2021-10-14 00:00",903
+"Misc Attack","2021-10-14 12:00",920
+"Misc Attack","2021-10-15 00:00",967
+"Misc Attack","2021-10-15 12:00","1,002"

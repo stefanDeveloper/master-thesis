@@ -1,6 +1,27 @@
 \chapter{Conclusion}
 
-% TODO: Future work
+We have shown that cybercrime activities can be spotted by using honeypot solutions.
+Thus, the initial question if honeypots contribute to a more secure infrastructure has been answered successfully.
+We can confirm this assumption based on our results we have achieved in the cloud and in the university network.
+Our first approach was to collect data by the help of the T-Pot solution and compare them to a previous study of similiar cloud providers.
+It has shown that these activities increased significantly.
+Considering the services that are excluded by default of the firewall, heiCLOUD has received more attacks than ever, putting it on the first place compared to other cloud providers.
+We have seen various attacks such as in RDP, VoIP, and SSH.
+Outstanding are the amount of cryptocurrency related attacks which reflects the current situation of highly traded GPUs in the market.
+In addition, the latest attacks like the Apache vulnerability in version $2.49.0$ could be traced back to very early stages, showing how fast attackers adapt to new vulnerabilities.
+Our assumption is that the vast majority of executed attacks on our instance originates from bots.
+
+Next, we have focused at the internal network of the university and implemented a new concept to detect every single packet that have been sent to a host machine.
+The MADCAT solution in conjunction with IDS tools helped us identify the open port 113 that has been used to deploy attacks.
+We have shown that known attackers with an IP addresses originated from Russia probed our instance, and we assume further exploits would be proceeded.
+In retrospect, this helped to remove the port from the permits in the firewall, thus, we have improved the security at the University Heidelberg.
+Any other suspicious behavior in the eduroam network could not be registered, proving that the firewall works by design.
+
+Moreover, we have shown that honeypots like Cowrie have a fundamental flaw because they rely on off-the-shelf libraries.
+These libraries often re-implement protocol behavior, thus, adding a subtle difference to the response.
+Based on a cosine similiartiy coefficient, adversaries could detect honeypots before deploying any attack, thus, 
+
+Future work
 
 
 

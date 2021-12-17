@@ -1,47 +1,43 @@
 \chapter{Introduction}
 
-Recently, Europol\footnote{An agency that fights against terrorism, cybercrime, and other threats \cite{europol2021}} rose awareness of new cyber threats related to the pandamic.
-As stated in their yearly \ac{iocta} report, scanning corporate infrastructures have been skyrocketing within the last 12 months by ransomware groups respectively increasing the malware usage.
+Recently, Europol\footnote{An agency that fights against terrorism, cybercrime, and other threats \cite{europol2021}} rose awareness of new cyber threats related to the ongoing pandamic.
+As stated in their yearly \ac{iocta} report, scanning corporate infrastructures have been skyrocketing within the last 12 months by ransomware groups respectively increasing malware usage.
 Attackers use scans to find potential vulnerabilities in remote desktop sharing software, or \ac{vpn} in order to deploy malware and blackmail the company. \cite{iocta2020}
-The rapid increase dates back to the pandamic and the correlated home office increase forcing companies to rapidly adapt their infrastructure.
-Such changes come with the downside of adding new threats to the organization.
-Latest findings...
+The rapid increase dates back to the pandamic and the correlated home office increase forcing companies to quickly adapt their infrastructure.
+Such changes come with the downside of adding new threats to an organization.
+The latest incident at the SRH University Heidelberg points out the obsenity that institutions face when ransomware groups have access and exploit various parts of an infrastructure with malware.
+An unkown group infected systems with malware, and distributed internal data in the darknet.
+Such incidents lay emphasis for the rise of cyber criminal activties.
 
 Especially in cloud computing due to access to large pools of data and computational resources, controlling access to services is becoming a tougher challenge nowadays.
 Besides traditional security leverages such as firewalls or intrusion detection systems, one known methodology to strengthen infrastructures is to learn from those who attacks it.
-Honeypots are \enquote{a security resource whose value lies in being probed, attacked, or compromised} \cite{Spitzner2003}.
-By collecting attacks, zero-day-exploits, or bots activities can be detected.
+Honeypots are a proper instrument with the objective to gather information about attackers.
+It is \enquote{a security resource whose value lies in being probed, attacked, or compromised} \cite{Spitzner2003}.
+In contrast to production systems, honeypots have to be accessible from the Internet, and are easy to exploit. 
+By collecting attacks, shell-code exploitation, or bot activities can be detected.
 In retrospect, this would help to hardening infrastructures before proper damage occurs.
-As a cloud provider, it is a crucial point if and how attacks on production servers could have been prevented.
+As a cloud provider, it is a crucial point if and how attacks on their service can be prevented from happening.
 Considering the Global Security Report by Trustwave, the amount of attacks doubled in 2019, and increased by $20\%$ in 2020 \cite{fahim2020}.
-Respectively puttting cloud providers to the third most targeted environments for cyberattacks.
-For instance, corporate and internal networks are the top of this ranking.
-Heidelberg builds upon its own cloud provider.
+Respectively puttting cloud providers to the third most targeted environments for cyberattacks, behind corporate and internal networks.
 
-As a conclusion, this thesis tries to answer the research question if honeypots contribute to a more secure infrastructure when using a cloud environment.
-This includes 
-On the contrary, we will present recent work to detect honeypots on transport level.
+The University Heidelberg offers its own cloud provider, called heiCLOUD.
+It enables users to easily maintain and control computational resources. 
+Thus, it is interesting to elaborate the value of honeypots for this cloud solution.
+As a conclusion, this thesis tries to answer the overall research question if honeypots contribute to a more secure infrastructure in the context of a cloud environment.
+This includes deploying a honeypot solution in heiCLOUD and presenting the results.
+Prior to that, we will give an insight of a recent study investigating honeypots for cloud providers AWS, GCP and Microsoft Azure.
+These findings assist to validate our results.
+In addition, we focus on the University network and try to find potential leaks in the stateless firewall.
+Therefore, we outline a concept using a honeypot-like detection tool of the BSI, and deploy it on desktop computers inside a University building.
+Lastly, we will consider an attacker's point of view by present recent work to detect honeypots on transport level.
+On the contrary, we draft a solution to mitigate these efforts and present our results.
 
-
-%However, this rise of attacks on cloud infrastructures has shown the importance why more security will be necessary in the future.
-%Thus, making it a thrilling challenge for the upcoming years.
-
-% TODO: Justification, motivation and benefits
-
-% However, controlling attackers in a cloud environment may differ from other infrastructures.
-
-% TODO:Research questions
-
-%The following research questions have been answered in this thesis:
-
-%\begin{enumerate}
-%    \item How can honeypots contribute to a more secure cloud environment including baiting adversaries to our honeypots, and controlling their requests?
-%    \item What is a preferable way to handle data management and visualization?
-%    \item How can we analyze our data to get more information?
-%\end{enumerate}
-
-% TODO: Limitations
-
-%Heidelberg offers a cloud service, called \enquote{HeiCloud}.
-%Since  we tailor our implementation for this service.
-%Moreover, it ecists a vast variety of different honeypots which bound us to a very few of them. 
+This thesis is structured in six chapters.
+Besides this introduction, chapter two outlines the background knowledge that is needed to comprehend the upcoming experiments.
+It gives the reader a profound understanding of cloud computing, honeypots, and virtualization.
+In \autoref{chap:cloud-security}, \textit{Analyze Honeypot Attacks in the Cloud}, we show the status quo of cybercrime activities of heiCLOUD.
+In the beginning, we present the results that \citet{Kelly2021} claim for AWS, GCP and Microsoft Azure.
+Later, we present the T-Pot solution that has been used to collect our data, and .
+\autoref{chap:concept}, \textit{Catching Attackers in Restricted Network Zones},
+\autoref{chap:fingerprinting}, \textit{Mitigate Fingerprint Activities of Honeypots},
+Lastly, we close up with a short conclusion.

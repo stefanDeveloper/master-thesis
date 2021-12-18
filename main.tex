@@ -1,7 +1,7 @@
 \documentclass[
   paper=a4,
   BCOR=10mm,
-  twoside,
+  oneside,
   fontsize=12pt,
   fleqn,
   numbers=noendperiod,
@@ -23,7 +23,7 @@
 \usepackage{amsmath}
 \usepackage{tabularx}
 \usepackage{graphicx}
-\usepackage[english]{babel}
+\usepackage[ngerman,english]{babel}
 \usepackage{pgffor}
 \usepackage{listings}
 \usepackage{csquotes}
@@ -104,11 +104,17 @@
 \begin{document}
 
 \include{titlepages-eng}
-\include{abstracts}
-\include{deposition}
-\include{ack}
 
 \pagenumbering{Roman}
+
+%\include{abstracts}
+
+\include{abstract-eng.tex}
+
+\include{abstract-ger.tex}
+
+\include{deposition}
+\include{ack}
 
 %\setcounter{tocdepth}{1}
 \tableofcontents
@@ -145,7 +151,7 @@
 
 \cleardoublepage
 \pagenumbering{Roman}
-\setcounter{page}{6}
+\setcounter{page}{10}
 
 \bibliographystyle{plainnat}  
 \bibliography{references}

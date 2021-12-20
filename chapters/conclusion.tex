@@ -13,8 +13,8 @@ Our assumption is that the vast majority of executed attacks on our instance ori
 
 Next, we have focused at the internal network of the university and implemented a new concept to detect every single packet that have been sent to a host machine.
 The MADCAT solution in conjunction with IDS tools helped us identify the open port 113 that has been used to deploy attacks.
-We have shown that known attackers with an IP addresses originated from Russia probed our instance, and we assume further exploits would be proceeded.
-In retrospect, this helped to remove the port from the permits in the firewall, thus, we have improved the security at the University Heidelberg.
+We have shown that known attackers with an IP address originated from Russia probed our instance, and we assume further exploits would be proceeded.
+In retrospect, this helped to remove the port from the permits in the firewall, thus, we have improved the security at the Heidelberg University.
 Any other suspicious behavior in the eduroam network could not be registered, proving that the firewall works by design.
 
 Moreover, we have shown that honeypots like Cowrie have a fundamental flaw because they rely on off-the-shelf libraries.
@@ -23,7 +23,7 @@ On the contrary, this deviation of responses can be used to detect honeypots on 
 Based on a cosine similiartiy coefficient, adversaries could spot honeypots before deploying any attack, thus, avoid exposures of newly developed attacks.
 We have re-created the findings \citet{vetterl2020} claims in his work by adapting OpenSSH $8.8P1$, and testing it on different Debian instances.
 Due to major updates of outdated algorithms, we have updated the key exchange initialization message to work with the latest version.
-We have shown that the lastest Cowrie version $2.3.0$ results in a bad packet length because the local version string does match the expected one of the underlying library TwistedConch.
+We have shown that the lastest Cowrie version $2.3.0$ results in a bad packet length because the local version string does not match the expected one of the underlying library TwistedConch.
 This result deviates fundamentally from OpenSSH.
 Lastly, we tried to protect Cowrie from early exposure by hiding it in the background and tunneling requests through a customized OpenSSH daemon.
 We have successfully fixed the generic weakness of Cowrie, so that, connecting to Cowrie works without running into a bad packet length error.

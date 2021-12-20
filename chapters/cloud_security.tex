@@ -62,7 +62,7 @@ Windows devices target vulnerabilities in remote desktop sharing software. Such 
 \end{enumerate*}.
 In addition, attackers were also capable of disguising any fingerprinting activity of p0f.
 
-We want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different Cloud Platforms} with ours using the University Heidelberg's cloud solution.
+We want to compare the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different Cloud Platforms} with ours using the Heidelberg University's cloud solution.
 First, a short introduction of heiCLOUD is presented, followed by a closer lookup of T-Pot that is used to acquire data.
 Lastly, we present our results and do a thorough comparison closing up with a discussion based on a technical report of the Cambridge University.
 
@@ -76,8 +76,8 @@ By the help of data visualization tools, we analyze the attacks.
 For security reasons, honeypots should run in a virtualized environment to avoid any harm to our host system.
 We use Debian as a base Linux distribution.
 Our instance runs on heiCLOUD, a cloud service provided by Heidelberg University.
-It is capable of 16 GB of RAM, 8 VCPU's, and a volatile memory of 30 GB.
-In addition, we mount a 125 GB permanent memory to securely store our data.
+It is capable of 16 GB of RAM, 8 VCPUs, and a volatile memory of 30 GB.
+In addition, we mount a 125 GB permanent volume to securely store our data.
 In its very early stages, we compared different approaches to achieve this goal.
 As an example, we compared native implementation approaches, using additional frameworks, and ready-to-use solutions.
 However, the T-Pot, developed by Telekom, offers a profoundly ready-to-use solution with major advantages.
@@ -96,7 +96,7 @@ Therefore, a virtual network with subnet \ipAddress{192.168.145.0/24} has been c
 The instance is accessible from the outside with floating IP address \ipAddress{129.206.5.74}.
 Access rules are similar to a stateless firewall, and thus, do not block any attacks.
 Ports $1-64000$ are exposed and can be attacked by anyone.
-Ports higher than $64000$ are only accessible through the University network \ipAddress{129.206.0.0/16} or eduroam \ipAddress{147.142.0.0/16} and should provide a basic authentication with username and password.
+Ports higher than $64000$ are only accessible through the university network \ipAddress{129.206.0.0/16} or eduroam \ipAddress{147.142.0.0/16} and should provide a basic authentication with username and password.
 
 \subsection{heiCLOUD}
 \label{subsec:heicloud}
@@ -121,7 +121,7 @@ HeiCLOUD have never considered honeypots for additional cybersecurity measuremen
 
 To be able to compare our results with \citet{Kelly2021}, we use the same approach to capture recent cyberattacks.
 The T-Pot solution, a mixture of Telekom and Honeypot, stands out with their sheer quantity of various honeypots.
-It requires $8$ GB RAM and a minimum of $128$ GB hard drive storage.
+It requires at least $8$ GB of RAM and a minimum of $128$ GB hard drive storage.
 Based on a Debian 10 Buster distribution, it relies on Docker to run their services \cite{docker2021}.
 T-Pot has to be deployed in a reachable network where intruders are expected.
 Either TCP and UDP traffic are forwarded without filtering to the network interface, or it runs behind a firewall with forwarding rules.

@@ -1,16 +1,9 @@
-//===========================================================================
 // # honeypot: add code start
 
 #include "ssh_new/libssh.h"
 
-
-
-int ssh_ms_is_running               = 0;
-int const size_buffer               = 65507;                // Define buffer size (MAX UDP SIZE 65507)
-
-
-
-
+int ssh_ms_is_running = 0;
+int const size_buffer = 65507; // Define buffer size (MAX UDP SIZE 65507)
 
 void start_honeypot()
 // Creates the SSH connection to Cowrie
@@ -24,9 +17,9 @@ void start_honeypot()
 
     // Initialisation for 2. SSH logic
     int rc;
-    int verbosity = SSH_LOG_WARNING;                // Define SSH verbosity
-    ssh_session session;                            // SSH session
-    session = ssh_new();                            // Create a new session
+    int verbosity = SSH_LOG_WARNING; // Define SSH verbosity
+    ssh_session session; // SSH session
+    session = ssh_new(); // Create a new session
 
 
     /* 1. Connect to Cowrie - raw socket*/
@@ -53,10 +46,10 @@ void start_honeypot()
         else
         {    /* 2. Setup the SSH logic*/
             ssh_options_set(session, SSH_OPTIONS_FD, &clientSocket);
-            ssh_options_set(session, SSH_OPTIONS_HOST, sshd_honey_options.ip);              // SSH Master Server IP
-            ssh_options_set(session, SSH_OPTIONS_PORT, &sshd_honey_options.port);           // SSH Master Server Port
-            ssh_options_set(session, SSH_OPTIONS_LOG_VERBOSITY, &verbosity);               // SSH Verbosity Level
-            rc = ssh_connect(session);                      // Create a SSH connection with the specified session options
+            ssh_options_set(session, SSH_OPTIONS_HOST, sshd_honey_options.ip); // SSH Master Server IP
+            ssh_options_set(session, SSH_OPTIONS_PORT, &sshd_honey_options.port); // SSH Master Server Port
+            ssh_options_set(session, SSH_OPTIONS_LOG_VERBOSITY, &verbosity); // SSH Verbosity Level
+            rc = ssh_connect(session); // Create a SSH connection with the specified session options
             if (rc != SSH_OK)
             {
                 ssh_client_conns1[0].error = 1;
@@ -64,8 +57,8 @@ void start_honeypot()
             }
             else
             {
-                ssh_client_conns1[0].initial_session = session;  // Save session for later use
-                ssh_client_conns1[0].got_command = 0;            // Set defaults
+                ssh_client_conns1[0].initial_session = session; // Save session for later use
+                ssh_client_conns1[0].got_command = 0; // Set defaults
                 ssh_client_conns1[0].sent_details = 0;
                 ssh_client_conns1[0].subsystem_req = 0;
                 ssh_client_conns1[0].counter_disconnect = 0;
@@ -73,8 +66,6 @@ void start_honeypot()
         }
     }
 }
-
-
 
 int rc;
 int authenticate_password(const char *username, const char *password)
@@ -102,16 +93,13 @@ void finish_connection_setup()
     channel_rw1.channel_data = channel;
     channel_1 = ssh_channel_new(ssh_client_conns1[0].initial_session);
     channel_rw1.channel_data_1 = channel_1;
-    ssh_channel_open_session(channel_rw1.channel_data);   // Open/request a channel
-    channel_rw1.type = 1;                                 // Set type to 1, i.e. shell
+    ssh_channel_open_session(channel_rw1.channel_data); // Open/request a channel
+    channel_rw1.type = 1; // Set type to 1, i.e. shell
     channel_rw1.session_data = ssh_client_conns1[0].initial_session; // Save session
     logit("sshd-honeypot: Connected to Cowrie IPv4 %s:%d", sshd_honey_options.ip, sshd_honey_options.port);
 
 }
-
-
 // # honeypot: add code end
-//===========================================================================
 
 /*
  * Main program for the daemon.

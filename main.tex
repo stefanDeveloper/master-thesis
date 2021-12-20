@@ -28,6 +28,11 @@
 \usepackage{listings}
 \usepackage{csquotes}
 \usepackage{acro}
+\DeclareAcroEnding{possessive}{'s}{'s}
+\NewAcroCommand\acg{m}{\acropossessive\UseAcroTemplate{first}{#1}}
+\NewAcroCommand\acsg{m}{\acropossessive\UseAcroTemplate{short}{#1}}
+\NewAcroCommand\aclg{m}{\acropossessive\UseAcroTemplate{long}{#1}}
+
 % Needed to get rid of warnings in scrreprt with toc deprecated
 \usepackage{scrhack}
 % TODOs package, could be removed in the final paper

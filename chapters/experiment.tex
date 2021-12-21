@@ -8,12 +8,12 @@ In \autoref{chap:cloud-security}, we have seen that bot activities are on the ri
 However, the vast majority of attacks have been identified to be repetitive.
 In this chapter, we will conduct two experiments related to the question if it is possible to fingerprint honeypots.
 First, we want to reproduce the findings that \citet{vetterl2020} claims to prove the initial question if any fingerprint activity is feasible.
-Lastly, we present a concept to disguise Cowrie, and test if it disguises our honeypot successfully.
+Lastly, we present a concept to disguise Cowrie, and verfiy our assumption with an experiment.
 
 \section{OpenSSH}
 \label{sec:openssh}
 
-OpenSSH is one of the most used applications that helps to acquire an SSH connection.
+OpenSSH is one of the most used applications that enables SSH.
 Before proceeding with generic weaknesses of honeypots, we want to give a short intermezzo about OpenSSH itself.
 
 \begin{figure}
@@ -48,7 +48,7 @@ For this chapter, no other than this message will be considered.
 Attackers have a strong motivation to reveal honeypots before launching an attack.
 Without any protection attackers would disclose their methods, and thus, newly developed attacks would become useless.
 As shown in \autoref{chap:cloud-security}, attackers do try to get information about the host system.
-\citet{vetterl2020} discussed various methods of fingerprinting, however, executing commands in a login shell and examining the response leaves precarious information to the honeypot itself.
+\citet{vetterl2020} discussed various methods of fingerprinting, however, executing commands in a shell and examining the response leaves precarious information to the honeypot itself.
 In his work he evaluated methods to detect honeypots at the transport level.
 As stated, the value of a honeypot would be merely zero if a detection on transport level would work.
 He presents fingerprinting methods for SSH, Telnet, and HTTP/Web.
@@ -60,7 +60,7 @@ Goal is to find the best $P_i$ where the sum of $C$ is the lowest.
 \autoref{fig:draft-cosine-similarity} presents these steps.
 
 Cosine similarity outputs the similarity between vectors of numerical attributes.
-In text semantics it is widely used to measure the similarity of sets of information such as two sentences.
+It is widely used in text semantics to measure the similarity of sets of information such as two sentences.
 \citet{vetterl2020} outlines that it can be used in \enquote{traffic analysis to find abnormalities and to measure domain similarity}.
 Mathematically, it computes the angle between two vectors.
 For each set of information $A$, we create a vector $D_A$.
@@ -104,7 +104,7 @@ The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| p
 Twisted has been added to have an example with an older SSH honeypot.
 We can see that it differs fundamentally from OpenSSH.
 At most, it scores $0.52$ whereas various OpenSSH versions start at $0.98$.
-The number of hosts significantly decrease with a cosine similarity score of $0.90$ and higher.
+The number of hosts significantly decreases with a cosine similarity score of $0.90$ and higher.
 Cowrie responses are not too far away to OpenSSH with an average of $0.80$.
 However, scanning through the web with a minimum score of $0.90$ and higher would exclude all honeypots.
 Thus, distinguishing Cowrie from OpenSSH with SSH packets is a feasible method.
@@ -119,9 +119,9 @@ These results show that the values of honeypots would decrease to zero when larg
 \end{figure}
 
 \citet{vetterl2020} states that current low- and medium-interaction honeypots have a generic weakness due to the underlying off-the-shelf libraries.
-Cowrie is based on TwistedConch\footnote{\href{https://github.com/racker/python-twisted-conch/commit/01f22a3a8534856e934ed716cfc251b04e7d2077}{TwistedConch 12.0.0} on Github}, a Python 2/3 library that implements the SSH protocol.
+Cowrie is based on TwistedConch\footnote{\href{https://github.com/racker/python-twisted-conch/commit/01f22a3a8534856e934ed716cfc251b04e7d2077}{TwistedConch 12.0.0} on GitHub}, a Python 2/3 library that implements the SSH protocol.
 Any bash command and its response are tweaked by Cowrie, and thus, resulting in a discrepancy to OpenSSH.
-For example, Cowrie version $1.1.0$ missed \verb|tftp|\footnote{Trivial File Transfer Protocol (TFTP) is a lockstep File Transfer Protocol} and came with version $1.2.0$.
+For example, Cowrie version $1.1.0$ missed \verb|tftp|\footnote{Trivial File Transfer Protocol (TFTP) is a lockstep File Transfer Protocol} that later came with version $1.2.0$.
 Therefore, it is a continuous struggle of adding new commands to avoid early disclosures of Cowrie.
 
 \autoref{fig:cowrie-openssh} shows the difference between OpenSSH and Cowrie.
@@ -168,16 +168,16 @@ First, the reproduction of the outdated OpenSSH library that \citet{vetterl2020}
 In his work he used OpenSSH $7.5P1$ which deviates from the latest version $8.8P1$.
 Older versions rely on OpenSSL $1.0.2$ which includes outdated algorithms and functions.
 For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm blowfish-cbc has been removed with version $7.6P1$, and thus, are outdated.
-Building the version $7.5P1$ requires the libraries libssl (1.0.2), libssl-dev (1.0), libssh-dev (0.7.3-2), and libssh-4 (0.9.6-1).
+Building the version $7.5P1$ requires the libraries libssl ($1.0.2$), libssl-dev ($1.0$), libssh-dev ($0.7.3-2$), and libssh-4 ($0.9.6-1$).
 All of these libraries are outdated, and have been removed from any Debian installation.
 Using the latest versions of these libraries result in errors such as missing encryption algorithms and host key algorithms.
 Thus, replacing the libraries is a necessary task.
 It required to download the libraries, remove the current versions, and install the outdated ones.
 The version $7.5P1$ allows to modify the proposal of the key exchange initialization message in a single file.
 On the contrary, this has been removed starting from version $7.6P1$.
-After compiling the application, we test its behavior with a Debian 11 Buster and a Debian Jessie 9 Docker image.
-Both are new machines that have no other packages installed than the OpenSSH server.
-Debian 11 uses the latest OpenSSH version whereas Jessie is at $6.7P1$.
+After compiling the application, we test its behavior with a Debian $11$ Buster and a Debian Jessie $9$ Docker image.
+Both are new machines that have no other packages installed than the OpenSSH daemon (\verb|sshd|).
+Debian $11$ uses the latest OpenSSH version whereas Jessie is at $6.7P1$.
 These environments help us to uniquely identify variations in the protocol version.
 
 \begin{figure}
@@ -255,7 +255,7 @@ Thus, our concept is based on \citet{vetterl2020} solution, however, due to newe
 OpenSSH itself is not capable by default to function as an intermediary, therefore, we have to adjust the latest OpenSSH version to enable this feature.
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
 Cowrie is hidden in the background, and is only accessible through the loop back address \ipAddress{127.0.0.1:65522}.
-Our updated \verb|sshd| daemon is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:22}.
+Our updated sshd daemon is exposed to the Internet, and is accessible through \ipAddress{129.206.5.157:22}.
 Any connection obtain to OpenSSH will be forwarded to our honeypot by a NAT rule (iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222).
 Respectively, an attacker should not be able to detect Cowrie by response deviations.
 
@@ -295,21 +295,17 @@ Next, the server loop that is responsible to connect the client to the correct p
 Without this adaption, no packet would be received by Cowrie.
 The function \verb|server_request_direct_tcpip| handles these connections.
 For instance, it checks if the TCP forwarding port for Cowrie is defined, and connects the current session to the respective port only if a communication to Cowrie is feasible.
-Lastly, we have to adapt the sshd daemon to start and set up the channel. 
-In addition, for an easy configuration of the daemon an extension of the configuration to set the Cowrie IP address and port has been included. 
-After compiling our version, a brief test proofed a valid connection to the sshd daemon. 
+Lastly, we have to adapt the sshd daemon to start and set up the channel.
+In addition, for an easy configuration of the daemon an extension of the configuration to set the Cowrie IP address and port has been included.
+After compiling our version, a brief test proofed a valid connection to the sshd daemon.
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
-
-%\begin{figure}
-%    \lstinputlisting[language=bash, caption={[Disguised Cowrie connection attempt with probed packets.]Disguised Cowrie connection attempt with probed key exchange initialization message and local string version}, label={lst:ssh-cowrie-fixed}]{listings/ssh-cowrie-fixed.txt}
-%\end{figure}
 
 The last experiment to conclude this chapter is to test if our concept helps to disguise Cowrie and avoid fingerprinting based on a custom local string version and key exchange initialization message.
 For instance, we have used \citet{vetterl2020} original $6.3P1$ sshd honeypot, as well as the newly implemented version $8.8P1$ with Cowrie version $2.3.0$.
 Both versions have been tested in heiCLOUD and locally in an encapsulated environment.
 All requests do not result in a bad packet length, and thus, are behaving like an original sshd daemon.
-Only the older version $6.3P1$ had problems to coup with new encryption and  host key algorithm.
+Only the older version $6.3P1$ had problems to coup with new encryption and host key algorithms.
 Thus, the concept is capable of forwarding any related packet to Cowrie, and hiding the generic weakness of TwistedConch.
 In \autoref{lst:log-cowrie}, Cowrie receives the connection and logs information respectively.
 Currently, one downside is the connection loss that happens due to timeout restrictions.

@@ -5,16 +5,16 @@ Attacks from the Internet are often originated from bots.
 A bot, short for \enquote{robot}, is an automated process that interacts with different network services.
 Besides good intentions, bots can be used for malicious purposes.
 Mostly, bots try to self-propagate malware across the Internet and try to capture hosts that merge into a botnet.
-A botnet has a central server or servers that act as a command and control center for all infected hosts \cite{Feily2009}.
+%A botnet has a central server or servers that act as a command and control center for all infected hosts \cite{Feily2009}.
 Recently, Universities in Germany received more cyberattacks than ever, respectively increasing their costs for damage repairs.
 Honeypots are a good solution to catch attackers and learn from their exploits.
 However, there is no conclusion if honeypots in times of bots give a proper countermeasure to avoid such damage.
 Following the rise of cyberattacks, we introduce a method to collect and analyze cyberattacks in a cloud environment.
-We further propose an answer if honeypots are helpful to prevent such scenarios from happening.
+We further propose an answer if honeypots are helpful to detect bot activities.
 
 \section{Introduction}
 
-As previously mention in \autoref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services and applications.
+As previously mentioned in \autoref{sec:cloud-computing}, using cloud resources are becoming the go-to option for new services and applications.
 \citet{Kelly2021} thoroughly investigated honeypots on Azure, \ac{aws}, and \ac{gcp}.
 Followingly, we present their results that we want to compare on with the ones heiCLOUD achieves.
 The results are collected by T-Pot version $20.06.0$ over a duration of 3 weeks.
@@ -50,7 +50,7 @@ Their results clearly show the disparity of the regions Europe, US, and Asia.
 An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
 The study could not confirm this assumption based on the fact that Google Cloud with the smallest market share received most of the attacks.
 In total, most of the attacks are originated from Vietnam, Russia, United States, and China.
-Due to technologies such as VPN, or Tor, the geolocation only indicates the last node, so location data might be distorted.
+Due to technologies such as VPN or Tor, the geolocation only indicates the last node, so location data might be distorted.
 Across all providers roughly $80\%$ of the source IP addresses had a bad reputation and could have been filtered by the organization.
 The operating devices used for attacking the services are mostly Windows 7 or 8, and different Linux kernels and distributions.
 Windows devices target vulnerabilities in remote desktop sharing software. Such vulnerabilities are
@@ -69,8 +69,7 @@ Lastly, we present our results and do a thorough comparison closing up with a di
 \section{Methodology}
 
 Our foremost goal is to track as many attacks as possible.
-We want to verify if most of the attacks on the Internet are originated from bots.
-To gather various attacks from the Internet \autoref{fig:concept} sketches our concept we plan to apply.
+\autoref{fig:concept} sketches our concept to achieve our goal to gather various attacks from the Internet.
 Honeypots should be deployed on a single instance, and their data, or log files are stored in a database.
 By the help of data visualization tools, we analyze the attacks.
 For security reasons, honeypots should run in a virtualized environment to avoid any harm to our host system.
@@ -247,11 +246,11 @@ SNARE is an abbreviation for Super Next generation Advanced Reactive honEypot.
 It is a successor of Glastopf, a web application sensor.
 In addition, it supports the feature of converting existing webpages into attack surfaces.
 TANNER \cite{tanner2021} can be seen as SNARES's brain.
-Whenever a request has been sent to SNARE, TANNER decides how the response should like.
+Whenever a request has been sent to SNARE, TANNER decides how the response should be.
 
 \subsubsection{Tools}
 
-T-Pot integrates tools to screen network traffic.
+T-Pot integrates tools to screen network traffic, and to block DoS attacks.
 
 \textbf{FATT} \cite{fatt2021} is used to extract metadata and fingerprints such as JA3 \cite{ja32021} and HASSH \cite{hassh2021} from captured packets.
 JA3 is a method for \enquote{creating SSL/TLS client fingerprints} whereas HASSH is a \enquote{network fingerprinting standard which can be used to identify specific client and server SSH implementations}.
@@ -326,24 +325,25 @@ The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
     \label{fig:overview-attacks}
 \end{figure}
 
+% ====================================================================================================================
+% Dionaea
 What is striking is the large disparity between the previously mentioned attacks on \ac{aws}, \ac{gcp}, and Azure.
-Especially for honeypots like Dionaea, it is unclear why so little attacks have been performed.
-Therefore, we assume that the packets run through a static filter.
-Heidelberg itself has a centralized packet filtering which indicates our assumption that certain ports or protocols are excluded.
-To prove that, a \textsc{nmap} TCP SYN scan (\verb|nmap -sS -A 129.206.5.74|) has been executed.
-Our result clearly shows that port 20 reserved for FTP, and port 139 for SMB is filtered, although the access security explicitly allows it.
-Furthermore, we have checked the stateless firewall that runs in front of heiCLOUD, and it turns out that FTP, SMB like other ports are filtered.
-Based on this, most of the attacks on Dionaea are made throughout FTP or SMB, and thus, explains the total number of attacks.
-Moreover, $96\%$ of IP addresses connected to Dionaea are known attackers, and $70\%$ were acquired on port 81, unofficially known for Tor routing.
+Especially with the honeypot Dionaea it is unclear why only \numprint{2,368} attacks have been performed.
+$96\%$ of IP addresses connected to Dionaea are known attackers, and $70\%$ were acquired on port 81, unofficially known for Tor routing.
 Neither any malware nor suspicious payload could be identified.
-Even with an \ac{acl} running in the background, heiCLOUD received more attacks than ever.
-We assume that the real number might be even higher without any packet filtering for FTP or SMB.
-To prove this assumption, we have consulted the administrator of the university firewall to excluded our T-Pot instance.
+We assume that the packets run through a static filter.
+Heidelberg itself has a centralized stateless firewall which indicates that certain ports or protocols are excluded.
+To prove our assumption, a \textsc{nmap} TCP SYN scan (\verb|nmap -sS -A 129.206.5.74|) has been performed.
+Our result clearly shows that port 139 for SMB is filtered, although the access security explicitly allows it.
+We also checked the stateless firewall running in front of heiCLOUD, and it turned out that this port is filtered with many others.
+Based on this, we assume that most of the attacks on Dionaea are carried out via SMB which would explain the total number of attacks.
+We have consulted the administrator of the university firewall to exclude our T-Pot instance to validate if the real number is even higher without any packet filtering in front of it.
 Respectively, for a period of three weeks (2nd of December until 23rd of December) no stateless packet filter has been applied to our T-Pot.
-We could identify a drastic increase in Dionaea attacks with a total of number of \numprint{213053} attacks.
-Overall, $93\%$ of all attacks are on the SMBD protocol followed by many database protocols such as mongod, and mssqld.
-This proves our assumption that without the packet filtering in front our instance a much higher amount of total attacks would be the result.
-Nevertheless, comparing the number with \citet{Kelly2021} we see that our number surpasses every other cloud provider.
+We could identify a drastic increase in Dionaea attacks with a total number of \numprint{213,053} attacks.
+Overall, $93\%$ of all attacks are on the smbd protocol followed by many database protocols such as mongod, and mssqld.
+This confirms our assumption that without the packet filter in front of our instance, a higher total number of attacks would be the result.
+
+Comparing the number with \citet{Kelly2021} we see that our number surpasses every other cloud provider.
 However, Dionaea attacks will not be included in our later results because normally a server is not allowed to be excluded from the university firewall.
 Only for our research purpose to assess the effect of the packet filter we were allowed to get a permit exclusion.
 
@@ -354,6 +354,8 @@ Only for our research purpose to assess the effect of the packet filter we were 
     \label{fig:attack-distribution}
 \end{figure}
 
+% ====================================================================================================================
+% Location
 Logstash uses GeoLite2 to resolve the source IP address with information such as location, ASN, continent code, country name, and AS organization.
 \autoref{fig:attack-distribution} indicates the geographical location of connections acquired to any honeypot.
 Most attacks are originated from the United States, Germany, Russia, and China.
@@ -382,11 +384,13 @@ We clearly identify a bias towards remote desktop protocol attacks, shell-code e
     \label{fig:suricata-results}
 \end{figure}
 
-Suricata registered several alerts and CVE's.
+% ====================================================================================================================
+% Suricata
+Suricata registered several alerts and \acsp{cve}.
 The vast majority of alerts are RDP related policies, VNC authentication failures, and \textsc{nmap} scans.
 Most used vulnerabilities are
 \begin{enumerate*}[label=(\roman*)]
-    \item CVE-2001-0540\cite{CVE-2001-0540} which is a memory leak in Terminal servers in Windows NT and Windows 2000 causing a denial of service (memory exhaustion) by malformed RDP requests,
+    \item CVE-2001-0540\cite{CVE-2001-0540} which is a memory leak in terminal servers in Windows NT and Windows 2000 causing a denial of service (memory exhaustion) by malformed RDP requests,
     \item CVE-2006-2369\cite{CVE-2006-2369} which is a RealVNC vulnerability allowing hackers to bypass authentication, and
     \item CVE-2012-0152\cite{CVE-2012-0152} which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets
 \end{enumerate*}.
@@ -405,15 +409,15 @@ This shows how fast bots adapt to new vulnerabilities in order to compromise mor
     \label{fig:rdpy-results}
 \end{figure}
 
-The results from RDPY in \autoref{fig:rdpy-results} backups our assumption.
-It shows that only a small margin represents unique src IPs.
+% ====================================================================================================================
+% RDPY
+The results from RDPY in \autoref{fig:rdpy-results} backups our assumption that attacks originate from bots.
+It shows that only a small margin represents unique source IP addresses.
 The rest of the attacks result in either bad reputation, bot, crawler, or known attacker.
 \autoref{fig:suricata-results} shows the distribution of alert categories that Suricata identified.
 Respectively, misc activities sum up to roughly $1.5$ million entries, \ac{rdp} related alerts account two-third of it.
 Several RDP attacks from 2021 back to 2001 had been executed on our T-Pot.
 Respectively, CVE-2012-0152 and CVE-2001-0540 coincide with the ones \citet{Kelly2021} claim.
-% We assume the skyrocketing number of attacks roots back to the Corona pandemic due to an increase of the remote desktop protocol.
-Furthermore, lack of updates and outdated servers using \ac{rdp} remain an easy target for automatic attacks that scan the web and try to find new exposures.
 
 \begin{figure}[ht]
     \centering
@@ -421,7 +425,8 @@ Furthermore, lack of updates and outdated servers using \ac{rdp} remain an easy 
     \caption[Honeytrap results of T-Pot]{Honeytrap results of T-Pot. Timestamp; 21st of September to 16th of October.}
     \label{fig:honeytrap-results}
 \end{figure}
-
+% ====================================================================================================================
+% Honeytrap
 For NFQ related attacks, Honeytrap could identify three major services that are not provided by default.
 Honeytrap functions as a honeypot to provide a service on ports which are not specified by default.
 NFQ intercepts incoming TCP connections during the TCP handshake and Honeytrap provides a service for it.
@@ -432,7 +437,7 @@ Most of these interceptions are made on
     \item port 7070 which is merely used by Apple's QuickTime streaming server (RTSP)
 \end{enumerate*}.
 On nearly all ports attacks focused on RDP connection attempts (\verb|Cookie: mstshash=Administr|).
-However, $94\%$ of all connected IP addresses are resolved as known attackers.
+However, $94\%$ of all connected IP addresses on Honeytrap are resolved as known attackers.
 
 \begin{figure}[ht]
     \centering
@@ -441,13 +446,15 @@ However, $94\%$ of all connected IP addresses are resolved as known attackers.
     \label{fig:cowrie-results}
 \end{figure}
 
+% ====================================================================================================================
+% Cowrie
 Third most compromised honeypot is Cowrie with a strong bias towards SSH, and FTP.
 \autoref{fig:cowrie-results} shows all attacks executed on Cowrie separated by their port.
 Respectively, SSH port $22$ is the most considered port, resulting in a high use for privilege escalation.
-Besides default credentials login attempts (\verb|username: root|, \verb|password: root|, see \autoref{fig:cowrie-credentials} for top 10 credentials), adversaries used various commands to retrieve any information about the host system (\verb|nproc;uname -a|, \verb|cat /proc/cpuinfo|).
+Besides using default credentials to log in (\verb|username: root|, \verb|password: root|, see \autoref{fig:cowrie-credentials} for top 10 credentials), adversaries used various commands to retrieve any information about the host system (\verb|nproc;uname -a|, \verb|cat /proc/cpuinfo|).
 We could identify a unique information gathering attack that has been widely used on our T-Pot.
 \autoref{lst:code-exploitation} shows all shell commands that are executed.
-Attackers try to gain knowledge about the running process on the system (\verb|/bin/busybox|).
+Attackers try to gain knowledge about running processes on the system (\verb|/bin/busybox|).
 Interestingly, crypto mining attacks are getting more attractive to criminals.
 For example, XMRig has been the most downloaded malware for cryptocurrency mining.
 Some adversaries even executed complex tailored shell commands to exploit the host machine as a crypto miner (\autoref{lst:crypto-exploitation}).
@@ -483,6 +490,8 @@ This looks more appealing than acquiring mining machines and hijacking electrici
     \label{fig:cowrie-credentials}
 \end{figure*}
 
+% ====================================================================================================================
+% P0f
 P0f identified different Windows versions and Linux distributions in conjunction with various SSH clients that are used to compromise our T-Pot.
 Like \citet{Kelly2021}, Windows 7 or 8 and Windows NT Kernel are the most used \ac{os} with $81\%$.
 Unfortunately, disguising OS fingerprinting activities account $84\%$ of all fingerprints.
@@ -494,8 +503,8 @@ The total number of attacks were merely influenced by it.
 This indicates that our own scans do not greatly interfere with our findings.
 Due to completeness, we leave our results as they are and do not show the filtered data.
 
+% ====================================================================================================================
 % Conclusion
-Overall, heiCLOUD receives nearly doubled the size of attacks.
 On average, heiCLOUD has received $48.23\%$ more than Azure, \ac{gcp}, and \ac{aws}.
 Attacks on Cowrie, RDPY, and Honeytrap are the most compromised honeypots.
 In contrast to \citet{Kelly2021}, Dionaea and Glutton used to be the most considered honeypots for adversaries.
@@ -509,14 +518,16 @@ Considering the BSI\footnote{The Federal Office for Information Security is resp
 Respectively, the IT infrastructure could not keep up with this fast change and widen the attack surface of the company.
 Their conclusion overlays our assumption that attackers took advantage and increased their activities.
 This phenomenon shows that nearly all attacks originate from bots which scan through IP address ranges.
-In total, $73\%$ of all IP address are unresolved, known attacker reputation represents the largest part of resolved IP addresses with $23\%$.
+In total, $73\%$ of all IP address are unresolved.
+Known attacker reputation represents the largest part of resolved IP addresses with $23\%$.
 Fortunately, such reputations could technically be filtered by an organization's firewall and would lower the chance of an exploit.
 Interestingly, after 3 weeks the number of attacks originated from China decreased to almost zero percent.
 This might be an indication that our honeypot has been exposed, and further attacks represent a risk of revealing their compromises.
 However, this assumption cannot be confirmed due to the lax geographical reliability of IP addresses.
 
 Our results lay emphasis on the importance of honeypots.
-It shows that recent bot activities can be traced to find the newest trends of attacks.
+It gives a proper security measure of an IT infrastructure, and helps to identify potential leaks or vulnerabilities.
+Moreover, it shows that T-Pot helps to detect recent bot activities, and gives an outlook to the newest trends of attacks.
 
 \begin{sidewaystable}
     \centering
@@ -558,11 +569,11 @@ It shows that recent bot activities can be traced to find the newest trends of a
 One downside of T-Pot is the static hostname representation of Cowrie.
 It always returns \verb|#1 SMP Debian 3.2.68-1+deb7u1| (\verb|uname -a|) as hostname information, leaving a tiny footprint when bots crawl through the web.
 A random choice of hostname information could harden Cowrie from being exposed.
-Next, if attackers would scan open ports on T-Pot, it might be suspicious when many ports with services are widely open.
+Next, if attackers would scan open ports on T-Pot, it might be suspicious when many ports with services are open.
 From a technical perspective, bots could check this state if it is uncommon, and thus, exclude T-Pot from being probed.
-However, T-Pot includes good preventions like random hostname and scheduled tasks.
-Another major drawback is the latest endeavor to fingerprint honeypots.
-As recently investigated by \citet{vetterl2020}, fingerprinting honeypots is becoming easier due to a fatal flaw in the underlying protocol implementation.
+However, T-Pot includes good preventions like a random hostname and scheduled tasks.
+Another major drawback is the latest endeavor to detect honeypots on transport level.
+As recently investigated by \citet{vetterl2020}, detecting honeypots is becoming easier due to a fatal flaw in the underlying protocol implementation.
 \citet{vetterl2020} states that attackers always try to prevent their methods, exploits and tools from being divulged.
 Therefore, detecting honeypots before attack them is a strong motivation for black hats.
-In \autoref{chap:fingerprinting} we will present a way to avoid fingerprinting of Cowrie.
+In \autoref{chap:fingerprinting} we will present a way to avoid such fingerprint activities with the honeypot Cowrie.

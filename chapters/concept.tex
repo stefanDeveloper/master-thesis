@@ -16,7 +16,7 @@ As \citet{Spitzner2003} noted, a honeypot is not strictly bound to run in a \ac{
 The correct location has to be chosen based on the goals of the honeypot.
 For example, one goal could be to catch attackers behind a perimeter firewall to reveal leaks or vulnerabilities.
 Beforehand, our honeypot was broadly available on the Internet, and attackers could probe it easily.
-It collected on average \numprint{29,840} attacks per day, resulting in a total amount of \numprint{607,747} attacks.
+It collected on average \numprint{29840} attacks per day, resulting in a total amount of \numprint{607747} attacks.
 Zoning a network into logical groups mitigates the risk of an open network.
 Thus, our T-Pot would receive significantly fewer attacks in a controlled network zone.
 A network infrastructure is segmented into the same communication security policies and security requirements.
@@ -155,7 +155,7 @@ Our MADCAT (28th of October till 17th of November) and T-Pot (16th of November t
 All instances had a connection to both subnets.
 First, the results obtained in the subnet \ipAddress{129.206.218.0/24} will be presented, closing up with the ones we claim in the eduroam network.
 
-In total, MADCAT received \numprint{35,372} packets.
+In total, MADCAT received \numprint{35372} packets.
 Overall, the modules TCP ($66.62\%$) and RAW ($33.26\%$) received the majority of all connection attempts.
 The minority with less than one percent are suspicious packets which have individual TCP flags like reset or syn set. 
 On the contrary, we could not identify any harmful activity based on these packets.
@@ -214,9 +214,9 @@ Nevertheless, it is an interesting insight to see where the last node originated
 \end{figure}
 
 Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribution}).
-In total, it detected \numprint{300000} alerts and \acsp{cve}.
+In total, it detected \numprint{292953} alerts and \acsp{cve}.
 Besides minor alerts like \textsc{nmap} scans, Suricata registered alerts in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
-CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $99\%$ with a total number of $\numprint{102,838}$.
+CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $99\%$ with a total number of \numprint{102838}.
 This \acs{cve} is one of 19 others forming the \enquote{Ripple20} vulnerability in the low-level TCP/IP library developed by Treck, Inc..
 One of the task of the Track TCP/IP stack is to reassemble fragmented packets.
 Whenever a fragmented packet arrives, the stack tries to validate the total length in the IP header.
@@ -297,5 +297,5 @@ We assume that the results are accurate, and do not show any discrepency.
 Considering the subnet with stage 1 institute firewall, we identified attacks on port 113 resulting in an adaption of the stage 1 permits.
 On the contrary, we could not register any other odd packets on other ports.
 We assume that a detailed investigation could resolve upcoming questions regarding the accuracy.
-Especially, an exclusion of honeypot to permit any kind of communication would help us to compare our results.
+Especially, an exclusion of the honeypot to permit any kind of communication would help us to compare our results.
 Such an approach has been done in \autoref{chap:cloud-security} to prove that certain protocols are blocked in heiCLOUD.

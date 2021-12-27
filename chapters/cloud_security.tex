@@ -4,8 +4,7 @@
 Attacks from the Internet are often originated from bots.
 A bot, short for \enquote{robot}, is an automated process that interacts with different network services.
 Besides good intentions, bots can be used for malicious purposes.
-Mostly, bots try to self-propagate malware across the Internet and try to capture hosts that merge into a botnet.
-%A botnet has a central server or servers that act as a command and control center for all infected hosts \cite{Feily2009}.
+Mostly, bots try to self-propagate malware across the Internet and try to capture hosts that merge into a botnet \cite{Feily2009}.
 Recently, Universities in Germany received more cyberattacks than ever, respectively increasing their costs for damage repairs.
 Honeypots are a good solution to catch attackers and learn from their exploits.
 However, there is no conclusion if honeypots in times of bots give a proper countermeasure to avoid such damage.
@@ -30,21 +29,25 @@ Microsoft Azure reflects nearly the same results as the other two cloud provider
 
 \begin{table}
     \centering
-    \caption[Overview of attacks on cloud providers]{Overview of attacks on cloud providers. For a better overview, only the three most attacked honeypots are listed. The others combine several honeypots.}
+    \caption[Overview of attacks on cloud providers]{
+        Overview of attacks on cloud providers.
+        For a better overview, only the three most attacked honeypots are listed.
+        The others combine several honeypots.
+    }
     \begin{tabularx}{\linewidth}{l|XXXX|l}
         \toprule
         \textsc{Provider} & \multicolumn{4}{c|}{\textsc{Honeypot}} & \textsc{In Total}                                                           \\
                           & \textbf{Dionaea}                       & \textbf{Cowrie}   & \textbf{Glutton} & \textbf{others}  &                   \\
         \hline
-        \acl{aws}         & \numprint{228,075}                      & \numprint{4,503}   & \numprint{11,878} & \numprint{3,688}  & \numprint{248,144} \\
-        \acl{gcp}         & \numprint{162,570}                      & \numprint{297,818} & \numprint{84,375} & \numprint{36,403} & \numprint{581,116} \\
-        Microsoft Azure   & \numprint{308,102}                      & \numprint{9,012}   & \numprint{17,256} & \numprint{6,365}  & \numprint{340,735} \\
+        \acl{aws}         & \numprint{228075}                      & \numprint{4503}   & \numprint{11878} & \numprint{3688}  & \numprint{248144} \\
+        \acl{gcp}         & \numprint{162570}                      & \numprint{297818} & \numprint{84375} & \numprint{36403} & \numprint{581116} \\
+        Microsoft Azure   & \numprint{308102}                      & \numprint{9012}   & \numprint{17256} & \numprint{6365}  & \numprint{340735} \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-cloud-security}
 \end{table}
 
-The overall results show an average ratio of \numprint{55,000} attacks per day, summing up to roughly $1.3$ million in total.
+The overall results show an average ratio of \numprint{55000} attacks per day, summing up to roughly $1.3$ million in total.
 Similar results for different regions could have been reproduced.
 Their results clearly show the disparity of the regions Europe, US, and Asia.
 An important question that \citet{Kelly2021} answered is if attackers target services on cloud providers based on the cloud providers' market share.
@@ -162,7 +165,12 @@ Newer versions might be available by the end of this study and could differ from
 \begin{sidewaysfigure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-architecture.pdf}
-    \caption[T-Pot architecture]{T-Pot architecture derived from \cite{tpot2021}. Honeypots are encapsulated in their own network. NSM runs on the host network, and thus, receives every packet. ELK and tools run on localhost, and are accessible through NGINX.}
+    \caption[T-Pot architecture]{
+        T-Pot architecture derived from \cite{tpot2021}.
+        Honeypots are encapsulated in their own network.
+        NSM runs on the host network, and thus, receives every packet.
+        ELK and tools run on localhost, and are accessible through NGINX.
+    }
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
 
@@ -280,7 +288,10 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 
 \begin{sidewaystable}
     \centering
-    \caption[Overview of honeypots of T-Pot]{Overview of all available honeypots and tools of T-Pot with interaction level, port, and a short description. Ports are marked with either TCP or UDP, if a port misses any definition, both TCP and UDP are allowed.}
+    \caption[Overview of honeypots of T-Pot]{
+        Overview of all available honeypots and tools of T-Pot with interaction level, port, and a short description.
+        Ports are marked with either TCP or UDP, if a port misses any definition, both TCP and UDP are allowed.
+    }
     \begin{tabularx}{\linewidth}{l|XlX}
         \toprule
         \textsc{Honeypots}                        & \multicolumn{3}{c}{}                                                                                                                                                                                                            \\
@@ -313,22 +324,25 @@ Its key idea is to send an endless stream of data to the attacker until its memo
 \section{Results}
 \label{sec:honeypots-heicloud}
 
-Our T-Pot has been deployed for 3 weeks (from 21st of September to 16th of October) and collected in total \numprint{607,747} attacks.
-Overall, RDPY ($46.08\%$), Honeytrap ($33.23\%$), and Cowrie ($12.42\%$) received most of the attacks with a total amount of \numprint{540,398} attacks.
+Our T-Pot has been deployed for 3 weeks (from 21st of September to 16th of October) and collected in total \numprint{607747} attacks.
+Overall, RDPY ($46.08\%$), Honeytrap ($33.23\%$), and Cowrie ($12.42\%$) received most of the attacks with a total amount of \numprint{540398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.pdf}
-    \caption[Distribution of honeypot attacks]{Distribution of honeypot attacks}
+    \caption[Distribution of honeypot attacks]{
+        Distribution of honeypot attacks.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{fig:overview-attacks}
 \end{figure}
 
 % ====================================================================================================================
 % Dionaea
 What is striking is the large disparity between the previously mentioned attacks on \ac{aws}, \ac{gcp}, and Azure.
-Especially with the honeypot Dionaea it is unclear why only \numprint{2,368} attacks have been performed.
+Especially with the honeypot Dionaea it is unclear why only \numprint{2368} attacks have been performed.
 $96\%$ of IP addresses connected to Dionaea are known attackers, and $70\%$ were acquired on port 81, unofficially known for Tor routing.
 Neither any malware nor suspicious payload could be identified.
 We assume that the packets run through a static filter.
@@ -339,7 +353,7 @@ We also checked the stateless firewall running in front of heiCLOUD, and it turn
 Based on this, we assume that most of the attacks on Dionaea are carried out via SMB which would explain the total number of attacks.
 We have consulted the administrator of the university firewall to exclude our T-Pot instance to validate if the real number is even higher without any packet filtering in front of it.
 Respectively, for a period of three weeks (2nd of December until 23rd of December) no stateless packet filter has been applied to our T-Pot.
-We could identify a drastic increase in Dionaea attacks with a total number of \numprint{213,053}.
+We could identify a drastic increase in Dionaea attacks with a total number of \numprint{213053}.
 Overall, $93\%$ of all attacks are on the smbd protocol followed by many database protocols such as mongod, and mssqld.
 This confirms our assumption that without the packet filter in front of our instance, a higher total number of attacks would be the result.
 
@@ -350,7 +364,10 @@ Only for our research purpose to assess the effect of the packet filter we were 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
-    \caption[Attack distribution of T-Pot]{Attack distribution of T-Pot. USA, Russia, China, and Germany are the most attacking countries. Timestamp; 21st of September to 16th of October.}
+    \caption[Attack distribution of T-Pot]{
+        Attack distribution of T-Pot. USA, Russia, China, and Germany are the most attacking countries.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{fig:attack-distribution}
 \end{figure}
 
@@ -367,7 +384,11 @@ Hence, we do not strongly rely on the geographical information.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-attacks-histogram.pdf}
-    \caption[Attack histogram of T-Pot]{Attack histogram of T-Pot. Only the five most attacked honeypots are considered. Timestamp; 21st of September to 16th of October.}
+    \caption[Attack histogram of T-Pot]{
+        Attack histogram of T-Pot.
+        Only the five most attacked honeypots are considered.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{tpot-overview-histogram}
 \end{figure}
 
@@ -380,7 +401,11 @@ We clearly identify a bias towards remote desktop protocol attacks, shell-code e
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
-    \caption[Suricata results of T-Pot]{Suricata results of T-Pot. Displays the five most listed alert categories. Timestamp; 21st of September to 16th of October.}
+    \caption[Suricata results of T-Pot]{
+        Suricata results of T-Pot.
+        Displays the five most listed alert categories.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{fig:suricata-results}
 \end{figure}
 
@@ -395,7 +420,7 @@ Most used vulnerabilities are
     \item CVE-2012-0152\cite{CVE-2012-0152} which enables attackers for RDP in Microsoft Windows Server 2008 R2 and R2 SP1 and Windows 7 Gold and SP1 to cause a denial of service by sending a series of crafted packets
 \end{enumerate*}.
 As derived from \autoref{fig:suricata-results}, our T-Pot has not received many attacks in the first week.
-Starting from 28th of October the number of alerts are skyrocketing.
+Starting from 28th of September the number of alerts are skyrocketing.
 This would indicate that bots crawl IP address ranges to find new machines and probe them.
 Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October, and immediately recognized by Suricata on the 15th of October.
 Attackers could perform a remote code execution using path traversal attacks when the CGI scripts of Apache are enabled.
@@ -405,7 +430,10 @@ This shows how fast bots adapt to new vulnerabilities in order to compromise mor
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-rdpy-port.pdf}
-    \caption[RDPY results of T-Pot]{RDPY attacks separated in attacks and unique src IPs. Timestamp; 21st of September to 16th of October.}
+    \caption[RDPY results of T-Pot]{
+        RDPY attacks separated in attacks and unique source IP addresses.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{fig:rdpy-results}
 \end{figure}
 
@@ -422,7 +450,10 @@ Respectively, CVE-2012-0152 and CVE-2001-0540 coincide with the ones \citet{Kell
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-honeytrap-port.pdf}
-    \caption[Honeytrap results of T-Pot]{Honeytrap results of T-Pot. Timestamp; 21st of September to 16th of October.}
+    \caption[Honeytrap results of T-Pot]{
+        Honeytrap results of T-Pot.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{fig:honeytrap-results}
 \end{figure}
 % ====================================================================================================================
@@ -442,7 +473,10 @@ However, $94\%$ of all connected IP addresses on Honeytrap are resolved as known
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-cowrie-port.pdf}
-    \caption[Cowrie results of T-Pot]{Cowrie results of T-Pot. Timestamp; 21st of September to 16th of October.}
+    \caption[Cowrie results of T-Pot]{
+        Cowrie results of T-Pot.
+        Timestamp; 21st of September to 16th of October.
+    }
     \label{fig:cowrie-results}
 \end{figure}
 
@@ -486,7 +520,10 @@ This looks more appealing than acquiring mining machines and hijacking electrici
         \caption{Cowrie password credentials}
         \label{fig:tpot-cowrie-password}
     \end{subfigure}
-    \caption[Cowrie top 10 credentials on T-Pot]{Cowrie top 10 credentials used on T-Pot. Timestamp 22nd of September to 18th of October}
+    \caption[Cowrie top 10 credentials on T-Pot]{
+        Cowrie top 10 credentials used on T-Pot.
+        Timestamp 22nd of September to 18th of October
+    }
     \label{fig:cowrie-credentials}
 \end{figure*}
 
@@ -519,7 +556,7 @@ Respectively, the IT infrastructure could not keep up with this fast change and 
 Their conclusion overlays our assumption that attackers took advantage and increased their activities.
 This phenomenon shows that nearly all attacks originate from bots which scan through IP address ranges.
 In total, $73\%$ of all IP address are unresolved.
-Known attacker reputation represents the largest part of resolved IP addresses with $23\%$.
+The known attacker reputation represents the largest part of resolved IP addresses with $23\%$.
 Fortunately, such reputations could technically be filtered by an organization's firewall and would lower the chance of an exploit.
 Interestingly, after 3 weeks the number of attacks originated from China decreased to almost zero percent.
 This might be an indication that our honeypot has been exposed, and further attacks represent a risk of revealing their compromises.
@@ -531,34 +568,37 @@ Moreover, it shows that T-Pot helps to detect recent bot activities, and gives a
 
 \begin{sidewaystable}
     \centering
-    \caption[Overview of attacks on heiCLOUD, AWS, GC and Azure]{Overview of attacks on heiCLOUD, AWS, GC and Azure. Only the top 10 most attacked honeypots are considered. \enquote{-} entails that a honeypot is not part of the top 10.}
+    \caption[Overview of attacks on heiCLOUD, AWS, GC and Azure]{
+        Overview of attacks on heiCLOUD, AWS, GC and Azure.
+        Only the top 10 most attacked honeypots are considered. \enquote{-} entails that a honeypot is not part of the top 10.
+    }
     \begin{tabularx}{\linewidth}{l|rrc|rr|rr|rr}
         \toprule
-        \textsc{Honeypots} & \multicolumn{3}{c}{BASIS}              & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                                                   \\
-                           & \multicolumn{3}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}       & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                                           \\
-                           & \textbf{Number}                        & \textbf{Pct.}                           &                                  & \textbf{Number}                    & \textbf{Pct.} & \textbf{Number}    & \textbf{Pct.} & \textbf{Number}    & \textbf{Pct.} \\
+        \textsc{Honeypots} & \multicolumn{3}{c}{BASIS}              & \multicolumn{6}{c}{\textsc{comparison}}                                                                                                                                                                 \\
+                           & \multicolumn{3}{c|}{\textsc{heiCLOUD}} & \multicolumn{2}{c|}{\textsc{AWS}}       & \multicolumn{2}{c|}{\textsc{GC}} & \multicolumn{2}{c}{\textsc{Azure}}                                                                                         \\
+                           & \textbf{Number}                        & \textbf{Pct.}                           &                                  & \textbf{Number}                    & \textbf{Pct.} & \textbf{Number}   & \textbf{Pct.} & \textbf{Number}   & \textbf{Pct.} \\
         \hline
-        ADBHoney           & \numprint{9,302}                       & $1.65\%$                                & $\color{green}{\uparrow}$        & \numprint{413}                     & $0.13\%$      & \numprint{2,497}   & $0.43\%$      & \numprint{442}     & $0.13\%$      \\
-        Cisco ASA          & \numprint{674}                         & $0.11\%$                                & $\color{green}{\uparrow}$        & \numprint{260}                     & $0.08\%$      & \numprint{750}     & $0.13\%$      & \numprint{134}     & $0.04\%$      \\
-        Citrix honeypot    & \numprint{1,121}                       & $0.18\%$                                &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Conpot             & \numprint{615}                         & $0.10\%$                                &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Cowrie             & \numprint{75,511}                      & $11.97\%$                               & $\color{red}{\downarrow}$        & \numprint{4,503}                   & $1.46\%$      & \numprint{297,818} & $51.25\%$     & \numprint{9,012}   & $2.64\%$      \\
-        DDoSPot            & \numprint{0}                           & $0\%$                                   &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Dicompot           & \numprint{22}                          & $0\%$                                   &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Dionaea            & \numprint{2368}                        & $0.40\%$                                & $\color{red}{\downarrow}$        & \numprint{288,075}                 & $93.49\%$     & \numprint{162,570} & $27.98\%$     & \numprint{308,102} & $90.42\%$     \\
-        Elasticpot         & \numprint{385}                         & $0.06\%$                                &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Glutton            & \numprint{0}                           & $0\%$                                   & $\color{red}{\downarrow}$        & \numprint{11,878}                  & $3.85\%$      & \numprint{84,375}  & $15.52\%$     & \numprint{17,256}  & $5.06\%$      \\
-        Heralding          & \numprint{35,680}                      & $4.34\%$                                & $\color{green}{\uparrow}$        & \numprint{1,885}                   & $0.61\%$      & \numprint{12,255}  & $2.11\%$      & \numprint{3,370}   & $0.99\%$      \\
-        HoneyPy            & \numprint{0}                           & $0\%$                                   & $\color{red}{\downarrow}$        & \numprint{172}                     & $0.06\%$      & \numprint{2,149}   & $0.37\%$      & \numprint{497}     & $0.15\%$      \\
-        HoneySAP           & \numprint{15}                          & $0\%$                                   &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Honeytrap          & \numprint{201,949}                     & $32.01\%$                               &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        IPPHoney           & \numprint{0}                           & $0\%$                                   &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        Mailoney           & \numprint{0}                           & $0\%$                                   & $\color{red}{\downarrow}$        & \numprint{720}                     & $0.23\%$      & \numprint{9,419}   & $1.62\%$      & \numprint{146}     & $0.04\%$      \\
-        MEDpot             & \numprint{2}                           & $0\%$                                   &                                  & -                                  & -             & -                  & -             & -                  & -             \\
-        RDPY               & \numprint{280,040}                     & $49.15\%$                               & $\color{green}{\uparrow}$        & \numprint{100}                     & $0.03\%$      & \numprint{7,916}   & $1.36\%$      & \numprint{1,463}   & $0.43\%$      \\
-        SNARE/TANNER       & \numprint{63}                          & $0.02\%$                                & $\color{red}{\downarrow}$        & \numprint{138}                     & $0.04\%$      & \numprint{1,367}   & $0.24\%$      & \numprint{313}     & $0.09\%$      \\
+        ADBHoney           & \numprint{9302}                        & $1.65\%$                                & $\color{green}{\uparrow}$        & \numprint{413}                     & $0.13\%$      & \numprint{2497}   & $0.43\%$      & \numprint{442}    & $0.13\%$      \\
+        Cisco ASA          & \numprint{674}                         & $0.11\%$                                & $\color{green}{\uparrow}$        & \numprint{260}                     & $0.08\%$      & \numprint{750}    & $0.13\%$      & \numprint{134}    & $0.04\%$      \\
+        Citrix honeypot    & \numprint{1121}                        & $0.18\%$                                &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Conpot             & \numprint{615}                         & $0.10\%$                                &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Cowrie             & \numprint{75511}                       & $11.97\%$                               & $\color{red}{\downarrow}$        & \numprint{4503}                    & $1.46\%$      & \numprint{297818} & $51.25\%$     & \numprint{9,012}  & $2.64\%$      \\
+        DDoSPot            & \numprint{0}                           & $0\%$                                   &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Dicompot           & \numprint{22}                          & $0\%$                                   &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Dionaea            & \numprint{2368}                        & $0.40\%$                                & $\color{red}{\downarrow}$        & \numprint{288075}                  & $93.49\%$     & \numprint{162570} & $27.98\%$     & \numprint{308102} & $90.42\%$     \\
+        Elasticpot         & \numprint{385}                         & $0.06\%$                                &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Glutton            & \numprint{0}                           & $0\%$                                   & $\color{red}{\downarrow}$        & \numprint{11878}                   & $3.85\%$      & \numprint{84375}  & $15.52\%$     & \numprint{17256}  & $5.06\%$      \\
+        Heralding          & \numprint{35680}                       & $4.34\%$                                & $\color{green}{\uparrow}$        & \numprint{1885}                    & $0.61\%$      & \numprint{12,255} & $2.11\%$      & \numprint{3370}   & $0.99\%$      \\
+        HoneyPy            & \numprint{0}                           & $0\%$                                   & $\color{red}{\downarrow}$        & \numprint{172}                     & $0.06\%$      & \numprint{2149}   & $0.37\%$      & \numprint{497}    & $0.15\%$      \\
+        HoneySAP           & \numprint{15}                          & $0\%$                                   &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Honeytrap          & \numprint{201949}                      & $32.01\%$                               &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        IPPHoney           & \numprint{0}                           & $0\%$                                   &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        Mailoney           & \numprint{0}                           & $0\%$                                   & $\color{red}{\downarrow}$        & \numprint{720}                     & $0.23\%$      & \numprint{9419}   & $1.62\%$      & \numprint{146}    & $0.04\%$      \\
+        MEDpot             & \numprint{2}                           & $0\%$                                   &                                  & -                                  & -             & -                 & -             & -                 & -             \\
+        RDPY               & \numprint{280040}                      & $49.15\%$                               & $\color{green}{\uparrow}$        & \numprint{100}                     & $0.03\%$      & \numprint{7916}   & $1.36\%$      & \numprint{1463}   & $0.43\%$      \\
+        SNARE/TANNER       & \numprint{63}                          & $0.02\%$                                & $\color{red}{\downarrow}$        & \numprint{138}                     & $0.04\%$      & \numprint{1367}   & $0.24\%$      & \numprint{313}    & $0.09\%$      \\
         \hline
-        \textsc{In total}  & \numprint{607,747}                     & $100\%$                                 &                                  & \numprint{308,144}                 & $100\%$       & \numprint{581,116} & $100\%$       & \numprint{340,735} & $100\%$       \\
+        \textsc{In total}  & \numprint{607747}                      & $100\%$                                 &                                  & \numprint{308144}                  & $100\%$       & \numprint{581116} & $100\%$       & \numprint{340735} & $100\%$       \\
         \bottomrule
     \end{tabularx}
     \label{tab:overview-honeypots-attacks}

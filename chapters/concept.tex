@@ -131,7 +131,7 @@ The subnet \ipAddress{147.142.0.0/16} connects clients to \enquote{eduroam}\foot
 Like the four stages of the institute firewall, the \enquote{eduroam} network, also called \enquote{Tagungslan}, builds various permits into the subnet.
 One essential difference is that services like SMTP and HTTP are not allowed, so that, attackers are not able to deploy traps for users.
 Moreover, each client is encapsulated in its own subnet that disables any communication to other clients.
-Our instances are located in the building with IP addresses \ipAddress{129.206.219.65} and \ipAddress{129.206.219.88}.
+Our instances are located in the building with IP addresses \ipAddress{129.206.219.62} and \ipAddress{129.206.219.88}.
 \autoref{fig:heicat-concept} outlines our concept using MADCAT and a separate instance to visualize our data.
 The first instance with IP address \ipAddress{129.206.5.157} provides Kibana, and Elasticsearch to visualize and crawl logs.
 The honeypot with IP address \ipAddress{129.206.5.88} consists of MADCAT in conjunction with P0f, Suricata, and FATT.
@@ -172,6 +172,8 @@ Interestingly, we could identify \ac{snmp} connections which are used by print s
     \label{fig:madcat-protocols}
 \end{figure}
 
+% ====================================================================================================================
+% Madcat
 \autoref{fig:madcat-protocols} shows the protocol distribution indicating a high amount of ICMP and IPv6 packets.
 Only $11.59\%$ of all IP address reputations could be resolved, splitting up into known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
 Focusing on TCP packets, $88.3\%$ are known attackers with source port 113 as the main target.
@@ -197,6 +199,8 @@ A vital security interest in port 113 is negligible, however, our concept helps 
     \label{fig:madcat-attack-distribution}
 \end{figure}
 
+% ====================================================================================================================
+% Location
 \autoref{fig:madcat-attack-distribution} shows the attack distribution indicating the origin of an IP address.
 Most of the connections originate from the United States, Germany, and China.
 As we have shown beforehand in \autoref{chap:cloud-security}, geographical information only outlines the last known location of a node.
@@ -213,15 +217,17 @@ Nevertheless, it is an interesting insight to see where the last node originated
     \label{fig:suricata-distribution}
 \end{figure}
 
+% ====================================================================================================================
+% Suricata
 Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribution}).
 In total, it detected \numprint{292953} alerts and \acsp{cve}.
 Besides minor alerts like \textsc{nmap} scans, Suricata registered alerts in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
-CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $99\%$ with a total number of \numprint{102838}.
+CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $73.35\%$ with a total number of \numprint{214879}.
 This \acs{cve} is one of 19 others forming the \enquote{Ripple20} vulnerability in the low-level TCP/IP library developed by Treck, Inc..
 One of the task of the Track TCP/IP stack is to reassemble fragmented packets.
 Whenever a fragmented packet arrives, the stack tries to validate the total length in the IP header.
 If the total length is not correct, it trims the data.
-However, this leads to an inconsistency, and thus, resulting in a buffer overflow when someone sends fragmented packets through tunnel.
+However, this leads to an inconsistency, and thus, resulting in a buffer overflow when someone sends fragmented packets through a tunnel.
 A detailed description of the vulnerability can be found in \cite{ripple20}.
 Adversary could send malformed IPv6 packets that cause an Out-of-bounds Read which results in a potential remote code execution.
 Only TCP/IP stack versions until $6.0.1.66$ are affected by this vulnerability.
@@ -252,6 +258,8 @@ However, for the other \acsp{cve} the IP reputation could not be resolved.
     \label{fig:port-histogram}
 \end{figure}
 
+% ====================================================================================================================
+% T-Pot
 Results from our T-Pot instance are exiguous, and in short, no real attacks such as shell exploitation have been performed.
 Overall, all connection attempts originated from Germany within the same network, and are made on port $161$ and $4567$.
 Conpot registered minor SNMPv2 Get, SNMPv1 Get, and GetNext requests.

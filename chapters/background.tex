@@ -405,27 +405,7 @@ Honeypots collect
     \item transactional data that is used to establish the connection
 \end{enumerate*}.
 \citet{sokol2017} studied the legal conditions for data collection and data retention.
-They have come to the conclusion that administrators of honeypots have a legal ground of legitimate interest to store and process personal data, such as IP addresses.
+They have concluded that administrators of honeypots have a legal ground of legitimate interest to store and process personal data, such as IP addresses.
 Moreover, for production honeypots, the legitimate interest is to secure services.
 Regarding the length of data retention, the principle of data minimization has to be considered, which means there is no clear answer for it.
 Any published data of research honeypots needs to be anonymized.
-
-%\subsection{Related Work}
-%
-%The Snort \cite{caswell2003} inline extension \textit{Bait'n'Switch} \cite{gonzalez2003} redirects attackers from production systems to honeypots.
-%Usually Snort drops malicious packets when they are detected and creates a specific rule to block malicious activity from the source.
-%In contrast, \textit{Bait'n'Switch} does not create a rule to block more request, instead, it redirects them to honeypots.
-%The attacker does not realize that all packets are rerouted, and that the original target has changed.
-%The \ac{ids} is bounded to its signature database and can only redirect known attacks. \cite{Diebold2005}
-%
-%Whereas \textit{Bait'n'Switch} had to drop the first attack which leads to a suspicious behavior for attackers, the \textit{Intrusion Trap System} \cite{takemori2003} is capable of forwarding the first request.
-%Therefore, the first recognized attack by the \ac{ids} can be forwarded and answered by honeypots. \cite{Diebold2005}
-%
-%The \textit{honeyd} \cite{Provos2003} extension \textit{Honeycomb} \cite{kreibich2004} enables automatically generates \textit{Snort} and \textit{Bro} \cite{paxson1999} signatures for all incoming traffic.
-%In addition, new signatures are created for similar patterns if they do not exist already, and updating of existing ones to improve their quality.
-%This is based on the incoming traffic, and the corresponding attack session.
-%Even mutations of attacks are considered.
-%It generates a more generic description for signatures in order to match the original attack, and the mutation.
-%It helps to keep the size of signatures small.
-%However, the downside of this extension is the missing verification of attacks.
-%Wrongly redirected traffic will not be proofed if an attack was successful even though a signature has been created. \cite{Diebold2005}

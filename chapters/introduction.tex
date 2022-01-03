@@ -1,46 +1,44 @@
 \chapter{Introduction}
 
-Recently, Europol\footnote{An agency that fights against terrorism, cybercrime, and other threats \cite{europol2021}} rose awareness of new cyber threats related to the ongoing pandamic.
-As stated in their yearly \ac{iocta} report, scanning of corporate infrastructures have been skyrocketing within the last 12 months by ransomware groups respectively increasing malware usage.
+Recently, Europol\footnote{An agency that fights against terrorism, cybercrime, and other threats \cite{europol2021}} raised awareness of new cyber threats related to the ongoing pandemic.
+As stated in their yearly \ac{iocta} report, scanning of corporate infrastructures has been skyrocketing within the last 12 months by ransomware groups, respectively increasing malware usage.
 Attackers use scans to find potential vulnerabilities in remote desktop sharing software, or \acp{vpn} in order to deploy malware and blackmail companies. \cite{iocta2020}
-The rapid increase dates back to the pandamic and the shift to home office, forcing companies to quickly adapt their infrastructures.
+The rapid increase dates back to the pandemic and the shift to home office, forcing companies to adapt their infrastructures quickly.
 Such changes come with the downside of adding new threats to an organization.
-The latest incident at the SRH University Heidelberg points out the obsenity that institutions face when ransomware groups have access and exploit various parts of an infrastructure with malware.
-An unkown group infected systems with malware, and distributed internal data in the darknet.
-Such incidents lay emphasis for the rise of cyber criminal activties.
+The latest incident at the SRH University Heidelberg points out the obstacles institutions face when ransomware groups have access and exploit various parts of the infrastructure with malware.
+An unknown group infected systems with malware and distributed internal data in the darknet.
+Such incidents emphasize the rise of malicious activities.
 
-Especially in cloud computing, controlling access to services is becoming a tougher challenge due to access to large data sets and computing resources.
-Besides traditional security leverages such as firewalls or intrusion detection systems, one known methodology to strengthen infrastructures is to learn from those who attacks it.
-Honeypots are a proper instrument with the objective to gather information about attackers.
+Especially in cloud computing, controlling access to services is becoming a stricter challenge due to access to large data sets and computing resources.
+Besides traditional security measures such as firewalls or intrusion detection systems, one known methodology to strengthen infrastructures is learning from those who attack them.
+Honeypots are a proper instrument to gather information about attackers.
 It is \enquote{a security resource whose value lies in being probed, attacked, or compromised} \cite{Spitzner2003}.
-Unlike production systems, honeypots have to be easy to exploit. 
 Collecting attacks can reveal shell-code exploitation or bot activity.
 In retrospect, this would help to harden infrastructures before proper damage occurs.
 For a cloud provider, it is crucial to know whether and how attacks on its service can be prevented.
-Considering the Global Security Report by Trustwave, the amount of attacks doubled in 2019, and increased by $20\%$ in 2020 \cite{fahim2020}.
-Respectively puttting cloud providers to the third most targeted environments for cyberattacks, behind corporate and internal networks.
+Considering the Global Security Report by Trustwave, the number of attacks doubled in 2019 and increased by $20\%$ in 2020 \cite{fahim2020}, respectively putting cloud providers to the third most targeted environments for cyberattacks, behind corporate and internal networks.
 
-The Heidelberg University offers its own cloud provider, called heiCLOUD.
-It enables users to easily maintain and control computational resources. 
-Thus, it is interesting to elaborate the value of honeypots for this cloud solution.
-This thesis tries to answer the general research question whether honeypots can contribute to a more secure infrastructure in the context of a cloud environment.
+The Heidelberg University offers its own cloud service, called heiCLOUD.
+It enables users to maintain and control computational resources easily. 
+Thus, it is interesting to elaborate on the value of honeypots for this cloud solution.
+This thesis tries to answer the general research question of whether honeypots can contribute to a more secure infrastructure in a cloud environment.
 This includes deploying a honeypot solution in heiCLOUD and presenting the results.
-Prior to that, we will give an insight of a recent study investigating honeypots for the cloud providers AWS, GCP and Microsoft Azure.
-These findings assist to validate our results.
-In addition, we focus on the university network and try to find potential leaks in the stateless firewall.
-Therefore, we outline a concept using a honeypot-like detection tool of the BSI, and deploy it on desktop computers inside the university building.
-Lastly, we will consider an attacker's point of view by presenting recent work to detect honeypots on transport level.
-On the contrary, we draft a solution to mitigate these efforts and present our results.
+Prior to that, an insight into a recent study investigating honeypots for the cloud providers AWS, GCP, and Microsoft Azure is given.
+These findings help to validate the results in heiCLOUD.
+In addition, the university network will be investigated to find potential leaks in the stateless firewall.
+Therefore, a concept is created using the BSI's honeypot-like detection tool MADACT and deployed on desktop computers inside the university building.
+Furthermore, to consider an attacker's point of view, this thesis introduces a recent work to detect honeypots on the transport level.
+Lastly, a solution to mitigate these efforts will be presented.
 
-This thesis is structured in six chapters.
+This thesis includes six chapters.
 After the introduction, \autoref{chap:background} outlines the background knowledge that is needed to comprehend the upcoming experiments.
 It gives the reader a profound understanding of cloud computing, honeypots, and virtualization.
-In \autoref{chap:cloud-security}, \textit{Analyze Honeypot Attacks in the Cloud}, we show the status quo of cybercrime activities in heiCLOUD.
-In the beginning, we present the results that \citet{Kelly2021} claim for AWS, GCP and Microsoft Azure.
-Next, we give an insight of the T-Pot solution that has been used to collect our data, and show our results after collecting them over a period of three weeks.
-The \autoref{chap:concept}, \textit{Catching Attackers in Restricted Network Zones}, investigates the university network in which we deployed our new concept over a period of three weeks.
-We show that we were able to adapt the firewall, thus, improving the network security at the university.
+The \autoref{chap:cloud-security}, \textit{Analyze Honeypot Attacks in the Cloud}, presents the status quo of cybercrime activities in heiCLOUD.
+In the beginning, it shows the results that \citet{Kelly2021} claim for AWS, GCP, and Microsoft Azure.
+Next, it gives an insight into the T-Pot solution used to collect our data and shows the results after collecting them for three weeks.
+The \autoref{chap:concept}, \textit{Catching Attackers in Restricted Network Zones}, investigates the university network in which the new concept is deployed for three weeks.
+It shows that the concept was able to adapt the firewall, thus, improving the network security at the university.
 Finally, \autoref{chap:fingerprinting}, \textit{Mitigate Fingerprint Activities of Honeypots}, presents two experiments.
-First, we will describe the prilimnary work to detect honeypots, and finish off with an experiment to prove this assumption.
-Next, we draft the counterpart of mitigating this activity, also closing up with an experiment.
-Lastly, we complete this thesis with our conclusion that summarizes the results and describes future work in this regard.
+First, it describes the preliminary work to detect honeypots and finishes with an experiment to prove this assumption.
+Next, it drafts the counterpart of mitigating this activity, also closing up with an experiment.
+Lastly, chapter 6 completes this thesis with a conclusion that summarizes the results and describes future work in this regard.

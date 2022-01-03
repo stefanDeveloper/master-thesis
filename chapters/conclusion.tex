@@ -1,7 +1,7 @@
 \chapter{Conclusion}
 
 We have shown that cybercrime activities can be spotted by using honeypot solutions.
-Thus, the initial question if honeypots contribute to a more secure infrastructure has been answered successfully.
+This successfully answered the original question of whether honeypots contribute to a more secure infrastructure.
 We can confirm this assumption based on our results we have achieved in the cloud and in the university network.
 Our first approach was to collect data by the help of the T-Pot solution and compare them to a previous study of similiar cloud providers.
 It has shown that these activities increased significantly.
@@ -20,7 +20,7 @@ Any other suspicious behavior in the eduroam network could not be registered, pr
 Moreover, we have shown that honeypots like Cowrie have a fundamental flaw because they rely on off-the-shelf libraries.
 These libraries often re-implement protocol behaviors like OpenSSH, and adding a subtle difference to the response.
 On the contrary, this deviation of responses can be used to detect honeypots on transport level.
-Based on a cosine similiartiy coefficient, adversaries could spot honeypots before deploying any attack, thus, avoid exposures of newly developed attacks.
+Base on a cosine similiartiy coefficient, adversaries could spot honeypots before deploying any attack, thus, avoid exposures of newly developed attacks.
 We have re-created the findings \citet{vetterl2020} claims in his work by adapting OpenSSH $8.8P1$, and testing it on different Debian instances.
 Due to outdated algorithms, we have updated the key exchange initialization message to work with the latest version.
 We have shown that the lastest Cowrie version $2.3.0$ results in a bad packet length because the local version string does not match the expected ones of the underlying library TwistedConch.

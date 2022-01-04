@@ -11,7 +11,7 @@ If the reader has a profound understanding of cloud computing, honeypots, and vi
 % Virtualization
 \section{Virtualization}
 
-Virtualization, often referred to \ac{vm}, is defined by \citet{kreuter2004} as \enquote{an abstraction layer or environment between hardware component and the end-user}.
+Virtualization, often referred to as \acp{vm}, is defined by \citet{kreuter2004} as \enquote{an abstraction layer or environment between hardware component and the end-user}.
 A \ac{vm} runs on top of the \acg{os} core components.
 Through an abstraction layer, the \acl{vm} is connected with the real machine by hypervisors or \ac{vmm}.
 Hypervisors can use real machine hardware components but also support \aclg{vm} operating systems and configurations.
@@ -34,7 +34,7 @@ Lastly, virtual OS/container partitions the host operating system into container
 \section{Cloud Computing}
 \label{sec:cloud-computing}
 
-Cloud Computing has become a viral keyword these days. 
+Cloud Computing has become a viral keyword these days.
 It has been used by various large companies such as Google and Amazon.
 However, the term \enquote{cloud computing} dates back to late 1996, when a small group of technology executives of Compaq Computer framed new business ideas around the Internet.\cite{regalado2020}
 Starting from 2007, cloud computing evolved into a serious competitor and outnumbered the keywords' \enquote{virtualization}, and \enquote{grid computing} as reported by Google trends \cite{Wang2010}.
@@ -69,7 +69,7 @@ Consumers can acquire server time and network storage on demand without human in
 Heterogeneous thin and thick client platforms should be supported.
 
 \textit{Resource pooling} allows the provider's computing resources to be pooled across several consumers.
-A multi-tenant model with different physical and virtual resources is assigned on demand.
+Different physical and virtual resources are assigned on-demand with a multi-tenant model.
 Other aspects such as location are independent and cannot be controlled on a low level by consumers.
 Moreover, high-level access to specify continent, state, or datacenter can be available.
 
@@ -78,7 +78,8 @@ Further automation to quickly increase resources when demand surges can be suppo
 
 \textit{Measured service} handles resources in an automated and optimized manner.
 It uses additional metering capabilities to trace storage, processing, bandwidth, and active user accounts.
-This helps to monitor and control resource usage. Thus, contributing to transparency between provider and consumer.
+This helps to monitor and control resource usage.
+Thus, contributing to transparency between provider and consumer.
 
 % ====================================================================================================================
 % Service models
@@ -101,7 +102,8 @@ Each model on top represents a user-friendly abstraction with derated capabiliti
     \label{fig:cloud-functionalities}
 \end{figure}
 
-\ac{saas} is a high-level abstraction to consumers. Controlling the underlying infrastructure is not supported.
+\ac{saas} is a high-level abstraction to consumers.
+Controlling the underlying infrastructure is not supported.
 Providers often use a multi-tenancy system architecture to organize each consumer's application in a different environment.
 It helps to employ scaling with respect to speed, security availability, disaster recovery, and maintenance.
 The main objective of \ac{saas} is to host a consumer's software or application that can be accessed over the Internet using either a thin or rich client. \cite{Dillon2010}
@@ -115,7 +117,8 @@ In addition, the underlying infrastructure is not managed by the consumer. \cite
 In contrast to \ac{saas}, IT infrastructure capabilities (such as storage, networks) can be used.
 It strongly depends on virtualization due to the integration or decomposition of physical resources. \cite{Mell2011}
 
-\ac{daas} serves as a virtualized data storage service on demand. Motivations behind such services could be upfront costs of on-premise enterprise database systems. \cite{Dillon2010}
+\ac{daas} serves as a virtualized data storage service on demand.
+Motivations behind such services could be upfront costs of on-premise enterprise database systems. \cite{Dillon2010}
 Mostly they require \enquote{dedicated server, software license, post-delivery services, and in-house IT maintenance} \cite{Dillon2010} whereas \ac{daas} costs solely what consumers need.
 When dealing with a tremendous amount of data, file systems and RDBMS often lack performance.
 \ac{daas} outruns such weak links by employing a table-style abstraction that can be scaled. \cite{Dillon2010}
@@ -132,7 +135,8 @@ It is flexible, scalable, and manageable. \cite{Wang2010}
 Deployment models are categorized by \ac{nist} into four basic models.
 Each differs in data privacy, location, and manageability \cite{Mell2011}.
 
-Private clouds offer the highest level of control regarding data privacy and utilization. Such clouds are mostly deployed within a single organization, either managed by in-house teams or third-party suppliers.
+With private clouds, users have the highest control regarding data privacy and utilization.
+Such clouds are mostly deployed within a single organization, managed by in-house teams or third-party suppliers.
 In addition, it can be on- or off-premise.
 Within private clouds, consumers have full control of their data.
 Especially for European data privacy laws, it is not negligible when data is stored abroad, and thus, under the law of foreign countries.
@@ -145,7 +149,7 @@ Contrary to private ones, public clouds are fully owned by service providers suc
 Consumers do not know where their data is distributed.
 In addition, contracts underlie custom policies. \cite{Mell2011}
 
-A hybrid cloud is a mixture of two or more cloud infrastructures, such as private and public clouds.
+A hybrid cloud mixes two or more cloud infrastructures, such as private and public clouds.
 However, each entity keeps its core element.
 Hybrid clouds define \enquote{standardized or proprietary technology to enable data and application portability}\cite{Mell2011}.
 
@@ -164,7 +168,7 @@ In 2002, a Solaris honeypot helped to detect an unknown \verb|dtspcd| exploit.
 Interestingly, a year before in 2001 the Coordination Center of \acs{cert}\footnote{\acl{cert} is an expert group that handles computer security incidents\cite{cert2021}} shared their concerns regarding the dtspcd.
 Communities were aware that the service could be exploited to get access and remotely compromise any Unix system.
 However, such an exploit was not known during this time, and experts did not expect any in the near future.
-Gladly, early instances based on honeypot technologies could detect new exploits and avoid further incidents.
+Luckily, early instances based on honeypot technologies could detect new exploits and avoid further incidents.
 Such events emphasize the importance of honeypots.
 
 % ====================================================================================================================
@@ -178,7 +182,7 @@ See \autoref{subsec:honeypot-security-concept} for a detailed view regarding hon
 As \citet{Spitzner2003} has listed, the most misleading definitions are: a honeypot is a tool for deception, it is a weapon to lure adversaries or a part of an intrusion detection system.
 In order to get a basic understanding, this section wants to exhibit some key definitions.
 \citet{Spitzner2003} defines honeypots as a \enquote{security resource whose value lies in being probed, attacked, or compromised}.
-Independent of its source (e.g., server, application, or router), we expect our instance to be probed, attacked, and eventually exploited.
+Independent of its source (e.g., server, application, or router), he expects the instance to be probed, attacked, and eventually exploited.
 If a honeypot does not match this behavior, it will not provide any value.
 It is essential to mention that honeypots do not have any production value; thus, any communication that is acquired is suspicious by nature \cite{Spitzner2003}.
 In addition, \citet{Spitzner2003} points out that honeypots are not bound to solve a single problem; hence, they function as a generic perimeter and fit into different situations.
@@ -208,7 +212,8 @@ Production honeypots are the common type of honeypots that people would think of
 The objective is to protect production environments and mitigate the risk of attacks.
 Usually, production honeypots are easy to deploy within an organization.
 Mostly, low-interaction honeypots are chosen due to a significant risk reduction, so adversaries cannot exploit honeypots to attack other systems.
-The downside of a low-interaction honeypot is a lack of information, which means only standard information like the origin of attacks or what exploits have been used can be collected. In contrast, insides about communication of attackers or deployment of such attacks are unlikely to obtain.
+The downside of a low-interaction honeypot is a lack of information, which means only standard information like the origin of attacks or what exploits have been used can be collected.
+In contrast, insides about communication of attackers or deployment of such attacks are unlikely to obtain.
 In contrast, research honeypots do fulfill this objective. \cite{Spitzner2003}
 
 Research honeypots are used to learn more in detail about attacks.
@@ -217,7 +222,7 @@ Research honeypots are unlikely suitable for production environments due to a hi
 Facing an increase in deployment complexity and maintenance does not attract production usage either. \cite{Spitzner2003}
 
 It is worth mentioning that there is no exact line between research or production honeypots.
-Possible cases are honeypots that could function as either a production or a research honeypot.
+A possible use case is a honeypot that functions as a production or a research honeypot.
 Due to the dynamic range in which they are applicable, it is difficult to distinguish them.
 
 In addition, \citet{Provos2003} adds a differentiation for the virtual honeypot framework and splits it into the following types:
@@ -261,14 +266,16 @@ In comparison, medium-interaction honeypots allocate more time to install and co
 Also, more security checks have to be performed due to a higher interaction level than low-interaction honeypots. \cite{Spitzner2003}
 
 High-interaction honeypots represent a real \ac{os} to provide a full set of interactions to attackers.
-They are powerful because other production servers do not differ much from high-interaction honeypots.
+They are so powerful because other production servers do not differ much from high-interaction honeypots.
 They represent real systems in a controlled environment.
-The amount of information is tremendous. It helps to learn about
+The amount of information is tremendous.
+It helps to learn about
 \begin{enumerate*}[label=(\roman*)]
     \item new tools
     \item finding new bugs in the \ac{os}
     \item the black hat community
-\end{enumerate*}. However, the risk of such a honeypot is extremely high.
+\end{enumerate*}.
+However, the risk of such a honeypot is extremely high.
 It needs severe deployment and maintenance processes; thus, it is time-consuming.
 
 % ====================================================================================================================
@@ -280,7 +287,7 @@ Security concepts are classified by \citet{Schneier2004} in prevention, detectio
 Prevention includes any process that
 \begin{enumerate*}[label=(\roman*)]
     \item discourages intruders and
-    \item hardens systems to avoid any kind of breaches
+    \item hardens systems to avoid any breaches
 \end{enumerate*}.
 Detection scrutinizes the identification of attacks that threatens the systems'
 \begin{enumerate*}[label=(\roman*)]
@@ -292,7 +299,8 @@ Reaction treats the active part of the security concept.
 When attacks are detected, it conducts reactive measures to remove the threat.
 Each part is designed to be sophisticated so that all of them contribute to a secure environment. \cite{NawrockiWSKS2016}
 
-Honeypots contribute to the security concept like firewalls, or \acp{ids}. However, honeypots add only a small value regarding prevention because security breaches cannot be identified.
+Honeypots contribute to the security concept like firewalls, or \acp{ids}.
+However, honeypots add only a small value regarding prevention because security breaches cannot be identified.
 Moreover, attackers would avoid wasting time on honeypots and go straight for production systems instead.
 
 Detection is one of the strengths of honeypots.
@@ -301,7 +309,7 @@ If any connection is established to a honeypot, it is suspicious by nature.
 In conjunction with an alerting tool, attacks can be detected.
 
 Honeypots strongly supply reaction tools due to their clear data.
-It is not easy to find attacks for further data analysis in production environments.
+It is difficult to find attacks for further data analysis in production environments.
 Often data submerge with other activities, which complicates the process of reaction. \cite{NawrockiWSKS2016}
 \citet{NawrockiWSKS2016} distinguish honeypots from other objectives such as firewall or log-monitoring.
 
@@ -342,7 +350,7 @@ To assess the value of honeypots, this section looks at their advantages and dis
           Due to resource limitations, expensive hardware is not needed.
     \item Simplicity: A honeypot does not require complex algorithms or databases.
           A user should be able to deploy it somewhere quickly.
-          Research honeypots might come with an inevitable increase of complexity. 
+          Research honeypots might come with an inevitable increase of complexity.
           However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures.
     \item Return on Investment: Capturing attacks immediately informs users that suspicious activities occur on the infrastructure.
           This helps to demonstrate their value and contributes to new investments in other security measurements.
@@ -375,7 +383,7 @@ Instead of having single honeypots that can be attacked, a honeynet offers a com
 Those systems are high-interaction honeypots, thus, allowing them to fully interact with the \ac{os} and applications.
 The key idea is that an adversary can probe, attack, and exploit these systems so that the maintainer can derive interaction within this network.
 It should be mentioned that a honeynet has to be protected by firewalls.
-\autoref{fig:honeynet-example} represents such a honeynet within an organization.
+For example, \autoref{fig:honeynet-example} represents such a honeynet within an organization.
 
 \begin{figure}[ht]
     \centering
@@ -407,5 +415,5 @@ Honeypots collect
 \citet{sokol2017} studied the legal conditions for data collection and data retention.
 They have concluded that administrators of honeypots have a legal ground of legitimate interest to store and process personal data, such as IP addresses.
 Moreover, for production honeypots, the legitimate interest is to secure services.
-Regarding the length of data retention, the principle of data minimization has to be considered, which means there is no clear answer for it.
+Regarding the length of data retention, the principle of data minimization has to be considered, which means there is no clear answer.
 Any published data of research honeypots needs to be anonymized.

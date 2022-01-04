@@ -1,34 +1,34 @@
 \chapter{Conclusion}
 
-We have shown that cybercrime activities can be spotted by using honeypot solutions.
-This successfully answered the original question of whether honeypots contribute to a more secure infrastructure.
-We can confirm this assumption based on our results we have achieved in the cloud and in the university network.
-Our first approach was to collect data by the help of the T-Pot solution and compare them to a previous study of similiar cloud providers.
+This thesis has shown that organizations can spot malicious activities using honeypot solutions.
+This result successfully answered the original question of whether honeypots contribute to a more secure infrastructure.
+It can confirm this assumption based on its results in the cloud and in the university network.
+The first approach was to collect data with the help of the T-Pot solution and compare them to a previous study of similar cloud providers.
 It has shown that these activities increased significantly.
-Considering the services that are excluded by default of the firewall, heiCLOUD has received more attacks than ever, putting it on the first place compared to other cloud providers.
-We have seen various attacks such as in RDP, VoIP, and SSH.
-Outstanding are the amount of cryptocurrency related attacks which reflects the current situation of highly traded GPUs on the market.
+Considering the services excluded by default of the firewall, heiCLOUD has received more attacks than ever, putting it in the first place compared to other cloud providers.
+It has seen various attacks in RDP, VoIP, and SSH.
+Outstanding is the amount of cryptocurrency-related attacks that reflect the current situation of highly traded GPUs.
 In addition, the latest attacks like the Apache vulnerability in version $2.49.0$ could be traced back to very early stages, showing how fast attackers adapt to new vulnerabilities.
-Our assumption is that the vast majority of executed attacks on our instance originated from bots.
+The assumption is that most executed attacks on the instance originated from bots.
 
-Next, we have focused at the internal network of the university and implemented a new concept to detect every single packet that have been sent to a host machine.
-The MADCAT solution in conjunction with IDS tools helped us to identify the open port 113 that has been used to deploy attacks.
-We have shown that known attackers with an IP address originating from Russia have probed our instance, and we assume further attacks would have been carried out.
-In retrospect, this helped to remove the port from the permits in the firewall, thus, we have improved the security at the Heidelberg University.
-Any other suspicious behavior in the eduroam network could not be registered, proving that the firewall works by design.
+Next, this thesis has focused on the university's internal network and implemented a new concept to detect every single packet sent to a host machine.
+The MADCAT solution, in conjunction with IDS tools, helped identify the open port 113 that has been used to deploy attacks.
+It has shown that known attackers with an IP address originating from Russia have probed the instance, and as an assumption, further attacks would have been carried out.
+In retrospect, this helped remove the port from the firewall's permits, thus improving the security at the Heidelberg University.
+Any other suspicious behavior in the eduroam network could not be registered, proving that the firewall works as intented.
 
-Moreover, we have shown that honeypots like Cowrie have a fundamental flaw because they rely on off-the-shelf libraries.
-These libraries often re-implement protocol behaviors like OpenSSH, and adding a subtle difference to the response.
-On the contrary, this deviation of responses can be used to detect honeypots on transport level.
-Base on a cosine similiartiy coefficient, adversaries could spot honeypots before deploying any attack, thus, avoid exposures of newly developed attacks.
-We have re-created the findings \citet{vetterl2020} claims in his work by adapting OpenSSH $8.8P1$, and testing it on different Debian instances.
-Due to outdated algorithms, we have updated the key exchange initialization message to work with the latest version.
-We have shown that the lastest Cowrie version $2.3.0$ results in a bad packet length because the local version string does not match the expected ones of the underlying library TwistedConch.
+Moreover, honeypots like Cowrie have a fundamental flaw because they rely on off-the-shelf libraries.
+These libraries often reimplement protocol behaviors like OpenSSH and add a subtle difference to the response.
+On the contrary, this deviation of responses can be used to detect honeypots on the transport level.
+Adversaries could spot honeypots before deploying any attack based on a cosine similarity coefficient, thus avoiding exposures to newly developed attacks.
+The findings \citet{vetterl2020} claims in his work have been recreated by adapting OpenSSH $8.8P1$ and testing it on different Debian instances.
+Due to outdated algorithms, the key exchange initialization message has been updated to work with the latest version.
+It shows that the latest Cowrie version $2.3.0$ results in a bad packet length because the local version string does not match the expected ones of the underlying library TwistedConch.
 This result deviates fundamentally from OpenSSH.
-Lastly, we tried to protect Cowrie from early exposure by hiding it in the background and tunneling requests through a customized OpenSSH daemon.
-We have successfully fixed the generic weakness of Cowrie, so that, connecting to Cowrie works without running into a bad packet length error.
-Our last chapter shows that honeypots are not flawless, and developers should be careful during the decision of additional libraries.
+Lastly, an attempt to protect Cowrie from early exposure has been made by hiding it in the background and tunneling requests through a customized OpenSSH daemon.
+This has successfully fixed the generic weakness of Cowrie so that connecting to Cowrie works without running into a bad packet length error.
+The last chapter shows that honeypots are not flawless, and developers should be careful when deciding on additional libraries.
 
-In conclusion, we have presented concepts to catch attackers for different scenarios, and shown that cybercrime activities have increased tremendously.
-In addition, we have taken a deep dive into an edge-breaking study to detect honeypots on transport level, and have disguised Cowrie to block such activities.
-Thus, using honeypots as a security parameter have been proven promising for further scientific research.
+In conclusion, this thesis has presented concepts to catch attackers for different scenarios and shows that malicious activities have increased tremendously.
+In addition, it has taken a deep dive into an edge-breaking study to detect honeypots on transport level and has disguised Cowrie to block such activities.
+Thus, using honeypots as a security parameter has been proven promising for further scientific research.

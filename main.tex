@@ -50,7 +50,8 @@
 \usepackage{subcaption}
 % Code usage
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily,
+\lstdefinestyle{thesis}{
+  % basicstyle=\ttfamily,
   showstringspaces=false,
   commentstyle=\color{red},
   keywordstyle=\color{blue},
@@ -59,6 +60,8 @@
   numbers=left,
   stepnumber=1,
 }
+\lstset{basicstyle=\ttfamily, style=thesis}
+
 \usepackage[
 	pdftitle={Honeypot Implementation in a Cloud Environment},
 	pdfauthor={Stefan Machmeier},

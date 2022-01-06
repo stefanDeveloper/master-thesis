@@ -3,14 +3,12 @@ auth_password(struct ssh *ssh, const char *password)
 {
     Authctxt *authctxt = ssh->authctxt;
 
-    /* honeypot: Send the request to Cowrie */
+    /* Send the request to Cowrie */
     int rc;
     rc = authenticate_password(authctxt->user, password);
     authctxt->valid = 1;
 
-    /* libssh returns different values compared to OpenSSH, so we need to adjust it SSH_AUTH_SUCCESS=0, for OpenSSH this returns 1 */
-    logit("honeypot: Auth result sent from Cowrie: %d", rc);
-
+    /* libssh returns different values compared to OpenSSH, for SSH_AUTH_SUCCESS=0 returns 1 */
     if (rc == 0)
     {
         finish_connection_setup();
@@ -20,6 +18,6 @@ auth_password(struct ssh *ssh, const char *password)
     {
         return 0;
     }
-	/* honeypot: end */
+    /* end */
     ...
 }

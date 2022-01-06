@@ -211,7 +211,7 @@ Nevertheless, it is interesting to see where the last node originated from.
     \includegraphics[width=\textwidth]{figures/madcat-suricata-alerts.pdf}
     \caption[Suricata results of T-Pot]{
         Suricata results of T-Pot.
-        Timestamp; from 16th of November to 7th of December
+        Timestamp; from 16th of November to 7th of December.
     }
     \label{fig:suricata-distribution}
 \end{figure}
@@ -252,7 +252,7 @@ For the other \acsp{cve} the IP reputation could not be resolved.
     \includegraphics[width=\textwidth]{figures/madcat-port-histogram.pdf}
     \caption[Attack port histogram of T-Pot]{
         Attack port histogram of T-Pot.
-        Timestamp; from 16th of November to 7th of December
+        Timestamp; from 16th of November to 7th of December.
     }
     \label{fig:port-histogram}
 \end{figure}
@@ -297,12 +297,51 @@ Nonetheless, the initial question of whether attackers have access to the restri
 This chapter has shown that honeypots help find potential leaks in restricted network zones.
 Though, it remains questionable if the concept can deliver accurate results.
 The instance has been running for three weeks in the two different subnets.
-The honeypot has to be detected as a vulnerable target to deliver any meaningful data.
-However, it could not detect any large scans on the instance; thus, it is very likely that either an attacker could not find the instance or no one had any kind of access.
+The honeypot has to be detected as a vulnerable target to deliver meaningful data.
+However, it could not detect any large scans on the instance; thus, it is very likely that either an attacker could not find the instance or no one had any access.
 In the eduroam network, large scans are negligible due to the firewall permits.
 It can be assumed that the results are accurate and do not show any discrepancy.
-Considering the subnet with stage 1 institute firewall, it identified attacks on port 113, resulting in an adaption of the stage 1 permits.
+Considering the subnet with stage one institute firewall, it identified attacks on port 113, resulting in an adaption of the stage one permits.
 On the contrary, it could not register any other odd packets on other ports.
-The assumption is that a detailed investigation could resolve upcoming questions regarding accuracy.
-Especially, excluding the honeypot to permit any kind of communication would help to compare the results.
-Such an approach has been made in \autoref{chap:cloud-security} to prove that certain protocols are blocked in heiCLOUD.
+A detailed investigation could resolve whether the honeypot is available to attackers.
+A misconfiguration of the university firewall has been detected to prove this assumption.
+
+In December, from the 21st to the 23rd, a misconfiguration of the university firewall resulted in a flood of attacks.
+In total, the T-Pot instance received \numprint{46328} attacks in three days.
+It turns out that five ports were open during that time, allowing attackers to probe the instance (\autoref{fig:tpot-misconfig-port-histogram}).
+The most attacked honeypots are RDPY ($58.58\%$), Honeytrap ($24.53\%$), and Cowrie ($11.69\%$).
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/tpot-misconfig-overview-map.pdf}
+    \caption[Attack distribution of MADCAT]{
+        Attack distribution of MADCAT.
+        USA, Russia, China, and Germany are the most attacking countries.
+        Timestamp; from 21st of December to 23rd of December.
+    }
+    \label{fig:tpot-misconfig-map}
+\end{figure}
+
+Like the geographical information of other honeypots, most of the connections originate from the United States, Germany, and China (\autoref{fig:tpot-misconfig-map}).
+These similarities indicate a bias of the origin even though the location information is not reliable.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/tpot-misconfig-port.pdf}
+    \caption[Attack port histogram of T-Pot]{
+        Attack port histogram of T-Pot.
+        Timestamp; from 21st of December to 23rd of December.
+    }
+    \label{fig:tpot-misconfig-port-histogram}
+\end{figure}
+
+On RDPY and Honeytrap, many connection attempts on various ports have been made.
+Based on the Suricata results, adversaries tried to gain administrator privileges.
+For Cowrie, attackers tried to log in and execute commands by brute force or guesswork.
+Moreover, the latest crypto-mining malware has been used, which resembles the findings of other honeypots.
+These results overlap strongly with those obtained by the T-Pot instance in heiCLOUD.
+
+The firewall administrator stated that the misconfiguration was fixed on the 23rd of December, resulting in a decrease in attacks on the T-Pot instance.
+These results have successfully answered our discussion of whether an attacker could detect the host machines at the university building.
+It clearly shows that attackers scan these IP address ranges and send malicious packets whenever they can.
+

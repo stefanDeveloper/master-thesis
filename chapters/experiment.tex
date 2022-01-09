@@ -260,8 +260,8 @@ Unfortunately, this solution is outdated, and newer versions contain significant
 The concept is based on \citet{vetterl2020} solution, but due to newer versions available, the solution has to be updated to the latest version.
 By default, OpenSSH itself cannot act as an intermediary; therefore, it is necessary to customize the latest version to enable this feature.
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
-Cowrie is hidden in the background, and it is only accessible via the loopback address \ipAddress{127.0.0.1:65522}.
-The updated sshd daemon is exposed to the Internet, and it is accessible via \ipAddress{129.206.5.157:22}.
+Cowrie is hidden in the background, and it is only accessible via the loopback address \ipAddress{127.0.0.1} on port 65522.
+The updated sshd daemon is exposed to the Internet, and it is accessible via \ipAddress{129.206.5.157} on port 22.
 Each connection to OpenSSH is forwarded to the honeypot through a NAT rule\footnote{iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222}).
 Accordingly, an attacker should not be able to detect Cowrie through response deviations.
 
@@ -279,13 +279,13 @@ For instance, the latest OpenSSH version $8.8P1$\footnote{\href{https://github.c
 The implementation is based on \citet{vetterl2020} version $6.3P1$\footnote{\href{https://github.com/amv42/sshd-honeypot/commit/f58830161002baec9d3ed218e78ddb06b0d40a23}{sshd-honeypot} on GitHub}.
 As mentioned beforehand, due to major differences between both versions, a smooth transition is unattainable without modifications.
 Fortunately, the basic idea to morph OpenSSH into an intermediary instance stays the same.
-In total, the connection and user authentication layer has been modified to work as an intermediary.
+In total, the connection and user authentication layer has been modified.
 These are the following steps required to change the sshd daemon:
 
 \begin{itemize}
-    \item User authentication layer: any connection is permitted to communicate to Cowrie without an authentication running in front of it.
-    \item Connection layer: a separate channel to communicate with the attacker and forward the packets to Cowrie.
-    \item Connection layer: a communication with Cowrie is handled in a new channel separated from others.
+    \item User authentication layer: permit any connection to communicate to Cowrie without an authentication running in front of it.
+    \item Connection layer: create a separate channel to communicate with the attacker that forwards the packets to Cowrie.
+    \item Connection layer: handle the communication with Cowrie in a new channel separated from others.
 \end{itemize}
 
 The first step is to tweak the authentication to permit any session to forward an incoming connection to Cowrie (\autoref{lst:openssh-auth}).
@@ -325,6 +325,7 @@ For instance, it checks if TCP forwarding is allowed and if the port of Cowrie i
 Then, it connects the current session to the respective port.
 The sshd daemon has to be adapted to start and set up the channel in the main method at startup.
 In addition, the configuration has to be extended to configure the daemon to set the Cowrie IP address and the port.
+
 After compiling the version, a brief test proved a valid connection to the sshd daemon.
 
 \begin{figure}
@@ -333,7 +334,7 @@ After compiling the version, a brief test proved a valid connection to the sshd 
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
 
-The last experiment to conclude this chapter is to test if the concept helps to disguise Cowrie and avoid fingerprinting based on a custom local string version and key exchange initialization message.
+The last experiment to conclude this chapter is to test if the concept helps to disguise Cowrie and avoid fingerprint activities based on a custom local string version and key exchange initialization message.
 
 For instance, \citet{vetterl2020} original $6.3P1$ sshd-honeypot and the newly implemented version $8.8P1$ will be used for this experiment.
 The forwarding communications are handled by an unmodified Cowrie version $2.3.0$ running in a Docker environment.
@@ -345,7 +346,7 @@ The requests from the standard client are not resulting in a bad packet length e
 This reflects an original sshd communication and represents a successful test.
 The requests from the modified client are successful on the latest version, whereas the older server $6.3P1$ had problems with new encryption and host key algorithms.
 A successful connection to the original server from \citet*{vetterl2020} could be recreated by using the $7.3P1$ version.
-This version has been used to verify to test Cowrie beforehand.
+This version has been used to verify Cowrie beforehand.
 The concept can forward any related packet to Cowrie and hide the generic weakness of TwistedConch.
 Therefore, whether Cowrie can be disguised to prevent any fingerprint activities with the help of OpenSSH has been answered successfully.
 This section can confirm this assumption based on the reproduction and implementation of the concept.

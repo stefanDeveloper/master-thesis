@@ -16,7 +16,6 @@ auth_password(struct ssh *ssh, const char *password)
     {
         return 0;
     }
-    /* end */
     ...
 }
 int authenticate_password(const char *username, const char *password)

@@ -30,6 +30,5 @@ channel_handle_wfd(struct ssh *ssh, Channel *c,
             ssh_client_conns1[0].to_disconnect = 1;
         }
     }
-    // end
     ...
 }

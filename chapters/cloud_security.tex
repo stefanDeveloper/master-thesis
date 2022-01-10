@@ -54,7 +54,7 @@ An important question that \citet{Kelly2021} answered is if attackers target ser
 The study could not confirm this assumption because Google Cloud received most of the attacks with the smallest market share.
 In total, most of the attacks are originated from Vietnam, Russia, the United States, and China.
 Due to technologies such as VPN or Tor, the geolocation only indicates the last node so that location data might be distorted.
-Across all providers, roughly $80\%$ of the source IP addresses had a bad reputation and could have been filtered by the organization.
+Across all providers, roughly $80\%$ of the source IP addresses had a bad reputation (identified by Suricata) and could have been filtered by the organization.
 The operating devices used for attacking the services are mostly Windows 7 or 8 and different Linux kernels and distributions.
 Windows devices target vulnerabilities in remote desktop sharing software.
 Such vulnerabilities are
@@ -87,10 +87,15 @@ However, the T-Pot, developed by Telekom, offers a profoundly ready-to-use solut
 It combines several honeypots with various analytic tools to trace the newest attacks.
 Furthermore, it helps to compare the findings with the ones \citet{Kelly2021} claim.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics{figures/tpot-concept.pdf}
-    \caption[Draft for data collection]{Concept to collect honeypot attacks}
+    \caption[Concept to collect honeypot attacks]{
+        Concept to collect honeypot attacks.
+        The instance size is referred to the available resources of OpenStack.
+        The network is an encapsulated subnet with a switch for incoming and outgoing connections.
+        The database is independent of the instance and could run on a separate host.
+    }
     \label{fig:concept}
 \end{figure}
 
@@ -171,6 +176,7 @@ Newer versions might be available by the end of this study and could differ from
         Honeypots are encapsulated in their network.
         NSM runs on the host network, and thus, receives every packet.
         ELK and tools run on localhost and are accessible through NGINX.
+        The Cockpit application is a web-based graphical interface for servers
     }
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
@@ -291,7 +297,7 @@ Its key idea is to send an endless data stream to the attacker until its memory 
 \begin{sidewaystable}
     \centering
     \caption[Overview of honeypots of T-Pot]{
-        Overview of all available honeypots and tools of T-Pot with interaction level, port, and a short description.
+        Overview of all available honeypots of T-Pot with interaction level, port, and a short description.
         Ports are marked with either TCP or UDP; if a port misses any definition, both TCP and UDP are allowed.
     }
     \begin{tabularx}{\linewidth}{l|XlX}
@@ -331,7 +337,7 @@ Overall, RDPY ($46.08\%$), Honeytrap ($33.23\%$), and Cowrie ($12.42\%$) receive
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.pdf}
     \caption[Distribution of honeypot attacks]{
@@ -363,12 +369,12 @@ Comparing the number with \citet{Kelly2021} it shows that Dionaea attacks surpas
 However, Dionaea attacks will not be included in later results because usually, a server is not allowed to be excluded from the university firewall.
 Only for this research purpose to assess the effect of the packet filter has an exclusion been granted.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
     \caption[Attack distribution of T-Pot]{
         Attack distribution of T-Pot.
-        USA, Russia, China, and Germany are the most attacking countries.
+        The USA, Russia, China, and Germany are the most attacking countries.
         Timestamp; 26th of September to 16th of October.
     }
     \label{fig:attack-distribution}
@@ -384,7 +390,7 @@ On the contrary, the geographical location of an IP address merely indicates the
 Due to technologies like VPN or Tor, the last known node of an IP address could be spoofed, and thus as stated by \citet{Kelly2021}, would remain insufficient to use.
 Hence, no one should rely on geographical information.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-attacks-histogram.pdf}
     \caption[Attack histogram of T-Pot]{
@@ -401,7 +407,7 @@ RDPY, Honeytrap, and Cowrie are the most attacked honeypots.
 The high peak of Honeytrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an insight of the packet filtering at the Heidelberg University.
 It identifies a bias towards remote desktop protocol attacks, shell-code exploitations, and commands to retrieve information about CPU, scheduled tasks (\verb|cat /proc/cpuinfo|, or \verb|crontab|), or privilege escalation.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
     \caption[Suricata results of T-Pot]{
@@ -430,7 +436,7 @@ Attackers could perform a remote code execution using path traversal attacks whe
 The logs could trace back similar attacks like \verb|/cgi-bin/.\%2e/\%2e\%2e/bin/sh| until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
 This shows how fast bots adapt to new vulnerabilities to compromise more systems.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-rdpy-port.pdf}
     \caption[RDPY results of T-Pot]{
@@ -450,7 +456,7 @@ Respectively, misc activities sum up to roughly $1.5$ million entries, \ac{rdp} 
 Several RDP attacks from 2021 back to 2001 had been executed on the T-Pot.
 Respectively, CVE-2012-0152 and CVE-2001-0540 coincide with the ones \citet{Kelly2021} claim.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-honeytrap-port.pdf}
     \caption[Honeytrap results of T-Pot]{
@@ -474,7 +480,7 @@ Most of these interceptions are made on
 Nearly all ports attacks focused on RDP connection attempts (\verb|Cookie: mstshash=Administr|).
 However, $94\%$ of all connected IP addresses on Honeytrap are resolved as known attackers.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-cowrie-port.pdf}
     \caption[Cowrie results of T-Pot]{
@@ -526,7 +532,7 @@ This looks more appealing than acquiring mining machines and hijacking electrici
     \end{subfigure}
     \caption[Cowrie top 10 credentials on T-Pot]{
         Cowrie top 10 credentials used on T-Pot.
-        Timestamp 22nd of September to 18th of October
+        Timestamp; 26th of September to 16th of October.
     }
     \label{fig:cowrie-credentials}
 \end{figure*}
@@ -576,6 +582,7 @@ Moreover, it shows that T-Pot helps detect recent bot activities and gives an ou
         Overview of attacks on heiCLOUD, AWS, GC, and Azure.
         Only the top 10 most attacked honeypots are considered.
         \enquote{-} entails that a honeypot is not part of the top 10.
+        The red and green arrows indicate whether heiCLOUD received more or fewer attacks than the other cloud providers on average .
     }
     \begin{tabularx}{\linewidth}{l|rrc|rr|rr|rr}
         \toprule

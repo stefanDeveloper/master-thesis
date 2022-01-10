@@ -91,7 +91,7 @@ Service models are categorized by \ac{nist} into three basic models based on usa
 \ac*{iaas} builds with a vast range of functionalities the foundation of service models.
 Each model on top represents a user-friendly abstraction with derated capabilities.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=0.4\textwidth]{figures/cloud-service-models.pdf}
     \caption[Abstract visualization of service models]{
@@ -189,7 +189,7 @@ In addition, \citet{Spitzner2003} points out that honeypots are not bound to sol
 Such functions are attack detection, capturing automated attacks, or alert/warning generators.
 \autoref{fig:honeypot-example} shows an example of how honeypots could be used in an IT infrastructure.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics{figures/honeypot-example.pdf}
     \caption[Example of honeypots in a simplified network]{
@@ -313,7 +313,7 @@ It is difficult to find attacks for further data analysis in production environm
 Often data submerge with other activities, which complicates the process of reaction. \cite{NawrockiWSKS2016}
 \citet{NawrockiWSKS2016} distinguish honeypots from other objectives such as firewall or log-monitoring.
 
-\begin{table}[ht]
+\begin{table}
     \centering
     \caption[Distinction between security concepts]{
         Distinction between security concepts based on areas of operations (derived from \cite{NawrockiWSKS2016}).
@@ -342,27 +342,27 @@ To assess the value of honeypots, this section looks at their advantages and dis
 \subsubsection{Advantages}
 
 \begin{itemize}
-    \item Data Value: Collected data is often immaculate and does not contain noise from other activities.
+    \item \textit{Data Value}: Collected data is often immaculate and does not contain noise from other activities.
           Thus, reducing the total data size and speeding up the analysis.
-    \item Resources: Firewalls and \ac{ids} are often overwhelmed by the gigabits of traffic, thus, dropping network packets for analysis.
+    \item \textit{Resources}: Firewalls and \ac{ids} are often overwhelmed by the gigabits of traffic, thus, dropping network packets for analysis.
           This results in far less effective detection of malicious network activities.
           However, honeypots are independent of resources because they only capture their activities.
           Due to resource limitations, expensive hardware is not needed.
-    \item Simplicity: A honeypot does not require complex algorithms or databases.
+    \item \textit{Simplicity}: A honeypot does not require complex algorithms or databases.
           A user should be able to deploy it somewhere quickly.
           Research honeypots might come with an inevitable increase of complexity.
           However, if a honeypot is complex, it will lead to misconfigurations, breakdowns, and failures.
-    \item Return on Investment: Capturing attacks immediately informs users that suspicious activities occur on the infrastructure.
+    \item \textit{Return on Investment}: Capturing attacks immediately informs users that suspicious activities occur on the infrastructure.
           This helps to demonstrate their value and contributes to new investments in other security measurements.
 \end{itemize}
 
 In addition, \citet{NawrockiWSKS2016} listed four more advantages of honeypots:
 
 \begin{itemize}
-    \item Independent of Workload: Honeypots only process traffic directed to them.
-    \item Zero-Day-Exploit Detection: It helps to detect unknown strategies and zero-day-exploits.
-    \item Flexibility: Well-adjusted honeypots for various specific tasks are available.
-    \item Reduced False Positives and Negatives: Any traffic or connection to a honeypot is suspicious.
+    \item \textit{Independent of Workload}: Honeypots only process traffic directed to them.
+    \item \textit{Zero-Day-Exploit Detection}: It helps to detect unknown strategies and zero-day-exploits.
+    \item \textit{Flexibility}: Well-adjusted honeypots for various specific tasks are available.
+    \item \textit{Reduced False Positives and Negatives}: Any traffic or connection to a honeypot is suspicious.
           Client-honeypots verify such attacks based on system state changes.
           This results in either false positive or false negatives.
 \end{itemize}
@@ -370,10 +370,10 @@ In addition, \citet{NawrockiWSKS2016} listed four more advantages of honeypots:
 \subsubsection{Disadvantages}
 
 \begin{itemize}
-    \item Narrow Field of View: Only direct attacks on honeypots can be investigated, whereas attacks on the production system are not detected.
-    \item Fingerprinting: A honeypot often has a certain fingerprint that attackers can identify.
+    \item \textit{Narrow Field of View}: Only direct attacks on honeypots can be investigated, whereas attacks on the production system are not detected.
+    \item \textit{Fingerprinting}: A honeypot often has a certain fingerprint that attackers can identify.
           Especially commercial ones can be detected by their responses or behaviors.
-    \item Risk to the Environment: Using honeypots in an environment always increases risk.
+    \item \textit{Risk to the Environment}: Using honeypots in an environment always increases risk.
           However, it depends on the level of interaction.
 \end{itemize}
 
@@ -385,7 +385,7 @@ The key idea is that an adversary can probe, attack, and exploit these systems s
 It should be mentioned that a honeynet has to be protected by firewalls.
 For example, \autoref{fig:honeynet-example} represents such a honeynet within an organization.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics{figures/honeynet-example.pdf}
     \caption[Example of honeynets in a simplified network]{

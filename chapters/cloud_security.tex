@@ -54,7 +54,7 @@ An important question that \citet{Kelly2021} answered is if attackers target ser
 The study could not confirm this assumption because Google Cloud received most of the attacks with the smallest market share.
 In total, most of the attacks are originated from Vietnam, Russia, the United States, and China.
 Due to technologies such as VPN or Tor, the geolocation only indicates the last node so that location data might be distorted.
-Across all providers, roughly $80\%$ of the source IP addresses had a bad reputation (identified by Suricata) and could have been filtered by the organization.
+Across all providers, roughly $80\%$ of the source IP addresses had a bad reputation\footnote{IP address reputation is} (identified by Suricata) and could have been filtered by the organization.
 The operating devices used for attacking the services are mostly Windows 7 or 8 and different Linux kernels and distributions.
 Windows devices target vulnerabilities in remote desktop sharing software.
 Such vulnerabilities are
@@ -507,11 +507,11 @@ Attackers could exploit machines for crypto mining in order to earn more money.
 This looks more appealing than acquiring mining machines and hijacking electricity from surrounding apartments.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={Cowrie attack to gather various information about the system}, label={lst:code-exploitation}]{listings/exploit-cpu.sh.txt}
+    \lstinputlisting[language=bash, caption={[Cowrie attack to gather various information about the system]Cowrie attack to gather various information about the system.}, label={lst:code-exploitation}]{listings/exploit-cpu.sh.txt}
 \end{figure}
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={Cowrie attack to exploit the host machine as a crypto miner}, label={lst:crypto-exploitation}]{listings/exploit-crypt.sh.txt}
+    \lstinputlisting[language=bash, caption={[Cowrie attack to exploit the host machine as a crypto miner]Cowrie attack to exploit the host machine as a crypto miner.}, label={lst:crypto-exploitation}]{listings/exploit-crypt.sh.txt}
 \end{figure}
 
 \begin{figure*}
@@ -578,8 +578,8 @@ Moreover, it shows that T-Pot helps detect recent bot activities and gives an ou
 
 \begin{sidewaystable}
     \centering
-    \caption[Overview of attacks on heiCLOUD, AWS, GC and Azure]{
-        Overview of attacks on heiCLOUD, AWS, GC, and Azure.
+    \caption[Overview of attacks on heiCLOUD, AWS, GCP, and Azure]{
+        Overview of attacks on heiCLOUD, AWS, GCP, and Azure.
         Only the top 10 most attacked honeypots are considered.
         \enquote{-} entails that a honeypot is not part of the top 10.
         The red and green arrows indicate whether heiCLOUD received more or fewer attacks than the other cloud providers on average .

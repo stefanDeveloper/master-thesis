@@ -246,7 +246,7 @@ Thus, it could successfully recreate its findings by detecting Cowrie on the tra
 Adversaries who modify their SSH client to send the specific version string and key exchange initialization message could detect Cowrie honeypots and stop further activities.
 
 \begin{figure}
-    \lstinputlisting[language=python, caption={[TwistedConch packet length validation]TwistedConch packet length validation. Line 3 validates if the packet length is not greate $1$ MB. If this check is successful, the client receives a bad packet length exception.}, label={lst:twistedconch}]{listings/twistedconch.py}
+    \lstinputlisting[language=python, caption={[TwistedConch packet length validation]TwistedConch packet length validation. Line 3 validates if the packet length is not greater than $1$ MB. If this check is not successful, the client receives a bad packet length exception.}, label={lst:twistedconch}]{listings/twistedconch.py}
 \end{figure}
 
 \begin{figure}
@@ -268,7 +268,7 @@ By default, OpenSSH itself cannot act as an intermediary; therefore, it is neces
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
 Cowrie is hidden in the background, and it is only accessible via the loopback address \ipAddress{127.0.0.1} on port 65522.
 The updated sshd daemon is exposed to the Internet, and it is accessible via \ipAddress{129.206.5.157} on port 22.
-Each connection to OpenSSH is forwarded to the honeypot through a NAT rule\footnote{iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222}).
+Each connection to OpenSSH is forwarded to the honeypot through a NAT rule\footnote{iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222}.
 Accordingly, an attacker should not be able to detect Cowrie through response deviations.
 
 \begin{figure}

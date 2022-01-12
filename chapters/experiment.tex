@@ -203,11 +203,11 @@ Both Debian machines return the same response.
 Using the outdated version $7.5P1$ results in an incompatibility.
 The return message outlines that \textit{blowfish-cbc} is not supported anymore.
 OpenSSH kept the encryption algorithm usable for compatibility reasons for clients until $7.6P1$.
-Later patches removed the \textit{blowfish-cbc} from the application; therefore, a reproduction of \citet{vetterl2020} remains not feasible with the latest version.
-However, testing it with version $7.3P1$ that has been compiled on the machine results in a successful connection attempt.
+Later patches removed the \textit{blowfish-cbc} from the application; thus, a reproduction of \citet{vetterl2020} remains not feasible with the latest version.
+Testing it with version $7.3P1$ that has been compiled on the machine results in a successful connection attempt.
 \citet{vetterl2020} does not outline any expected response of OpenSSH; thus, it can be assumed that a connection attempt would have been successful due to the existing ciphers during that time.
 Adapting the version $8.8P1$ with \textit{chacha20-poly1305} instead of \textit{blowfish-cbc} for the encryption algorithm results in a successful connection attempt.
-Thus, the key exchange initialization has been adapted to use \textit{chacha20-poly1305} as encryption algorithm instead.
+Therefore, the key exchange initialization has been adapted to use \textit{chacha20-poly1305} as encryption algorithm instead.
 Next, the DSA host key algorithms are marked as too weak and are not included automatically during the key exchange initialization.
 Using \textit{ssh-dss} requires the extra flag \verb|-oHostKeyAlgorithms=+ssh-dss|.
 In order to avoid weak algorithms, the \textit{ssh-ed25519} host key algorithm is used, and the response has been promising to probe instances.
@@ -228,12 +228,12 @@ Any packet that exceeds that threshold causes this exception, which results in a
 This static check is performed when Cowrie tries to get the request packet.
 It remains dubious why TwistedConch has added it whenever a packet has to be returned.
 In the RFC4253, the minimum packet size is $5$ bytes whereas maximum packet size is set to \numprint{32768} bytes (\numprint{256} KB).
-Debugging Cowrie shows that the exception occurs during the version string validation (\autoref{lst:cowrie-version-string}).
+Debugging Cowrie shows that the exception occurs during the version string validation (\autoref{lst:cowrie-version-string}, line 16).
 The server validates if the version string matches the allowed versions $1.99$ and $2.0$.
 Any higher or lower version will result in a \verb|Protocol major versions differ.\n| exception by calling the function \verb|_unsupportedVersionReceived|.
 This response would match the behavior of OpenSSH.
 
-Therefore, the version strings $1.0$, $2.0$, and $2.2$ have been tested on Cowrie and OpenSSH.
+Therefore, the version strings $1.0$, $1.99$, $2.0$, and $2.2$ have been tested on Cowrie and OpenSSH.
 As a result, Cowrie's \verb|bad packet length *| exception occurs when the version does not match the expected one.
 This result diverges from OpenSSH, as only versions under $1.99$ lead to the same exception as Cowrie.
 For any higher version, the connection can be established successfully.
@@ -241,8 +241,17 @@ It can be assumed that Cowrie has an error in validating the version string.
 Debugging Cowrie shows that the method to return the \verb|Protocol major versions differ.\n| exception is called, but the client does not receive this message.
 Hence, the assumption is that the underlying library TwistedConch is responsible for the incorrect message.
 
+% Cosine similarity coefficient, show the value
+Calculating the cosine similarity coefficient of both responses shows that the coefficient with $0.46$ is lower than the results from \citet{vetterl2020}.
+In his study, the coefficient between Cowrie and OpenSSH was on average $0.80$.
+Different implementation approaches to reproduce his results have been considered.
+The standard implementation to retrieve the coefficient returned the best result with $0.46$.
+Moreover, a soft cosine similarity with English word vectors from \citet{mikolov2018advances} has been used; however, it did not improve the result.
+In summary, the same response could not be reproduced.
+Nevertheless, it shows that both responses have similarities.
+
 In conclusion, these are the protocol deviations that \citet{vetterl2020} has presented in his work.
-Thus, it could successfully recreate its findings by detecting Cowrie on the transport level.
+Thus, it could successfully recreate his findings by detecting Cowrie on the transport level.
 Adversaries who modify their SSH client to send the specific version string and key exchange initialization message could detect Cowrie honeypots and stop further activities.
 
 \begin{figure}

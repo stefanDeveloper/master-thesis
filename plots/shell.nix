@@ -4,17 +4,22 @@
 
 with tinypkgs; # Put tinypkgs's attributes in the current scope.
 with pkgs; # Same for pkgs.
+with import <nixpkgs> { };
 
-mkShell {
+let
+  pythonPackages = python3Packages;
+in pkgs.mkShell {
   buildInputs = [
     chord
 
     # Defines a python + set of packages.
-    (python3.withPackages (ps: with ps; with python3Packages; [
+    (python3.withPackages (ps: with ps; with pythonPackages; [
       jupyter
       ipython
       geopandas
       pycountry
+      gensim
+      scikit-learn
 
       # Uncomment the following lines to make them available in the shell.
       pandas

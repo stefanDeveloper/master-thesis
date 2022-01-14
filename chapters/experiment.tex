@@ -41,7 +41,7 @@ Each session is handled in a so-called channel.
 The \verb|ssh-connection| layer handles multiple sessions simultaneously over a single \verb|ssh-userauth| layer with the TCP/IP layer below.
 It is responsible for executing arbitrary commands, forwarding X11 connections, establishing VPN tunnels, and more.
 
-In addition, OpenSSH has built-in features such as keeping alive messages and redirecting stdin to /dev/null for specialized X11 windows.
+In addition, OpenSSH has built-in features such as keeping alive messages and redirecting stdin to \textit{/dev/null} for specialized X11 windows.
 
 \autoref{fig:openssh-flow-diagram} outlines a sample session between a client and a server.
 The key exchange initialization is the first message between them to negotiate all ciphers and keys for communication.
@@ -250,8 +250,8 @@ Moreover, a soft cosine similarity with English word vectors from \citet{mikolov
 In summary, the same response could not be reproduced.
 Nevertheless, it shows that both responses have similarities.
 
-In conclusion, these are the protocol deviations that \citet{vetterl2020} has presented in his work.
-Thus, it could successfully recreate his findings by detecting Cowrie on the transport level.
+In conclusion, these are the protocol deviations that \citet{vetterl2020} has presented in his technical report.
+Thus, this section could successfully recreate his findings by detecting Cowrie on the transport level.
 Adversaries who modify their SSH client to send the specific version string and key exchange initialization message could detect Cowrie honeypots and stop further activities.
 
 \begin{figure}

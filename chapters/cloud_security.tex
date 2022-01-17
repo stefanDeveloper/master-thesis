@@ -59,12 +59,12 @@ The operating devices used for attacking the services are mostly Windows 7 or 8 
 Windows devices target vulnerabilities in remote desktop sharing software.
 Such vulnerabilities are
 \begin{enumerate*}[label=(\roman*)]
-    \item CVE-2006-2369\cite{CVE-2006-2369} (RealVNC\footnote{RealVNC is }) in the US region,
+    \item CVE-2006-2369\cite{CVE-2006-2369} (RealVNC) in the US region,
     \item CVE-2001-0540\cite{CVE-2001-0540} (\ac{rdp}) in EU and Asia regions,
     \item CVE-2012-0152\cite{CVE-2012-0152} (\ac{rdp}) in the Asia region, and
     \item CVE-2005-4050\cite{CVE-2005-4050} (\ac{voip}) in EU region
 \end{enumerate*}.
-In addition, attackers were also capable of disguising any fingerprinting activity of p0f.
+In addition, attackers were also capable of disguising any fingerprinting activity of P0f.
 
 This chapter compares the findings \citet{Kelly2021} claimed in the paper \enquote{A Comparative Analysis of Honeypots on Different Cloud Platforms} with ours using the Heidelberg University's cloud solution.
 First, a short introduction of heiCLOUD is given, followed by a closer lookup of the T-Pot used to acquire data.
@@ -283,7 +283,7 @@ T-Pot uses it to scan defensively and thus not include any other module.
 T-Pot lets Suricata analyze and assess any request made on the host network.
 
 \textbf{P0f} \cite{p0f2021} is a fingerprinting tool that uses passive traffic fingerprinting mechanisms to check \ac{tcp}/\ac{ip} communications.
-T-Pot lets p0f passively check any request made on the host network.
+T-Pot lets P0f passively check any request made on the host network.
 
 \textbf{Endlessh} \cite{endlessh2021} is an \ac{ssh} server that sends an endless, random \ac{ssh} banner.
 The key idea is to lock up \ac{ssh} clients that try to connect to the \ac{ssh} server.
@@ -578,7 +578,7 @@ Moreover, it shows that T-Pot helps detect recent bot activities and gives an ou
 
 \begin{sidewaystable}
     \centering
-    \caption[Overview of attacks on heiCLOUD, \ac{aws}, \ac{gcp}, and Azure]{
+    \caption[Overview of attacks on heiCLOUD, AWS, GCP, and Azure]{
         Overview of attacks on heiCLOUD, \ac{aws}, \ac{gcp}, and Azure.
         Only the top 10 most attacked honeypots are considered.
         \enquote{-} entails that a honeypot is not part of the top 10.

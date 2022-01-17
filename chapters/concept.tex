@@ -20,15 +20,15 @@ It collected on average \numprint{29840} attacks per day, resulting in a total a
 Zoning a network into logical groups mitigates the risk of an open network.
 Thus, the T-Pot would receive significantly fewer attacks in a controlled network zone.
 A network infrastructure is segmented into the same communication security policies and security requirements.
-For example, the Canadian government created its baseline for infrastructures, called Baseline Security Architecture Requirements for Network Security Zones in the Government of Canada (ITSG-22).
+For example, the Canadian government created its baseline for infrastructures, called Baseline Security Architecture Requirements for Network Security Zones in the Government of Canada (ITSG-22) \cite{csec2021}.
 The four most common zones are:
 \begin{enumerate*}[label=(\roman*)]
     \item Public Zone (PZ), which is entirely open,
     \item Public Access Zone (PAZ), which interacts as an interface between the PZ and internal services,
     \item Operation Zone (OZ), which processes sensitive information, and
     \item Restricted Zone (RZ), which includes business-critical services
-\end{enumerate*}.
-A network zone restricts access and controls data communication flows. \cite{csec2021}
+\end{enumerate*} \cite{csec2021}.
+A network zone restricts access and controls data communication flows \cite{csec2021}.
 
 \begin{figure}
     \centering
@@ -42,19 +42,19 @@ A network zone restricts access and controls data communication flows. \cite{cse
 \end{figure}
 
 The network at the Heidelberg University includes a central stateless firewall (\ac{acl}) that enfolds all institutes.
-It entails a default blacklist that blocks certain services (such as SMTP, NCP, or \ac{snmp}) and a stateless filter provided by BelWÜ.
+It entails a default blacklist that blocks certain services (such as \ac{smtp}, NCP, or \ac{snmp}) and a stateless filter provided by BelWÜ.
 Each institute can either use a pre-defined stateless firewall provided by the University Computing Center Heidelberg or use a self-administrated firewall inside the network.
 \autoref{fig:university-network} outlines the association between these components.
 The internal \enquote{HDnet} enables the communication between institutes without leaving the internal network.
 Institute firewalls can be set up by each institute and are self-administrated.
 They do have the possibility to use \acs{soho} routers\footnote{A \acl{soho} router is a broadband router used in small offices and home offices environments.} to disconnect certain network zones from the network.
 It is recommended to configure the global \ac{acl} as a fallback solution in case of any downtime.
-The University Computing Center Heidelberg offers stateless firewalls for router interfaces or VLANs.
+The University Computing Center Heidelberg offers stateless firewalls for router interfaces or \acp{vlan}.
 This stateless firewall whitelists certain services and splits up into four stages.
 Each stage can be individually activated per router interface.
 Its key value is to maintain baseline security to avoid misconfigurations and port scans.
-\autoref{tab:overview-security-zone} outlines these stages including the IP address range.
-Before applying one of these zones, the respective network has to oblige to client IP addresses below \ipAddress{129.206.218.240/24}.
+\autoref{tab:overview-security-zone} outlines these stages including the \ac{ip} address range.
+Before applying one of these zones, the respective network has to oblige to client \ac{ip} addresses below \ipAddress{129.206.218.240/24}.
 In addition, \ipAddress{129.206.218.1} is allocated for the gateway.
 A network must adhere to these obligations if it applies to any pre-defined stages.
 
@@ -100,11 +100,11 @@ Its key idea is to log every connection attempt and further process it to retrie
 It runs on an Ubuntu distribution, either $18.04$ or $20.04$, and has been tested on Ubuntu $18.04$.
 It processes packets from any interface that has been configured.
 As an example, it could process Ethernet and wireless packets.
-MADCAT itself consists of six independent modules for TCP, UDP, ICMP, and RAW packets that communicate with each other through a pipeline.
+MADCAT itself consists of six independent modules for \ac{tcp}, \ac{udp}, \ac{icmp}, and raw packets that communicate with each other through a pipeline.
 A module analyzes packets and logs the results in a queue.
-In addition, UDP and TCP offer a proxy to tunnel packets to another service.
-Every 5 seconds TCP postprocessor reads the newly arrived TCP packets and processes them accordingly.
-It resolves packets to log data, including source IP address, protocol, and event type.
+In addition, \ac{udp} and \ac{tcp} offer a proxy to tunnel packets to another service.
+Every 5 seconds \ac{tcp} postprocessor reads the newly arrived \ac{tcp} packets and processes them accordingly.
+It resolves packets to log data, including source \ac{ip} address, protocol, and event type.
 The enrichment processor is the final process step.
 Its purpose is to log all queue-written packets in a specified format for further analysis.
 The key idea of MADCAT is to get an insight into whether attackers have access to a particular network.
@@ -131,12 +131,12 @@ Every client in the building has a compelling connection in this subnet.
 Otherwise, an Internet connection would not be feasible.
 The subnet \ipAddress{147.142.0.0/16} connects clients to \enquote{eduroam}\footnote{The eduroam is an international Wi-Fi internet access point for researchers.}.
 Like the four stages of the institute firewall, the \enquote{eduroam} network, also called \enquote{Tagungslan}, builds various permits into the subnet.
-One essential difference is that services like SMTP and HTTP are not allowed, so attackers cannot deploy traps for users.
+One essential difference is that services like \ac{smtp} and \ac{http} are not allowed, so attackers cannot deploy traps for users.
 Moreover, each client is encapsulated in its subnet, which disables communication to other clients.
-The instances are located in the building with IP addresses \ipAddress{129.206.219.62} and \ipAddress{129.206.219.88}.
+The instances are located in the building with \ac{ip} addresses \ipAddress{129.206.219.62} and \ipAddress{129.206.219.88}.
 \autoref{fig:heicat-concept} outlines the concept using MADCAT and a separate instance to visualize our data.
-The first instance with IP address \ipAddress{129.206.5.157} provides Kibana and Elasticsearch to visualize and crawl logs.
-The honeypot with IP address \ipAddress{129.206.5.88} consists of MADCAT in conjunction with P0f, Suricata, and FATT.
+The first instance with \ac{ip} address \ipAddress{129.206.5.157} provides Kibana and Elasticsearch to visualize and crawl logs.
+The honeypot with \ac{ip} address \ipAddress{129.206.5.88} consists of MADCAT in conjunction with P0f, Suricata, and FATT.
 Like T-Pot, it uses Logstash to forward data to Elasticsearch.
 One benefit is the centralized approach to store data.
 This allows to deploy more instances to randomly collect data from other zones.
@@ -158,8 +158,8 @@ All instances had a connection to both subnets.
 First, the results obtained in the subnet \ipAddress{129.206.218.0/24} will be presented, closing up with the ones claimed in the eduroam network.
 
 In total, MADCAT received \numprint{35372} packets.
-Overall, the modules TCP ($66.62\%$) and RAW ($33.26\%$) received the majority of all connection attempts.
-The minority with less than one percent are suspicious packets with individual TCP flags like reset or syn set. 
+Overall, the modules \ac{tcp} ($66.62\%$) and raw ($33.26\%$) received the majority of all connection attempts.
+The minority with less than one percent are suspicious packets with individual \ac{tcp} flags like reset or syn set. 
 On the contrary, it could not identify any harmful activity based on these packets.
 Overall, ConPot ($56.98\%$), Honeytrap ($31.35\%$), and Dionaea ($7.09\%$) received most of the attacks with a total number of $437$.
 Interestingly, it could identify \ac{snmp} connections that are used by print servers to discover printers.
@@ -168,7 +168,7 @@ Interestingly, it could identify \ac{snmp} connections that are used by print se
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
     \caption[Protocol distribution of MADCAT]{
-        Protocol distribution of MADCAT. ICMP, IPv6, and UDP are the most used protocols.
+        Protocol distribution of MADCAT. \ac{icmp}, IPv6, and \ac{udp} are the most used protocols.
         Timestamp; 28th of October to 18th of November.
     }
     \label{fig:madcat-protocols}
@@ -176,18 +176,18 @@ Interestingly, it could identify \ac{snmp} connections that are used by print se
 
 % ====================================================================================================================
 % Madcat
-\autoref{fig:madcat-protocols} shows the protocol distribution indicating a high amount of ICMP and IPv6 packets.
-Only $11.59\%$ of all IP address reputations could be resolved, splitting up into known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
-Focusing on TCP packets, $88.3\%$ are known attackers with source port 113 as the primary target.
-The port 113 is officially known as the \ac{ident}\cite{rfc1413} used for identification/authorization on a remote server such as POP, IMAP, and SMTP.
-A potential leak that allows adversaries to send IDENT requests to the network could be spotted by comparing the results with the stateless firewall settings.
-Decoding the payload of these TCP packets shows that attackers instead used this port to get an SMB connection than deploying IDENT protocol attacks.
-It identified attempts to acquire an SSH session using SMB and SIP connection attempts and various HTTP requests.
+\autoref{fig:madcat-protocols} shows the protocol distribution indicating a high amount of \ac{icmp} and IPv6 packets.
+Only $11.59\%$ of all \ac{ip} address reputations could be resolved, splitting up into known attacker ($11.26\%$), mass scanner ($0.14\%$), bad reputation ($0.12\%$), and tor exit node ($0.08\%$).
+Focusing on \ac{tcp} packets, $88.3\%$ are known attackers with source port 113 as the primary target.
+The port 113 is officially known as the \ac{ident}\cite{rfc1413} used for identification/authorization on a remote server such as \ac{pop}, \ac{imap}, and \ac{smtp}.
+A potential leak that allows adversaries to send \ac{ident} requests to the network could be spotted by comparing the results with the stateless firewall settings.
+Decoding the payload of these \ac{tcp} packets shows that attackers instead used this port to get an \ac{smb} connection than deploying \ac{ident} protocol attacks.
+It identified attempts to acquire an SSH session using \ac{smb} and \ac{sip} connection attempts and various \ac{http} requests.
 For example, two payloads that have been sent to the instance show probing actions.
-\autoref{lst:sip-exploitation} outlines a SIP probe that checks if any VoIP service is active by answering the request packet.
-Next, \autoref{lst:smb-exploitation} shows an SMB probe trying to achieve the same.
-The IP address reputation could help answer if a real user or an attacker sends these packets.
-Both IP addresses in this example were resolved as a known attacker; thus, it identified them as a probe packet before executing their attack.
+\autoref{lst:sip-exploitation} outlines a \ac{sip} probe that checks if any \ac{voip} service is active by answering the request packet.
+Next, \autoref{lst:smb-exploitation} shows an \ac{smb} probe trying to achieve the same.
+The \ac{ip} address reputation could help answer if a real user or an attacker sends these packets.
+Both \ac{ip} addresses in this example were resolved as a known attacker; thus, it identified them as a probe packet before executing their attack.
 A vital security interest in port 113 is negligible; however, the concept helps to detect such leaks, especially when stateless firewalls are the main doorkeeper for packets.
 
 \begin{figure}
@@ -203,7 +203,7 @@ A vital security interest in port 113 is negligible; however, the concept helps 
 
 % ====================================================================================================================
 % Location
-\autoref{fig:madcat-attack-distribution} shows the attack distribution indicating the origin of an IP address.
+\autoref{fig:madcat-attack-distribution} shows the attack distribution indicating the origin of an \ac{ip} address.
 Most of the connections originate from the United States, Germany, and China.
 As shown beforehand in \autoref{chap:cloud-security}, geographical information only outlines the last known location of a node.
 Like the results in heiCLOUD, it can be assumed that this information is not reliable as an indicator of where attacks occur.
@@ -223,31 +223,31 @@ Nevertheless, it is interesting to see where the last node originated from.
 % Suricata
 Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribution}).
 In total, it detected \numprint{292953} alerts and \acsp{cve}.
-Besides minor alerts like \textsc{nmap} scans, Suricata registered alerts in \ac{snmp} requests, TCP stack, and Wind River VxWorks.
+Besides minor alerts like \textsc{nmap} scans, Suricata registered alerts in \ac{snmp} requests, \ac{tcp} stack, and Wind River VxWorks.
 CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $73.35\%$ with a total number of \numprint{214879}.
-This \acs{cve} is one of 19 others forming the \enquote{Ripple20} vulnerability in the low-level TCP/IP library developed by Treck, Inc.
-One of the Track TCP/IP stack tasks is to reassemble fragmented packets.
-Whenever a fragmented packet arrives, the stack tries to validate the total length in the IP header.
+This \acs{cve} is one of 19 others forming the \enquote{Ripple20} vulnerability in the low-level \ac{tcp}/\ac{ip} library developed by Treck, Inc.
+One of the Track \ac{tcp}/\ac{ip} stack tasks is to reassemble fragmented packets.
+Whenever a fragmented packet arrives, the stack tries to validate the total length in the \ac{ip} header.
 If the total length is not correct, it trims the data.
 However, this leads to inconsistency, and thus, resulting in a buffer overflow when someone sends fragmented packets through a tunnel.
 A detailed description of the vulnerability can be found in \cite{ripple20}.
 An adversary could send malformed IPv6 packets that cause an Out-of-bounds Read, resulting in potential remote code execution.
-Only TCP/IP stack versions until $6.0.1.66$ are affected by this vulnerability.
+Only \ac{tcp}/\ac{ip} stack versions until $6.0.1.66$ are affected by this vulnerability.
 Nevertheless, the tremendous alerts show the importance of adapting the IPv6 permits.
 The second most recorded vulnerability with the highest score is CVE-2002-0013 \cite{CVE-2002-0013} that allows remote attackers to cause a denial of service or gain privileges in the SNMPv1 protocol.
 The root cause for the \acs{cve} alert is the usage of the default public community for broadcast requests instead of configuring a private community with mandatory authentication.
 To compromise \ac{snmp}, attackers have to have access to the network.
-However, the university firewall blocks \ac{snmp} port 161 and 162 for TCP and UDP, thus, restricting any access from outside.
+However, the university firewall blocks \ac{snmp} port 161 and 162 for \ac{tcp} and \ac{udp}, thus, restricting any access from outside.
 If adversaries plan to deploy an attack on the \ac{snmp} protocol, they need to have a connection to the internal network.
 Acquiring such a connection is rather hard to accomplish without any credentials.
 On the contrary, all connection attempts registered by the concept have been made within the network, and they do reflect a normal \ac{snmp} communication.
-Lastly, Wind River VxWorks 6.9.4 and vx7 in CVE-2019-12263 \cite{CVE-2019-12263} cause a buffer overflow due to the underlying TCP component that results in a race condition.
+Lastly, Wind River VxWorks 6.9.4 and vx7 in CVE-2019-12263 \cite{CVE-2019-12263} cause a buffer overflow due to the underlying \ac{tcp} component that results in a race condition.
 Each connection attempt with CVE-2019-12263 is originated from Russia.
-Hence, the assumption is that the source IP address maliciously intended to send an urgent flag.
-For the other \acsp{cve} the IP reputation could not be resolved.
+Hence, the assumption is that the source \ac{ip} address maliciously intended to send an urgent flag.
+For the other \acsp{cve} the \ac{ip} reputation could not be resolved.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SIP connection]MADCAT connection attempt to exploit SIP connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
+    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit \ac{sip} connection]MADCAT connection attempt to exploit \ac{sip} connection. Received on the 16th of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
 \end{figure}
 
 \begin{figure}
@@ -269,26 +269,26 @@ A possible attack vector could be an \ac{snmp} reflection/amplification attack.
 As previously discussed, the assumption is that devices within the network have a misconfigured printer and send broadcast requests frequently to find the machines.
 This \ac{snmp} requests affiliate with day-to-day traffic in an internal network, and thus, are not suspicious.
 The second most attacked honeypot is Honeytrap which received numerous packets on different ports, whereas $39\%$ evince an empty payload.
-All of these received packets have a resolved IP address in the subnet \ipAddress{129.206.0.0/16}.
+All of these received packets have a resolved \ac{ip} address in the subnet \ipAddress{129.206.0.0/16}.
 It remains unclear if these connections are malicious or are acquired by accident.
 Investigating the payload of outliers does not confirm the assumption of a vicious intention.
 Thus, declaring these results as negligible.
-Overall, most of the connection attempt received by the instance are from these IP addresses: \ipAddress{129.206.217.118}, \ipAddress{129.206.218.23}, and \ipAddress{129.206.218.194}.
+Overall, most of the connection attempt received by the instance are from these \ac{ip} addresses: \ipAddress{129.206.217.118}, \ipAddress{129.206.218.23}, and \ipAddress{129.206.218.194}.
 
 \begin{figure}
-    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SMB connection]MADCAT connection attempt to exploit SMB connection. Received on the 16th of November. IP reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
+    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit \ac{smb} connection]MADCAT connection attempt to exploit \ac{smb} connection. Received on the 16th of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
 \end{figure}
 
 Lastly, the results from the eduroam network are considered.
 Neither T-Pot nor MADCAT could identify any significant behavior for three weeks.
-Unlike the subnet \ipAddress{129.206.218.0/24}, the honeypot did not register any suspicious packets, TCP flags, or other \acp{cve}.
+Unlike the subnet \ipAddress{129.206.218.0/24}, the honeypot did not register any suspicious packets, \ac{tcp} flags, or other \acp{cve}.
 In retrospect, the eduroam configuration has been shown to work as designed.
 Thus, the client seemed to be encapsulated from others and received no other packets.
 
 Besides the subtle output it has received, the results have given an insight into the value of honeypots in a restricted network zone.
 For Heidelberg University, using honeypots to evaluate their stateless firewall has never been considered.
 The initial concept has shown that it delivered minor findings in the subnet \ipAddress{129.206.218.0/24} with stage 1 firewall.
-As a result, the port 113 used for the IDENT protocol will be removed in the future to reduce the attack surface, thus, contributing to the firewall definition.
+As a result, the port 113 used for the \ac{ident} protocol will be removed in the future to reduce the attack surface, thus, contributing to the firewall definition.
 Overall, the two instances received numerous packets containing interesting payloads.
 Compared to the T-Pot, which has been used in heiCLOUD, results are as expected delicate, and data analysis turns out to be more detailed.
 The statement from \citet{Spitzner2003} that honeypots only receive little input and nearly every input is suspicious matches the results only halfway.
@@ -346,5 +346,5 @@ These results overlap strongly with those obtained by the T-Pot instance in heiC
 
 The firewall administrator stated that the misconfiguration was fixed on the 23rd of December, resulting in a decrease in attacks on the T-Pot instance.
 These results have successfully answered our discussion of whether an attacker could detect the host machines at the university building.
-It clearly shows that attackers scan these IP address ranges and send malicious packets whenever they can.
+It clearly shows that attackers scan these \ac{ip} address ranges and send malicious packets whenever they can.
 

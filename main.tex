@@ -89,6 +89,15 @@
     }%
 }
 
+\newcommand{\Autoref}[1]{%
+  \begingroup%
+  \def\chapterautorefname{Chapter}%
+  \def\sectionautorefname{Section}%
+  \def\subsectionautorefname{Subsection}%
+  \autoref{#1}%
+  \endgroup%
+}
+
 \usepackage{numprint}
 \npthousandsep{,}
 

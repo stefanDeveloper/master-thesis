@@ -3,7 +3,7 @@
 
 Attacks from the Internet often originate from bots.
 A bot, short for \enquote{robot}, is an automated process that interacts with different network services.
-Besides good intentions, bots can be used for malicious purposes.
+Despite good intentions, bots can be used for malicious purposes.
 Mostly, bots try to self-propagate malware across the Internet and try to capture hosts that merge into a botnet \cite{Feily2009}.
 Recently, Universities in Germany received more cyberattacks than ever, respectively increasing their costs for damage repairs.
 Honeypots are a good solution to catch attackers and learn from their exploits.
@@ -15,16 +15,16 @@ It further proposes an answer if honeypots are helpful to detect bot activities.
 
 As previously mentioned in \autoref{sec:cloud-computing}, using cloud resources is becoming the go-to option for new services and applications.
 \citet{Kelly2021} thoroughly investigated honeypots on Azure, \ac{aws}, and \ac{gcp}.
-Followingly, this chapter presents their results briefly to compare them with the ones heiCLOUD achieves.
+Consequently, this chapter presents their results briefly to compare them with the ones heiCLOUD achieves.
 The results are collected by T-Pot version $20.06.0$ for three weeks.
 In addition, \citet{Kelly2021} considered different server geographical locations.
 They have collected data from East US, West Europe, and Southeast Asia.
 \autoref{tab:overview-cloud-security} shows the results presented by \citet{Kelly2021}.
-Dionaea (a honeypot to capture malicious payload), Cowrie (\ac{ssh} and Telnet honeypot), and Conpot (industrial honeypot for \ac{ics}, and \ac{scada}) are the most attacked honeypots in comparison to the others.
+Dionaea (a honeypot to capture malicious payload), Cowrie (\ac{ssh} and Telnet honeypot), and Conpot (industrial honeypot for \acs{ics} and \acs{scada}) are the most attacked honeypots in comparison to the others.
 Regarding \ac{aws}, Dionaea accounts for $91\%$ of the total attacks, Glutton and Cowrie are minor with $5\%$, and $2\%$.
 Interestingly, Cowrie reported several attacks related to the COVID-19 pandemic to enable social engineering methods.
 In contrast to \ac{aws}, Cowrie logged the majority of attacks with $51\%$ on \ac{gcp}.
-Besides several automated attacks trying to log in with default credentials, adversaries tried to gather information about \ac{gpu} architecture, scheduled tasks, and privilege escalation.
+Besides several automated attacks trying to log in with default credentials, adversaries tried to gather information about the \acs{gpu} architecture, scheduled tasks, and privilege escalation.
 Microsoft Azure reflects nearly the same results as the other two cloud providers beforehand.
 
 \begin{table}
@@ -32,7 +32,7 @@ Microsoft Azure reflects nearly the same results as the other two cloud provider
     \caption[Overview of attacks on cloud providers]{
         Overview of attacks on cloud providers.
         For a better overview, only the three most attacked honeypots are listed.
-        The others combine several honeypots.
+        The remaining honeypots are listed in the column named "others".
     }
     \begin{tabularx}{\linewidth}{l|XXXX|l}
         \toprule
@@ -75,12 +75,12 @@ Lastly, it presents the results and does a thorough comparison closing up with a
 The foremost goal is to track as many attacks as possible.
 \autoref{fig:concept} sketches the concept to achieve this goal to gather various attacks from the Internet.
 Honeypots should be deployed on a single instance, and their data or log files are stored in a database.
-With the help of data visualization tools, the attacks are analyzed.
+The attacks are analyzed with the help of data visualization tools.
 For security reasons, honeypots should run in a virtualized environment to avoid harming the host system.
 The host machine runs on a Debian distribution.
 The instance runs on heiCLOUD, a cloud service provided by Heidelberg University.
-It is capable of 16 \ac{gb} of \ac{ram}, 8 \acp{vcpu}, and volatile memory of 30 \ac{gb}.
-In addition, it mounts a 125 \ac{gb} permanent volume to store the data securely.
+It is capable of 16 \acs{gb} of \acs{ram}, 8 \acsp{vcpu}, and volatile memory of 30 \acs{gb}.
+In addition, it mounts a 125 \acs{gb} permanent volume to store the data securely.
 In the very early stage of this chapter, different approaches to achieve this goal have been compared.
 For example, native implementation approaches, additional frameworks, and ready-to-use solutions have been evaluated.
 However, the T-Pot, developed by Telekom, offers a profoundly ready-to-use solution with significant advantages.
@@ -109,12 +109,12 @@ Ports higher than $64000$ are only accessible through the university network \ip
 \subsection{heiCLOUD}
 \label{subsec:heicloud}
 
-\citet{urz2021} offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions} called heiCLOUD.
-It supplies multiple institutes at Heidelberg University with storage, virtual machines, or network components.
-In addition, heiCLOUD is a DFN\footnote{German National Research and Education Network, the communications network for Science and research in Germany} member and offers others to use their services.
-As stated on their information website\cite{heicloud2021}, it is
+University Computing Center Heidelberg offers a \enquote{\ac{iaas} specially tailored for higher education and research institutions}\cite{urz2021} called heiCLOUD.
+It supplies multiple departments at Heidelberg University with storage, virtual machines, or network components.
+In addition, heiCLOUD is a DFN\footnote{German National Research and Education Network is the communications network for Science and research in Germany} member and offers others to use their services.
+As stated on their information website\cite{heicloud2021}, it 
 \begin{enumerate*}[label=(\roman*)]
-    \item capable of freely manageable IT resources,
+    \item is capable of freely manageable IT resources,
     \item beholds a stable and fast connection,
     \item ensures high availability and scalability,
     \item has freely selectable VM operating systems, and
@@ -122,7 +122,7 @@ As stated on their information website\cite{heicloud2021}, it is
 \end{enumerate*} \cite{heicloud2021}.
 Users can easily create their network areas and manage their space individually based on the open-source application OpenStack.
 Unlike well-known cloud providers, heiCLOUD servers are located within Germany, thus, abide by the European data privacy law.
-HeiCLOUD has never considered honeypots for additional cybersecurity measurements.
+HeiCLOUD has never considered implementing honeypots for additional cybersecurity measurements.
 
 \subsection{T-Pot}
 \label{subsec:tpot}
@@ -138,7 +138,7 @@ All daemons and tools run on the same network interface, but some are encapsulat
 The lightweight virtualization technology Docker uses containers to run on the host system \cite{combe2016}.
 Unlike virtual machines, Docker reduces overhead with the downside of a greater attack surface.
 To mitigate attacks, Docker wraps containers in an isolated environment.
-This is achieved by restricting the kernel namespace and control groups (\verb|cgroups|).
+This is achieved by restricting the kernel namespace and control groups (\verb|cgroups|) \cite{combe2016}.
 \autoref{fig:overview-tpot} visualizes the technical concept of T-Pot.
 Each service has dedicated ports or port ranges that are exposed.
 Attackers can communicate either with \ac{tcp} or \ac{udp}.
@@ -176,7 +176,7 @@ Newer versions might be available by the end of this study and could differ from
         Honeypots are encapsulated in their network.
         NSM runs on the host network, and thus, receives every packet.
         ELK and tools run on localhost and are accessible through NGINX.
-        The Cockpit application is a web-based graphical interface for servers
+        The Cockpit application is a web-based graphical interface for servers.
     }
     \label{fig:overview-tpot}
 \end{sidewaysfigure}
@@ -194,7 +194,7 @@ In addition, \autoref{tab:overview-honeypots} gives a quick overview of all avai
 
 \textbf{ADBHoney} \cite{adbhoney2021} is a low-interaction \ac{adb} honeypot over \ac{tcp}/\ac{ip}.
 The importance of it lies in the \ac{adb} protocol that is used for debugging and pushing content to an Android device.
-However, unlike \ac{usb} connection, it does not support any kind of ample mechanisms of authentication and protection.
+However, unlike a \ac{usb} connection, it does not support any kind of ample mechanisms of authentication and protection.
 By exposing the \ac{adb} service over any port, an adversary could connect and exploit it.
 ADBHoney is designed to catch malware that has been pushed onto devices.
 
@@ -209,7 +209,7 @@ Files are accessible by path strings to denote the file or directory.
 In addition, some file systems include special characters to traverse the hierarchy easily.
 Attackers take advantage of it by combining special characters to get access to restricted areas. \cite{flanders2019}
 
-\textbf{Conpot} \cite{conpot2021} is a low-interaction industrial honeypot for \ac{ics}, and \ac{scada}.
+\textbf{Conpot} \cite{conpot2021} is a low-interaction industrial honeypot for \acf{ics}, and \acf{scada}.
 It provides a variety of different standard industrial control protocols.
 An adversary should be tricked by the complex infrastructure and lured into attacks.
 In addition, a custom human-machine interface can be connected to increase the attack surface.
@@ -217,7 +217,7 @@ By randomly delaying the response time, Conpot tries to emulate a real machine h
 
 \textbf{Cowrie} \cite{cowrie2021} is a medium- to high-interaction \ac{ssh} and Telnet honeypot.
 It offers to log brute-force attacks and shell interactions with attackers.
-In medium-interaction mode, Cowrie emulates a UNIX shell in Python, whereas in high-interaction mode, it proxies all commands to another system.
+In medium-interaction mode, Cowrie emulates a Unix shell in Python, whereas in high-interaction mode, it proxies all commands to another system.
 
 \textbf{DDoSPot} \cite{ddosspot2021} is a low-interaction honeypot to log and detect \ac{udp}-based \ac{ddos} attacks.
 It is a platform used to support various plugins for different honeypot services and servers.
@@ -308,13 +308,13 @@ Its key idea is to send an endless data stream to the attacker until its memory 
         ADBHoney \cite{adbhoney2021}              & 5555/TCP                                                                                                    & low                        & \ac{adb} protocol honeypot                                                           \\
         Cisco ASA \cite{cymmetria2018}            & 5000/UDP, 8443/TCP                                                                                          & low                        & honeypot for CVE-2018-0101\cite{CVE-2018-0101} detection                             \\
         Citrix honeypot \cite{citrixhoneypot2020} & 443/TCP                                                                                                     & low                        & detects and logs CVE-2019-19781\cite{CVE-2019-19781} scans and exploitation attempts \\
-        Conpot \cite{conpot2021}                  & 80, 102, 161, 502, 623, 1025, 2404, \newline 10001, 44818, 47808, 50100                                     & low                        & industrial honeypot for \ac{ics}, and \ac{scada}                                     \\
-        Cowrie \cite{cowrie2021}                  & 2222, 23                                                                                                    & high                       & \ac{ssh} and Telnet honeypot                                                              \\
+        Conpot \cite{conpot2021}                  & 80, 102, 161, 502, 623, 1025, 2404, \newline 10001, 44818, 47808, 50100                                     & low                        & industrial honeypot for \ac{ics} and \ac{scada}                                      \\
+        Cowrie \cite{cowrie2021}                  & 2222, 23                                                                                                    & high                       & \ac{ssh} and Telnet honeypot                                                         \\
         DDoSPot \cite{ddosspot2021}               & 1112/TCP                                                                                                    & low                        & log and detect UDP-based \ac{ddos} attacks                                           \\
         Dicompot \cite{dicompot2021}              & 1112/TCP                                                                                                    & medium                     & honeypot for the \ac{dicom} protocol                                                 \\
         Dionaea \cite{dionaea2021}                & 21, 42, 69/UDP, 8081, 135, 443, 445, \newline 1433, 1723, 1883, 1900/UDP, \newline 3306, 5060/UDP, 5061/UDP & low                        & capture malware copies                                                               \\
         Elasticpot \cite{elasticpot2021}          & 9200                                                                                                        & low                        & honeypot for Elasticsearch                                                           \\
-        Glutton \cite{glutton2021}                & NFQ                                                                                                         & medium                     & MitM proxy for \ac{ssh} and TCP                                                           \\
+        Glutton \cite{glutton2021}                & NFQ                                                                                                         & medium                     & MitM proxy for \ac{ssh} and TCP                                                      \\
         Heralding \cite{heralding2021}            & 21, 22, 23, 25, 80, 110, 143, 443, \newline 993, 995, 1080, 5432, 5900                                      & low                        & credential catching honeypot                                                         \\
         HoneyPy \cite{honeysap2021}               & 7, 8, 2048, 2323, 2324, 4096, 9200                                                                          & low                        & extendable honeypot                                                                  \\
         HoneySAP \cite{honeysap2021}              & 3299/TCP                                                                                                    & low                        & honeypot for SAP services                                                            \\
@@ -362,13 +362,12 @@ Based on this, it can be assumed that most of the attacks on Dionaea are carried
 The administrator of the university firewall had been consulted to exclude the T-Pot instance to validate if the actual number is even higher without any packet filter in front of it.
 Respectively, no stateless packet filter has been applied to the T-Pot for three weeks (2nd of December until 23rd of December).
 It could identify a drastic increase in Dionaea attacks with a total number of \numprint{213053}.
-Overall, $93\%$ of all attacks are on the smbd protocol followed by many database protocols such as mongod and mssqld.
+Overall, $93\%$ of all attacks are on the \ac{smb} protocol followed by many database protocols such as MongoDB and MSSQL.
 This confirms the assumption that a higher total number of attacks would be the result without the packet filter in front of the instance.
 
 Comparing the number with \citet{Kelly2021} it shows that Dionaea attacks surpass every other cloud provider.
 However, Dionaea attacks will not be included in later results because usually, a server is not allowed to be excluded from the university firewall.
 Only for this research purpose to assess the effect of the packet filter has an exclusion been granted.
-
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
@@ -405,7 +404,7 @@ Attacks are not equally distributed among all honeypots, and thus, different pro
 \autoref{tpot-overview-histogram} shows the timeline of attacks that are executed on our instance separated by honeypots.
 RDPY, Honeytrap, and Cowrie are the most attacked honeypots.
 The high peak of Honeytrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an insight of the packet filtering at the Heidelberg University.
-It identifies a bias towards remote desktop protocol attacks, shell-code exploitations, and commands to retrieve information about the \ac{cpu}, scheduled tasks (\verb|cat /proc/cpuinfo|, or \verb|crontab|), or privilege escalation.
+It identifies a bias towards remote desktop protocol attacks, shell-code exploitations, and commands to retrieve information about the \acs{cpu}, scheduled tasks (\verb|cat /proc/cpuinfo|, or \verb|crontab|), or privilege escalation.
 
 \begin{figure}
     \centering
@@ -540,9 +539,9 @@ This looks more appealing than acquiring mining machines and hijacking electrici
 % ====================================================================================================================
 % P0f
 P0f identified different Windows versions and Linux distributions in conjunction with various \ac{ssh} clients to compromise the T-Pot.
-Like \citet{Kelly2021}, Windows 7 or 8 and Windows NT Kernel are the most used \ac{os} with $81\%$.
+Like \citet{Kelly2021} presented, Windows 7 or 8 and Windows NT Kernel are the most used \ac{os} with $81\%$.
 Unfortunately, disguising OS fingerprinting activities account for $84\%$ of all fingerprints.
-Lastly, the results are cleaned up and excluded all IPs from DFN and \acs{belwue} from the results.
+Lastly, the results are cleaned up and all IPs from DFN and \acs{belwue} are excluded.
 Both scan frequently and check if any vulnerability exists.
 This distorts the findings, and thus, they have been filtered based on their subnet addresses.
 However, the results show no notable changes.
@@ -628,4 +627,4 @@ Another major drawback is the latest endeavor to detect honeypots on the transpo
 As recently investigated by \citet{vetterl2020}, detecting honeypots is becoming easier due to a fatal flaw in the underlying protocol implementation.
 \citet{vetterl2020} states that attackers always try to prevent their methods, exploits, and tools from being divulged.
 Therefore, detecting honeypots before attacking them strongly motivates black hats.
-The \autoref{chap:fingerprinting} will present a way to avoid such fingerprint activities with the honeypot Cowrie.
+\Autoref{chap:fingerprinting} will present a way to avoid such fingerprint activities with the honeypot Cowrie.

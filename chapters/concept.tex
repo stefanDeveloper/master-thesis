@@ -30,7 +30,7 @@ The four most common zones are:
 \end{enumerate*} \cite{csec2021}.
 A network zone restricts access and controls data communication flows \cite{csec2021}.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/university-network.pdf}
     \caption[Draft of the University network]{
@@ -58,7 +58,7 @@ Before applying one of these zones, the respective network has to oblige to clie
 In addition, \ipAddress{129.206.218.1} is allocated for the gateway.
 A network must adhere to these obligations if it applies to any pre-defined stages.
 
-\begin{table}
+\begin{table}[htbp]
     \centering
     \caption[Overview of firewall stages]{
         Overview of firewall stages at the Heidelberg University.
@@ -113,7 +113,7 @@ Instead, it ensures that no one else than authorized users has access.
 Especially in high confidential areas, no attacker should be capable of sending even a single packet to a host in the network.
 The vast range of honeypots does not provide tracking packets on a detailed level.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/heicat-concept.pdf}
     \caption[Concept to detect connection attempts]{
@@ -141,7 +141,7 @@ Like T-Pot, it uses Logstash to forward data to Elasticsearch.
 One benefit is the centralized approach to store data.
 This allows to deploy more instances to randomly collect data from other zones.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/heicat-architecture.pdf}
     \caption[Visualization of the MADCAT packet flow]{
@@ -153,7 +153,7 @@ This allows to deploy more instances to randomly collect data from other zones.
 
 \section{Results}
 
-MADCAT (28th of October till 18th of November) and T-Pot (16th of November till 7th of December) have been deployed for three weeks.
+MADCAT (\nth{28} of October till \nth{18} of November) and T-Pot (\nth{16} of November till \nth{7} of December) have been deployed for three weeks.
 All instances had a connection to both subnets.
 First, the results obtained in the subnet \ipAddress{129.206.218.0/24} will be presented, closing up with the ones claimed in the eduroam network.
 
@@ -164,12 +164,12 @@ On the contrary, it could not identify any harmful activity based on these packe
 Overall, ConPot ($56.98\%$), Honeytrap ($31.35\%$), and Dionaea ($7.09\%$) received most of the attacks with a total number of $437$.
 Interestingly, it could identify \ac{snmp} connections that are used by print servers to discover printers.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-protocol-usage.pdf}
     \caption[Protocol distribution of MADCAT]{
         Protocol distribution of MADCAT. \ac{icmp}, IPv6, and \ac{udp} are the most used protocols.
-        Timestamp; 28th of October to 18th of November.
+        Timestamp; \nth{28} of October to \nth{18} of November.
     }
     \label{fig:madcat-protocols}
 \end{figure}
@@ -190,13 +190,13 @@ The \ac{ip} address reputation could help answer if a real user or an attacker s
 Both \ac{ip} addresses in this example were resolved as a known attacker; thus, it identified them as a probe packet before executing their attack.
 A vital security interest in port 113 is negligible; however, the concept helps to detect such leaks, especially when stateless firewalls are the main doorkeeper for packets.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-overview-map.pdf}
     \caption[Attack distribution of MADCAT]{
         Attack distribution of MADCAT.
         The USA, Russia, and China are the most attacking countries.
-        Timestamp; 28th of October to 18th of November.
+        Timestamp; \nth{28} of October to \nth{18} of November.
     }
     \label{fig:madcat-attack-distribution}
 \end{figure}
@@ -209,12 +209,12 @@ As shown beforehand in \autoref{chap:cloud-security}, geographical information o
 Like the results in heiCLOUD, it can be assumed that this information is not reliable as an indicator of where attacks occur.
 Nevertheless, it is interesting to see where the last node originated from.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-suricata-alerts.pdf}
     \caption[Suricata results of T-Pot]{
         Suricata results of T-Pot.
-        Timestamp; from 16th of November to 7th of December.
+        Timestamp; from \nth{16} of November to \nth{7} of December.
     }
     \label{fig:suricata-distribution}
 \end{figure}
@@ -225,7 +225,7 @@ Suricata identified odd behaviors in the network (\autoref{fig:suricata-distribu
 In total, it detected \numprint{292953} alerts and \acsp{cve}.
 Besides minor alerts like \textsc{nmap} scans, Suricata registered alerts in \ac{snmp} requests, \ac{tcp} stack, and Wind River VxWorks.
 CVE-2020-11899 \cite{CVE-2020-11899} accounts nearly $73.35\%$ with a total number of \numprint{214879}.
-This \acs{cve} is one of 19 others forming the \enquote{Ripple20} vulnerability in the low-level \ac{tcp}/\ac{ip} library developed by Treck, Inc.
+This \acs{cve} is one of 19 others forming the \textit{Ripple20} vulnerability in the low-level \ac{tcp}/\ac{ip} library developed by Treck, Inc.
 One of the Track \ac{tcp}/\ac{ip} stack tasks is to reassemble fragmented packets.
 Whenever a fragmented packet arrives, the stack tries to validate the total length in the \ac{ip} header.
 If the total length is not correct, it trims the data.
@@ -246,16 +246,16 @@ Each connection attempt with CVE-2019-12263 is originated from Russia.
 Hence, the assumption is that the source \ac{ip} address maliciously intended to send an urgent flag.
 For the other \acsp{cve}, the \ac{ip} reputation could not be resolved.
 
-\begin{figure}
-    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SIP connection]MADCAT connection attempt to exploit \ac{sip} connection. Received on the 16th of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
+\begin{figure}[htbp]
+    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SIP connection]MADCAT connection attempt to exploit \ac{sip} connection. Received on the \nth{16} of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/madcat-port-histogram.pdf}
     \caption[Attack port histogram of T-Pot]{
         Attack port histogram of T-Pot.
-        Timestamp; from 16th of November to 7th of December.
+        Timestamp; from \nth{16} of November to \nth{7} of December.
     }
     \label{fig:port-histogram}
 \end{figure}
@@ -275,8 +275,8 @@ Investigating the payload of outliers does not confirm the assumption of a vicio
 Thus, declaring these results as negligible.
 Overall, most of the connection attempt received by the instance are from these \ac{ip} addresses: \ipAddress{129.206.217.118}, \ipAddress{129.206.218.23}, and \ipAddress{129.206.218.194}.
 
-\begin{figure}
-    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SMB connection]MADCAT connection attempt to exploit \ac{smb} connection. Received on the 16th of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
+\begin{figure}[htbp]
+    \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SMB connection]MADCAT connection attempt to exploit \ac{smb} connection. Received on the \nth{16} of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:smb-exploitation}]{listings/exploit-smb.txt}
 \end{figure}
 
 Lastly, the results from the eduroam network are considered.
@@ -309,18 +309,18 @@ On the contrary, it could not register any other odd packets on other ports.
 A detailed investigation could resolve whether the honeypot is available to attackers.
 A misconfiguration of the university firewall has been detected which proves this assumption.
 
-In December, from the 21st to the 23rd, a misconfiguration of the university firewall resulted in a flood of attacks.
+In December, from the \nth{21} to the \nth{23}, a misconfiguration of the university firewall resulted in a flood of attacks.
 In total, the T-Pot instance received \numprint{46328} attacks in three days.
 It turns out that five ports were open during that time, allowing attackers to probe the instance (\autoref{fig:tpot-misconfig-port-histogram}).
 The most attacked honeypots are RDPY ($58.58\%$), Honeytrap ($24.53\%$), and Cowrie ($11.69\%$).
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-misconfig-overview-map.pdf}
     \caption[Attack distribution of T-Pot]{
         Attack distribution of T-Pot.
         USA, Russia, China, and Germany are the most attacking countries.
-        Timestamp; from 21st of December to 23rd of December.
+        Timestamp; from \nth{21} of December to \nth{23} of December.
     }
     \label{fig:tpot-misconfig-map}
 \end{figure}
@@ -328,12 +328,12 @@ The most attacked honeypots are RDPY ($58.58\%$), Honeytrap ($24.53\%$), and Cow
 Like the geographical information of other honeypots, most of the connections originate from the United States, Russia, and China (\autoref{fig:tpot-misconfig-map}).
 These similarities indicate a bias of the origin even though the location information is not reliable.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-misconfig-port.pdf}
     \caption[Attack port histogram of T-Pot]{
         Attack port histogram of T-Pot.
-        Timestamp; from 21st of December to 23rd of December.
+        Timestamp; from \nth{21} of December to \nth{23} of December.
     }
     \label{fig:tpot-misconfig-port-histogram}
 \end{figure}
@@ -344,7 +344,7 @@ For Cowrie, attackers tried to log in and execute commands by brute force or gue
 Moreover, the latest crypto-mining malware has been used, which resembles the findings of other honeypots.
 These results overlap strongly with those obtained by the T-Pot instance in heiCLOUD.
 
-The firewall administrator stated that the misconfiguration was fixed on the 23rd of December, resulting in a decrease in attacks on the T-Pot instance.
+The firewall administrator stated that the misconfiguration was fixed on the \nth{23} of December, resulting in a decrease in attacks on the T-Pot instance.
 These results have successfully answered our discussion of whether an attacker could detect the host machines at the university building.
 It clearly shows that attackers scan these \ac{ip} address ranges and send malicious packets whenever they can.
 

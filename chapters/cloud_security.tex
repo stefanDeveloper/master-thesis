@@ -27,7 +27,7 @@ In contrast to \ac{aws}, Cowrie logged the majority of attacks with $51\%$ on \a
 Besides several automated attacks trying to log in with default credentials, adversaries tried to gather information about the \acs{gpu} architecture, scheduled tasks, and privilege escalation.
 Microsoft Azure reflects nearly the same results as the other two cloud providers beforehand.
 
-\begin{table}
+\begin{table}[htbp]
     \centering
     \caption[Overview of attacks on cloud providers]{
         Overview of attacks on cloud providers.
@@ -87,7 +87,7 @@ However, the T-Pot, developed by Telekom, offers a profoundly ready-to-use solut
 It combines several honeypots with various analytic tools to trace the newest attacks.
 Furthermore, it helps to compare the findings with the ones \citet{Kelly2021} claim.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figures/tpot-concept.pdf}
     \caption[Concept to collect honeypot attacks]{
@@ -168,7 +168,7 @@ T-Pot feeds their data to an external Telekom service; however, this data submis
 The latest version, $20.06.0$, has been used in this chapter.
 Newer versions might be available by the end of this study and could differ from this.
 
-\begin{sidewaysfigure}
+\begin{sidewaysfigure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-architecture.pdf}
     \caption[T-Pot architecture]{
@@ -294,7 +294,7 @@ Due to the established connection before the cryptographic exchange, this module
 If someone connects to this honeypot, it results in a memory overflow.
 Its key idea is to send an endless data stream to the attacker until its memory or storage runs out.
 
-\begin{sidewaystable}
+\begin{sidewaystable}[htbp]
     \centering
     \caption[Overview of honeypots of T-Pot]{
         Overview of all available honeypots of T-Pot with interaction level, port, and a short description.
@@ -332,17 +332,17 @@ Its key idea is to send an endless data stream to the attacker until its memory 
 \section{Results}
 \label{sec:honeypots-heicloud}
 
-The T-Pot has been deployed for three weeks (from 26th of September to 16th of October) and collected in total \numprint{607747} attacks.
+The T-Pot has been deployed for three weeks (from \nth{26} of September to \nth{16} of October) and collected in total \numprint{607747} attacks.
 Overall, RDPY ($46.08\%$), Honeytrap ($33.23\%$), and Cowrie ($12.42\%$) received most of the attacks with a total amount of \numprint{540398} attacks.
 \autoref{fig:overview-attacks} shows the distribution of honeypot attacks.
 The total numbers are based on \autoref{tab:overview-honeypots-attacks}.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-attacks.pdf}
     \caption[Distribution of honeypot attacks]{
         Distribution of honeypot attacks.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:overview-attacks}
 \end{figure}
@@ -360,7 +360,7 @@ The result clearly shows that port 139 for \ac{smb} is filtered, although the ac
 The stateless firewall runs in front of heiCLOUD and filters many ports, including $113$.
 Based on this, it can be assumed that most of the attacks on Dionaea are carried out via \ac{smb}, which would explain the total number of attacks.
 The administrator of the university firewall had been consulted to exclude the T-Pot instance to validate if the actual number is even higher without any packet filter in front of it.
-Respectively, no stateless packet filter has been applied to the T-Pot for three weeks (2nd of December until 23rd of December).
+Respectively, no stateless packet filter has been applied to the T-Pot for three weeks (\nth{2} of December until \nth{23} of December).
 It could identify a drastic increase in Dionaea attacks with a total number of \numprint{213053}.
 Overall, $93\%$ of all attacks are on the \ac{smb} protocol followed by many database protocols such as MongoDB and MSSQL.
 This confirms the assumption that a higher total number of attacks would be the result without the packet filter in front of the instance.
@@ -368,13 +368,14 @@ This confirms the assumption that a higher total number of attacks would be the 
 Comparing the number with \citet{Kelly2021} it shows that Dionaea attacks surpass every other cloud provider.
 However, Dionaea attacks will not be included in later results because usually, a server is not allowed to be excluded from the university firewall.
 Only for this research purpose to assess the effect of the packet filter has an exclusion been granted.
-\begin{figure}
+
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-overview-map.pdf}
     \caption[Attack distribution of T-Pot]{
         Attack distribution of T-Pot.
         The USA, Russia, China, and Germany are the most attacking countries.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:attack-distribution}
 \end{figure}
@@ -389,13 +390,13 @@ On the contrary, the geographical location of an \ac{ip} address merely indicate
 Due to technologies like \ac{vpn} or Tor, the last known node of an \ac{ip} address could be spoofed, and thus as stated by \citet{Kelly2021}, would remain insufficient to use.
 Hence, no one should rely on geographical information.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-attacks-histogram.pdf}
     \caption[Attack histogram of T-Pot]{
         Attack histogram of T-Pot.
         Only the five most attacked honeypots are considered.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{tpot-overview-histogram}
 \end{figure}
@@ -406,13 +407,13 @@ RDPY, Honeytrap, and Cowrie are the most attacked honeypots.
 The high peak of Honeytrap in the middle indicates a full \textsc{nmap} scan from Germany that has been done to get an insight of the packet filtering at the Heidelberg University.
 It identifies a bias towards remote desktop protocol attacks, shell-code exploitations, and commands to retrieve information about the \acs{cpu}, scheduled tasks (\verb|cat /proc/cpuinfo|, or \verb|crontab|), or privilege escalation.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-suricata-alerts.pdf}
     \caption[Suricata results of T-Pot]{
         Suricata results of T-Pot.
         Displays the five most listed alert categories.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:suricata-results}
 \end{figure}
@@ -430,17 +431,17 @@ Most used vulnerabilities are
 As derived from \autoref{fig:suricata-results}, the T-Pot has not received many attacks in the first week.
 Starting from the 28th of September, the number of alerts is skyrocketing.
 This would indicate that bots crawl \ac{ip} address ranges to find new machines and probe them.
-Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the 6th of October and immediately recognized by Suricata on the 15th of October.
+Interestingly, zero-day exploits like the Apache vulnerability \cite{CVE-2021-42013} that came with version $2.49.0$ got registered in CVE on the \nth{6} of October and immediately recognized by Suricata on the \nth{15} of October.
 Attackers could perform a remote code execution using path traversal attacks when the \ac{cgi} scripts of Apache are enabled.
-The logs could trace back similar attacks like \verb|/cgi-bin/.\%2e/\%2e\%2e/bin/sh| until the 7th of October, leaving an even smaller time frame to adapt to new exposures.
+The logs could trace back similar attacks like \verb|/cgi-bin/.\%2e/\%2e\%2e/bin/sh| until the \nth{7} of October, leaving an even smaller time frame to adapt to new exposures.
 This shows how fast bots adapt to new vulnerabilities to compromise more systems.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-rdpy-port.pdf}
     \caption[RDPY results of T-Pot]{
         RDPY attacks are separated into attacks and unique source \ac{ip} addresses.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:rdpy-results}
 \end{figure}
@@ -455,12 +456,12 @@ Respectively, misc activities sum up to roughly $1.5$ million entries, \ac{rdp} 
 Several \ac{rdp} attacks from 2021 back to 2001 had been executed on the T-Pot.
 Respectively, CVE-2012-0152 and CVE-2001-0540 coincide with the ones \citet{Kelly2021} claim.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-honeytrap-port.pdf}
     \caption[Honeytrap results of T-Pot]{
         Honeytrap results of T-Pot.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:honeytrap-results}
 \end{figure}
@@ -479,12 +480,12 @@ Most of these interceptions are made on
 Nearly all ports attacks focused on \ac{rdp} connection attempts (\verb|Cookie: mstshash=Administr|).
 However, $94\%$ of all connected \ac{ip} addresses on Honeytrap are resolved as known attackers.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/tpot-cowrie-port.pdf}
     \caption[Cowrie results of T-Pot]{
         Cowrie results of T-Pot.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:cowrie-results}
 \end{figure}
@@ -505,15 +506,7 @@ It is not surprising that such attacks gain attraction concerning the current ti
 Attackers could exploit machines for crypto mining in order to earn more money.
 This looks more appealing than acquiring mining machines and hijacking electricity from surrounding apartments.
 
-\begin{figure}
-    \lstinputlisting[language=bash, caption={[Cowrie attack to gather various information about the system]Cowrie attack to gather various information about the system.}, label={lst:code-exploitation}]{listings/exploit-cpu.sh.txt}
-\end{figure}
-
-\begin{figure}
-    \lstinputlisting[language=bash, caption={[Cowrie attack to exploit the host machine as a crypto miner]Cowrie attack to exploit the host machine as a crypto miner.}, label={lst:crypto-exploitation}]{listings/exploit-crypt.sh.txt}
-\end{figure}
-
-\begin{figure*}
+\begin{figure*}[htbp]
     \centering
 
     \begin{subfigure}[b]{0.49\textwidth}
@@ -531,7 +524,7 @@ This looks more appealing than acquiring mining machines and hijacking electrici
     \end{subfigure}
     \caption[Cowrie top 10 credentials on T-Pot]{
         Cowrie top 10 credentials used on T-Pot.
-        Timestamp; 26th of September to 16th of October.
+        Timestamp; \nth{26} of September to \nth{16} of October.
     }
     \label{fig:cowrie-credentials}
 \end{figure*}
@@ -575,7 +568,7 @@ Our results emphasize the importance of honeypots.
 It gives a proper security measure of an IT infrastructure and helps to identify potential leaks or vulnerabilities.
 Moreover, it shows that T-Pot helps detect recent bot activities and gives an outlook on the newest trends of attacks.
 
-\begin{sidewaystable}
+\begin{sidewaystable}[htbp]
     \centering
     \caption[Overview of attacks on heiCLOUD, AWS, GCP, and Azure]{
         Overview of attacks on heiCLOUD, \ac{aws}, \ac{gcp}, and Azure.
@@ -628,3 +621,13 @@ As recently investigated by \citet{vetterl2020}, detecting honeypots is becoming
 \citet{vetterl2020} states that attackers always try to prevent their methods, exploits, and tools from being divulged.
 Therefore, detecting honeypots before attacking them strongly motivates black hats.
 \Autoref{chap:fingerprinting} will present a way to avoid such fingerprint activities with the honeypot Cowrie.
+
+% ====================================================================================================================
+% Listings
+\begin{figure}[htbp]
+    \lstinputlisting[language=bash, caption={[Cowrie attack to gather various information about the system]Cowrie attack to gather various information about the system.}, label={lst:code-exploitation}]{listings/exploit-cpu.sh.txt}
+\end{figure}
+
+\begin{figure}[htbp]
+    \lstinputlisting[language=bash, caption={[Cowrie attack to exploit the host machine as a crypto miner]Cowrie attack to exploit the host machine as a crypto miner.}, label={lst:crypto-exploitation}]{listings/exploit-crypt.sh.txt}
+\end{figure}

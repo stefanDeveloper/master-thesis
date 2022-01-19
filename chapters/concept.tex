@@ -6,7 +6,7 @@ However, capacious networks have separated compartments, and services are usuall
 Zoning is a well-known method to segment a network.
 Heidelberg University applies zoning, and thus, it is an interesting question if an attacker probes services outside or within the network.
 This chapter presents a concept that uses a honeypot-like detection tool to detect any dubious packets in the network.
-It shows that attacks in a restricted network zone of the Heidelberg University's internal network occurred and contributed to an adaption of the stateless firewall.
+It shows that attacks occurred in a restricted network zone of the Heidelberg University's internal network and contributed to an adaption of the stateless firewall.
 Thus, improving the security of the network.
 
 \section{University Network}
@@ -15,7 +15,7 @@ Honeypots that are accessible via the Internet receive a broad range of attacks.
 As \citet{Spitzner2003} noted, a honeypot is not strictly bound to run in a \ac{dmz} or a network with direct Internet access.
 The correct location has to be chosen based on the goals of the honeypot.
 For example, one goal could be to catch attackers behind a perimeter firewall to reveal leaks or vulnerabilities.
-Beforehand, the honeypot was broadly available on the Internet, and attackers could probe it easily.
+As described in the chapter before, the honeypot was broadly available on the Internet, and attackers could probe it easily.
 It collected on average \numprint{29840} attacks per day, resulting in a total amount of \numprint{607747} attacks.
 Zoning a network into logical groups mitigates the risk of an open network.
 Thus, the T-Pot would receive significantly fewer attacks in a controlled network zone.
@@ -42,7 +42,7 @@ A network zone restricts access and controls data communication flows \cite{csec
 \end{figure}
 
 The network at the Heidelberg University includes a central stateless firewall (\ac{acl}) that enfolds all institutes.
-It entails a default blacklist that blocks certain services (such as \ac{smtp}, NCP, or \ac{snmp}) and a stateless filter provided by BelWÜ.
+It entails a default blacklist that blocks certain services (such as \ac{smtp} or \ac{snmp}) and a stateless filter provided by BelWÜ.
 Each institute can either use a pre-defined stateless firewall provided by the University Computing Center Heidelberg or use a self-administrated firewall inside the network.
 \autoref{fig:university-network} outlines the association between these components.
 The internal \enquote{HDnet} enables the communication between institutes without leaving the internal network.
@@ -96,7 +96,7 @@ MADCAT has been developed by the BSI and helps to log any connection attempt bei
 The acronym MADCAT stands for \textit{Mass Attack Detection Connection Acceptance Tools}.
 It works as a honeypot-like detection application with a low-interaction level.
 Its key idea is to log every connection attempt and further process it to retrieve credentials or shell exploitation.
-\autoref{fig:madcat-architecture} gives an insight how MADCAT works.
+\autoref{fig:madcat-architecture} gives an insight into how MADCAT works.
 It runs on an Ubuntu distribution, either $18.04$ or $20.04$, and has been tested on Ubuntu $18.04$.
 It processes packets from any interface that has been configured.
 As an example, it could process Ethernet and wireless packets.
@@ -244,7 +244,7 @@ On the contrary, all connection attempts registered by the concept have been mad
 Lastly, Wind River VxWorks 6.9.4 and vx7 in CVE-2019-12263 \cite{CVE-2019-12263} cause a buffer overflow due to the underlying \ac{tcp} component that results in a race condition.
 Each connection attempt with CVE-2019-12263 is originated from Russia.
 Hence, the assumption is that the source \ac{ip} address maliciously intended to send an urgent flag.
-For the other \acsp{cve} the \ac{ip} reputation could not be resolved.
+For the other \acsp{cve}, the \ac{ip} reputation could not be resolved.
 
 \begin{figure}
     \lstinputlisting[language=bash, caption={[MADCAT connection attempt to exploit SIP connection]MADCAT connection attempt to exploit \ac{sip} connection. Received on the 16th of November. \ac{ip} reputation: known attacker. Location Germany.}, label={lst:sip-exploitation}]{listings/exploit-sip.txt}

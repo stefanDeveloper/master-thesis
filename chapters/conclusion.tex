@@ -1,15 +1,15 @@
 \chapter{Conclusion}
 
 This thesis has shown that organizations can spot malicious activities using honeypot solutions.
-This result successfully answered the original question of whether honeypots contribute to a more secure infrastructure.
+The result in this thesis successfully answered the original question of whether honeypots contribute to a more secure infrastructure.
 It can confirm this assumption based on its results in the cloud and in the university network.
 The first approach was to collect data with the help of the T-Pot solution and compare them to a previous study of similar cloud providers.
 It has shown that these activities increased significantly.
-Considering the services excluded by default of the firewall, heiCLOUD has received more attacks than ever, putting it in the first place compared to other cloud providers.
+The universitys' cloud solution heiCLOUD has received more attacks than ever, putting it in the first place compared to other cloud providers.
 It has seen various attacks in RDP, VoIP, and SSH.
-Outstanding is the amount of cryptocurrency-related attacks that reflect the current situation of highly traded GPUs.
+The number of attacks related to cryptocurrencies is particularly striking, reflecting the current situation of highly traded GPUs.
 In addition, the latest attacks like the Apache vulnerability in version $2.49.0$ could be traced back to very early stages, showing how fast attackers adapt to new vulnerabilities.
-The assumption is that most executed attacks on the instance originated from bots.
+It is assumed that most of the executed attacks on the instance came from bots.
 
 Next, this thesis has focused on the university's internal network and implemented a new concept to detect every single packet sent to a host machine.
 The MADCAT solution, in conjunction with IDS tools, helped identify the open port 113 that has been used to deploy attacks.
@@ -31,4 +31,6 @@ The last chapter shows that honeypots are not flawless, and developers should be
 
 In conclusion, this thesis has presented concepts to catch attackers for different scenarios and shows that malicious activities have increased tremendously.
 In addition, it has taken a deep dive into an edge-breaking study to detect honeypots on transport level and has disguised Cowrie to block such activities.
-Thus, using honeypots as a security parameter has been proven promising for further scientific research.
+An interesting future study could involve the development of a generic method to fingerprint honeypots.
+Future research could also examine other libraries that reimplement protocols to find generic weaknesses and deviations.
+Ultimately, using honeypots as a security parameter has been proven promising for further scientific research.

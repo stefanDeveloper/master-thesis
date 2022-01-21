@@ -4,11 +4,11 @@
 \epigraph{There is a generic weakness in the current generation of low- and medium-interaction honeypots because of their reliance on off-the-shelf libraries to implement large parts of the transport layer.}{\textit{Alexander Vetterl}}
 
 Detecting honeypots before launching attacks helps to avoid the disclosure of information.
-The \autoref{chap:cloud-security} has shown that bot activities are on the rise, and more attacks than ever have been launched.
+\Autoref{chap:cloud-security} has shown that bot activities are on the rise, and more attacks than ever have been launched.
 However, the vast majority of attacks have been identified to be repetitive.
 This chapter conducts two experiments on whether it is possible to fingerprint honeypots.
-First, it reproduces the findings that \citet{vetterl2020} claims to prove the initial question if any fingerprint activity is feasible.
-Lastly, it presents a concept to disguise Cowrie and verify this assumption with an experiment.
+First, it reproduces the findings from \citet{vetterl2020} to prove the initial question if any fingerprint activity is feasible.
+Consequently, it presents a concept to disguise Cowrie and verify this assumption with an experiment.
 
 \section{OpenSSH}
 \label{sec:openssh}
@@ -16,7 +16,7 @@ Lastly, it presents a concept to disguise Cowrie and verify this assumption with
 OpenSSH is one of the most used applications that enables SSH.
 Before proceeding with generic weaknesses of honeypots, a short intermezzo about OpenSSH is given.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figures/openssh-architecture.pdf}
     \caption[OpenSSH architecture]{
@@ -27,29 +27,29 @@ Before proceeding with generic weaknesses of honeypots, a short intermezzo about
     \label{fig:openssh-architecture}
 \end{figure}
 
-OpenSSH consists of three major layers, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport| (\autoref{fig:openssh-architecture}).
+OpenSSH consists of three major layers, namely \verb|ssh-connection|, \verb|ssh-userauth|, and \verb|ssh-transport| (\autoref{fig:openssh-architecture}) \cite{openssh2007}.
 The last layer is the most important because it provides the basic functionalities for crypto operations, such as key exchange and encryption.
 
-The first layer is responsible for authenticating the user to the sshd daemon.
-Based on two-way authentication, the client authenticates the sshd daemon with the help of the \verb|ssh-transport|.
+The first layer is responsible for authenticating the user to the SSH daemon, namely sshd.
+Based on two-way authentication, the client authenticates the SSH daemon with the help of the \verb|ssh-transport| \cite{openssh2007}.
 Finally, a secure connection is established, and the key exchange is done.
 The next step is to authenticate the user of the client.
-It offers authentication methods such as username/password, public key, or smart-card authentication.
-If the \verb|ssh-userauth| layer is successful, it will establish a secure channel through the \verb|ssh-connection| layer.
+It offers authentication methods such as username/password, public key, or smart-card authentication \cite{openssh2007}.
+If the \verb|ssh-userauth| layer is successful, it will establish a secure channel through the \verb|ssh-connection| layer \cite{openssh2007}.
 Each session is handled in a so-called channel.
 
-The \verb|ssh-connection| layer handles multiple sessions simultaneously over a single \verb|ssh-userauth| layer with the TCP/IP layer below.
+The \verb|ssh-connection| layer handles multiple sessions simultaneously over a single \verb|ssh-userauth| layer with the TCP/IP layer below \cite{openssh2007}.
 It is responsible for executing arbitrary commands, forwarding X11 connections, establishing VPN tunnels, and more.
 
-In addition, OpenSSH has built-in features such as keeping alive messages and redirecting stdin to \textit{/dev/null} for specialized X11 windows.
+In addition, OpenSSH has built-in features such as keeping alive messages and redirecting stdin to \textit{/dev/null} for specialized X11 windows \cite{openssh2007}.
 
 \autoref{fig:openssh-flow-diagram} outlines a sample session between a client and a server.
 The key exchange initialization is the first message between them to negotiate all ciphers and keys for communication.
-For this chapter, no other than this message will be considered.
+For this chapter, no other than the key exchange initialization message will be considered.
 
 \section{Preliminary Work}
 
-Attackers have a solid motivation to reveal honeypots before launching an attack.
+Attackers have a strong motivation to reveal honeypots before launching an attack.
 Without any protection, attackers would disclose their methods, and thus, newly developed attacks would become useless.
 As shown in \autoref{chap:cloud-security}, attackers do try to get information about the host system.
 \citet{vetterl2020} discussed various methods of fingerprinting; however, executing commands in a shell and examining the response leaves precarious information to the honeypot itself.
@@ -86,19 +86,19 @@ and $\|D_A\|$ (resp. $\|D_B\|$) is the Euclidean norm, obtained by $\sqrt{\sum_{
 The values of vectors are non-negative.
 The similarity between items is the value $\cos \theta$, $\cos \theta = 1$ indicates equality.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figures/vetterl_concept.pdf}
-    \caption[Outline to obtain the cosine similarity coefficient]{
-        Outline to obtain the cosine similarity coefficient (derived from \cite{vetterl2020}).
+    \caption[Process to obtain the cosine similarity coefficient]{
+        Process to obtain the cosine similarity coefficient (derived from \cite{vetterl2020}).
     }
     \label{fig:draft-cosine-similarity}
 \end{figure}
 
 In order to find the best $P_i$ for SSH, \citet{vetterl2020} first created different SSH version strings based on the format: \verb|SSH-protoversion-swversion SP comment crlf|.
-He used different lower and upper case variations, 12 different \textit{protoversions} ranging from $0.0$ to $3.2$, \textit{swversion} set to \enquote{OpenSSH} or empty string, \textit{comment} set to \enquote{FreeBSD} or empty string, and \textit{crlf} to either \verb|\r\n| or empty string.
+He used different lower and upper case variations, 12 different \verb|protoversions| ranging from $0.0$ to $3.2$, \verb|swversion| set to \verb|OpenSSH| or empty string, \verb|comment| set to \verb|FreeBSD| or empty string, and \verb|crlf| to either \verb|\r\n| or empty string.
 In total, summing up to \numprint{192} client version strings.
-Second, he created different \verb|SSH2_MSG_KEXINIT| packets with 16 key-exchange algorithms, two host key algorithms, 15 encryption algorithms, 5 MAC algorithms, and three compression algorithms.
+Second, he created different \verb|SSH2_MSG_KEXINIT| packets with 16 key-exchange algorithms, two host key algorithms, 15 encryption algorithms, 5 \ac{mac} algorithms, and three compression algorithms.
 In total, he sent \numprint{58,752} key exchange initialization messages.
 Combining them with the \numprint{192} client versions, he ended up sending \numprint{157925376} packets.
 The version string \verb|SSH-2.2-OpenSSH \r\n| and the \verb|SSH2_MSG_KEXINIT| packet including \textit{ecdh-sha2-nistp521} as the key-exchange algorithm, \textit{ssh-dss} as host key algorithm, \textit{blowfish-cbc} as encryption algorithm, \textit{hmac-sha1} as mac algorithm, and \textit{zlib@openssh.com} as compression algorithm, with the wrong padding, resulting in the lowest cosine similarity coefficient $C$.
@@ -119,7 +119,7 @@ Thus, distinguishing Cowrie from OpenSSH with SSH packets is a feasible method.
 Moreover, \citet{vetterl2020} performed an Internet-wide scan, and detected \numprint{758} Kippo and \numprint{2021} Cowrie honeypots.
 These results show that the values of honeypots would decrease to zero when fingerprinting activities are used.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figures/cowrie-openssh.pdf}
     \caption[Architecture of OpenSSH and Cowrie]{
@@ -146,7 +146,7 @@ Thus, an adversary could have detected a Cowrie honeypot with a single key excha
 Nowadays, Cowrie adapted itself to have \verb|NULL| characters as padding to mitigate such an exploit.
 However, these subtle differences give adversaries precautionary information and influence the cosine similarity coefficient.
 
-\begin{table}
+\begin{table}[htbp]
     \caption[Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted]{
         Overview of the cosine similarity of OpenSSH, Cowrie, and Twisted.
         Twisted has been added to have a comparison to an older honeypot.
@@ -182,7 +182,7 @@ First, the reproduction of the outdated OpenSSH library that \citet{vetterl2020}
 In his work, he used the version $7.5P1$, which deviates from the latest version $8.8P1$.
 Older versions rely on OpenSSL $1.0.2$, including outdated algorithms and functions.
 For the \verb|SSH2_MSG_KEXINIT| packet, the encryption algorithm \textit{blowfish-cbc} is outdated and has been removed with version $7.6P1$.
-Building the version $7.5P1$ requires the libraries libssl ($1.0.2$), libssl-dev ($1.0$), libssh-dev ($0.7.3-2$), and libssh-4 ($0.9.6-1$).
+Building the version $7.5P1$ requires the libraries \textit{libssl} ($1.0.2$), \textit{libssl-dev} ($1.0$), \textit{libssh-dev} ($0.7.3-2$), and \textit{libssh-4} ($0.9.6-1$).
 All of these libraries are outdated and have been removed from any Debian installation.
 Using the latest versions of these libraries results in missing encryption algorithms and host key algorithms.
 Thus, replacing the libraries is a necessary task.
@@ -190,17 +190,17 @@ It is required to download the libraries, remove the current versions, and insta
 The version $7.5P1$ allows modifying the key exchange initialization message proposal in a single file.
 On the contrary, this has been removed starting from version $7.6P1$.
 After compiling the application, its behavior has been tested with a Debian $11$ Buster and a Debian Jessie $9$ Docker image.
-Both are new machines with no other installed packages than the sshd daemon.
+Both are new machines with no other installed packages than the SSH daemon.
 Debian $11$ uses the latest OpenSSH version, whereas Jessie is at $6.7P1$.
 These environments help to uniquely identify variations in the protocol version.
 
-\begin{figure}
+\begin{figure}[htbp]
     \lstinputlisting[language=bash, caption={[OpenSSH connection attempt with probed message]OpenSSH connection attempt for version $7.5P1$ and $8.8P1$ with probed key exchange initialization message. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-openssh}]{listings/ssh-openssh.txt}
 \end{figure}
 
 \autoref{lst:ssh-openssh} shows the connection attempt with the adjusted version string and \verb|SSH2_MSG_KEXINIT| packet.
 Both Debian machines return the same response.
-Using the outdated version $7.5P1$ results in an incompatibility.
+Using the outdated version $7.5P1$, it results in an incompatibility.
 The return message outlines that \textit{blowfish-cbc} is not supported anymore.
 OpenSSH kept the encryption algorithm usable for compatibility reasons for clients until $7.6P1$.
 Later patches removed the \textit{blowfish-cbc} from the application; thus, a reproduction of \citet{vetterl2020} remains not feasible with the latest version.
@@ -213,7 +213,7 @@ Using \textit{ssh-dss} requires the extra flag \verb|-oHostKeyAlgorithms=+ssh-ds
 In order to avoid weak algorithms, the \textit{ssh-ed25519} host key algorithm is used, and the response has been promising to probe instances.
 So far, the key exchange initialization packet with \textit{ecdh-sha2-nistp521} as key exchange algorithm, \textit{ssh-ed25519} as host key algorithm, \textit{chacha20-poly1305} as encryption algorithm, \textit{hmac-sha1} as mac algorithm, and \textit{zlib@openssh.com} as compression algorithm have been successfully tested on the two Debian instances.
 
-\begin{figure}
+\begin{figure}[htbp]
     \lstinputlisting[language=bash, caption={[Cowrie connection attempt with probed message]Cowrie connection attempt with probed key exchange initialization message. All non-essential debug information have been removed to lay emphasis on the modified key exchange initialization.}, label={lst:ssh-cowrie}]{listings/ssh-cowrie.txt}
 \end{figure}
 
@@ -254,12 +254,8 @@ In conclusion, these are the protocol deviations that \citet{vetterl2020} has pr
 Thus, this section could successfully recreate his findings by detecting Cowrie on the transport level.
 Adversaries who modify their SSH client to send the specific version string and key exchange initialization message could detect Cowrie honeypots and stop further activities.
 
-\begin{figure}
+\begin{figure}[htbp]
     \lstinputlisting[language=python, caption={[TwistedConch packet length validation]TwistedConch packet length validation. Line 3 validates if the packet length is not greater than $1$ MB. If this check is not successful, the client receives a bad packet length exception.}, label={lst:twistedconch}]{listings/twistedconch.py}
-\end{figure}
-
-\begin{figure}
-    \lstinputlisting[language=python, caption={[Cowrie version string validation]Cowrie version string validation. It tweaks the same results as OpenSSH in line 16.}, label={lst:cowrie-version-string}]{listings/cowrie.py}
 \end{figure}
 
 \section{Attempt to Disguise Cowrie}
@@ -276,17 +272,17 @@ The concept is based on \citet{vetterl2020} solution, but due to newer versions 
 By default, OpenSSH itself cannot act as an intermediary; therefore, it is necessary to customize the latest version to enable this feature.
 \autoref{fig:cowrie-fix} visualizes the flow of SSH packets between an attacker and Cowrie.
 Cowrie is hidden in the background, and it is only accessible via the loopback address \ipAddress{127.0.0.1} on port 65522.
-The updated sshd daemon is exposed to the Internet, and it is accessible via \ipAddress{129.206.5.157} on port 22.
-Each connection to OpenSSH is forwarded to the honeypot through a NAT rule\footnote{iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222}.
+The updated daemon is exposed to the Internet, and it is accessible via \ipAddress{129.206.5.157} on port 22.
+Each connection to OpenSSH is forwarded to the honeypot through a \ac{nat} rule\footnote{iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 65222}.
 Accordingly, an attacker should not be able to detect Cowrie through response deviations.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figures/sshd-honeypot.pdf}
     \caption[Architecture of OpenSSH and Cowrie]{
         Architecture of OpenSSH and Cowrie (derived from \cite{vetterl2020}).
-        A NAT rule forwards the communication from port 22.
-        Only the sshd daemon is accessible from extern.
+        A \ac{nat} rule forwards the communication from port 22.
+        Only the SSH daemon is accessible from extern.
     }
     \label{fig:cowrie-fix}
 \end{figure}
@@ -296,8 +292,8 @@ The implementation is based on \citet{vetterl2020} version $6.3P1$\footnote{\hre
 As mentioned beforehand, due to major differences between both versions, a smooth transition is unattainable without modifications.
 Fortunately, the basic idea to morph OpenSSH into an intermediary instance stays the same.
 
-In total, the connection and user authentication layer has been modified.
-These are the following steps required to change the sshd daemon:
+In total, the connection and user authentication layer has to be modified.
+These are the following steps required to change the SSH daemon:
 
 \begin{itemize}
     \item User authentication layer: permit any connection to communicate to Cowrie without an authentication running in front of it.
@@ -311,27 +307,19 @@ In order to skip the authentication process, the server must return true for any
 Therefore, the authentication method has to be overridden in the main method and the allowed user method that checks if the user is permitted to log in.
 The authentication process validates if a connection to Cowrie is successful and returns true.
 In case of failure, the authentication would fail, resulting in a loss of connection for the client.
-Next, the libssh library expects a different integer for a successful authentication; therefore, the result is converted to the expected format.
+Next, the \textit{libssh} library expects a different integer for a successful authentication; therefore, the result is converted to the expected format.
 The allowed user method is changed to return true for any user trying to connect to the honeypot.
 Cowrie continues the authentication process and communicates with the attacker.
 
-\begin{figure}
-    \lstinputlisting[language=c, caption={[Tweaked OpenSSH authentication]Tweaked OpenSSH authentication to connect to Cowrie. Only the essential code parts to change the authentication method have been added.}, label={lst:openssh-auth}]{listings/auth-passwd.c}
-\end{figure}
-
 Second, the communication has to be forwarded to the honeypot (\autoref{lst:openssh-channel}).
 In OpenSSH, communications are handled in channels as seen beforehand in \autoref{sec:openssh}.
-Technically, the sshd daemon opens a SOCKS connection for each session to communicate with the client.
+Technically, the daemon opens a SOCKS connection for each session to communicate with the client.
 SOCKS is a network protocol to exchange packets between servers and clients.
-The sshd daemon needs a separate channel to store the attacker's session and forward packets to communicate with Cowrie.
+The SSH daemon needs a separate channel to store the attacker's session and forward packets to communicate with Cowrie.
 The channel is implemented in version $6.3P1$ and can be used in $8.8P1$ with minor adaptions.
 The method validates if the Cowrie channel is open and writes the new packets into the buffer.
-In the main method, when sshd is started, the channel is created, and a connection to the running Cowrie instance is opened to forward a new session.
-If Cowrie is unavailable, the startup will fail; thus, it has to run prior to the sshd daemon.
-
-\begin{figure}
-    \lstinputlisting[language=c, caption={[Tweaked OpenSSH channel]Tweaked OpenSSH channel to connect to Cowrie. Only the essential code parts to change the authentication method have been added.}, label={lst:openssh-channel}]{listings/channels.c}
-\end{figure}
+In the main method, when the daemon is started, the channel is created, and a connection to the running Cowrie instance is opened to forward a new session.
+If Cowrie is unavailable, the startup will fail; thus, it has to run prior to the SSH daemon.
 
 Lastly, the server loop responsible for connecting the client to the correct port must be modified.
 It puts direct TCP/IP connections in the respective channel.
@@ -340,27 +328,23 @@ Without this adaption, Cowrie would not receive any packet.
 The function in \autoref{lst:openssh-serverloop} handles these connections.
 For instance, it checks if TCP forwarding is allowed and if the port of Cowrie is defined.
 Then, it connects the current session to the respective port.
-The sshd daemon has to be adapted to start and set up the channel in the main method at startup.
+The SSH daemon has to be adapted to start and set up the channel in the main method at startup.
 In addition, the configuration has to be extended to configure the daemon to set the Cowrie IP address and the port.
 
-After compiling the version, a brief test proved a valid connection to the sshd daemon.
-
-\begin{figure}
-    \lstinputlisting[language=c, caption={[Tweaked OpenSSH server loop]Tweaked OpenSSH server loop to connect to Cowrie. Only the essential code parts to change the authentication method have been added.}, label={lst:openssh-serverloop}]{listings/serverloop.c}
-\end{figure}
+After compiling the version, a brief test proved a valid connection to the SSH daemon.
 
 \section{Experiment 2: Avoid fingerprinting of Cowrie}
 
 The last experiment to conclude this chapter is to test if the concept helps to disguise Cowrie and avoid fingerprint activities based on a custom local string version and key exchange initialization message.
 
-For instance, \citet{vetterl2020} original $6.3P1$ sshd-honeypot and the newly implemented version $8.8P1$ will be used for this experiment.
+For instance, \citet{vetterl2020} original $6.3P1$ \textit{sshd-honeypot} and the newly implemented version $8.8P1$ will be used for this experiment.
 The forwarding communications are handled by an unmodified Cowrie version $2.3.0$ running in a Docker environment.
 The version $6.3P1$ has been tested in heiCLOUD on a Debian 9 Jessie distribution, whereas the version $8.8P1$ with our latest adaption has been tested on a Debian 10 Buster.
 In addition, both versions are validated locally in an encapsulated environment.
 The clients to test the two concepts are a standard OpenSSH $8.8.P1$ and the modified version with custom local version string and key exchange initialization message to fingerprint honeypots.
 
 The standard client's requests do not result in a bad packet length exception for both servers.
-This behavior reflects an original sshd communication and represents a successful test.
+This behavior reflects an original SSH daemon communication and represents a successful test.
 The requests from the modified client are successful on the latest version, whereas the older server $6.3P1$ had problems with new encryption and host key algorithms.
 A successful connection to the original server from \citet*{vetterl2020} could be recreated by using the $7.3P1$ version.
 This version has been used to verify Cowrie beforehand.
@@ -374,21 +358,17 @@ This issue is a minor bug and could be fixed in the future.
 In conclusion, this experiment has shown that the initial idea of hiding Cowrie in the background and directing the communication through OpenSSH prevents fingerprint activities of an adversary.
 In addition, it has shown that protocol implementations change rapidly to adapt to new security standards, leading to outdated honeypots.
 
-\begin{figure}
-    \lstinputlisting[language={}, caption={[Cowrie log information]Cowrie log information. The new connection from this experiment has been acquired. Cowrie fetched information about the local string version and kex message.}, label={lst:log-cowrie}]{listings/cowrie.log}
-\end{figure}
-
 \section{Discussion}
 
 Depending on the interaction level, honeypots will always deviate from production instances.
 As seen in the two experiments beforehand, detecting a generic weakness is doable in a respective time, as well as mitigating it.
 Thus, finding and fixing the weaknesses of honeypots becomes a continuous cycle.
-However, this chapter also outlined the importance of the libraries that are used.
+However, this chapter also outlined the importance of the libraries that were used.
 TwistedConch is the bottleneck of Cowrie, and it is updated\footnote{Based on the lastest GitHub commit of the Python library} frequently.
 Libraries that reimplement protocols have to be always up-to-date.
 In conclusion, such libraries should be chosen carefully to avoid bugs that leave harmful information to attackers.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figures/ssh-flow-diagram.pdf}
     \caption[OpenSSH sample session flow diagram]{
@@ -396,4 +376,26 @@ In conclusion, such libraries should be chosen carefully to avoid bugs that leav
         In addition, the right side indicates the layers that are responsible for handling the messages.
     }
     \label{fig:openssh-flow-diagram}
+\end{figure}
+
+% ====================================================================================================================
+% Listings
+\begin{figure}[htbp]
+    \lstinputlisting[language=python, caption={[Cowrie version string validation]Cowrie version string validation. It tweaks the same results as OpenSSH in line 16.}, label={lst:cowrie-version-string}]{listings/cowrie.py}
+\end{figure}
+
+\begin{figure}[htbp]
+    \lstinputlisting[language=c, caption={[Tweaked OpenSSH authentication]Tweaked OpenSSH authentication to connect to Cowrie. Only the essential code parts to change the authentication method have been added.}, label={lst:openssh-auth}]{listings/auth-passwd.c}
+\end{figure}
+
+\begin{figure}[htbp]
+    \lstinputlisting[language=c, caption={[Tweaked OpenSSH channel]Tweaked OpenSSH channel to connect to Cowrie. Only the essential code parts to change the authentication method have been added.}, label={lst:openssh-channel}]{listings/channels.c}
+\end{figure}
+
+\begin{figure}[htbp]
+    \lstinputlisting[language=c, caption={[Tweaked OpenSSH server loop]Tweaked OpenSSH server loop to connect to Cowrie. Only the essential code parts to change the authentication method have been added.}, label={lst:openssh-serverloop}]{listings/serverloop.c}
+\end{figure}
+
+\begin{figure}[htbp]
+    \lstinputlisting[language={}, caption={[Cowrie log information]Cowrie log information. The new connection from this experiment has been acquired. Cowrie fetched information about the local string version and kex message.}, label={lst:log-cowrie}]{listings/cowrie.log}
 \end{figure}

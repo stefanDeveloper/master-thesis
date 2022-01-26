@@ -20,6 +20,7 @@ in pkgs.mkShell {
       pycountry
       gensim
       scikit-learn
+      adjusttext
 
       # Uncomment the following lines to make them available in the shell.
       pandas

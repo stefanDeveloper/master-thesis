@@ -1,0 +1,115 @@
+\documentclass[xcolor={dvipsnames,table}]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage[table]{xcolor}
+\usepackage[english]{babel}
+\usepackage{url}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+% nth library for dates
+\usepackage[super]{nth}
+\usepackage{tabularx}
+\usepackage{numprint}
+\npthousandsep{,}
+\usepackage{verbatim}
+% Used for subfigures
+\usepackage{subcaption}
+\usepackage[numbers]{natbib}
+
+\setbeamerfont{footnote}{size=\tiny}
+\usetheme[progressbar=frametitle]{metropolis}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\metroset{block=fill}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\title{Honeypot Implementation in a Cloud Environment}
+\subtitle{Presentation}
+\author{Stefan Machmeier}
+\institute[RKU]{Ruprecht-Karls University}
+\date[2022]{Master thesis\\ Feburary 2022}
+
+\begin{document}
+
+\maketitle
+
+%\begin{frame}{Note}
+%    \begin{center}
+%        Please talk and do not use the chat.
+%    \end{center}
+%\end{frame}
+
+\include{frame/motivation}
+
+\AtBeginSection[]
+{
+    \begin{frame}{Table of contents}
+      \setbeamertemplate{section in toc}[sections numbered]
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\include{frame/background}
+
+\AtBeginSection[]
+{
+    \begin{frame}{Table of contents}
+      \setbeamertemplate{section in toc}[sections numbered]
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\include{frame/bot-activity}
+
+\AtBeginSection[]
+{
+    \begin{frame}{Table of contents}
+      \setbeamertemplate{section in toc}[sections numbered]
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\include{frame/internal-network}
+
+\AtBeginSection[]
+{
+    \begin{frame}{Table of contents}
+      \setbeamertemplate{section in toc}[sections numbered]
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\include{frame/fingerpinting}
+
+\AtBeginSection[]
+{
+    \begin{frame}{Table of contents}
+      \setbeamertemplate{section in toc}[sections numbered]
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\include{frame/summary}
+
+\begin{frame}[allowframebreaks]
+        \frametitle{References}
+        \bibliographystyle{plainnat}
+        \bibliography{bib.bib}
+\end{frame}
+
+\appendix
+
+\include{frame/backup}
+
+\end{document}

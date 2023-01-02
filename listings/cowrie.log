@@ -1,0 +1,6 @@
+New connection: 127.0.0.1:65522 [session: 2ca9a619ceb8]
+Remote SSH version: SSH-2.0-libssh_0.9.6
+SSH client hassh fingerprint: ....
+kex alg=b'curve25519 -sha256' key alg= b'ssh-ed25519'
+outgoing: b'aes256 -ctr' b'hmac-sha2-512' b'none'
+incoming: b'aes256 -ctr' b'hmac-sha2-512' b'none'
